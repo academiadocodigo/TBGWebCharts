@@ -8,7 +8,7 @@ uses
 Type
   TModelHTMLChartsDataSet<T> = class(TInterfacedObject, iModelHTMLDataSet<T>)
     private
-      //[unsafe]
+      [unsafe]
       FParent : T;
       FDataSet : TDataSet;
       FtextLabel : String;

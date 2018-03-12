@@ -9,7 +9,7 @@ Type
   TModelHTMLRowsTitleConfig<T> = class(TInterfacedObject,
     IModelRowsTitleConfig<T>)
   private
-    //[unsafe]
+    [unsafe]
     FParent : T;
     FH1 : String;
     FH2 : String;

@@ -244,9 +244,10 @@ var
 begin
   Result := Self;
   FHTML := FHTML + '<!DOCTYPE html> ';
-  FHTML := FHTML + '<html lang="en"> ';
+  FHTML := FHTML + '<html lang="pt-br"> ';
   FHTML := FHTML + '<head> ';
   FHTML := FHTML + '<meta charset="UTF-8"> ';
+  FHTML := FHTML + '<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
   FHTML := FHTML + '<title></title> ';
   FHTML := FHTML + '<link rel="stylesheet" href="css/bootstrap.min.css"> ';
   FHTML := FHTML + '<script defer src="js/fontawesome-all.js"></script>';
@@ -272,9 +273,10 @@ function TModelHTML.GenerateHead: iModelHTML;
 begin
   Result := Self;
   FHTML := FHTML + '<!DOCTYPE html> ';
-  FHTML := FHTML + '<html lang="en"> ';
+  FHTML := FHTML + '<html lang="pt-br"> ';
   FHTML := FHTML + '<head> ';
   FHTML := FHTML + '<meta charset="UTF-8"> ';
+  FHTML := FHTML + '<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
   FHTML := FHTML + '<title></title> ';
   FHTML := FHTML + '<link rel="stylesheet" href="css/bootstrap.min.css"> ';
   FHTML := FHTML + '<link href="css/font-awesome.min.css" rel="stylesheet">';

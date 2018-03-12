@@ -10,50 +10,49 @@ package TBGWebCharts;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS ON}
+{$LOCALSYMBOLS OFF}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION OFF}
+{$OPTIMIZATION ON}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO ON}
+{$REFERENCEINFO OFF}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES ON}
+{$STACKFRAMES OFF}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE DEBUG}
+{$DEFINE RELEASE}
 {$ENDIF IMPLICITBUILDING}
 {$IMPLICITBUILD ON}
 
 requires
   rtl,
-  fmx,
   dbrtl,
   vcl,
   vclie;
 
 contains
-  Model.HTML.Charts.Bar in 'Model.HTML.Charts.Bar.pas',
-  Model.HTML.Charts.Config in 'Model.HTML.Charts.Config.pas',
-  Model.HTML.Charts.Doughnut in 'Model.HTML.Charts.Doughnut.pas',
-  Model.HTML.Charts in 'Model.HTML.Charts.pas',
-  Model.HTML.Factory in 'Model.HTML.Factory.pas',
-  Model.HTML in 'Model.HTML.pas',
-  Model.HTML.Rows in 'Model.HTML.Rows.pas',
-  Model.HTML.Rows.Tag in 'Model.HTML.Rows.Tag.pas',
-  Model.HTML.Rows.Title.Config in 'Model.HTML.Rows.Title.Config.pas',
-  Model.HTML.Rows.Title in 'Model.HTML.Rows.Title.pas',
-  Model.Interfaces in 'Model.Interfaces.pas',
+  Charts.Bar in 'Charts.Bar.pas',
+  Charts.Config in 'Charts.Config.pas',
+  Charts.Doughnut in 'Charts.Doughnut.pas',
+  Charts in 'Charts.pas',
+  Factory in 'Factory.pas',
+  HTML in 'HTML.pas',
+  Rows in 'Rows.pas',
+  Rows.Tag in 'Rows.Tag.pas',
+  Rows.Title.Config in 'Rows.Title.Config.pas',
+  Rows.Title in 'Rows.Title.pas',
+  Interfaces in 'Interfaces.pas',
   View.Reg in 'View.Reg.pas',
   View.WebCharts in 'View.WebCharts.pas',
-  Model.HTML.Charts.Lines in 'Model.HTML.Charts.Lines.pas',
-  Model.HTML.Charts.DataSet in 'Model.HTML.Charts.DataSet.pas',
-  Model.HTML.Charts.LineStacked in 'Model.HTML.Charts.LineStacked.pas',
-  Model.HTML.Charts.Pie in 'Model.HTML.Charts.Pie.pas',
-  Model.HTML.Rows.Divv in 'Model.HTML.Rows.Divv.pas',
-  Model.HTML.Charts.Bar.Horizontal in 'Model.HTML.Charts.Bar.Horizontal.pas';
+  Charts.Lines in 'Charts.Lines.pas',
+  Charts.DataSet in 'Charts.DataSet.pas',
+  Charts.LineStacked in 'Charts.LineStacked.pas',
+  Charts.Pie in 'Charts.Pie.pas',
+  Rows.Divv in 'Rows.Divv.pas',
+  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas';
 
 end.
