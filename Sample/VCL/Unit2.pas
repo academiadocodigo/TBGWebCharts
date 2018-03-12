@@ -5,62 +5,53 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.WinXCtrls,
-  Vcl.ExtCtrls, View.WebCharts, Data.DB, Datasnap.DBClient, Vcl.WinXPanels,
-  Vcl.OleCtrls, SHDocVw, Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
-  View.BarCharts;
+  Vcl.ExtCtrls, View.WebCharts, Data.DB, Datasnap.DBClient,  Vcl.OleCtrls, SHDocVw,
+  Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
+  Vcl.ComCtrls;
 
 type
   TForm2 = class(TForm)
-    WebCharts1: TWebCharts;
     Panel1: TPanel;
-    SplitView1: TSplitView;
     Panel2: TPanel;
-    SpeedButton1: TSpeedButton;
     WebBrowser1: TWebBrowser;
-    StackPanel1: TStackPanel;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
     ClientDataSet1: TClientDataSet;
-    SpeedButton4: TSpeedButton;
-    CardPanel1: TCardPanel;
-    Card1: TCard;
-    Card2: TCard;
-    DBGrid1: TDBGrid;
     DataSource1: TDataSource;
-    SpeedButton5: TSpeedButton;
-    DBGrid2: TDBGrid;
-    Panel3: TPanel;
-    Panel4: TPanel;
-    Label1: TLabel;
-    Label2: TLabel;
     ClientDataSet2: TClientDataSet;
     DataSource2: TDataSource;
-    Button1: TButton;
-    Button2: TButton;
-    SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
-    SpeedButton8: TSpeedButton;
-    DBGrid3: TDBGrid;
-    Panel5: TPanel;
-    Label3: TLabel;
-    Button3: TButton;
-    DBGrid4: TDBGrid;
-    Panel6: TPanel;
-    Label4: TLabel;
-    Button4: TButton;
     ClientDataSet3: TClientDataSet;
     ClientDataSet4: TClientDataSet;
     DataSource3: TDataSource;
     DataSource4: TDataSource;
-    DBNavigator1: TDBNavigator;
-    DBNavigator2: TDBNavigator;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    DBGrid4: TDBGrid;
+    DBGrid3: TDBGrid;
+    Panel5: TPanel;
+    Label3: TLabel;
+    Button3: TButton;
+    Panel6: TPanel;
+    Label4: TLabel;
+    Button4: TButton;
+    Panel4: TPanel;
+    Label2: TLabel;
+    Button2: TButton;
+    Panel3: TPanel;
+    Label1: TLabel;
+    Button1: TButton;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
     Panel7: TPanel;
-    Label5: TLabel;
-    Label6: TLabel;
-    SpeedButton9: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     SpeedButton10: TSpeedButton;
-    Card3: TCard;
-    procedure SpeedButton1Click(Sender: TObject);
+    SpeedButton4: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    WebCharts1: TWebCharts;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -110,6 +101,9 @@ end;
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
+   TabSheet1.TabVisible := False;
+   TabSheet2.TabVisible := False;
+
   ClientDataSet1.LoadFromFile('CDSChats.xml');
   ClientDataSet1.Open;
 
@@ -125,7 +119,7 @@ end;
 
 procedure TForm2.SpeedButton10Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
   .NewProject
     .Rows
@@ -154,18 +148,9 @@ begin
   .Generated;
 end;
 
-procedure TForm2.SpeedButton1Click(Sender: TObject);
-begin
-  if SplitView1.Opened then
-    SplitView1.Close
-  else
-    SplitView1.Open;
-
-end;
-
 procedure TForm2.SpeedButton2Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
   .NewProject
     .Charts
@@ -191,7 +176,7 @@ end;
 
 procedure TForm2.SpeedButton3Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
   .NewProject
     .Rows
@@ -226,7 +211,7 @@ end;
 
 procedure TForm2.SpeedButton4Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
     .NewProject
       .Charts
@@ -259,12 +244,12 @@ end;
 
 procedure TForm2.SpeedButton5Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 1;
+  PageControl1.ActivePageIndex := 1;
 end;
 
 procedure TForm2.SpeedButton6Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
     .NewProject
       .Charts
@@ -294,7 +279,7 @@ end;
 
 procedure TForm2.SpeedButton7Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
   .NewProject
     .Charts
@@ -316,7 +301,7 @@ end;
 
 procedure TForm2.SpeedButton8Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
     .NewProject
 
@@ -469,7 +454,7 @@ end;
 
 procedure TForm2.SpeedButton9Click(Sender: TObject);
 begin
-  CardPanel1.ActiveCardIndex := 0;
+  PageControl1.ActivePageIndex := 0;
   WebCharts1
     .AddResource('<link href="css/green.css" rel="stylesheet">')
     .AddResource('<link href="css/custom.min.css" rel="stylesheet">')
