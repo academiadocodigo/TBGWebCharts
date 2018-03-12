@@ -81,22 +81,22 @@ implementation
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-  ClientDataSet1.SaveToFile('CDSChats.xml');
+  ClientDataSet1.SaveToFile('..\..\Data\CDSChats.xml');
 end;
 
 procedure TForm2.Button2Click(Sender: TObject);
 begin
-  ClientDataSet2.SaveToFile('CDSChats2.xml');
+  ClientDataSet2.SaveToFile('..\..\Data\CDSChats2.xml');
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
 begin
-  ClientDataSet3.SaveToFile('CDSChats3.xml');
+  ClientDataSet3.SaveToFile('..\..\Data\CDSChats3.xml');
 end;
 
 procedure TForm2.Button4Click(Sender: TObject);
 begin
-  ClientDataSet4.SaveToFile('CDSChats4.xml');
+  ClientDataSet4.SaveToFile('..\..\Data\CDSChats4.xml');
 end;
 
 procedure TForm2.FormCreate(Sender: TObject);
@@ -104,16 +104,16 @@ begin
    TabSheet1.TabVisible := False;
    TabSheet2.TabVisible := False;
 
-  ClientDataSet1.LoadFromFile('CDSChats.xml');
+  ClientDataSet1.LoadFromFile('..\..\Data\CDSChats.xml');
   ClientDataSet1.Open;
 
-  ClientDataSet2.LoadFromFile('CDSChats2.xml');
+  ClientDataSet2.LoadFromFile('..\..\Data\CDSChats2.xml');
   ClientDataSet2.Open;
 
-  ClientDataSet3.LoadFromFile('CDSChats3.xml');
+  ClientDataSet3.LoadFromFile('..\..\Data\CDSChats3.xml');
   ClientDataSet3.Open;
 
-  ClientDataSet4.LoadFromFile('CDSChats4.xml');
+  ClientDataSet4.LoadFromFile('..\..\Data\CDSChats4.xml');
   ClientDataSet4.Open;
 end;
 
