@@ -1,9 +1,9 @@
-unit Model.HTML.Factory;
+unit Factory;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLFactory = class(TInterfacedObject, iModelHTMLFactory)
@@ -23,8 +23,8 @@ implementation
 
 { TModelHTMLFactory }
 
-uses Model.HTML.Charts.Bar, Model.HTML.Charts, Model.HTML,
-  Model.HTML.Rows.Title, Model.HTML.Rows;
+uses Charts.Bar, Charts, HTML,
+  Rows.Title, Rows;
 
 function TModelHTMLFactory.ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
 begin

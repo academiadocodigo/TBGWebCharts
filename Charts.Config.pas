@@ -1,14 +1,14 @@
-unit Model.HTML.Charts.Config;
+unit Charts.Config;
 
 interface
 
 uses
-  Model.Interfaces, Data.DB, System.Generics.Collections;
+  Interfaces, Data.DB, System.Generics.Collections;
 
 Type
   TModelHTMLChartsConfig<T> = class(TInterfacedObject, iModelHTMLChartsConfig<T>)
     private
-      [unsafe]
+      //[unsafe]
       FParent : T;
       FColSpan : Integer;
       FWidth : Integer;
@@ -51,7 +51,7 @@ Type
 implementation
 
 uses
-  System.SysUtils, Model.HTML.Charts.DataSet;
+  System.SysUtils, Charts.DataSet;
 
 { TModelHTMLChartsConfig<T> }
 

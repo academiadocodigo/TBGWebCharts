@@ -1,9 +1,9 @@
-unit Model.HTML.Rows.Divv;
+unit Rows.Divv;
 
 interface
 
 uses
-  Model.Interfaces, System.Generics.Collections, SysUtils;
+  Interfaces, System.Generics.Collections, SysUtils;
 
 Type
   TModelHTMLRowsDiv = class(TInterfacedObject, IModelHTMLRowsDiv)

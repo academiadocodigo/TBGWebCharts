@@ -1,9 +1,9 @@
-unit Model.HTML.Rows;
+unit Rows;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLRows = class(TInterfacedObject, IModelHTMLRows)
@@ -27,7 +27,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Rows.Title, Model.HTML.Rows.Tag, Model.HTML.Rows.Divv;
+  Rows.Title, Rows.Tag, Rows.Divv;
 
 { TModelHTMLRows }
 

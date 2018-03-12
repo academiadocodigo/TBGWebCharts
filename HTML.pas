@@ -1,9 +1,9 @@
-unit Model.HTML;
+unit HTML;
 
 interface
 
 uses
-  Model.Interfaces,
+  Interfaces,
   SHDocVw,
   System.Win.Registry, VCL.Dialogs, System.Generics.Collections,
   System.Classes;
@@ -38,7 +38,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Factory, System.SysUtils, Winapi.Windows;
+  Factory, System.SysUtils, Winapi.Windows;
 
 { TModelHTML }
 

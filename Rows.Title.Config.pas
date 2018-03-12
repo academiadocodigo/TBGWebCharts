@@ -1,15 +1,15 @@
-unit Model.HTML.Rows.Title.Config;
+unit Rows.Title.Config;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLRowsTitleConfig<T> = class(TInterfacedObject,
     IModelRowsTitleConfig<T>)
   private
-    [unsafe]
+    //[unsafe]
     FParent : T;
     FH1 : String;
     FH2 : String;

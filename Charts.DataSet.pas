@@ -1,14 +1,14 @@
-unit Model.HTML.Charts.DataSet;
+unit Charts.DataSet;
 
 interface
 
 uses
-  Model.Interfaces, Data.DB;
+  Interfaces, Data.DB;
 
 Type
   TModelHTMLChartsDataSet<T> = class(TInterfacedObject, iModelHTMLDataSet<T>)
     private
-      [unsafe]
+      //[unsafe]
       FParent : T;
       FDataSet : TDataSet;
       FtextLabel : String;

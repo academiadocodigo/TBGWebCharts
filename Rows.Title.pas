@@ -1,9 +1,9 @@
-unit Model.HTML.Rows.Title;
+unit Rows.Title;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLRowsTitle = class(TInterfacedObject, iModelHTMLRowsTitle)
@@ -24,7 +24,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Rows.Title.Config, StrUtils;
+  Rows.Title.Config, StrUtils;
 
 { TModelHTMLRowsTitle }
 

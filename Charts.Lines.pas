@@ -1,9 +1,9 @@
-unit Model.HTML.Charts.Lines;
+unit Charts.Lines;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLChartsLines = class(TInterfacedObject, iModelHTMLChartsLines)
@@ -25,7 +25,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Charts.Config, System.SysUtils;
+  Charts.Config, System.SysUtils;
 
 { TModelHTMLChartsLines }
 

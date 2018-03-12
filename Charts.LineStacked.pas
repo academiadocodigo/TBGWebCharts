@@ -1,9 +1,9 @@
-unit Model.HTML.Charts.LineStacked;
+unit Charts.LineStacked;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLChartsLineStacked = class(TInterfacedObject, iModelHTMLChartsLineStacked)
@@ -25,7 +25,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Charts.Config, System.SysUtils;
+  Charts.Config, System.SysUtils;
 
 { TModelHTMLChartsLineStacked }
 

@@ -1,12 +1,12 @@
-unit Model.HTML.Charts.Bar.Horizontal;
+unit Charts.Bar;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
-  TModelHTMLChartsBarHorizontal = class(TInterfacedObject, iModelHTMLChartsBar)
+  TModelHTMLChartsBar = class(TInterfacedObject, iModelHTMLChartsBar)
     private
       FHTML : String;
       [weak]
@@ -25,11 +25,11 @@ Type
 implementation
 
 uses
-  Model.HTML.Charts.Config, System.SysUtils;
+  Charts.Config, System.SysUtils;
 
-{ TModelHTMLChartsBarHorizontal }
+{ TModelHTMLChartsBar }
 
-function TModelHTMLChartsBarHorizontal.&End: iModelHTMLCharts;
+function TModelHTMLChartsBar.&End: iModelHTMLCharts;
 begin
   Result := FParent;
   FParent.HTML('<div class="col-'+IntToStr(FConfig.ColSpan)+'">  ');
@@ -43,7 +43,7 @@ begin
 
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
   FParent.HTML('var myChart = new Chart(ctx, { ');
-  FParent.HTML('type: ''horizontalBar'', ');
+  FParent.HTML('type: ''bar'', ');
   FParent.HTML('data: { ');
   FParent.HTML('labels: '+FConfig.ResultLabels+',  ');
   FParent.HTML('datasets: [  ');
@@ -56,35 +56,35 @@ begin
   FParent.HTML('</div>  ');
 end;
 
-function TModelHTMLChartsBarHorizontal.HTML: String;
+function TModelHTMLChartsBar.HTML: String;
 begin
   Result := FHTML;
 end;
 
-function TModelHTMLChartsBarHorizontal.HTML(Value: String): iModelHTMLChartsBar;
+function TModelHTMLChartsBar.HTML(Value: String): iModelHTMLChartsBar;
 begin
   Result := Self;
   FHTML := Value;
 end;
 
-function TModelHTMLChartsBarHorizontal.Attributes: iModelHTMLChartsConfig<iModelHTMLChartsBar>;
+function TModelHTMLChartsBar.Attributes: iModelHTMLChartsConfig<iModelHTMLChartsBar>;
 begin
   Result := FConfig
 end;
 
-constructor TModelHTMLChartsBarHorizontal.Create(Parent : iModelHTMLCharts);
+constructor TModelHTMLChartsBar.Create(Parent : iModelHTMLCharts);
 begin
   FParent := Parent;
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsBar>.New(Self);
 end;
 
-destructor TModelHTMLChartsBarHorizontal.Destroy;
+destructor TModelHTMLChartsBar.Destroy;
 begin
 
   inherited;
 end;
 
-class function TModelHTMLChartsBarHorizontal.New(Parent : iModelHTMLCharts) : iModelHTMLChartsBar;
+class function TModelHTMLChartsBar.New(Parent : iModelHTMLCharts) : iModelHTMLChartsBar;
 begin
   Result := Self.Create(Parent);
 end;

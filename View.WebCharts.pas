@@ -3,7 +3,7 @@ unit View.WebCharts;
 interface
 
 uses
-  Model.Interfaces, System.Classes, System.Generics.Collections, SysUtils;
+  Interfaces, System.Classes, System.Generics.Collections, SysUtils;
 
 Type
   iWebCharts = interface
@@ -18,9 +18,9 @@ Type
       FModelHTML : iModelHTML;
       FCss : TList<String>;
     public
-      constructor Create;
+      //constructor Create;
       destructor Destroy; override;
-      class function New : iWebCharts;
+      //class function New : iWebCharts;
       function AddResource(Value : String) : iWebCharts;
       function NewProject : iModelHTML;
       function ContinuosProject : iModelHTML;
@@ -30,14 +30,14 @@ Type
 implementation
 
 uses
-  Model.HTML, System.TypInfo;
+  HTML, System.TypInfo;
 
 { TWebCharts }
 
-constructor TWebCharts.Create;
-begin
-
-end;
+//constructor TWebCharts.Create;
+//begin
+//
+//end;
 
 destructor TWebCharts.Destroy;
 begin
@@ -70,10 +70,10 @@ begin
   FModelHTML.GenerateHead(FCss);
   Result := FModelHTML;
 end;
-
-class function TWebCharts.New: iWebCharts;
-begin
-  Result := Self.Create;
-end;
+//
+//class function TWebCharts.New: iWebCharts;
+//begin
+//  Result := Self.Create;
+//end;
 
 end.

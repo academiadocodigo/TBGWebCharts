@@ -1,9 +1,9 @@
-unit Model.HTML.Rows.Tag;
+unit Rows.Tag;
 
 interface
 
 uses
-  Model.Interfaces, System.Generics.Collections;
+  Interfaces, System.Generics.Collections;
 
 Type
   TModelHTMLRowsTag = class(TInterfacedObject, IModelHTMLRowsTag)

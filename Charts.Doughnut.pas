@@ -1,9 +1,9 @@
-unit Model.HTML.Charts.Doughnut;
+unit Charts.Doughnut;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLChartsDoughnut = class(TInterfacedObject, iModelHTMLChartsDoughnut)
@@ -25,7 +25,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Charts.Config, System.SysUtils;
+  Charts.Config, System.SysUtils;
 
 { TModelHTMLChartsDoughnut }
 

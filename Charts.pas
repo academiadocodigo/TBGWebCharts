@@ -1,9 +1,9 @@
-unit Model.HTML.Charts;
+unit Charts;
 
 interface
 
 uses
-  Model.Interfaces, System.Generics.Collections;
+  Interfaces, System.Generics.Collections;
 
 Type
   TModelHTMLCharts = class(TInterfacedObject, iModelHTMLCharts)
@@ -12,7 +12,6 @@ Type
       FParent : IModelHTML;
       FChartBar : iModelHTMLChartsBar;
       FDoughnut : iModelHTMLChartsDoughnut;
-      FLines : iModelHTMLChartsLines;
     public
       constructor Create(Parent : IModelHTML);
       destructor Destroy; override;
@@ -31,15 +30,13 @@ Type
 implementation
 
 uses
-  Model.HTML.Factory, System.SysUtils, Model.HTML.Charts.Doughnut,
-  Model.HTML.Charts.Lines, Model.HTML.Charts.LineStacked,
-  Model.HTML.Charts.Pie, Model.HTML.Charts.Bar.Horizontal;
+  Factory, System.SysUtils,Charts.Doughnut,
+  Charts.Lines, Charts.LineStacked,
+  Charts.Pie, Charts.Bar.Horizontal;
 
 { TModelHTMLCharts }
 
 function TModelHTMLCharts.&End: iModelHTML;
-var
-  I: Integer;
 begin
   Result := FParent;
 end;

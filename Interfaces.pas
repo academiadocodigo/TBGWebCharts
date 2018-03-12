@@ -1,4 +1,4 @@
-unit Model.Interfaces;
+unit Interfaces;
 
 interface
 

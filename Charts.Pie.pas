@@ -1,9 +1,9 @@
-unit Model.HTML.Charts.Pie;
+unit Charts.Pie;
 
 interface
 
 uses
-  Model.Interfaces;
+  Interfaces;
 
 Type
   TModelHTMLChartsPie = class(TInterfacedObject, iModelHTMLChartsPie)
@@ -25,7 +25,7 @@ Type
 implementation
 
 uses
-  Model.HTML.Charts.Config, System.SysUtils;
+  Charts.Config, System.SysUtils;
 
 { TModelHTMLChartsPie }
 
