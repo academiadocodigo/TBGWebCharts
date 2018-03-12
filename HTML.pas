@@ -109,11 +109,14 @@ begin
     GeneratedCssResourcesList(Lista);
      for I := 0 to Pred(Lista.Count) do
      begin
-      Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
-      try
-        Arq.SaveToFile(ExtractFilePath(ParamStr(0)) + 'css\' + Lista[I]);
-      finally
-        FreeAndNil(Arq);
+      if not FileExists(ExtractFilePath(ParamStr(0)) + 'css\' + Lista[I]) then
+      begin
+        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
+        try
+          Arq.SaveToFile(ExtractFilePath(ParamStr(0)) + 'css\' + Lista[I]);
+        finally
+          FreeAndNil(Arq);
+        end;
       end;
      end;
   finally
@@ -128,11 +131,14 @@ begin
     GeneratedJSResourcesList(Lista);
      for I := 0 to Pred(Lista.Count) do
      begin
-      Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
-      try
-        Arq.SaveToFile(ExtractFilePath(ParamStr(0)) + 'js\' + Lista[I]);
-      finally
-        FreeAndNil(Arq);
+      if not FileExists(ExtractFilePath(ParamStr(0)) + 'js\' + Lista[I]) then
+      begin
+        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
+        try
+          Arq.SaveToFile(ExtractFilePath(ParamStr(0)) + 'js\' + Lista[I]);
+        finally
+          FreeAndNil(Arq);
+        end;
       end;
      end;
   finally
