@@ -20,9 +20,6 @@ Type
       FName : String;
       FLabels : String;
       FDataSet : TList<iModelHTMLDataSet<iModelHTMLChartsConfig<T>>>;
-    //procedure formatLabels;
-    //procedure formatData;
-    //procedure formatRGB;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;

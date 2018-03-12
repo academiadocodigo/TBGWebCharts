@@ -1,0 +1,59 @@
+package TBGWebCharts;
+
+{$R *.res}
+{$R *.dres}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  fmx,
+  dbrtl,
+  vcl,
+  vclie;
+
+contains
+  Model.HTML.Charts.Bar in 'Model.HTML.Charts.Bar.pas',
+  Model.HTML.Charts.Config in 'Model.HTML.Charts.Config.pas',
+  Model.HTML.Charts.Doughnut in 'Model.HTML.Charts.Doughnut.pas',
+  Model.HTML.Charts in 'Model.HTML.Charts.pas',
+  Model.HTML.Factory in 'Model.HTML.Factory.pas',
+  Model.HTML in 'Model.HTML.pas',
+  Model.HTML.Rows in 'Model.HTML.Rows.pas',
+  Model.HTML.Rows.Tag in 'Model.HTML.Rows.Tag.pas',
+  Model.HTML.Rows.Title.Config in 'Model.HTML.Rows.Title.Config.pas',
+  Model.HTML.Rows.Title in 'Model.HTML.Rows.Title.pas',
+  Model.Interfaces in 'Model.Interfaces.pas',
+  View.Reg in 'View.Reg.pas',
+  View.WebCharts in 'View.WebCharts.pas',
+  Model.HTML.Charts.Lines in 'Model.HTML.Charts.Lines.pas',
+  Model.HTML.Charts.DataSet in 'Model.HTML.Charts.DataSet.pas',
+  Model.HTML.Charts.LineStacked in 'Model.HTML.Charts.LineStacked.pas',
+  Model.HTML.Charts.Pie in 'Model.HTML.Charts.Pie.pas',
+  Model.HTML.Rows.Divv in 'Model.HTML.Rows.Divv.pas',
+  Model.HTML.Charts.Bar.Horizontal in 'Model.HTML.Charts.Bar.Horizontal.pas';
+
+end.

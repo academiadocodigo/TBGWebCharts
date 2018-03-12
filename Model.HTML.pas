@@ -4,11 +4,7 @@ interface
 
 uses
   Model.Interfaces,
-  {$IF DECLARED(FireMonkeyVersion)}
-    FMX.WebBrowser,
-  {$ELSE}
-    SHDocVw,
-  {$ENDIF}
+  SHDocVw,
   System.Win.Registry, VCL.Dialogs, System.Generics.Collections,
   System.Classes;
 

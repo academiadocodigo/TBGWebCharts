@@ -3,11 +3,7 @@ unit Model.Interfaces;
 interface
 
 uses
-  {$IF DECLARED(FireMonkeyVersion)}
-    FMX.WebBrowser,
-  {$ELSE}
-    SHDocVw,
-  {$ENDIF}
+   SHDocVw,
    Data.DB, System.Generics.Collections;
 
 type

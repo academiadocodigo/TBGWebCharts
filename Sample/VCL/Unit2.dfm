@@ -455,7 +455,7 @@ object Form2: TForm2
     Top = 346
   end
   object WebCharts1: TWebCharts
-    Left = 285
-    Top = 129
+    Left = 269
+    Top = 113
   end
 end
