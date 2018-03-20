@@ -21,13 +21,19 @@ Type
       function HTML(Value : String) : IModelHTMLRows; overload;
       function HTML : String; overload;
       function Tag : iModelHTMLRowsTag;
+      {$IFDEF FULL}
       function _Div : IModelHTMLRowsDiv;
+      {$ENDIF}
   end;
 
 implementation
 
 uses
-  Rows.Title, Rows.Tag, Rows.Divv;
+  Rows.Title,
+  {$IFDEF FULL}
+  Rows.Divv,
+  {$ENDIF}
+  Rows.Tag;
 
 { TModelHTMLRows }
 
@@ -77,9 +83,11 @@ begin
   Result := FRowsTitle;
 end;
 
+{$IFDEF FULL}
 function TModelHTMLRows._Div: IModelHTMLRowsDiv;
 begin
   Result := TModelHTMLRowsDiv.New(Self);
 end;
+{$ENDIF}
 
 end.

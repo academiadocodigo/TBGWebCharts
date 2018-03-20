@@ -17,14 +17,24 @@ Type
     function ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
     function Rows(Parent : iModelHTML) : IModelHTMLRows;
     function RowsTitle(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
+    {$IFDEF FULL}
+    function Table(Parent : iModelHTML) : iModelTable;
+    {$ENDIF}
   end;
 
 implementation
 
 { TModelHTMLFactory }
 
-uses Charts.Bar, Charts, HTML,
-  Rows.Title, Rows;
+uses
+  Charts.Bar,
+  Charts,
+  HTML,
+  Rows.Title,
+  {$IFDEF FULL}
+  Table,
+  {$ENDIF}
+  Rows;
 
 function TModelHTMLFactory.ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
 begin
@@ -67,5 +77,12 @@ function TModelHTMLFactory.RowsTitle(
 begin
   Result := TModelHTMLRowsTitle.New(Parent);
 end;
+
+{$IFDEF FULL}
+function TModelHTMLFactory.Table(Parent: iModelHTML): iModelTable;
+begin
+  Result := TModelTable.New(Parent);
+end;
+{$ENDIF}
 
 end.

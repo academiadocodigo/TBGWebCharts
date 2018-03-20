@@ -19,7 +19,12 @@ type
   iModelHTMLDataSet<T> = interface;
   iModelHTMLChartsLineStacked = interface;
   iModelHTMLChartsPie = interface;
+  {$IFDEF FULL}
+  iModelTable = interface;
+  iModelTableDataSet = interface;
+  iModelTableClass = interface;
   IModelHTMLRowsDiv = interface;
+  {$ENDIF}
 
   iModelHTML = interface
     ['{6D5210CC-D750-4643-8685-48037F21E6AA}']
@@ -34,6 +39,9 @@ type
     function ClearHTML : iModelHTML;
     function WebBrowser(Value : TWebBrowser) : iModelHTML;
     function Generated : iModelHTML;
+    {$IFDEF FULL}
+    function Table : iModelTable;
+    {$ENDIF}
   end;
 
   IModelHTMLRows = interface
@@ -42,7 +50,9 @@ type
     function HTML : String; overload;
     function Title : iModelHTMLRowsTitle;
     function Tag : iModelHTMLRowsTag;
+    {$IFDEF FULL}
     function _Div : IModelHTMLRowsDiv;
+    {$ENDIF}
     function &End : iModelHTML;
   end;
 
@@ -52,12 +62,7 @@ type
     function &End : IModelHTMLRows;
   end;
 
-  IModelHTMLRowsDiv = interface
-    ['{BD95F279-9614-47FD-B0AD-56B93279D4F1}']
-    function Add(Value : String) : IModelHTMLRowsDiv;
-    function ColSpan(Value : Integer) : IModelHTMLRowsDiv;
-    function &End : IModelHTMLRows;
-  end;
+
 
   iModelHTMLRowsTitle = interface
     ['{F2D34927-8232-4A18-944A-DB0ADAD1C903}']
@@ -183,7 +188,44 @@ type
     function ChartBar(Parent : iModelHTMLCharts) : iModelHTMLChartsBar;
     function Rows(Parent : iModelHTML) : IModelHTMLRows;
     function RowsTitle(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
+    {$IFDEF FULL}
+    function Table(Parent : iModelHTML) : iModelTable;
+    {$ENDIF}
   end;
+
+  {$IFDEF FULL}
+  iModelTable = interface
+    ['{D0151987-64C8-40E2-A83C-18AF9648F8AE}']
+    function &End : iModelHTML;
+    function DataSet : iModelTableDataSet;
+    function TableClass : iModelTableClass;
+  end;
+
+  iModelTableClass = interface
+    ['{AC891435-E424-4C9D-BC69-4B05A705B96E}']
+    function tableDark : iModelTableClass;
+    function tableStriped : iModelTableClass;
+    function tableBordered : iModelTableClass;
+    function tableHover : iModelTableClass;
+    function tableSm : iModelTableClass;
+    function tableResponsive : iModelTableClass;
+    function &EndTableClass : iModelTable;
+  end;
+
+  iModelTableDataSet = interface
+    ['{061B2938-6100-42AF-8EE4-D5895E5A38B8}']
+    function DataSet (Value : TDataSet) : iModelTableDataSet;
+    function ResultScript : String;
+    function &End : iModelTable;
+  end;
+
+  IModelHTMLRowsDiv = interface
+    ['{BD95F279-9614-47FD-B0AD-56B93279D4F1}']
+    function Add(Value : String) : IModelHTMLRowsDiv;
+    function ColSpan(Value : Integer) : IModelHTMLRowsDiv;
+    function &End : IModelHTMLRows;
+  end;
+  {$ENDIF}
 
 implementation
 

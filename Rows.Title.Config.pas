@@ -9,7 +9,9 @@ Type
   TModelHTMLRowsTitleConfig<T> = class(TInterfacedObject,
     IModelRowsTitleConfig<T>)
   private
+    {$IFDEF VER320}
     [unsafe]
+    {$ENDIF}
     FParent : T;
     FH1 : String;
     FH2 : String;

@@ -25,6 +25,7 @@ package TBGWebCharts;
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
 {$DEFINE RELEASE}
+{$DEFINE FULL}
 {$ENDIF IMPLICITBUILDING}
 {$IMPLICITBUILD ON}
 
@@ -53,6 +54,8 @@ contains
   Charts.LineStacked in 'Charts.LineStacked.pas',
   Charts.Pie in 'Charts.Pie.pas',
   Rows.Divv in 'Rows.Divv.pas',
-  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas';
+  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas',
+  Table in 'Table.pas',
+  Table.DataSet in 'Table.DataSet.pas';
 
 end.

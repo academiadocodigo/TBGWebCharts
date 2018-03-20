@@ -8,7 +8,9 @@ uses
 Type
   TModelHTMLChartsConfig<T> = class(TInterfacedObject, iModelHTMLChartsConfig<T>)
     private
+      {$IFDEF VER320}
       [unsafe]
+      {$ENDIF}
       FParent : T;
       FColSpan : Integer;
       FWidth : Integer;

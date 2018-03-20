@@ -12,7 +12,6 @@ Type
   TModelHTML = class(TInterfacedObject, iModelHTML)
   private
     FHTML: String;
-    // FWebBrownserChrome : TChromiumFMX;
     FWebBrowser: TWebBrowser;
     procedure DefineIEVersion(Versao: Integer);
     procedure ExtractResources;
@@ -33,6 +32,9 @@ Type
     function ClearHTML : iModelHTML;
     function WebBrowser(Value: TWebBrowser): iModelHTML;
     function Generated: iModelHTML;
+    {$IFDEF FULL}
+    function Table : iModelTable;
+    {$ENDIF}
   end;
 
 implementation
@@ -319,6 +321,13 @@ function TModelHTML.Rows: IModelHTMLRows;
 begin
   Result := TModelHTMLFactory.New.Rows(Self);
 end;
+
+{$IFDEF FULL}
+function TModelHTML.Table: iModelTable;
+begin
+  Result := TModelHTMLFactory.New.Table(Self);
+end;
+{$ENDIF}
 
 function TModelHTML.WebBrowser(Value: TWebBrowser): iModelHTML;
 begin

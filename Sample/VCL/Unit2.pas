@@ -52,6 +52,14 @@ type
     SpeedButton9: TSpeedButton;
     SpeedButton5: TSpeedButton;
     WebCharts1: TWebCharts;
+    Button5: TButton;
+    ClientDataSet5: TClientDataSet;
+    ClientDataSet5SpeciesNo: TFloatField;
+    ClientDataSet5Category: TStringField;
+    ClientDataSet5Common_Name: TStringField;
+    ClientDataSet5SpeciesName: TStringField;
+    ClientDataSet5Lengthcm: TFloatField;
+    ClientDataSet5Length_In: TFloatField;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -66,6 +74,7 @@ type
     procedure Button4Click(Sender: TObject);
     procedure SpeedButton9Click(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -97,6 +106,163 @@ end;
 procedure TForm2.Button4Click(Sender: TObject);
 begin
   ClientDataSet4.SaveToFile('..\..\Data\CDSChats4.xml');
+end;
+
+procedure TForm2.Button5Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+
+  WebCharts1
+    .NewProject
+
+    .Rows
+      .Title
+        .Configuracoes
+          .H3('Vendas Mensal')
+        .&End
+      .&End
+    .&End
+
+    .Jumpline
+    .Jumpline
+
+    .Rows
+      .Title
+        .Configuracoes
+          .H4('Grafico de Barras')
+        .&End
+      .&End
+    .&End
+
+    .Charts
+      .Bar
+        .Attributes
+          .Name('barras1')
+          .Title('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Heigth(80)
+          .DataSet
+            .DataSet(ClientDataSet1)
+            .textLabel('Filial 1')
+            //.BackgroundColor('23,25,124')
+          .&End
+          .DataSet
+            .DataSet(ClientDataSet2)
+            .textLabel('Filial 2')
+            //.BackgroundColor('123,125,124')
+          .&End
+        .&End
+      .&End
+    .&End
+
+    .Jumpline
+    .Rows
+      .Title
+        .Configuracoes
+          .H4('Entradas / Saidas')
+        .&End
+      .&End
+    .&End
+
+    .Jumpline
+
+    .Rows
+      .Tag
+        .Add(
+          WebCharts1
+            .ContinuosProject
+            .Charts
+              .Doughnut
+                .Attributes
+                  .Name('d1')
+                  .Title('Meu Grafico de Barras')
+                  .ColSpan(4)
+                  .DataSet
+                    .DataSet(ClientDataSet3)
+                    .textLabel('Filial 1')
+                    //.BackgroundColor('23,25,124')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+        )
+      .&End
+
+      .Tag
+        .Add(
+          WebCharts1
+            .ContinuosProject
+            .Charts
+              .Doughnut
+                .Attributes
+                  .Name('d2')
+                  .Title('Meu Grafico de Barras')
+                  .ColSpan(4)
+                  .DataSet
+                    .DataSet(ClientDataSet4)
+                    .textLabel('Filial 1')
+                    //.BackgroundColor('23,25,124')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+        )
+      .&End
+
+      .Tag
+        .Add(
+          WebCharts1
+            .ContinuosProject
+            .Charts
+              .Doughnut
+                .Attributes
+                  .Name('d3')
+                  .Title('Meu Grafico de Barras')
+                  .ColSpan(4)
+                  .DataSet
+                    .DataSet(ClientDataSet3)
+                    .textLabel('Filial 1')
+                    //.BackgroundColor('23,25,124')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+        )
+      .&End
+    .&End
+
+    .Jumpline
+
+    .Rows
+      .Tag
+        .Add(
+          WebCharts1
+            .ContinuosProject
+            .Charts
+              .Lines
+                .Attributes
+                  .Name('l3')
+                  .Title('Meu Grafico de Barras')
+                  .ColSpan(12)
+                  .Heigth(55)
+                  .DataSet
+                    .DataSet(ClientDataSet3)
+                    .textLabel('Filial 1')
+                    .Fill('false')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+        )
+      .&End
+    .&End
+
+    .WebBrowser(WebBrowser1)
+    .Generated;
 end;
 
 procedure TForm2.FormCreate(Sender: TObject);
@@ -447,6 +613,27 @@ begin
           )
         .&End
       .&End
+      .Jumpline
+      .Rows
+        .Title
+          .Configuracoes
+            .H4('Registros de Atividades')
+          .&End
+        .&End
+      .&End
+      .Jumpline
+      .Jumpline
+
+      .Table
+        .TableClass
+          .tableSm
+          .tableHover
+        .EndTableClass
+        .DataSet
+          .DataSet(ClientDataSet5)
+        .&End
+      .&End
+
 
     .WebBrowser(WebBrowser1)
     .Generated;
