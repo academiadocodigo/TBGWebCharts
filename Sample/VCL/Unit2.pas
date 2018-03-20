@@ -623,7 +623,6 @@ begin
       .&End
       .Jumpline
       .Jumpline
-
       .Table
         .TableClass
           .tableSm

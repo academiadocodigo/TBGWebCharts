@@ -1,5 +1,7 @@
 unit Rows;
 
+{$I TBGWebCharts.inc}
+
 interface
 
 uses

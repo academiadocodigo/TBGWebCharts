@@ -1,5 +1,7 @@
 unit HTML;
 
+{$I TBGWebCharts.inc}
+
 interface
 
 uses

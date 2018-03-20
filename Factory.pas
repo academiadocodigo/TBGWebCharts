@@ -1,5 +1,7 @@
 unit Factory;
 
+{$I TBGWebCharts.inc}
+
 interface
 
 uses

@@ -64,6 +64,10 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object DBGrid4: TDBGrid
           Left = 442
           Top = 361
