@@ -1,7 +1,6 @@
 package TBGWebCharts;
 
 {$R *.res}
-{$R *.dres}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -53,9 +52,6 @@ contains
   Charts.DataSet in 'Charts.DataSet.pas',
   Charts.LineStacked in 'Charts.LineStacked.pas',
   Charts.Pie in 'Charts.Pie.pas',
-  Rows.Divv in 'Rows.Divv.pas',
-  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas',
-  Table in 'Table.pas',
-  Table.DataSet in 'Table.DataSet.pas';
+  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas';
 
 end.
