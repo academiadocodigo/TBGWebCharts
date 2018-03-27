@@ -3,11 +3,13 @@ unit Unit2;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.WinXCtrls,
-  Vcl.ExtCtrls, View.WebCharts, Data.DB, Datasnap.DBClient,  Vcl.OleCtrls, SHDocVw,
-  Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
-  Vcl.ComCtrls;
+
+  Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms, Dialogs, Buttons,
+  ExtCtrls, View.WebCharts, OleCtrls, SHDocVw,
+  DBCtrls, StdCtrls,
+  DB, DBClient,  Grids, DBGrids,
+  ComCtrls;
 
 type
   TForm2 = class(TForm)
@@ -54,12 +56,15 @@ type
     WebCharts1: TWebCharts;
     Button5: TButton;
     ClientDataSet5: TClientDataSet;
-    ClientDataSet5SpeciesNo: TFloatField;
-    ClientDataSet5Category: TStringField;
-    ClientDataSet5Common_Name: TStringField;
-    ClientDataSet5SpeciesName: TStringField;
-    ClientDataSet5Lengthcm: TFloatField;
-    ClientDataSet5Length_In: TFloatField;
+    ClientDataSet5CustNo: TFloatField;
+    ClientDataSet5Company: TStringField;
+    ClientDataSet5City: TStringField;
+    ClientDataSet5State: TStringField;
+    ClientDataSet5Zip: TStringField;
+    ClientDataSet5Country: TStringField;
+    ClientDataSet5Phone: TStringField;
+    ClientDataSet5TaxRate: TFloatField;
+    ClientDataSet5Contact: TStringField;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -281,6 +286,9 @@ begin
 
   ClientDataSet4.LoadFromFile('..\..\Data\CDSChats4.xml');
   ClientDataSet4.Open;
+
+  ClientDataSet5.LoadFromFile('..\..\Data\customer.xml');
+  ClientDataSet5.Open;
 end;
 
 procedure TForm2.SpeedButton10Click(Sender: TObject);

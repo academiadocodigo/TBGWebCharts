@@ -3,7 +3,7 @@ unit Charts;
 interface
 
 uses
-  Interfaces, System.Generics.Collections;
+  Interfaces, Generics.Collections;
 
 Type
   TModelHTMLCharts = class(TInterfacedObject, iModelHTMLCharts)
@@ -30,7 +30,7 @@ Type
 implementation
 
 uses
-  Factory, System.SysUtils,Charts.Doughnut,
+  Factory, SysUtils,Charts.Doughnut,
   Charts.Lines, Charts.LineStacked,
   Charts.Pie, Charts.Bar.Horizontal;
 

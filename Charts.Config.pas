@@ -3,7 +3,7 @@ unit Charts.Config;
 interface
 
 uses
-  Interfaces, Data.DB, System.Generics.Collections;
+  Interfaces, DB, Generics.Collections;
 
 Type
   TModelHTMLChartsConfig<T> = class(TInterfacedObject, iModelHTMLChartsConfig<T>)
@@ -53,7 +53,7 @@ Type
 implementation
 
 uses
-  System.SysUtils, Charts.DataSet;
+  SysUtils, Charts.DataSet;
 
 { TModelHTMLChartsConfig<T> }
 

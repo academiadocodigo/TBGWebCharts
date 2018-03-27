@@ -6,7 +6,7 @@ interface
 
 uses
    SHDocVw,
-   Data.DB, System.Generics.Collections;
+   DB, Generics.Collections;
 
 type
   iModelHTMLChartsBar = interface;

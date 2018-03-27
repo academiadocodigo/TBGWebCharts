@@ -3,7 +3,7 @@ unit Charts.DataSet;
 interface
 
 uses
-  Interfaces, Data.DB;
+  Interfaces, DB;
 
 Type
   TModelHTMLChartsDataSet<T> = class(TInterfacedObject, iModelHTMLDataSet<T>)

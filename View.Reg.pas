@@ -3,7 +3,7 @@ unit View.Reg;
 interface
 
 uses
-  System.Classes;
+  Classes;
 
 procedure Register;
 

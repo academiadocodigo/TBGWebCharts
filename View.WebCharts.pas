@@ -3,7 +3,7 @@ unit View.WebCharts;
 interface
 
 uses
-  Interfaces, System.Classes, System.Generics.Collections, SysUtils;
+  Interfaces, Classes, Generics.Collections, SysUtils;
 
 Type
   iWebCharts = interface
@@ -30,7 +30,7 @@ Type
 implementation
 
 uses
-  HTML, System.TypInfo;
+  HTML, TypInfo;
 
 { TWebCharts }
 

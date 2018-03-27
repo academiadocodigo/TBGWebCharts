@@ -1,7 +1,6 @@
 package TBGWebCharts;
 
 {$R *.res}
-{$I TBGWebCharts.inc}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -10,24 +9,23 @@ package TBGWebCharts;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS ON}
+{$LOCALSYMBOLS OFF}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION OFF}
+{$OPTIMIZATION ON}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO ON}
+{$REFERENCEINFO OFF}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES ON}
+{$STACKFRAMES OFF}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE DEBUG}
+{$DEFINE RELEASE}
 {$ENDIF IMPLICITBUILDING}
 {$IMPLICITBUILD ON}
-
 
 requires
   rtl,
@@ -53,11 +51,9 @@ contains
   Charts.DataSet in 'Charts.DataSet.pas',
   Charts.LineStacked in 'Charts.LineStacked.pas',
   Charts.Pie in 'Charts.Pie.pas',
-  {$IFDEF FULL}
-  Table in 'Table.pas',
-  Table.DataSet in 'Table.DataSet.pas',
+  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas',
   Rows.Divv in 'Rows.Divv.pas',
-  {$ENDIF}
-  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas';
+  Table.DataSet in 'Table.DataSet.pas',
+  Table in 'Table.pas';
 
 end.

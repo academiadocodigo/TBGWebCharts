@@ -7,8 +7,14 @@ interface
 uses
   Interfaces,
   SHDocVw,
-  System.Win.Registry, VCL.Dialogs, System.Generics.Collections,
-  System.Classes;
+  Registry,
+  {$IF RTLVERSION < 22 }
+  Dialogs,
+  {$ELSE}
+  VCL.Dialogs,
+  {$IFEND}
+  Generics.Collections,
+  Classes;
 
 Type
   TModelHTML = class(TInterfacedObject, iModelHTML)
@@ -42,7 +48,7 @@ Type
 implementation
 
 uses
-  Factory, System.SysUtils, Winapi.Windows;
+  Factory, SysUtils, Windows;
 
 { TModelHTML }
 
@@ -171,7 +177,7 @@ begin
   SL := TStringList.Create;
   try
     SL.Add(FHTML);
-    Arquivo := TGuid.NewGuid.ToString + '.rwc';
+    Arquivo := FormatDateTime('{ddhhyyyyMMnnss-MMyyyyhhssdd}', now) + '.rwc';
     SL.SaveToFile(ExtractFilePath(ParamStr(0)) + Arquivo);
   finally
     FWebBrowser.Navigate(WideString(ExtractFilePath(ParamStr(0)) + Arquivo));

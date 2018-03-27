@@ -25,7 +25,7 @@ Type
 implementation
 
 uses
-  Charts.Config, System.SysUtils;
+  Charts.Config, SysUtils;
 
 { TModelHTMLChartsLines }
 

@@ -3,7 +3,7 @@ unit Table.DataSet;
 interface
 
 uses
-  Interfaces, Data.DB;
+  Interfaces, DB;
 
 Type
   TModelTableDataSet = class(TInterfacedObject, iModelTableDataSet)

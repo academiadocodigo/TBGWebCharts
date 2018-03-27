@@ -3,7 +3,7 @@ unit Table;
 interface
 
 uses
-  Interfaces, System.Generics.Collections;
+  Interfaces, Generics.Collections;
 
 Type
   TModelTable = class(TInterfacedObject, iModelTable, iModelTableClass)
@@ -33,7 +33,7 @@ Type
 implementation
 
 uses
-  Table.DataSet, System.SysUtils;
+  Table.DataSet, SysUtils;
 
 { TModelTable }
 

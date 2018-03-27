@@ -3,7 +3,7 @@ unit Rows.Tag;
 interface
 
 uses
-  Interfaces, System.Generics.Collections;
+  Interfaces, Generics.Collections;
 
 Type
   TModelHTMLRowsTag = class(TInterfacedObject, IModelHTMLRowsTag)
