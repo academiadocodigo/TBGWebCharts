@@ -9,7 +9,6 @@ Type
   TModelHTMLChartsLineStacked = class(TInterfacedObject, iModelHTMLChartsLineStacked)
     private
       FHTML : String;
-      [weak]
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsLineStacked>;
     public
@@ -25,7 +24,7 @@ Type
 implementation
 
 uses
-  Charts.Config, SysUtils;
+  Charts.Config, SysUtils, Injection;
 
 { TModelHTMLChartsLineStacked }
 
@@ -54,6 +53,11 @@ begin
   FParent.HTML('title: { ');
   FParent.HTML('display: true, ');
   FParent.HTML('text: '''+FConfig.Title+''' ');
+  FParent.HTML('}, ');
+  FParent.HTML('legend: { ');
+  FParent.HTML('position: ''top'', ');
+  if not FConfig.Legend then
+    FParent.HTML('display: false, ');
   FParent.HTML('}, ');
   FParent.HTML('tooltips: { ');
   FParent.HTML('mode: ''index'', ');
@@ -103,7 +107,7 @@ end;
 
 constructor TModelHTMLChartsLineStacked.Create(Parent : iModelHTMLCharts);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsLineStacked>.New(Self);
 end;
 

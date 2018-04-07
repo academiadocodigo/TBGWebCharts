@@ -8,7 +8,6 @@ uses
 Type
   TModelHTMLRowsDiv = class(TInterfacedObject, IModelHTMLRowsDiv)
     private
-      [weak]
       FParent : IModelHTMLRows;
       FLista : TList<String>;
       FColSpan : Integer;
@@ -22,6 +21,9 @@ Type
   end;
 
 implementation
+
+uses
+  Injection;
 
 { TModelHTMLRowsDiv }
 
@@ -53,7 +55,7 @@ end;
 
 constructor TModelHTMLRowsDiv.Create(Parent : IModelHTMLRows);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FLista := TList<String>.Create;
 end;
 

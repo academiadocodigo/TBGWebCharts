@@ -9,7 +9,6 @@ Type
   TModelHTMLChartsBarHorizontal = class(TInterfacedObject, iModelHTMLChartsBar)
     private
       FHTML : String;
-      [weak]
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsBar>;
     public
@@ -25,7 +24,7 @@ Type
 implementation
 
 uses
-  Charts.Config, SysUtils;
+  Charts.Config, SysUtils, Injection;
 
 { TModelHTMLChartsBarHorizontal }
 
@@ -74,7 +73,7 @@ end;
 
 constructor TModelHTMLChartsBarHorizontal.Create(Parent : iModelHTMLCharts);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsBar>.New(Self);
 end;
 

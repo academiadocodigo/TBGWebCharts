@@ -10,7 +10,6 @@ uses
 Type
   TModelHTMLRows = class(TInterfacedObject, IModelHTMLRows)
     private
-      [weak]
       FParent : IModelHTML;
       FRowsTitle : iModelHTMLRowsTitle;
       FRowTag : IModelHTMLRowsTag;
@@ -25,6 +24,7 @@ Type
       function Tag : iModelHTMLRowsTag;
       {$IFDEF FULL}
       function _Div : IModelHTMLRowsDiv;
+      function _P : IModelHTMLRowsP;
       {$ENDIF}
   end;
 
@@ -35,7 +35,7 @@ uses
   {$IFDEF FULL}
   Rows.Divv,
   {$ENDIF}
-  Rows.Tag;
+  Rows.Tag, Injection, Rows.P;
 
 { TModelHTMLRows }
 
@@ -58,7 +58,7 @@ end;
 
 constructor TModelHTMLRows.Create(Parent : IModelHTML);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FParent.HTML('<div class="row">');
 end;
 
@@ -89,6 +89,11 @@ end;
 function TModelHTMLRows._Div: IModelHTMLRowsDiv;
 begin
   Result := TModelHTMLRowsDiv.New(Self);
+end;
+
+function TModelHTMLRows._P : IModelHTMLRowsP;
+begin
+  Result := TModelHTMLRowsP.New(Self);
 end;
 {$ENDIF}
 

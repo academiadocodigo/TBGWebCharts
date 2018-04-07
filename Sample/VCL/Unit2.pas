@@ -19,30 +19,16 @@ type
     ClientDataSet1: TClientDataSet;
     DataSource1: TDataSource;
     ClientDataSet2: TClientDataSet;
-    DataSource2: TDataSource;
     ClientDataSet3: TClientDataSet;
     ClientDataSet4: TClientDataSet;
-    DataSource3: TDataSource;
-    DataSource4: TDataSource;
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
-    DBGrid4: TDBGrid;
-    DBGrid3: TDBGrid;
     Panel5: TPanel;
-    Label3: TLabel;
-    Button3: TButton;
     Panel6: TPanel;
-    Label4: TLabel;
-    Button4: TButton;
     Panel4: TPanel;
-    Label2: TLabel;
-    Button2: TButton;
     Panel3: TPanel;
-    Label1: TLabel;
-    Button1: TButton;
     DBGrid1: TDBGrid;
-    DBGrid2: TDBGrid;
     Panel7: TPanel;
     SpeedButton3: TSpeedButton;
     SpeedButton10: TSpeedButton;
@@ -54,7 +40,6 @@ type
     SpeedButton9: TSpeedButton;
     SpeedButton5: TSpeedButton;
     WebCharts1: TWebCharts;
-    Button5: TButton;
     ClientDataSet5: TClientDataSet;
     ClientDataSet5CustNo: TFloatField;
     ClientDataSet5Company: TStringField;
@@ -65,6 +50,46 @@ type
     ClientDataSet5Phone: TStringField;
     ClientDataSet5TaxRate: TFloatField;
     ClientDataSet5Contact: TStringField;
+    SpeedButton1: TSpeedButton;
+    SpeedButton11: TSpeedButton;
+    ClientDataSet6: TClientDataSet;
+    ClientDataSet6LAST_NAME: TStringField;
+    ClientDataSet6FIRST_NAME: TStringField;
+    ClientDataSet6ACCT_NBR: TFloatField;
+    ClientDataSet6ADDRESS_1: TStringField;
+    ClientDataSet6CITY: TStringField;
+    ClientDataSet6STATE: TStringField;
+    ClientDataSet6ZIP: TStringField;
+    ClientDataSet6TELEPHONE: TStringField;
+    ClientDataSet6DATE_OPEN: TDateField;
+    ClientDataSet6SS_NUMBER: TFloatField;
+    ClientDataSet6PICTURE: TStringField;
+    ClientDataSet6BIRTH_DATE: TDateField;
+    ClientDataSet6RISK_LEVEL: TStringField;
+    ClientDataSet6OCCUPATION: TStringField;
+    ClientDataSet6OBJECTIVES: TStringField;
+    ClientDataSet6INTERESTS: TStringField;
+    ClientDataSet6IMAGE: TBlobField;
+    SpeedButton12: TSpeedButton;
+    ClientDataSet7: TClientDataSet;
+    ClientDataSet7LAST_NAME: TStringField;
+    ClientDataSet7FIRST_NAME: TStringField;
+    ClientDataSet7ACCT_NBR: TFloatField;
+    ClientDataSet7CITY: TStringField;
+    ClientDataSet7STATE: TStringField;
+    ClientDataSet7ZIP: TStringField;
+    ClientDataSet7TELEPHONE: TStringField;
+    ClientDataSet7DATE_OPEN: TDateField;
+    ClientDataSet7SS_NUMBER: TFloatField;
+    ClientDataSet7BIRTH_DATE: TDateField;
+    ClientDataSet7RISK_LEVEL: TStringField;
+    ClientDataSet7OCCUPATION: TStringField;
+    ClientDataSet7OBJECTIVES: TStringField;
+    SpeedButton13: TSpeedButton;
+    DBNavigator1: TDBNavigator;
+    Panel8: TPanel;
+    ComboBox1: TComboBox;
+    Carregar: TButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -79,11 +104,19 @@ type
     procedure Button4Click(Sender: TObject);
     procedure SpeedButton9Click(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton11Click(Sender: TObject);
+    procedure SpeedButton12Click(Sender: TObject);
+    procedure SpeedButton13Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure CarregarClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure RelCust(Value : Integer);
+    procedure RelAvatar(Value : Currency);
+    procedure RelContato(Value : String);
   end;
 
 var
@@ -95,177 +128,319 @@ implementation
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-  ClientDataSet1.SaveToFile('..\..\Data\CDSChats.xml');
+  ClientDataSet1.SaveToFile('Data\CDSChats.xml');
 end;
 
 procedure TForm2.Button2Click(Sender: TObject);
 begin
-  ClientDataSet2.SaveToFile('..\..\Data\CDSChats2.xml');
+  ClientDataSet2.SaveToFile('Data\CDSChats2.xml');
 end;
 
 procedure TForm2.Button3Click(Sender: TObject);
 begin
-  ClientDataSet3.SaveToFile('..\..\Data\CDSChats3.xml');
+  ClientDataSet3.SaveToFile('Data\CDSChats3.xml');
 end;
 
 procedure TForm2.Button4Click(Sender: TObject);
 begin
-  ClientDataSet4.SaveToFile('..\..\Data\CDSChats4.xml');
+  ClientDataSet4.SaveToFile('Data\CDSChats4.xml');
 end;
 
 procedure TForm2.Button5Click(Sender: TObject);
 begin
-  PageControl1.ActivePageIndex := 0;
-
   WebCharts1
-    .NewProject
-
+  .NewProject
     .Rows
       .Title
         .Configuracoes
-          .H3('Vendas Mensal')
+          .H1('Grafico de Barras')
         .&End
       .&End
     .&End
-
     .Jumpline
     .Jumpline
-
-    .Rows
-      .Title
-        .Configuracoes
-          .H4('Grafico de Barras')
-        .&End
-      .&End
-    .&End
-
     .Charts
       .Bar
         .Attributes
-          .Name('barras1')
-          .Title('Meu Grafico de Barras')
+          .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Heigth(80)
+         .Title('Meu Grafico de Barras')
           .DataSet
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
-            .textLabel('Filial 1')
-            //.BackgroundColor('23,25,124')
           .&End
           .DataSet
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
-            .textLabel('Filial 2')
-            //.BackgroundColor('123,125,124')
           .&End
         .&End
       .&End
     .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
 
+procedure TForm2.CarregarClick(Sender: TObject);
+begin
+  case ComboBox1.ItemIndex of
+    0 : DataSource1.DataSet := ClientDataSet1;
+    1 : DataSource1.DataSet := ClientDataSet2;
+    2 : DataSource1.DataSet := ClientDataSet3;
+    3 : DataSource1.DataSet := ClientDataSet4;
+    4 : DataSource1.DataSet := ClientDataSet5;
+    5 : DataSource1.DataSet := ClientDataSet6;
+    6 : DataSource1.DataSet := ClientDataSet7;
+  end;
+
+end;
+
+procedure TForm2.RelAvatar(Value : Currency);
+begin
+  PageControl1.ActivePageIndex := 0;
+
+  ClientDataSet6.Filtered := false;
+  ClientDataSet6.Filter := 'ACCT_NBR = ' + CurrToStr(Value);
+  ClientDataSet6.Filtered := true;
+
+
+
+  WebCharts1
+    .NewProject
+    .Rows
+      ._Div
+        .ColSpan(3)
+        .Add(
+          WebCharts1
+          .ContinuosProject
+          .Image
+            .ImageClass
+              .rounded
+              .imgThumbnail
+            .&End
+            .DataSet
+              .Field('PICTURE')
+              .DataSet(ClientDataSet6)
+            .&End
+          .&End
+          .HTML
+        )
+      .&End
+      ._Div
+        .ColSpan(6)
+        .Add(
+          WebCharts1
+          .ContinuosProject
+          .Rows
+            .Title
+              .Configuracoes
+                .H1(
+                  ClientDataSet6.FieldByName('FIRST_NAME').AsString + ' ' +
+                  ClientDataSet6.FieldByName('LAST_NAME').AsString
+                )
+              .&End
+            .&End
+          .&End
+          .HTML
+          +
+          WebCharts1
+          .ContinuosProject
+          .Rows
+            .Title
+              .Configuracoes
+                .H5(
+                  ClientDataSet6.FieldByName('CITY').AsString + ' - ' +
+                  ClientDataSet6.FieldByName('STATE').AsString
+                )
+              .&End
+            .&End
+          .&End
+          .HTML
+          +
+          WebCharts1
+          .ContinuosProject
+          .Jumpline
+          .Rows
+            ._P
+              ._Class('text-muted')
+              .Add('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum nisl ut porttitor feugiat. ')
+              .Add('Mauris et velit id diam laoreet efficitur. Sed a accumsan ligula, ut interdum risus. Donec vel libero')
+              .Add('id enim efficitur lobortis. Nulla aliquam felis at nisi pretium porta. Sed id leo sem. Suspendisse consequat,')
+              .Add(' purus at aliquet auctor, dolor felis sollicitudin massa, ut vestibulum est ipsum eu tortor.')
+            .&End
+          .&End
+          .HTML
+        )
+      .&End
+      ._Div
+        .ColSpan(3)
+        .Add(
+          '<ul class="list-group">' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Cras justo odio' +
+          '<span class="badge badge-primary badge-pill">$ 14.256,23</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Dapibus ac facilisis' +
+          '<span class="badge badge-primary badge-pill">$ 236,22</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Morbi leo risus' +
+          '<span class="badge badge-success badge-pill">#1</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Morbi leo risus' +
+          '<span class="badge badge-danger badge-pill">-561</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Morbi leo risus' +
+          '<span class="badge badge-warning badge-pill">1</span>' +
+          '</li>' +
+          '</ul>')
+      .&End
+    .&End
+    .Jumpline
     .Jumpline
     .Rows
-      .Title
-        .Configuracoes
-          .H4('Entradas / Saidas')
+      ._Div
+        .ColSpan(3)
+        .Add(
+          '<ul class="list-group">' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Cras justo odio' +
+          '<span class="badge badge-light badge-pill">$ 14.256,23</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Dapibus ac facilisis' +
+          '<span class="badge badge-light badge-pill">$ 236,22</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Morbi leo risus' +
+          '<span class="badge badge-light badge-pill">#1</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Morbi leo risus' +
+          '<span class="badge badge-light badge-pill">-561</span>' +
+          '</li>' +
+          '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+          'Morbi leo risus' +
+          '<span class="badge badge-light badge-pill">1</span>' +
+          '</li>' +
+          '</ul>')
+      .&End
+      ._Div
+        .ColSpan(9)
+        .Add(
+           WebCharts1
+          .ContinuosProject
+          .Charts
+            .Lines
+              .Attributes
+                .ColSpan(12)
+                .Name('l1')
+                .Heigth(100)
+                .Legend(False)
+                .DataSet
+                  .textLabel('l1')
+                  .DataSet(ClientDataSet3)
+                  .Fill('false')
+                .&End
+            .&End
+          .&End
+          .HTML
+        )
+      .&End
+    .&End
+    .Jumpline
+    .Rows
+      .Tag
+        .Add(
+           WebCharts1
+          .ContinuosProject
+          .Charts
+            .Doughnut
+              .Attributes
+                .ColSpan(4)
+                .Name('d1')
+                .Legend(True)
+                .DataSet
+                  .textLabel('d1')
+                  .DataSet(ClientDataSet4)
+                  .Fill('false')
+                .&End
+            .&End
+          .&End
+          .HTML
+        )
+      .&End
+      .Tag
+        .Add(
+           WebCharts1
+          .ContinuosProject
+          .Charts
+            .Doughnut
+              .Attributes
+                .ColSpan(4)
+                .Name('d2')
+                .Legend(True)
+                .DataSet
+                  .textLabel('d2')
+                  .DataSet(ClientDataSet4)
+                  .Fill('false')
+                .&End
+            .&End
+          .&End
+          .HTML
+        )
+      .&End
+      .Tag
+        .Add(
+           WebCharts1
+          .ContinuosProject
+          .Charts
+            .Doughnut
+              .Attributes
+                .ColSpan(4)
+                .Name('d3')
+                .Legend(True)
+                .DataSet
+                  .textLabel('d3')
+                  .DataSet(ClientDataSet4)
+                  .Fill('false')
+                .&End
+            .&End
+          .&End
+          .HTML
+        )
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .Generated;
+
+end;
+
+procedure TForm2.RelContato(Value: String);
+begin
+  WebCharts1
+    .NewProject
+      .Rows
+        .Title
+          .Configuracoes
+            .H2(Value)
+          .&End
         .&End
       .&End
-    .&End
-
-    .Jumpline
-
-    .Rows
-      .Tag
-        .Add(
-          WebCharts1
-            .ContinuosProject
-            .Charts
-              .Doughnut
-                .Attributes
-                  .Name('d1')
-                  .Title('Meu Grafico de Barras')
-                  .ColSpan(4)
-                  .DataSet
-                    .DataSet(ClientDataSet3)
-                    .textLabel('Filial 1')
-                    //.BackgroundColor('23,25,124')
-                  .&End
-                .&End
-              .&End
+      .Charts
+        .Lines
+          .Attributes
+            .Name('l1')
+            .ColSpan(12)
+            .DataSet
+              .DataSet(ClientDataSet1)
+              .textLabel('Vendas do Mes')
             .&End
-            .HTML
-        )
+          .&End
+        .&End
       .&End
-
-      .Tag
-        .Add(
-          WebCharts1
-            .ContinuosProject
-            .Charts
-              .Doughnut
-                .Attributes
-                  .Name('d2')
-                  .Title('Meu Grafico de Barras')
-                  .ColSpan(4)
-                  .DataSet
-                    .DataSet(ClientDataSet4)
-                    .textLabel('Filial 1')
-                    //.BackgroundColor('23,25,124')
-                  .&End
-                .&End
-              .&End
-            .&End
-            .HTML
-        )
-      .&End
-
-      .Tag
-        .Add(
-          WebCharts1
-            .ContinuosProject
-            .Charts
-              .Doughnut
-                .Attributes
-                  .Name('d3')
-                  .Title('Meu Grafico de Barras')
-                  .ColSpan(4)
-                  .DataSet
-                    .DataSet(ClientDataSet3)
-                    .textLabel('Filial 1')
-                    //.BackgroundColor('23,25,124')
-                  .&End
-                .&End
-              .&End
-            .&End
-            .HTML
-        )
-      .&End
-    .&End
-
-    .Jumpline
-
-    .Rows
-      .Tag
-        .Add(
-          WebCharts1
-            .ContinuosProject
-            .Charts
-              .Lines
-                .Attributes
-                  .Name('l3')
-                  .Title('Meu Grafico de Barras')
-                  .ColSpan(12)
-                  .Heigth(55)
-                  .DataSet
-                    .DataSet(ClientDataSet3)
-                    .textLabel('Filial 1')
-                    .Fill('false')
-                  .&End
-                .&End
-              .&End
-            .&End
-            .HTML
-        )
-      .&End
-    .&End
-
     .WebBrowser(WebBrowser1)
     .Generated;
 end;
@@ -275,20 +450,31 @@ begin
    TabSheet1.TabVisible := False;
    TabSheet2.TabVisible := False;
 
-  ClientDataSet1.LoadFromFile('..\..\Data\CDSChats.xml');
+  ClientDataSet1.LoadFromFile('Data\CDSChats.xml');
   ClientDataSet1.Open;
 
-  ClientDataSet2.LoadFromFile('..\..\Data\CDSChats2.xml');
+  ClientDataSet2.LoadFromFile('Data\CDSChats2.xml');
   ClientDataSet2.Open;
 
-  ClientDataSet3.LoadFromFile('..\..\Data\CDSChats3.xml');
+  ClientDataSet3.LoadFromFile('Data\CDSChats3.xml');
   ClientDataSet3.Open;
 
-  ClientDataSet4.LoadFromFile('..\..\Data\CDSChats4.xml');
+  ClientDataSet4.LoadFromFile('Data\CDSChats4.xml');
   ClientDataSet4.Open;
 
-  ClientDataSet5.LoadFromFile('..\..\Data\customer.xml');
+  ClientDataSet5.LoadFromFile('Data\customer.xml');
   ClientDataSet5.Open;
+
+  ClientDataSet6.LoadFromFile('Data\clients.xml');
+  ClientDataSet6.Open;
+
+  ClientDataSet7.LoadFromFile('Data\clients.xml');
+  ClientDataSet7.Open;
+end;
+
+procedure TForm2.RelCust(Value: Integer);
+begin
+  ShowMessage(IntToStr(Value));
 end;
 
 procedure TForm2.SpeedButton10Click(Sender: TObject);
@@ -320,6 +506,103 @@ begin
     .&End
   .WebBrowser(WebBrowser1)
   .Generated;
+end;
+
+procedure TForm2.SpeedButton11Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+    .NewProject
+    .Rows
+      .Title
+        .Configuracoes
+          .H3('Cards')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Cards
+      .FieldHeader('Company')
+      .FieldTitle('City')
+      .FieldBody('Contact')
+      .ColSpan(4)
+      .Colors
+        .Success
+      .&End
+      .DataSet
+        .DataSet(ClientDataSet5)
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .Generated;
+end;
+
+procedure TForm2.SpeedButton12Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+
+  WebCharts1
+    .NewProject
+    .Image
+      .ImageClass
+        .rounded
+        .imgThumbnail
+      .&End
+      .DataSet
+        .Field('PICTURE')
+        .DataSet(ClientDataSet6)
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .Generated;
+end;
+
+procedure TForm2.SpeedButton13Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+
+  WebCharts1
+    .NewProject
+    .Table
+      .TableClass
+        .tableSm
+        .tableHover
+      .EndTableClass
+      .DataSet
+        .CallbackLink('ACCT_NBR', 'RelAvatar')
+        .DataSet(ClientDataSet7)
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
+    .Generated;
+end;
+
+procedure TForm2.SpeedButton1Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+
+  WebCharts1
+    .NewProject
+    .Table
+      .TableClass
+        .tableSm
+        .tableHover
+      .EndTableClass
+      .DataSet
+        .CallbackLink('CustNo', 'RelCust')
+        .CallbackLink('Contact', 'RelContato')
+        .DataSet(ClientDataSet5)
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
+    .Generated;
 end;
 
 procedure TForm2.SpeedButton2Click(Sender: TObject);
@@ -356,7 +639,7 @@ begin
     .Rows
       .Title
         .Configuracoes
-          .H1('Grafico de Barras')
+          .H1('Gráfico de Barras')
         .&End
       .&End
     .&End
@@ -367,7 +650,7 @@ begin
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Grafico de Barras')
+         .Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -478,7 +761,6 @@ begin
   PageControl1.ActivePageIndex := 0;
   WebCharts1
     .NewProject
-
       .Rows
         .Title
           .Configuracoes

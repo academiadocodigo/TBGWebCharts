@@ -18,9 +18,9 @@ Type
       FModelHTML : iModelHTML;
       FCss : TList<String>;
     public
-      //constructor Create;
+      constructor Create;
       destructor Destroy; override;
-      //class function New : iWebCharts;
+      class function New : iWebCharts;
       function AddResource(Value : String) : iWebCharts;
       function NewProject : iModelHTML;
       function ContinuosProject : iModelHTML;
@@ -34,10 +34,10 @@ uses
 
 { TWebCharts }
 
-//constructor TWebCharts.Create;
-//begin
-//
-//end;
+constructor TWebCharts.Create;
+begin
+  FModelHTML := TModelHTML.New;
+end;
 
 destructor TWebCharts.Destroy;
 begin
@@ -57,23 +57,19 @@ end;
 
 function TWebCharts.ContinuosProject: iModelHTML;
 begin
- FModelHTML := TModelHTML.New;
- Result := FModelHTML;
+ Result := TModelHTML.New;
+end;
+
+class function TWebCharts.New: iWebCharts;
+begin
+  Result := Self.Create;
 end;
 
 function TWebCharts.NewProject: iModelHTML;
 begin
-  if not Assigned(FModelHTML) then
-    FModelHTML := TModelHTML.New;
-
-  FModelHTML.ClearHTML;
-  FModelHTML.GenerateHead(FCss);
-  Result := FModelHTML;
+  Result := TModelHTML.New;
+  Result.ClearHTML;
+  Result.GenerateHead(FCss);
 end;
-//
-//class function TWebCharts.New: iWebCharts;
-//begin
-//  Result := Self.Create;
-//end;
 
 end.

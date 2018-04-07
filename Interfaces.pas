@@ -5,8 +5,17 @@ unit Interfaces;
 interface
 
 uses
-   SHDocVw,
-   DB, Generics.Collections;
+   DB,
+   Generics.Collections,
+   {$IFDEF HAS_FMX}
+    FMX.StdCtrls,
+    FMX.WebBrowser,
+  {$ELSE}
+    SHDocVw,
+    VCL.StdCtrls,
+    Vcl.Buttons,
+  {$ENDIF}
+   Classes;
 
 type
   iModelHTMLChartsBar = interface;
@@ -26,6 +35,14 @@ type
   iModelTableDataSet = interface;
   iModelTableClass = interface;
   IModelHTMLRowsDiv = interface;
+  iModelCardsDataSet = interface;
+  iModelCards = interface;
+  iCallbackJS = interface;
+  iModelImageDataSet = interface;
+  iModelImage = interface;
+  iModelImageClass = interface;
+   IModelHTMLRowsP = interface;
+  //iCacheControl = interface;
   {$ENDIF}
 
   iModelHTML = interface
@@ -43,6 +60,10 @@ type
     function Generated : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
+    function Cards : iModelCards;
+    function CallbackJS : iCallbackJS;
+    function Image : iModelImage;
+    //function CacheControl : iCacheControl;
     {$ENDIF}
   end;
 
@@ -54,6 +75,7 @@ type
     function Tag : iModelHTMLRowsTag;
     {$IFDEF FULL}
     function _Div : IModelHTMLRowsDiv;
+    function _P : IModelHTMLRowsP;
     {$ENDIF}
     function &End : iModelHTML;
   end;
@@ -164,6 +186,8 @@ type
     function Options(Value : String) : iModelHTMLChartsConfig<T>; overload;
     function Options : String; overload;
     function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig<T>>;
+    function Legend(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
+    function Legend : Boolean; overload;
     function ResultDataSet : String;
     function ResultLabels : String;
     function &End : T;
@@ -192,10 +216,33 @@ type
     function RowsTitle(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
     {$IFDEF FULL}
     function Table(Parent : iModelHTML) : iModelTable;
+    function Cards(Parent : iModelHTML) : iModelCards;
+    function Image(Parent : iModelHTML) : iModelImage;
     {$ENDIF}
   end;
 
+  iModelColors<T> = interface
+    ['{8A6FA48B-BCB6-468B-A6EC-BC582B898E16}']
+    function Primary : iModelColors<T>;
+    function Secondary : iModelColors<T>;
+    function Success : iModelColors<T>;
+    function Danger : iModelColors<T>;
+    function Warning : iModelColors<T>;
+    function Info : iModelColors<T>;
+    function Light : iModelColors<T>;
+    function Dark : iModelColors<T>;
+    function Result : String;
+    function &End : T;
+  end;
+
   {$IFDEF FULL}
+  IModelHTMLRowsP = interface
+    ['{F26E4162-73CC-40E9-8E35-9499B6D61673}']
+    function _Class(Value : String) : IModelHTMLRowsP;
+    function Add(Value : String) : iModelHTMLRowsP;
+    function &End : IModelHTMLRows;
+  end;
+
   iModelTable = interface
     ['{D0151987-64C8-40E2-A83C-18AF9648F8AE}']
     function &End : iModelHTML;
@@ -217,6 +264,7 @@ type
   iModelTableDataSet = interface
     ['{061B2938-6100-42AF-8EE4-D5895E5A38B8}']
     function DataSet (Value : TDataSet) : iModelTableDataSet;
+    function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet;
     function ResultScript : String;
     function &End : iModelTable;
   end;
@@ -227,6 +275,75 @@ type
     function ColSpan(Value : Integer) : IModelHTMLRowsDiv;
     function &End : IModelHTMLRows;
   end;
+
+  iModelCards = interface
+    ['{5BA3AF40-D673-44BA-BF79-5F35E0F00BFB}']
+    function Colors : iModelColors<iModelCards>;
+    function DataSet : iModelCardsDataSet;
+    function FieldHeader(Value : String) : iModelCards; overload;
+    function FieldTitle(Value : String) : iModelCards; overload;
+    function FieldBody(Value : String) : iModelCards; overload;
+    function FieldHeader : String; overload;
+    function FieldTitle : String; overload;
+    function FieldBody : String; overload;
+    function ColSpan(Value : Integer) : iModelCards; overload;
+    function ColSpan : Integer; overload;
+    function &End : iModelHTML;
+  end;
+
+  iModelCardsDataSet = interface
+    ['{E38197FC-8395-45BC-A0DE-D7283DD7E594}']
+    function DataSet (Value : TDataSet) : iModelCardsDataSet;
+    function ResultScript : String;
+    function &End : iModelCards;
+  end;
+
+  iCallbackJS = interface
+    ['{B3DD9B36-2024-4763-96A3-DEC0F10F454A}']
+    function Parent (Value : iModelHTML) : iCallbackJS;
+    function ClassProvider(Value : TObject) : iCallbackJS;
+    function WebBrowser(Value : TWebBrowser) : iCallbackJS;
+    function ActionMethod(Value : String) : iCallbackJS;
+    function &End : iModelHTML;
+  end;
+
+  iModelImage = interface
+    ['{477D75E4-1BEE-4E4B-B15F-80B92DA186EA}']
+    function &End : iModelHTML;
+    function ImageClass : iModelImageClass;
+    function DataSet : iModelImageDataSet;
+  end;
+
+  iModelImageDataSet = interface
+    ['{061B2938-6100-42AF-8EE4-D5895E5A38B8}']
+    function Field(Value : String) : iModelImageDataSet;
+    function DataSet (Value : TDataSet) : iModelImageDataSet;
+    function ResultScript : String;
+    function &End : iModelImage;
+  end;
+
+  iModelImageClass = interface
+    ['{9631B98F-CDE7-41A1-8138-E8E05AD72B65}']
+    function imgFluid : iModelImageClass;
+    function imgThumbnail : iModelImageClass;
+    function FloatLeft : iModelImageClass;
+    function FloatRight : iModelImageClass;
+    function MxAuto : iModelImageClass;
+    function DBlock : iModelImageClass;
+    function rounded : iModelImageClass;
+    function ResultClass : String;
+    function &End : iModelImage;
+  end;
+
+//  iCacheControl = interface
+//  ['{9DAA1668-B543-45B9-AFAE-E39BE919D610}']
+//    function Back(Button : TButton) : iCacheControl; overload;
+//    function Next(Button : TButton) : iCacheControl; overload;
+//    function Back(Button : TSpeedButton) : iCacheControl; overload;
+//    function Next(Button : TSpeedButton) : iCacheControl; overload;
+//    function &EndCacheControl : iModelHTML;
+//  end;
+
   {$ENDIF}
 
 implementation

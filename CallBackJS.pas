@@ -1,0 +1,168 @@
+unit CallBackJS;
+
+{$I TBGWebCharts.inc}
+
+interface
+
+uses
+  Interfaces,
+  {$IFDEF HAS_FMX}
+    FMX.WebBrowser,
+  {$ELSE}
+    SHDocVw,
+  {$ENDIF}
+  SysUtils,
+  RTTI,
+  Generics.Collections,
+  Classes;
+
+Type
+  TCallBackJS = class(TInterfacedObject, iCallBackJS)
+    private
+      FEnd : iModelHTML;
+      FParent : TObject;
+      FWebBrowser : TWebBrowser;
+      FActionMethod : String;
+      function TryGetValue(Value : String; Params : TStringList) : Boolean;
+      function ClassProvider(Value : TObject) : iCallbackJS;
+      function WebBrowser(Value : TWebBrowser) : iCallbackJS;
+      function ActionMethod(Value : String) : iCallbackJS;
+      procedure BeforeNavigate(ASender: TObject; const pDisp: IDispatch; const URL, Flags, TargetFrameName, PostData, Headers: OleVariant; var Cancel: WordBool);
+      function &End : iModelHTML;
+      function Parent (Value : iModelHTML) : iCallbackJS;
+    public
+      constructor Create(Parent : iModelHTML);
+      destructor Destroy; override;
+      class function New(Parent : iModelHTML) : iCallBackJS;
+    end;
+
+var
+  vCallBackJS : iCallBackJS;
+
+implementation
+
+uses
+  System.TypInfo, Vcl.Forms, Injection;
+
+
+
+{ TCallBackJS }
+
+function TCallBackJS.&End: iModelHTML;
+begin
+  if not Assigned(FEnd) then
+    raise Exception.Create('Não foi injetada a dependencia para o Callback');
+
+  Result := FEnd;
+end;
+
+function TCallBackJS.ActionMethod(Value: String): iCallbackJS;
+begin
+  Result := Self;
+  FActionMethod := Value;
+end;
+
+procedure TCallBackJS.BeforeNavigate(ASender: TObject; const pDisp: IDispatch;
+  const URL, Flags, TargetFrameName, PostData, Headers: OleVariant;
+  var Cancel: WordBool);
+var
+  Target : String;
+  Aux, Method: string;
+  Params : TStringList;
+begin
+  Target := URL;
+  Method := Copy(Target, Pos(':', Target) + 1, Length(Target));
+  Method := Copy(Method, 1, Pos('(', Method) - 1);
+  Params := TStringList.Create;
+  try
+    Aux := Copy(Target, Pos('(', Target) + 1, Length(Target));
+    Aux := Copy(Aux, 1, Pos(')', Aux)-1);
+    Params.CommaText := Aux;
+    if not Method.IsEmpty then
+      if TryGetValue(Method, Params) then
+        Cancel := True;
+  finally
+    Params.Free;
+  end;
+end;
+
+function TCallBackJS.ClassProvider(Value: TObject): iCallbackJS;
+begin
+  Result := Self;
+  FParent := Value;
+end;
+
+constructor TCallBackJS.Create(Parent : iModelHTML);
+begin
+  if Assigned(Parent) then
+    TInjection.Weak(@FEnd, Parent);
+end;
+
+destructor TCallBackJS.Destroy;
+begin
+  inherited;
+end;
+
+class function TCallBackJS.New(Parent : iModelHTML): iCallBackJS;
+begin
+  Result := Self.Create(Parent);
+end;
+
+
+function TCallBackJS.Parent(Value: iModelHTML): iCallbackJS;
+begin
+  if Assigned(Value) then
+    TInjection.Weak(@FEnd, Value);
+  Result := Self;
+end;
+
+function TCallBackJS.TryGetValue(Value : String; Params : TStringList) : Boolean;
+var
+  ctx: TRttiContext;
+  t: TRttiType;
+  m: TRttiMethod;
+  i: Integer;
+  Param : TRttiParameter;
+  P : array of TValue;
+  _a : String;
+begin
+  try
+    if not Assigned(FParent) then
+      raise Exception.Create('Dependencia não Injetada para Callback');
+
+    t := ctx.GetType(FParent.ClassType);
+    m := t.GetMethod(Value);
+    i := 0;
+    for Param in m.GetParameters do
+    begin
+      SetLength(P, (i+1));
+      case Param.ParamType.TypeKind of
+        tkString,
+        tkUString : P[i] := TValue.From<string>(stringreplace(Params[i], '%20', ' ',[rfReplaceAll, rfIgnoreCase]));
+        tkFloat   : P[i] := TValue.From<Currency>(StrToCurr(Params[i]));
+        tkInteger : P[i] := TValue.From<Integer>(StrToInt(Params[i]));
+      end;
+      Inc(i);
+    end;
+    m.Invoke(FParent, P);
+    Result := True;
+  except
+    Result := False;
+  end;
+end;
+
+function TCallBackJS.WebBrowser(Value: TWebBrowser): iCallbackJS;
+begin
+  Result := Self;
+  FWebBrowser := Value;
+  {$IFDEF HAS_FMX}
+  {$ELSE}
+    FWebBrowser.OnBeforeNavigate2 := BeforeNavigate;
+  {$ENDIF}
+end;
+
+initialization
+  vCallBackJS := TCallBackJS.New(nil);
+
+end.
+

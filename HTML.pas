@@ -6,7 +6,7 @@ interface
 
 uses
   Interfaces,
-  SHDocVw,
+
   Registry,
   {$IF RTLVERSION < 22 }
   Dialogs,
@@ -14,17 +14,28 @@ uses
   VCL.Dialogs,
   {$IFEND}
   Generics.Collections,
-  Classes;
+  {$IFDEF HAS_FMX}
+    FMX.StdCtrls,
+    FMX.WebBrowser,
+  {$ELSE}
+    VCL.StdCtrls,
+    VCL.Buttons,
+    SHDocVw,
+  {$ENDIF}
+  Classes,
+  CallBackJS;
 
 Type
   TModelHTML = class(TInterfacedObject, iModelHTML)
   private
     FHTML: String;
     FWebBrowser: TWebBrowser;
+    FCallBack : iCallbackJS;
     procedure DefineIEVersion(Versao: Integer);
     procedure ExtractResources;
     procedure GeneratedCssResourcesList(var Lista : TStringList);
     procedure GeneratedJSResourcesList(var Lista : TStringList);
+    procedure _DeleteFileOld;
   public
     constructor Create;
     destructor Destroy; override;
@@ -42,6 +53,9 @@ Type
     function Generated: iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
+    function Cards : iModelCards;
+    function CallbackJS : iCallbackJS;
+    function Image : iModelImage;
     {$ENDIF}
   end;
 
@@ -67,7 +81,11 @@ constructor TModelHTML.Create;
 begin
   DefineIEVersion(11000);
   ExtractResources;
-  //GenerateHead;
+   {$IFDEF HAS_FMX}
+   {$ELSE}
+    FCallBack := vCallBackJS.Parent(Self);
+   {$ENDIF}
+  _DeleteFileOld;
 end;
 
 procedure TModelHTML.DefineIEVersion(Versao: Integer);
@@ -77,7 +95,6 @@ var
   Reg: TRegistry;
   AppName: String;
 begin
-
   AppName := ExtractFileName(ExtractFileName(ParamStr(0)));
   Reg := nil;
   try
@@ -92,7 +109,7 @@ begin
       Reg.CloseKey;
     end;
   except
-    ;
+
   end;
 
   if (Assigned(Reg)) then
@@ -101,7 +118,6 @@ end;
 
 destructor TModelHTML.Destroy;
 begin
-
   inherited;
 end;
 
@@ -161,26 +177,19 @@ function TModelHTML.Generated: iModelHTML;
 var
   SL: TStringList;
   Arquivo: string;
-  SearchRec : TSearchRec;
 begin
-   try
-      FindFirst(ExtractFilePath(ParamStr(0)) + '*.rwc', faAnyFile, SearchRec );
-      repeat
-         DeleteFile(PWideChar(ExtractFilePath(ParamStr(0)) + SearchRec.name) );
-      until FindNext( SearchRec ) <> 0;
-   finally
-      //
-   end;
-
   GenerateFooter;
-  FWebBrowser.Silent := True;
+  {$IFDEF HAS_FMX}
+  {$ELSE}
+    FWebBrowser.Silent := True;
+  {$ENDIF}
   SL := TStringList.Create;
   try
-    SL.Add(FHTML);
-    Arquivo := FormatDateTime('{ddhhyyyyMMnnss-MMyyyyhhssdd}', now) + '.rwc';
-    SL.SaveToFile(ExtractFilePath(ParamStr(0)) + Arquivo);
+      SL.Add(FHTML);
+      Arquivo := FormatDateTime('{ddhhyyyyMMnnss-MMyyyyhhssdd}', now) + '.rwc';
+      SL.SaveToFile(ExtractFilePath(ParamStr(0)) + Arquivo, TEncoding.UTF8);
   finally
-    FWebBrowser.Navigate(WideString(ExtractFilePath(ParamStr(0)) + Arquivo));
+      FWebBrowser.Navigate(WideString(ExtractFilePath(ParamStr(0)) + Arquivo));
     SL.Free;
   end;
 end;
@@ -335,6 +344,41 @@ function TModelHTML.Table: iModelTable;
 begin
   Result := TModelHTMLFactory.New.Table(Self);
 end;
+
+function TModelHTML.CallbackJS : iCallbackJS;
+begin
+  if not Assigned(FWebBrowser) then
+    raise Exception.Create('Para usar CallbackJS primeiro é preciso setar o WebBrowser');
+
+  Result := FCallBack
+              .WebBrowser(FWebBrowser)
+              .ActionMethod('ActionCallBackJS');
+end;
+
+procedure TModelHTML._DeleteFileOld;
+var
+  SearchRec: TSearchRec;
+begin
+  try
+    FindFirst(ExtractFilePath(ParamStr(0)) + '*.rwc', faAnyFile, SearchRec);
+    repeat
+      DeleteFile(PWideChar(ExtractFilePath(ParamStr(0)) + SearchRec.name));
+    until FindNext(SearchRec) <> 0;
+  finally
+    SysUtils.FindClose(SearchRec);
+  end;
+end;
+
+function TModelHTML.Cards : iModelCards;
+begin
+  Result := TModelHTMLFactory.New.Cards(Self);
+end;
+
+function TModelHTML.Image : iModelImage;
+begin
+  Result := TModelHTMLFactory.New.Image(Self);
+end;
+
 {$ENDIF}
 
 function TModelHTML.WebBrowser(Value: TWebBrowser): iModelHTML;

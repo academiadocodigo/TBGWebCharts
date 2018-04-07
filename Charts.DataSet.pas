@@ -6,11 +6,8 @@ uses
   Interfaces, DB;
 
 Type
-  TModelHTMLChartsDataSet<T> = class(TInterfacedObject, iModelHTMLDataSet<T>)
+  TModelHTMLChartsDataSet<T : IInterface> = class(TInterfacedObject, iModelHTMLDataSet<T>)
     private
-      {$IFDEF VER320}
-      [unsafe]
-      {$ENDIF}
       FParent : T;
       FDataSet : TDataSet;
       FtextLabel : String;
@@ -45,6 +42,9 @@ Type
 
 implementation
 
+uses
+  Injection;
+
 { TModelHTMLChartsDataSet<T> }
 
 function TModelHTMLChartsDataSet<T>.BackgroundColor(
@@ -75,7 +75,7 @@ end;
 
 constructor TModelHTMLChartsDataSet<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
 end;
 
 function TModelHTMLChartsDataSet<T>.Data(Value: String): iModelHTMLDataSet<T>;

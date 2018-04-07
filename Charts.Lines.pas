@@ -9,7 +9,6 @@ Type
   TModelHTMLChartsLines = class(TInterfacedObject, iModelHTMLChartsLines)
     private
       FHTML : String;
-      [weak]
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsLines>;
     public
@@ -25,7 +24,7 @@ Type
 implementation
 
 uses
-  Charts.Config, SysUtils;
+  Charts.Config, SysUtils, Injection;
 
 { TModelHTMLChartsLines }
 
@@ -54,6 +53,11 @@ begin
   FParent.HTML('title: { ');
   FParent.HTML('display: true, ');
   FParent.HTML('text: '''+FConfig.Title+''' ');
+  FParent.HTML('}, ');
+  FParent.HTML('legend: { ');
+  FParent.HTML('position: ''top'', ');
+  if not FConfig.Legend then
+    FParent.HTML('display: false, ');
   FParent.HTML('}, ');
   FParent.HTML('tooltips: { ');
   FParent.HTML('mode: ''index'', ');
@@ -108,7 +112,7 @@ end;
 
 constructor TModelHTMLChartsLines.Create(Parent : iModelHTMLCharts);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsLines>.New(Self);
 end;
 

@@ -9,21 +9,21 @@ package TBGWebCharts;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS OFF}
+{$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO OFF}
+{$REFERENCEINFO ON}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES OFF}
+{$STACKFRAMES ON}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE RELEASE}
+{$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$IMPLICITBUILD ON}
 
@@ -31,7 +31,11 @@ requires
   rtl,
   dbrtl,
   vcl,
-  vclie;
+  vclie,
+  fmx,
+  IndySystem,
+  IndyProtocols,
+  IndyCore;
 
 contains
   Charts.Bar in 'Charts.Bar.pas',
@@ -54,6 +58,15 @@ contains
   Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas',
   Rows.Divv in 'Rows.Divv.pas',
   Table.DataSet in 'Table.DataSet.pas',
-  Table in 'Table.pas';
+  Table in 'Table.pas',
+  Cards in 'Cards.pas',
+  Color in 'Color.pas',
+  Cards.DataSet in 'Cards.DataSet.pas',
+  CallBackJS in 'CallBackJS.pas',
+  Injection in 'Injection.pas',
+  Image in 'Image.pas',
+  Image.DataSet in 'Image.DataSet.pas',
+  Image.Classes in 'Image.Classes.pas',
+  Rows.P in 'Rows.P.pas';
 
 end.

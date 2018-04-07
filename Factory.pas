@@ -21,6 +21,8 @@ Type
     function RowsTitle(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
     {$IFDEF FULL}
     function Table(Parent : iModelHTML) : iModelTable;
+    function Cards(Parent : iModelHTML) : iModelCards;
+    function Image(Parent : iModelHTML) : iModelImage;
     {$ENDIF}
   end;
 
@@ -35,8 +37,9 @@ uses
   Rows.Title,
   {$IFDEF FULL}
   Table,
+  Cards,
   {$ENDIF}
-  Rows;
+  Rows, Image;
 
 function TModelHTMLFactory.ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
 begin
@@ -81,9 +84,20 @@ begin
 end;
 
 {$IFDEF FULL}
+function TModelHTMLFactory.Image(Parent : iModelHTML) : iModelImage;
+begin
+  Result := TModelImage.New(Parent);
+end;
+
+
 function TModelHTMLFactory.Table(Parent: iModelHTML): iModelTable;
 begin
   Result := TModelTable.New(Parent);
+end;
+
+function TModelHTMLFactory.Cards(Parent : iModelHTML) : iModelCards;
+begin
+  Result := TModelCards.New(Parent);
 end;
 {$ENDIF}
 

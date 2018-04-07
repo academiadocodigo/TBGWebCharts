@@ -8,7 +8,6 @@ uses
 Type
   TModelTable = class(TInterfacedObject, iModelTable, iModelTableClass)
     private
-      [weak]
       FParent : iModelHTML;
       FClass : String;
       FDataSet : TList<iModelTableDataSet>;
@@ -33,7 +32,7 @@ Type
 implementation
 
 uses
-  Table.DataSet, SysUtils;
+  Table.DataSet, SysUtils, Injection;
 
 { TModelTable }
 
@@ -55,7 +54,7 @@ end;
 
 constructor TModelTable.Create(Parent : iModelHTML);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FDataSet := TList<iModelTableDataSet>.Create;
   FClass := 'table';
 end;

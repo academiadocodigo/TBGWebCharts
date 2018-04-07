@@ -6,11 +6,8 @@ uses
   Interfaces, DB, Generics.Collections;
 
 Type
-  TModelHTMLChartsConfig<T> = class(TInterfacedObject, iModelHTMLChartsConfig<T>)
+  TModelHTMLChartsConfig<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsConfig<T>)
     private
-      {$IFDEF VER320}
-      [unsafe]
-      {$ENDIF}
       FParent : T;
       FColSpan : Integer;
       FWidth : Integer;
@@ -21,6 +18,7 @@ Type
       FOptions : String;
       FName : String;
       FLabels : String;
+      FLegend : Boolean;
       FDataSet : TList<iModelHTMLDataSet<iModelHTMLChartsConfig<T>>>;
     public
       constructor Create(Parent : T);
@@ -44,6 +42,8 @@ Type
       function Name : String; overload;
       function Labels(Value : String) : iModelHTMLChartsConfig<T>; overload;
       function Labels : String; overload;
+      function Legend(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
+      function Legend : Boolean; overload;
       function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig<T>>;
       function ResultDataSet : String;
       function ResultLabels : String;
@@ -53,7 +53,7 @@ Type
 implementation
 
 uses
-  SysUtils, Charts.DataSet;
+  SysUtils, Charts.DataSet, Injection;
 
 { TModelHTMLChartsConfig<T> }
 
@@ -71,7 +71,8 @@ end;
 
 constructor TModelHTMLChartsConfig<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  FLegend := true;
+  TInjection.Weak(@FParent, Parent);
   FDataSet := TList<iModelHTMLDataSet<iModelHTMLChartsConfig<T>>>.Create;
 end;
 
@@ -114,6 +115,18 @@ end;
 function TModelHTMLChartsConfig<T>.Labels: String;
 begin
   Result := FLabels;
+end;
+
+function TModelHTMLChartsConfig<T>.Legend: Boolean;
+begin
+  Result := FLegend;
+end;
+
+function TModelHTMLChartsConfig<T>.Legend(
+  Value: Boolean): iModelHTMLChartsConfig<T>;
+begin
+  Result := Self;
+  FLegend := Value;
 end;
 
 function TModelHTMLChartsConfig<T>.Labels(

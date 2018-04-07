@@ -9,7 +9,6 @@ Type
   TModelHTMLChartsDoughnut = class(TInterfacedObject, iModelHTMLChartsDoughnut)
     private
       FHTML : String;
-      [weak]
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsDoughnut>;
     public
@@ -25,7 +24,7 @@ Type
 implementation
 
 uses
-  Charts.Config, SysUtils;
+  Charts.Config, SysUtils, Injection;
 
 { TModelHTMLChartsDoughnut }
 
@@ -53,6 +52,8 @@ begin
   FParent.HTML('responsive: true, ');
   FParent.HTML('legend: { ');
   FParent.HTML('position: ''top'', ');
+  if not FConfig.Legend then
+    FParent.HTML('display: false, ');
   FParent.HTML('}, ');
   FParent.HTML('title: { ');
   FParent.HTML('display: true, ');
@@ -64,34 +65,6 @@ begin
   FParent.HTML('} ');
   FParent.HTML('} ');
   FParent.HTML('}); ');
-  //FParent.HTML(' ');
- // FParent.HTML('window.onload = function() { ');
-  //FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
-  //FParent.HTML('window.myDoughnut = new Chart(ctx, config); ');
-  //FParent.HTML('}; ');
-
-
-
-
-
-
-
-
-
-
-//  FParent.HTML('new Chart(document.getElementById("'+FConfig.Name+'"),  ');
-//  FParent.HTML('{  ');
-//  FParent.HTML('"type":"doughnut",  ');
-//  FParent.HTML('"data":{  ');
-//  FParent.HTML('"labels": '+FConfig.Labels+',  ');
-//  FParent.HTML('"datasets":[{  ');
-//  FParent.HTML('"label":"'+FConfig.Title+'",  ');
-//  FParent.HTML('"data":'+FConfig.Data+',  ');
-//  FParent.HTML('"backgroundColor": '+FConfig.BackgroundColor+'  ');
-//  FParent.HTML('}]  ');
-//  FParent.HTML('}  ');
-//  FParent.HTML('}  ');
-//  FParent.HTML(');  ');
   FParent.HTML('</script>  ');
   FParent.HTML('</div>');
 end;
@@ -114,7 +87,7 @@ end;
 
 constructor TModelHTMLChartsDoughnut.Create(Parent : iModelHTMLCharts);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsDoughnut>.New(Self);
 end;
 

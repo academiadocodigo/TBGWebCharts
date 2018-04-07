@@ -3,15 +3,12 @@ unit Rows.Title.Config;
 interface
 
 uses
-  Interfaces;
+  Interfaces, Injection;
 
 Type
-  TModelHTMLRowsTitleConfig<T> = class(TInterfacedObject,
+  TModelHTMLRowsTitleConfig<T : IInterface> = class(TInterfacedObject,
     IModelRowsTitleConfig<T>)
   private
-    {$IFDEF VER320}
-    [unsafe]
-    {$ENDIF}
     FParent : T;
     FH1 : String;
     FH2 : String;
@@ -46,7 +43,7 @@ end;
 
 constructor TModelHTMLRowsTitleConfig<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, IInterface(Parent));
 end;
 
 destructor TModelHTMLRowsTitleConfig<T>.Destroy;

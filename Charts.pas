@@ -8,7 +8,6 @@ uses
 Type
   TModelHTMLCharts = class(TInterfacedObject, iModelHTMLCharts)
     private
-      [weak]
       FParent : IModelHTML;
       FChartBar : iModelHTMLChartsBar;
       FDoughnut : iModelHTMLChartsDoughnut;
@@ -32,7 +31,7 @@ implementation
 uses
   Factory, SysUtils,Charts.Doughnut,
   Charts.Lines, Charts.LineStacked,
-  Charts.Pie, Charts.Bar.Horizontal;
+  Charts.Pie, Charts.Bar.Horizontal, Injection;
 
 { TModelHTMLCharts }
 
@@ -75,7 +74,7 @@ end;
 
 constructor TModelHTMLCharts.Create(Parent : IModelHTML);
 begin
-  FParent := Parent;
+  TInjection.Weak(@FParent, Parent);
 end;
 
 destructor TModelHTMLCharts.Destroy;
