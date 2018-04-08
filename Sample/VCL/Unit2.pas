@@ -110,6 +110,7 @@ type
     procedure SpeedButton13Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure CarregarClick(Sender: TObject);
+    procedure testeClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -117,6 +118,7 @@ type
     procedure RelCust(Value : Integer);
     procedure RelAvatar(Value : Currency);
     procedure RelContato(Value : String);
+    procedure SampleWC(Value : Currency);
   end;
 
 var
@@ -477,6 +479,11 @@ begin
   ShowMessage(IntToStr(Value));
 end;
 
+procedure TForm2.SampleWC(Value: Currency);
+begin
+  ShowMessage(CurrToStr(Value));
+end;
+
 procedure TForm2.SpeedButton10Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
@@ -513,22 +520,13 @@ begin
   PageControl1.ActivePageIndex := 0;
   WebCharts1
     .NewProject
-    .Rows
-      .Title
-        .Configuracoes
-          .H3('Cards')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
     .Cards
       .FieldHeader('Company')
       .FieldTitle('City')
       .FieldBody('Contact')
       .ColSpan(4)
       .Colors
-        .Success
+        .Secondary
       .&End
       .DataSet
         .DataSet(ClientDataSet5)
@@ -817,6 +815,7 @@ begin
               .Charts
                 .Doughnut
                   .Attributes
+                    .Legend(false)
                     .Name('movimento1')
                     .ColSpan(4)
                     .DataSet
@@ -837,6 +836,7 @@ begin
               .Charts
                 .Doughnut
                   .Attributes
+                    .Legend(false)
                     .Name('movimento2')
                     .ColSpan(4)
                     .DataSet
@@ -857,6 +857,7 @@ begin
               .Charts
                 .Doughnut
                   .Attributes
+                    .Legend(false)
                     .Name('movimento3')
                     .ColSpan(4)
                     .DataSet
@@ -1143,6 +1144,28 @@ begin
 
     .WebBrowser(WebBrowser1)
     .Generated;
+end;
+
+procedure TForm2.testeClick(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+  .NewProject
+  .Table
+    .TableClass
+      .tableSm
+      .tableHover
+    .EndTableClass
+    .DataSet
+      .CallbackLink('ACCT_NBR', 'SampleWC')
+      .DataSet(ClientDataSet7)
+    .&End
+  .&End
+  .WebBrowser(WebBrowser1)
+  .CallbackJS
+    .ClassProvider(Self)
+  .&End
+  .Generated;
 end;
 
 end.
