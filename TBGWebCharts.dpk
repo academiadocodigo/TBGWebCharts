@@ -31,10 +31,7 @@ requires
   rtl,
   dbrtl,
   vcl,
-  vclie,
-  IndySystem,
-  IndyProtocols,
-  IndyCore;
+  vclie;
 
 contains
   Charts.Bar in 'Charts.Bar.pas',

@@ -1,11 +1,5 @@
 program TBGWebCharts_VCL;
 
-
-
-
-
-
-
 {$R 'TBGWebChartsResource.res' '..\..\TBGWebChartsResource.rc'}
 
 uses
@@ -17,7 +11,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  ReportMemoryLeaksOnShutdown := true;
+  //ReportMemoryLeaksOnShutdown := true;
   Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.
