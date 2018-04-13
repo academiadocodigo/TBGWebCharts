@@ -8,29 +8,29 @@ uses
   Interfaces,
 
   Registry,
-  {$IF RTLVERSION < 22 }
   Dialogs,
-  {$ELSE}
-  VCL.Dialogs,
-  {$IFEND}
   Generics.Collections,
   {$IFDEF HAS_FMX}
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
-    VCL.StdCtrls,
-    VCL.Buttons,
+    StdCtrls,
+    Buttons,
     SHDocVw,
   {$ENDIF}
-  Classes,
-  CallBackJS;
+  {$IF RTLVERSION > 20 }
+  CallBackJS,
+  {$IFEND}
+  Classes;
 
 Type
   TModelHTML = class(TInterfacedObject, iModelHTML)
   private
     FHTML: String;
     FWebBrowser: TWebBrowser;
+    {$IF RTLVERSION > 20 }
     FCallBack : iCallbackJS;
+    {$IFEND}
     procedure DefineIEVersion(Versao: Integer);
     procedure ExtractResources;
     procedure GeneratedCssResourcesList(var Lista : TStringList);
@@ -54,7 +54,9 @@ Type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
+    {$IF RTLVERSION > 20 }
     function CallbackJS : iCallbackJS;
+    {$IFEND}
     function Image : iModelImage;
     {$ENDIF}
   end;
@@ -83,7 +85,9 @@ begin
   ExtractResources;
    {$IFDEF HAS_FMX}
    {$ELSE}
-    FCallBack := vCallBackJS.Parent(Self);
+    {$IF RTLVERSION > 20 }
+      FCallBack := vCallBackJS.Parent(Self);
+    {$IFEND}
    {$ENDIF}
   _DeleteFileOld;
 end;
@@ -345,6 +349,7 @@ begin
   Result := TModelHTMLFactory.New.Table(Self);
 end;
 
+{$IF RTLVERSION > 20 }
 function TModelHTML.CallbackJS : iCallbackJS;
 begin
   if not Assigned(FWebBrowser) then
@@ -354,6 +359,7 @@ begin
               .WebBrowser(FWebBrowser)
               .ActionMethod('ActionCallBackJS');
 end;
+{$IFEND}
 
 procedure TModelHTML._DeleteFileOld;
 var

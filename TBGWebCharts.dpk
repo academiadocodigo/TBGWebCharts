@@ -32,7 +32,6 @@ requires
   dbrtl,
   vcl,
   vclie,
-  fmx,
   IndySystem,
   IndyProtocols,
   IndyCore;
@@ -62,7 +61,6 @@ contains
   Cards in 'Cards.pas',
   Color in 'Color.pas',
   Cards.DataSet in 'Cards.DataSet.pas',
-  CallBackJS in 'CallBackJS.pas',
   Injection in 'Injection.pas',
   Image in 'Image.pas',
   Image.DataSet in 'Image.DataSet.pas',

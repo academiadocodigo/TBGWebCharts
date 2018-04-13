@@ -9,14 +9,14 @@ Type
   TModelHTMLRowsTitle = class(TInterfacedObject, iModelHTMLRowsTitle)
     private
       FParent : IModelHTMLRows;
-      FConfig : IModelRowsTitleConfig<iModelHTMLRowsTitle>;
+      FConfig : IModelRowsTitleConfig;
     public
       constructor Create(Parent : IModelHTMLRows);
       destructor Destroy; override;
       class function New(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
       function HTML(Value : String) : iModelHTMLRowsTitle; overload;
       function HTML : String; overload;
-      function Configuracoes : IModelRowsTitleConfig<iModelHTMLRowsTitle>;
+      function Configuracoes : IModelRowsTitleConfig;
       function &End : IModelHTMLRows;
   end;
 
@@ -27,7 +27,7 @@ uses
 
 { TModelHTMLRowsTitle }
 
-function TModelHTMLRowsTitle.Configuracoes: IModelRowsTitleConfig<iModelHTMLRowsTitle>;
+function TModelHTMLRowsTitle.Configuracoes: IModelRowsTitleConfig;
 begin
   Result := FConfig;
 end;
@@ -52,7 +52,7 @@ end;
 constructor TModelHTMLRowsTitle.Create(Parent : IModelHTMLRows);
 begin
   TInjection.Weak(@FParent, Parent);
-  FConfig := TModelHTMLRowsTitleConfig<iModelHTMLRowsTitle>.New(Self);
+  FConfig := TModelHTMLRowsTitleConfig.New(Self);
 end;
 
 destructor TModelHTMLRowsTitle.Destroy;

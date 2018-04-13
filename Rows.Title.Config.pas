@@ -6,113 +6,113 @@ uses
   Interfaces, Injection;
 
 Type
-  TModelHTMLRowsTitleConfig<T : IInterface> = class(TInterfacedObject,
-    IModelRowsTitleConfig<T>)
+  TModelHTMLRowsTitleConfig = class(TInterfacedObject,
+    IModelRowsTitleConfig)
   private
-    FParent : T;
+    FParent : iModelHTMLRowsTitle;
     FH1 : String;
     FH2 : String;
     FH3 : String;
     FH4 : String;
     FH5 : String;
   public
-    constructor Create(Parent : T);
+    constructor Create(Parent : iModelHTMLRowsTitle);
     destructor Destroy; override;
-    class function New(Parent : T) : IModelRowsTitleConfig<T>;
-    function H1(Value: String): IModelRowsTitleConfig<T>; overload;
+    class function New(Parent : iModelHTMLRowsTitle) : IModelRowsTitleConfig;
+    function H1(Value: String): IModelRowsTitleConfig; overload;
     function H1: String; overload;
-    function H2(Value: String): IModelRowsTitleConfig<T>; overload;
+    function H2(Value: String): IModelRowsTitleConfig; overload;
     function H2: String; overload;
-    function H3(Value: String): IModelRowsTitleConfig<T>; overload;
+    function H3(Value: String): IModelRowsTitleConfig; overload;
     function H3: String; overload;
-    function H4(Value: String): IModelRowsTitleConfig<T>; overload;
+    function H4(Value: String): IModelRowsTitleConfig; overload;
     function H4: String; overload;
-    function H5(Value: String): IModelRowsTitleConfig<T>; overload;
+    function H5(Value: String): IModelRowsTitleConfig; overload;
     function H5: String; overload;
-    function &End: T;
+    function &End: iModelHTMLRowsTitle;
   end;
 
 implementation
 
-{ TModelHTMLRowsTitleConfig<T> }
+{ TModelHTMLRowsTitleConfig }
 
-function TModelHTMLRowsTitleConfig<T>.&End: T;
+function TModelHTMLRowsTitleConfig.&End: iModelHTMLRowsTitle;
 begin
   Result := FParent;
 end;
 
-constructor TModelHTMLRowsTitleConfig<T>.Create(Parent : T);
+constructor TModelHTMLRowsTitleConfig.Create(Parent : iModelHTMLRowsTitle);
 begin
   TInjection.Weak(@FParent, IInterface(Parent));
 end;
 
-destructor TModelHTMLRowsTitleConfig<T>.Destroy;
+destructor TModelHTMLRowsTitleConfig.Destroy;
 begin
 
   inherited;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H1: String;
+function TModelHTMLRowsTitleConfig.H1: String;
 begin
   Result := FH1;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H1(
-  Value: String): IModelRowsTitleConfig<T>;
+function TModelHTMLRowsTitleConfig.H1(
+  Value: String): IModelRowsTitleConfig;
 begin
   Result := Self;
   FH1 := Value;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H2: String;
+function TModelHTMLRowsTitleConfig.H2: String;
 begin
   Result := FH2;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H2(
-  Value: String): IModelRowsTitleConfig<T>;
+function TModelHTMLRowsTitleConfig.H2(
+  Value: String): IModelRowsTitleConfig;
 begin
   Result := Self;
   FH2 := Value;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H3(
-  Value: String): IModelRowsTitleConfig<T>;
+function TModelHTMLRowsTitleConfig.H3(
+  Value: String): IModelRowsTitleConfig;
 begin
   Result := Self;
   FH3 := Value;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H3: String;
+function TModelHTMLRowsTitleConfig.H3: String;
 begin
   Result := FH3;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H4(
-  Value: String): IModelRowsTitleConfig<T>;
+function TModelHTMLRowsTitleConfig.H4(
+  Value: String): IModelRowsTitleConfig;
 begin
   Result := Self;
   FH4 := Value;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H4: String;
+function TModelHTMLRowsTitleConfig.H4: String;
 begin
   Result := FH4;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H5(
-  Value: String): IModelRowsTitleConfig<T>;
+function TModelHTMLRowsTitleConfig.H5(
+  Value: String): IModelRowsTitleConfig;
 begin
   Result := Self;
   FH5 := Value;
 end;
 
-function TModelHTMLRowsTitleConfig<T>.H5: String;
+function TModelHTMLRowsTitleConfig.H5: String;
 begin
   Result := FH5;
 end;
 
-class function TModelHTMLRowsTitleConfig<T>.New(Parent : T): IModelRowsTitleConfig<T>;
+class function TModelHTMLRowsTitleConfig.New(Parent : iModelHTMLRowsTitle): IModelRowsTitleConfig;
 begin
   Result := Self.Create(Parent);
 end;

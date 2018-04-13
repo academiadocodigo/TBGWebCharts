@@ -12,8 +12,8 @@ uses
     FMX.WebBrowser,
   {$ELSE}
     SHDocVw,
-    VCL.StdCtrls,
-    Vcl.Buttons,
+    StdCtrls,
+    Buttons,
   {$ENDIF}
    Classes;
 
@@ -21,7 +21,7 @@ type
   iModelHTMLChartsBar = interface;
   iModelHTMLCharts = interface;
   iModelHTMLChartsConfig<T> = interface;
-  IModelRowsTitleConfig<T> = interface;
+  IModelRowsTitleConfig = interface;
   IModelHTMLRows = interface;
   iModelHTMLRowsTitle = interface;
   IModelHTMLRowsTag = interface;
@@ -37,7 +37,9 @@ type
   IModelHTMLRowsDiv = interface;
   iModelCardsDataSet = interface;
   iModelCards = interface;
-  iCallbackJS = interface;
+  {$IF RTLVERSION > 20 }
+    iCallbackJS = interface;
+  {$IFEND}
   iModelImageDataSet = interface;
   iModelImage = interface;
   iModelImageClass = interface;
@@ -61,7 +63,9 @@ type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
+    {$IF RTLVERSION > 20 }
     function CallbackJS : iCallbackJS;
+    {$IFEND}
     function Image : iModelImage;
     //function CacheControl : iCacheControl;
     {$ENDIF}
@@ -86,29 +90,27 @@ type
     function &End : IModelHTMLRows;
   end;
 
-
-
   iModelHTMLRowsTitle = interface
     ['{F2D34927-8232-4A18-944A-DB0ADAD1C903}']
     function HTML(Value : String) : iModelHTMLRowsTitle; overload;
     function HTML : String; overload;
-    function Configuracoes : IModelRowsTitleConfig<iModelHTMLRowsTitle>;
+    function Configuracoes : IModelRowsTitleConfig;
     function &End : IModelHTMLRows;
   end;
 
-  IModelRowsTitleConfig<T> = interface
+  IModelRowsTitleConfig = interface
     ['{87031018-5C12-42DF-895F-2602B87FE468}']
-    function H1(Value : String) : IModelRowsTitleConfig<T>; overload;
+    function H1(Value : String) : IModelRowsTitleConfig; overload;
     function H1 : String; overload;
-    function H2(Value : String) : IModelRowsTitleConfig<T>; overload;
+    function H2(Value : String) : IModelRowsTitleConfig; overload;
     function H2 : String; overload;
-    function H3(Value : String) : IModelRowsTitleConfig<T>; overload;
+    function H3(Value : String) : IModelRowsTitleConfig; overload;
     function H3 : String; overload;
-    function H4(Value : String) : IModelRowsTitleConfig<T>; overload;
+    function H4(Value : String) : IModelRowsTitleConfig; overload;
     function H4 : String; overload;
-    function H5(Value : String) : IModelRowsTitleConfig<T>; overload;
+    function H5(Value : String) : IModelRowsTitleConfig; overload;
     function H5 : String; overload;
-    function &End : T;
+    function &End : iModelHTMLRowsTitle;
   end;
 
   iModelHTMLCharts = interface
@@ -131,7 +133,6 @@ type
     function Attributes : iModelHTMLChartsConfig<iModelHTMLChartsDoughnut>;
     function &End : iModelHTMLCharts;
   end;
-
 
   iModelHTMLChartsBar = interface
     ['{25AE0278-2105-4223-86A9-41F289F75EAE}']

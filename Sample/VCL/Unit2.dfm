@@ -64,6 +64,10 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel5: TPanel
           Left = -4
           Top = 320
@@ -664,7 +668,7 @@ object Form2: TForm2
     Aggregates = <>
     Params = <>
     Left = 229
-    Top = 417
+    Top = 409
     object ClientDataSet5CustNo: TFloatField
       FieldName = 'CustNo'
     end
@@ -700,8 +704,8 @@ object Form2: TForm2
   object ClientDataSet6: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 221
-    Top = 473
+    Left = 229
+    Top = 465
     object ClientDataSet6LAST_NAME: TStringField
       DisplayWidth = 20
       FieldName = 'LAST_NAME'
@@ -11118,8 +11122,8 @@ object Form2: TForm2
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 221
-    Top = 529
+    Left = 229
+    Top = 521
     object ClientDataSet7LAST_NAME: TStringField
       FieldName = 'LAST_NAME'
     end

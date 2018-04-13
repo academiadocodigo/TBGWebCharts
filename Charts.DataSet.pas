@@ -75,7 +75,11 @@ end;
 
 constructor TModelHTMLChartsDataSet<T>.Create(Parent : T);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 20 }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 function TModelHTMLChartsDataSet<T>.Data(Value: String): iModelHTMLDataSet<T>;
