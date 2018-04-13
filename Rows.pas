@@ -34,8 +34,9 @@ uses
   Rows.Title,
   {$IFDEF FULL}
   Rows.Divv,
+  Rows.P,
   {$ENDIF}
-  Rows.Tag, Injection, Rows.P;
+  Rows.Tag, Injection;
 
 { TModelHTMLRows }
 

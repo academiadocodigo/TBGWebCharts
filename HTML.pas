@@ -19,7 +19,9 @@ uses
     SHDocVw,
   {$ENDIF}
   {$IF RTLVERSION > 20 }
-  CallBackJS,
+    {$IFDEF FULL}
+      CallBackJS,
+    {$ENDIF}
   {$IFEND}
   Classes;
 
@@ -29,7 +31,9 @@ Type
     FHTML: String;
     FWebBrowser: TWebBrowser;
     {$IF RTLVERSION > 20 }
-    FCallBack : iCallbackJS;
+      {$IFDEF FULL}
+        FCallBack : iCallbackJS;
+      {$ENDIF}
     {$IFEND}
     procedure DefineIEVersion(Versao: Integer);
     procedure ExtractResources;
@@ -86,7 +90,9 @@ begin
    {$IFDEF HAS_FMX}
    {$ELSE}
     {$IF RTLVERSION > 20 }
-      FCallBack := vCallBackJS.Parent(Self);
+      {$IFDEF FULL}
+        FCallBack := vCallBackJS.Parent(Self);
+      {$ENDIF}
     {$IFEND}
    {$ENDIF}
   _DeleteFileOld;
@@ -361,20 +367,6 @@ begin
 end;
 {$IFEND}
 
-procedure TModelHTML._DeleteFileOld;
-var
-  SearchRec: TSearchRec;
-begin
-  try
-    FindFirst(ExtractFilePath(ParamStr(0)) + '*.rwc', faAnyFile, SearchRec);
-    repeat
-      DeleteFile(PWideChar(ExtractFilePath(ParamStr(0)) + SearchRec.name));
-    until FindNext(SearchRec) <> 0;
-  finally
-    SysUtils.FindClose(SearchRec);
-  end;
-end;
-
 function TModelHTML.Cards : iModelCards;
 begin
   Result := TModelHTMLFactory.New.Cards(Self);
@@ -391,6 +383,20 @@ function TModelHTML.WebBrowser(Value: TWebBrowser): iModelHTML;
 begin
   Result := Self;
   FWebBrowser := Value;
+end;
+
+procedure TModelHTML._DeleteFileOld;
+var
+  SearchRec: TSearchRec;
+begin
+  try
+    FindFirst(ExtractFilePath(ParamStr(0)) + '*.rwc', faAnyFile, SearchRec);
+    repeat
+      DeleteFile(PWideChar(ExtractFilePath(ParamStr(0)) + SearchRec.name));
+    until FindNext(SearchRec) <> 0;
+  finally
+    SysUtils.FindClose(SearchRec);
+  end;
 end;
 
 end.

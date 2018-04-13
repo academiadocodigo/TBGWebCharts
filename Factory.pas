@@ -38,8 +38,9 @@ uses
   {$IFDEF FULL}
   Table,
   Cards,
+  Image,
   {$ENDIF}
-  Rows, Image;
+  Rows;
 
 function TModelHTMLFactory.ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
 begin
