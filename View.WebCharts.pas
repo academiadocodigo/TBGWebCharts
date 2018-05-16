@@ -8,7 +8,8 @@ uses
 Type
   iWebCharts = interface
     ['{D98D23CE-5E37-4941-89E3-92AF922ACE60}']
-    function NewProject : iModelHTML;
+    function NewProject : iModelHTML; overload;
+    function NewProject(Container : Boolean) : iModelHTML; overload;
     function ContinuosProject : iModelHTML;
     function AddResource(Value : String) : iWebCharts;
   end;
@@ -22,7 +23,8 @@ Type
       destructor Destroy; override;
       class function New : iWebCharts;
       function AddResource(Value : String) : iWebCharts;
-      function NewProject : iModelHTML;
+      function NewProject : iModelHTML; overload;
+      function NewProject(Container : Boolean) : iModelHTML; overload;
       function ContinuosProject : iModelHTML;
 
   end;
@@ -63,6 +65,14 @@ end;
 class function TWebCharts.New: iWebCharts;
 begin
   Result := Self.Create;
+end;
+
+function TWebCharts.NewProject(Container: Boolean): iModelHTML;
+begin
+  Result := TModelHTML.New;
+  Result.ClearHTML;
+  Result.Container(Container);
+  Result.GenerateHead(FCss);
 end;
 
 function TWebCharts.NewProject: iModelHTML;

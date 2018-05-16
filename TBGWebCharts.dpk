@@ -31,7 +31,8 @@ requires
   rtl,
   dbrtl,
   vcl,
-  vclie;
+  vclie,
+  fmx;
 
 contains
   Charts.Bar in 'Charts.Bar.pas',
@@ -62,6 +63,9 @@ contains
   Image in 'Image.pas',
   Image.DataSet in 'Image.DataSet.pas',
   Image.Classes in 'Image.Classes.pas',
-  Rows.P in 'Rows.P.pas';
+  Rows.P in 'Rows.P.pas',
+  Button in 'Button.pas',
+  Buttons.Classes in 'Buttons.Classes.pas',
+  CallBackJS in 'CallBackJS.pas';
 
 end.

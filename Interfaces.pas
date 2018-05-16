@@ -37,6 +37,8 @@ type
   IModelHTMLRowsDiv = interface;
   iModelCardsDataSet = interface;
   iModelCards = interface;
+  iModelButtonClass = interface;
+  iModelButton = interface;
   {$IF RTLVERSION > 20 }
     iCallbackJS = interface;
   {$IFEND}
@@ -60,11 +62,13 @@ type
     function ClearHTML : iModelHTML;
     function WebBrowser(Value : TWebBrowser) : iModelHTML;
     function Generated : iModelHTML;
+    function Container(Value : Boolean) : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
     {$IF RTLVERSION > 20 }
     function CallbackJS : iCallbackJS;
+    function Buttons : iModelButton;
     {$IFEND}
     function Image : iModelImage;
     //function CacheControl : iCacheControl;
@@ -301,10 +305,7 @@ type
 
   iCallbackJS = interface
     ['{B3DD9B36-2024-4763-96A3-DEC0F10F454A}']
-    function Parent (Value : iModelHTML) : iCallbackJS;
     function ClassProvider(Value : TObject) : iCallbackJS;
-    function WebBrowser(Value : TWebBrowser) : iCallbackJS;
-    function ActionMethod(Value : String) : iCallbackJS;
     function &End : iModelHTML;
   end;
 
@@ -335,6 +336,35 @@ type
     function ResultClass : String;
     function &End : iModelImage;
   end;
+
+  iModelButton = interface
+    ['{BF6585F7-1823-4604-8FE4-1305EF38833B}']
+    function ButtonClass : iModelButtonClass;
+    function CallbackLink(Param : String; Method : String) : iModelButton;
+    function Title(Value : String) : iModelButton;
+    function &End : iModelHTML;
+  end;
+
+  iModelButtonClass = interface
+  ['{E03B3D3A-2D23-4AC0-86E3-5C4F18B9A9CE}']
+    function primary : iModelButtonClass;
+    function secondary : iModelButtonClass;
+    function success : iModelButtonClass;
+    function danger : iModelButtonClass;
+    function warning : iModelButtonClass;
+    function info : iModelButtonClass;
+    function light : iModelButtonClass;
+    function dark : iModelButtonClass;
+    function outline : iModelButtonClass;
+    function small : iModelButtonClass;
+    function large : iModelButtonClass;
+    function block : iModelButtonClass;
+    function active : iModelButtonClass;
+    function disabled : iModelButtonClass;
+    function ResultClass : String;
+    function &End : iModelButton;
+  end;
+
 
 //  iCacheControl = interface
 //  ['{9DAA1668-B543-45B9-AFAE-E39BE919D610}']

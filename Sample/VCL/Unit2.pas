@@ -90,6 +90,7 @@ type
     Panel8: TPanel;
     ComboBox1: TComboBox;
     Carregar: TButton;
+    SpeedButton14: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -111,11 +112,13 @@ type
     procedure Button5Click(Sender: TObject);
     procedure CarregarClick(Sender: TObject);
     procedure testeClick(Sender: TObject);
+    procedure SpeedButton14Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     procedure RelCust(Value : Integer);
+    procedure ShowButtons(Value : String);
     procedure RelAvatar(Value : Currency);
     procedure RelContato(Value : String);
     procedure SampleWC(Value : Currency);
@@ -484,6 +487,11 @@ begin
   ShowMessage(CurrToStr(Value));
 end;
 
+procedure TForm2.ShowButtons(Value: String);
+begin
+  ShowMessage(Value);
+end;
+
 procedure TForm2.SpeedButton10Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
@@ -579,6 +587,148 @@ begin
     .Generated;
 end;
 
+procedure TForm2.SpeedButton14Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+
+  WebCharts1
+    .NewProject
+
+    .Buttons
+      .Title('Primary')
+      .ButtonClass
+        .primary
+      .&End
+      .CallbackLink('Primary', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('secondary')
+      .ButtonClass
+        .secondary
+      .&End
+      .CallbackLink('secondary', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('success')
+      .ButtonClass
+        .success
+      .&End
+      .CallbackLink('success', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('danger')
+      .ButtonClass
+        .danger
+      .&End
+      .CallbackLink('danger', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('warning')
+      .ButtonClass
+        .warning
+      .&End
+      .CallbackLink('warning', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('info')
+      .ButtonClass
+        .info
+      .&End
+      .CallbackLink('info', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('light')
+      .ButtonClass
+        .light
+      .&End
+      .CallbackLink('light', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('dark')
+      .ButtonClass
+        .dark
+      .&End
+      .CallbackLink('dark', 'ShowButtons')
+    .&End
+
+    .Jumpline
+    .Jumpline
+
+    .Buttons
+      .Title('outline')
+      .ButtonClass
+        .outline
+        .primary
+      .&End
+      .CallbackLink('outline', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('small')
+      .ButtonClass
+        .secondary
+        .small
+      .&End
+      .CallbackLink('small', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('large')
+      .ButtonClass
+        .success
+        .large
+      .&End
+      .CallbackLink('large', 'ShowButtons')
+    .&End
+
+    .Jumpline
+    .Jumpline
+
+    .Buttons
+      .Title('block')
+      .ButtonClass
+        .danger
+        .block
+      .&End
+      .CallbackLink('block', 'ShowButtons')
+    .&End
+
+    .Jumpline
+    .Jumpline
+
+    .Buttons
+      .Title('active')
+      .ButtonClass
+        .warning
+        .active
+      .&End
+      .CallbackLink('active', 'ShowButtons')
+    .&End
+
+    .Buttons
+      .Title('disabled')
+      .ButtonClass
+        .info
+        .disabled
+      .&End
+      .CallbackLink('disabled', 'ShowButtons')
+    .&End
+
+
+    .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
+    .Generated;
+end;
+
 procedure TForm2.SpeedButton1Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
@@ -648,7 +798,7 @@ begin
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-         .Title('Meu Gráfico de Barras')
+          .Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)

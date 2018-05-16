@@ -28,7 +28,7 @@ uses
   {$IFDEF HAS_FMX}
     FMX.ExtCtrls,
   {$ELSE}
-    ExtCtrls,
+    VCL.ExtCtrls,
   {$ENDIF}
   Injection;
 

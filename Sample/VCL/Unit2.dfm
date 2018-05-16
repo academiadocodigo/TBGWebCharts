@@ -174,7 +174,7 @@ object Form2: TForm2
         Left = 0
         Top = 0
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         BiDiMode = bdLeftToRight
         Caption = 'Bars'
@@ -191,9 +191,9 @@ object Form2: TForm2
       end
       object SpeedButton10: TSpeedButton
         Left = 0
-        Top = 50
+        Top = 40
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         BiDiMode = bdLeftToRight
         Caption = 'Horizontal Bar'
@@ -207,12 +207,13 @@ object Form2: TForm2
         ParentFont = False
         ParentBiDiMode = False
         OnClick = SpeedButton10Click
+        ExplicitTop = 50
       end
       object SpeedButton4: TSpeedButton
         Left = 0
-        Top = 100
+        Top = 80
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Lines'
         Flat = True
@@ -223,12 +224,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton4Click
+        ExplicitTop = 100
       end
       object SpeedButton6: TSpeedButton
         Left = 0
-        Top = 150
+        Top = 120
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'LineStacked'
         Flat = True
@@ -239,12 +241,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton6Click
+        ExplicitTop = 150
       end
       object SpeedButton7: TSpeedButton
         Left = 0
-        Top = 200
+        Top = 160
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Pie'
         Flat = True
@@ -255,12 +258,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton7Click
+        ExplicitTop = 200
       end
       object SpeedButton2: TSpeedButton
         Left = 0
-        Top = 250
+        Top = 200
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Doughnut'
         Flat = True
@@ -271,12 +275,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton2Click
+        ExplicitTop = 250
       end
       object SpeedButton8: TSpeedButton
         Left = 0
-        Top = 300
+        Top = 240
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Dashboard'
         Flat = True
@@ -287,12 +292,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton8Click
+        ExplicitTop = 300
       end
       object SpeedButton9: TSpeedButton
         Left = 0
-        Top = 350
+        Top = 280
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Dashboard 2'
         Flat = True
@@ -303,6 +309,7 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton9Click
+        ExplicitTop = 350
       end
       object SpeedButton5: TSpeedButton
         Left = 0
@@ -324,9 +331,9 @@ object Form2: TForm2
       end
       object SpeedButton1: TSpeedButton
         Left = 0
-        Top = 400
+        Top = 320
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Table Callback'
         Flat = True
@@ -337,13 +344,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton1Click
-        ExplicitTop = 506
+        ExplicitTop = 400
       end
       object SpeedButton11: TSpeedButton
         Left = 0
-        Top = 450
+        Top = 360
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Cards'
         Flat = True
@@ -354,14 +361,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton11Click
-        ExplicitLeft = -2
-        ExplicitTop = 456
+        ExplicitTop = 450
       end
       object SpeedButton12: TSpeedButton
         Left = 0
-        Top = 500
+        Top = 400
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'Images'
         Flat = True
@@ -372,14 +378,13 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton12Click
-        ExplicitLeft = -2
-        ExplicitTop = 578
+        ExplicitTop = 500
       end
       object SpeedButton13: TSpeedButton
         Left = 0
-        Top = 550
+        Top = 440
         Width = 185
-        Height = 50
+        Height = 40
         Align = alTop
         Caption = 'CallBack/Table/Image'
         Flat = True
@@ -390,8 +395,25 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton13Click
+        ExplicitTop = 550
+      end
+      object SpeedButton14: TSpeedButton
+        Left = 0
+        Top = 480
+        Width = 185
+        Height = 40
+        Align = alTop
+        Caption = 'Buttons'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        OnClick = SpeedButton14Click
         ExplicitLeft = -2
-        ExplicitTop = 606
+        ExplicitTop = 526
       end
     end
   end

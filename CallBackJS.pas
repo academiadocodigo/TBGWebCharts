@@ -5,7 +5,6 @@ unit CallBackJS;
 interface
 
 uses
-  Interfaces,
   {$IFDEF HAS_FMX}
     FMX.WebBrowser,
   {$ELSE}
@@ -17,27 +16,24 @@ uses
   Classes;
 
 Type
-  TCallBackJS = class(TInterfacedObject, iCallBackJS)
+  TCallBackJS = class
     private
-      FEnd : iModelHTML;
       FParent : TObject;
       FWebBrowser : TWebBrowser;
       FActionMethod : String;
-      function TryGetValue(Value : String; Params : TStringList) : Boolean;
-      function ClassProvider(Value : TObject) : iCallbackJS;
-      function WebBrowser(Value : TWebBrowser) : iCallbackJS;
-      function ActionMethod(Value : String) : iCallbackJS;
-      procedure BeforeNavigate(ASender: TObject; const pDisp: IDispatch; const URL, Flags, TargetFrameName, PostData, Headers: OleVariant; var Cancel: WordBool);
-      function &End : iModelHTML;
-      function Parent (Value : iModelHTML) : iCallbackJS;
     public
-      constructor Create(Parent : iModelHTML);
+      constructor Create;
       destructor Destroy; override;
-      class function New(Parent : iModelHTML) : iCallBackJS;
+      function TryGetValue(Value : String; Params : TStringList) : Boolean;
+      function ClassProvider(Value : TObject) : TCallBackJS;
+      function WebBrowser(Value : TWebBrowser) : TCallBackJS;
+      function ActionMethod(Value : String) : TCallBackJS;
+      procedure BeforeNavigate(ASender: TObject; const pDisp: IDispatch; const URL, Flags, TargetFrameName, PostData, Headers: OleVariant; var Cancel: WordBool);
+
     end;
 
 var
-  vCallBackJS : iCallBackJS;
+  vCallBackJS : TCallBackJS;
 
 implementation
 
@@ -48,15 +44,7 @@ uses
 
 { TCallBackJS }
 
-function TCallBackJS.&End: iModelHTML;
-begin
-  if not Assigned(FEnd) then
-    raise Exception.Create('Não foi injetada a dependencia para o Callback');
-
-  Result := FEnd;
-end;
-
-function TCallBackJS.ActionMethod(Value: String): iCallbackJS;
+function TCallBackJS.ActionMethod(Value: String): TCallBackJS;
 begin
   Result := Self;
   FActionMethod := Value;
@@ -86,34 +74,19 @@ begin
   end;
 end;
 
-function TCallBackJS.ClassProvider(Value: TObject): iCallbackJS;
+function TCallBackJS.ClassProvider(Value: TObject): TCallBackJS;
 begin
   Result := Self;
   FParent := Value;
 end;
 
-constructor TCallBackJS.Create(Parent : iModelHTML);
+constructor TCallBackJS.Create;
 begin
-  if Assigned(Parent) then
-    TInjection.Weak(@FEnd, Parent);
 end;
 
 destructor TCallBackJS.Destroy;
 begin
   inherited;
-end;
-
-class function TCallBackJS.New(Parent : iModelHTML): iCallBackJS;
-begin
-  Result := Self.Create(Parent);
-end;
-
-
-function TCallBackJS.Parent(Value: iModelHTML): iCallbackJS;
-begin
-  if Assigned(Value) then
-    TInjection.Weak(@FEnd, Value);
-  Result := Self;
 end;
 
 function TCallBackJS.TryGetValue(Value : String; Params : TStringList) : Boolean;
@@ -151,7 +124,7 @@ begin
   end;
 end;
 
-function TCallBackJS.WebBrowser(Value: TWebBrowser): iCallbackJS;
+function TCallBackJS.WebBrowser(Value: TWebBrowser): TCallBackJS;
 begin
   Result := Self;
   FWebBrowser := Value;
@@ -162,7 +135,10 @@ begin
 end;
 
 initialization
-  vCallBackJS := TCallBackJS.New(nil);
+  vCallBackJS := TCallBackJS.Create;
+
+finalization
+  FreeAndNil(vCallBackJS);
 
 end.
 

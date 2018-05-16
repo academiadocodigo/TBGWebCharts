@@ -8,7 +8,7 @@ uses
   Interfaces,
 
   Registry,
-  Dialogs,
+
   Generics.Collections,
   {$IFDEF HAS_FMX}
     FMX.StdCtrls,
@@ -17,24 +17,23 @@ uses
     StdCtrls,
     Buttons,
     SHDocVw,
+    Dialogs,
   {$ENDIF}
   {$IF RTLVERSION > 20 }
     {$IFDEF FULL}
       CallBackJS,
+      Button,
     {$ENDIF}
   {$IFEND}
   Classes;
 
 Type
-  TModelHTML = class(TInterfacedObject, iModelHTML)
+  TModelHTML = class(TInterfacedObject, iModelHTML, iCallbackJS)
   private
     FHTML: String;
     FWebBrowser: TWebBrowser;
-    {$IF RTLVERSION > 20 }
-      {$IFDEF FULL}
-        FCallBack : iCallbackJS;
-      {$ENDIF}
-    {$IFEND}
+    FContainer : Boolean;
+    function Container(Value : Boolean) : iModelHTML;
     procedure DefineIEVersion(Versao: Integer);
     procedure ExtractResources;
     procedure GeneratedCssResourcesList(var Lista : TStringList);
@@ -60,6 +59,9 @@ Type
     function Cards : iModelCards;
     {$IF RTLVERSION > 20 }
     function CallbackJS : iCallbackJS;
+    function Buttons : iModelButton;
+    function ClassProvider(Value : TObject) : iCallbackJS;
+    function &End : iModelHTML;
     {$IFEND}
     function Image : iModelImage;
     {$ENDIF}
@@ -68,9 +70,14 @@ Type
 implementation
 
 uses
-  Factory, SysUtils, Windows;
+  Factory, SysUtils, Windows, Injection;
 
 { TModelHTML }
+
+function TModelHTML.&End : iModelHTML;
+begin
+  Result := Self;
+end;
 
 function TModelHTML.Charts: iModelHTMLCharts;
 begin
@@ -83,18 +90,17 @@ begin
   FHTML := '';
 end;
 
+function TModelHTML.Container(Value: Boolean): iModelHTML;
+begin
+  Result := Self;
+  FContainer := Value;
+end;
+
 constructor TModelHTML.Create;
 begin
+  FContainer := True;
   DefineIEVersion(11000);
   ExtractResources;
-   {$IFDEF HAS_FMX}
-   {$ELSE}
-    {$IF RTLVERSION > 20 }
-      {$IFDEF FULL}
-        FCallBack := vCallBackJS.Parent(Self);
-      {$ENDIF}
-    {$IFEND}
-   {$ENDIF}
   _DeleteFileOld;
 end;
 
@@ -262,7 +268,8 @@ end;
 function TModelHTML.GenerateFooter: iModelHTML;
 begin
   Result := Self;
-  FHTML := FHTML + '</div> ';
+  if FContainer then
+    FHTML := FHTML + '</div> ';
   FHTML := FHTML + '</body> ';
   FHTML := FHTML + '</html> ';
 end;
@@ -294,8 +301,12 @@ begin
   end;
   FHTML := FHTML + '</head> ';
   FHTML := FHTML + '<body> ';
-  FHTML := FHTML + '<div class="container"> ';
-  FHTML := FHTML + '<br><br> ';
+  if FContainer then
+  begin
+    FHTML := FHTML + '<div class="container"> ';
+    FHTML := FHTML + '<br><br> ';
+  end;
+
 end;
 
 function TModelHTML.GenerateHead: iModelHTML;
@@ -318,7 +329,8 @@ begin
   FHTML := FHTML + '<script src="js/popper.js"></script>';
   FHTML := FHTML + '</head> ';
   FHTML := FHTML + '<body> ';
-  FHTML := FHTML + '<div class="container"> ';
+  if FContainer then
+    FHTML := FHTML + '<div class="container"> ';
   FHTML := FHTML + '<br><br> ';
 end;
 
@@ -361,9 +373,21 @@ begin
   if not Assigned(FWebBrowser) then
     raise Exception.Create('Para usar CallbackJS primeiro é preciso setar o WebBrowser');
 
-  Result := FCallBack
-              .WebBrowser(FWebBrowser)
-              .ActionMethod('ActionCallBackJS');
+  Result := Self;
+end;
+
+function TModelHTML.ClassProvider(Value : TObject) : iCallbackJS;
+begin
+  Result := Self;
+  vCallBackJS
+    .ClassProvider(Value)
+    .WebBrowser(FWebBrowser)
+    .ActionMethod('ActionCallBackJS');
+end;
+
+function TModelHTML.Buttons : iModelButton;
+begin
+  Result := TModelButton.New(Self);
 end;
 {$IFEND}
 
