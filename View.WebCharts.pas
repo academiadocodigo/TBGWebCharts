@@ -18,6 +18,8 @@ Type
     private
       FModelHTML : iModelHTML;
       FCss : TList<String>;
+    FFolderDefaultRWC: String;
+    procedure SetFolderDefaultRWC(const Value: String);
     public
       constructor Create;
       destructor Destroy; override;
@@ -26,7 +28,8 @@ Type
       function NewProject : iModelHTML; overload;
       function NewProject(Container : Boolean) : iModelHTML; overload;
       function ContinuosProject : iModelHTML;
-
+    published
+      property FolderDefaultRWC : String read FFolderDefaultRWC write SetFolderDefaultRWC;
   end;
 
 implementation
@@ -72,7 +75,13 @@ begin
   Result := TModelHTML.New;
   Result.ClearHTML;
   Result.Container(Container);
+  Result.FolderDefaultRWC(FFolderDefaultRWC);
   Result.GenerateHead(FCss);
+end;
+
+procedure TWebCharts.SetFolderDefaultRWC(const Value: String);
+begin
+  FFolderDefaultRWC := Value;
 end;
 
 function TWebCharts.NewProject: iModelHTML;
@@ -80,6 +89,7 @@ begin
   Result := TModelHTML.New;
   Result.ClearHTML;
   Result.GenerateHead(FCss);
+  Result.FolderDefaultRWC(FFolderDefaultRWC);
 end;
 
 end.

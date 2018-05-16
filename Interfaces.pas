@@ -63,6 +63,7 @@ type
     function WebBrowser(Value : TWebBrowser) : iModelHTML;
     function Generated : iModelHTML;
     function Container(Value : Boolean) : iModelHTML;
+    function FolderDefaultRWC(Value : String) : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;

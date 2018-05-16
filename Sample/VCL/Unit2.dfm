@@ -64,10 +64,6 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Panel5: TPanel
           Left = -4
           Top = 320
@@ -446,6 +442,7 @@ object Form2: TForm2
     Top = 346
   end
   object WebCharts1: TWebCharts
+    FolderDefaultRWC = 'D:\Nova pasta\'
     Left = 269
     Top = 113
   end

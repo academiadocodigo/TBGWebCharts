@@ -33,12 +33,14 @@ Type
     FHTML: String;
     FWebBrowser: TWebBrowser;
     FContainer : Boolean;
+    FFolderDefaultRWC : String;
     function Container(Value : Boolean) : iModelHTML;
     procedure DefineIEVersion(Versao: Integer);
     procedure ExtractResources;
     procedure GeneratedCssResourcesList(var Lista : TStringList);
     procedure GeneratedJSResourcesList(var Lista : TStringList);
     procedure _DeleteFileOld;
+    function FolderDefaultRWC(Value : String) : iModelHTML;
   public
     constructor Create;
     destructor Destroy; override;
@@ -143,19 +145,21 @@ var
   Lista : TStringList;
   I : Integer;
 begin
-  if not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'css' ) then
-    ForceDirectories(ExtractFilePath(ParamStr(0)) + 'css');
+  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+
+  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
+    ForceDirectories(FFolderDefaultRWC + 'css');
 
   Lista := TStringList.Create;
   try
     GeneratedCssResourcesList(Lista);
      for I := 0 to Pred(Lista.Count) do
      begin
-      if not FileExists(ExtractFilePath(ParamStr(0)) + 'css\' + Lista[I]) then
+      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
       begin
         Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
         try
-          Arq.SaveToFile(ExtractFilePath(ParamStr(0)) + 'css\' + Lista[I]);
+          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
         finally
           FreeAndNil(Arq);
         end;
@@ -165,19 +169,19 @@ begin
     Lista.Free;
   end;
 
-  if not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'js' ) then
-    ForceDirectories(ExtractFilePath(ParamStr(0)) + 'js');
+  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
+    ForceDirectories(FFolderDefaultRWC + 'js');
 
   Lista := TStringList.Create;
   try
     GeneratedJSResourcesList(Lista);
      for I := 0 to Pred(Lista.Count) do
      begin
-      if not FileExists(ExtractFilePath(ParamStr(0)) + 'js\' + Lista[I]) then
+      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
       begin
         Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
         try
-          Arq.SaveToFile(ExtractFilePath(ParamStr(0)) + 'js\' + Lista[I]);
+          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
         finally
           FreeAndNil(Arq);
         end;
@@ -189,11 +193,21 @@ begin
 
 end;
 
+function TModelHTML.FolderDefaultRWC(Value : String) : iModelHTML;
+begin
+  Result := Self;
+  FFolderDefaultRWC := Value;
+  ExtractResources;
+  _DeleteFileOld;
+end;
+
 function TModelHTML.Generated: iModelHTML;
 var
   SL: TStringList;
   Arquivo: string;
 begin
+  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+
   GenerateFooter;
   {$IFDEF HAS_FMX}
   {$ELSE}
@@ -203,9 +217,10 @@ begin
   try
       SL.Add(FHTML);
       Arquivo := FormatDateTime('{ddhhyyyyMMnnss-MMyyyyhhssdd}', now) + '.rwc';
-      SL.SaveToFile(ExtractFilePath(ParamStr(0)) + Arquivo, TEncoding.UTF8);
+      if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+      SL.SaveToFile(FFolderDefaultRWC + Arquivo, TEncoding.UTF8);
   finally
-      FWebBrowser.Navigate(WideString(ExtractFilePath(ParamStr(0)) + Arquivo));
+      FWebBrowser.Navigate(WideString(FFolderDefaultRWC + Arquivo));
     SL.Free;
   end;
 end;
@@ -413,10 +428,12 @@ procedure TModelHTML._DeleteFileOld;
 var
   SearchRec: TSearchRec;
 begin
+  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+
   try
-    FindFirst(ExtractFilePath(ParamStr(0)) + '*.rwc', faAnyFile, SearchRec);
+    FindFirst(FFolderDefaultRWC + '*.rwc', faAnyFile, SearchRec);
     repeat
-      DeleteFile(PWideChar(ExtractFilePath(ParamStr(0)) + SearchRec.name));
+      DeleteFile(PWideChar(FFolderDefaultRWC + SearchRec.name));
     until FindNext(SearchRec) <> 0;
   finally
     SysUtils.FindClose(SearchRec);
