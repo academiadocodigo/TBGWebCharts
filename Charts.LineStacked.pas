@@ -34,13 +34,14 @@ begin
   FParent.HTML('<div class="col-'+IntToStr(FConfig.ColSpan)+'">  ');
   FParent.HTML('<canvas id="'+FConfig.Name+'" ');
   if FConfig.Width > 0 then
-    FParent.HTML('width="'+IntToStr(FConfig.Width)+'" ');
+    FParent.HTML('width="'+IntToStr(FConfig.Width)+'px" ');
   if FConfig.Heigth > 0 then
-    FParent.HTML('height="'+IntToStr(FConfig.Heigth)+'" ');
+    FParent.HTML('height="'+IntToStr(FConfig.Heigth)+'px" ');
   FParent.HTML('></canvas>  ');
   FParent.HTML('<script>  ');
-  FParent.HTML('var MONTHS = '+FConfig.ResultLabels+';  ');
-  FParent.HTML('var config = { ');
+
+  FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
+  FParent.HTML('var myChart = new Chart(ctx, { ');
   FParent.HTML('type: ''line'', ');
   FParent.HTML('data: { ');
   FParent.HTML('labels: '+FConfig.ResultLabels+',  ');
@@ -48,23 +49,7 @@ begin
   FParent.HTML(FConfig.ResultDataSet);
   FParent.HTML(']  ');
   FParent.HTML('}, ');
-  FParent.HTML('options: { ');
-  FParent.HTML('responsive: true, ');
-  FParent.HTML('title: { ');
-  FParent.HTML('display: true, ');
-  FParent.HTML('text: '''+FConfig.Title+''' ');
-  FParent.HTML('}, ');
-  FParent.HTML('legend: { ');
-  FParent.HTML('position: ''top'', ');
-  if not FConfig.Legend then
-    FParent.HTML('display: false, ');
-  FParent.HTML('}, ');
-  FParent.HTML('tooltips: { ');
-  FParent.HTML('mode: ''index'', ');
-  FParent.HTML('}, ');
-  FParent.HTML('hover: { ');
-  FParent.HTML('mode: ''index'' ');
-  FParent.HTML('}, ');
+  FParent.HTML('options: {');
   FParent.HTML('scales: { ');
   FParent.HTML('xAxes: [{ ');
   FParent.HTML('scaleLabel: { ');
@@ -77,14 +62,9 @@ begin
   FParent.HTML('display: true, ');
   FParent.HTML('} ');
   FParent.HTML('}] ');
-  FParent.HTML('} ');
-  FParent.HTML('} ');
-  FParent.HTML('}; ');
-  FParent.HTML(' ');
-  FParent.HTML('window.onload = function() { ');
-  FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
-  FParent.HTML('window.myLine = new Chart(ctx, config); ');
-  FParent.HTML('}; ');
+  FParent.HTML('}, ');
+  FParent.HTML('responsive: true, legend: { position: ''top'', }, title: { display: true, text: '''+FConfig.Title+''' } }, ');
+  FParent.HTML('}); ');
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
 end;

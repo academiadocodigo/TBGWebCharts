@@ -843,6 +843,29 @@ begin
           .&End
         .&End
       .&End
+      .Charts
+        .Lines
+          .Attributes
+            .Name('Meu Grafico de Barras')
+            .ColSpan(12)
+            .Title('Meu Grafico de Barras')
+            .DataSet
+              .textLabel('Meu DataSet 1')
+              .DataSet(ClientDataSet1)
+              .BackgroundColor('227,233,235')
+              .BorderColor('227,233,235')
+              .Fill('false')
+            .&End
+            .DataSet
+              .textLabel('Meu DataSet 2')
+              .DataSet(ClientDataSet2)
+              .BackgroundColor('30,182,203')
+              .BorderColor('30,182,203')
+              .Fill('false')
+            .&End
+          .&End
+        .&End
+      .&End
     .WebBrowser(WebBrowser1)
     .Generated;
 end;
