@@ -49,7 +49,7 @@ begin
   FParent.HTML(FConfig.ResultDataSet);
   FParent.HTML(']  ');
   FParent.HTML('}, ');
-  FParent.HTML('options: { responsive: true, legend: { position: ''top'', }, title: { display: true, text: '''+FConfig.Title+''' } }, ');
+  FParent.HTML('options: {  scales: { yAxes: [{ ticks: { beginAtZero: true } }] }, responsive: true, legend: { position: ''top'', }, title: { display: true, text: '''+FConfig.Title+''' } }, ');
   FParent.HTML('}); ');
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
