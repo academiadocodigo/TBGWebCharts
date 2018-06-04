@@ -3,7 +3,7 @@ unit Buttons.Classes;
 interface
 
 uses
-  Interfaces, System.Generics.Collections;
+  Interfaces, Generics.Collections;
 
 Type
   TModelButtonClass = class(TInterfacedObject, iModelButtonClass)
