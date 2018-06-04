@@ -1,5 +1,6 @@
 package TBGWebCharts;
 
+{$I TBGWebCharts.inc}
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
@@ -29,10 +30,13 @@ package TBGWebCharts;
 
 requires
   rtl,
-  dbrtl,
+  {$IFDEF HAS_FMX}
+  fmx,
+  {$ELSE}
   vcl,
   vclie,
-  fmx;
+  {$ENDIF}
+  dbrtl;
 
 contains
   Charts.Bar in 'Charts.Bar.pas',
