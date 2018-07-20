@@ -28,7 +28,12 @@ uses
   {$IFDEF HAS_FMX}
     FMX.ExtCtrls,
   {$ELSE}
-    ExtCtrls,
+    {$IF RTLVERSION > 20 }
+      VCL.ExtCtrls,
+    {$IFEND}
+    {$IF RTLVERSION < 20 }
+      ExtCtrls,
+    {$IFEND}
   {$ENDIF}
   Injection;
 

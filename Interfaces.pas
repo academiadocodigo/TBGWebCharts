@@ -12,8 +12,14 @@ uses
     FMX.WebBrowser,
   {$ELSE}
     SHDocVw,
-    StdCtrls,
-    Buttons,
+    {$IF RTLVERSION > 20 }
+      VCL.StdCtrls,
+      VCL.Buttons,
+    {$IFEND}
+    {$IF RTLVERSION < 20 }
+      StdCtrls,
+      Buttons,
+    {$IFEND}
   {$ENDIF}
    Classes;
 

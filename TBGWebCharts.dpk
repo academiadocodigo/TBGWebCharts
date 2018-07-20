@@ -1,7 +1,7 @@
 package TBGWebCharts;
 
-{$I TBGWebCharts.inc}
 {$R *.res}
+{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -30,12 +30,8 @@ package TBGWebCharts;
 
 requires
   rtl,
-  {$IFDEF HAS_FMX}
-  fmx,
-  {$ELSE}
   vcl,
   vclie,
-  {$ENDIF}
   dbrtl;
 
 contains
@@ -67,9 +63,13 @@ contains
   Image in 'Image.pas',
   Image.DataSet in 'Image.DataSet.pas',
   Image.Classes in 'Image.Classes.pas',
-  Rows.P in 'Rows.P.pas',
-  Button in 'Button.pas',
-  Buttons.Classes in 'Buttons.Classes.pas',
-  CallBackJS in 'CallBackJS.pas';
+  {$IF RTLVERSION > 20 }
+    {$IFDEF FULL}
+      Button in 'Button.pas',
+      Buttons.Classes in 'Buttons.Classes.pas',
+      CallBackJS in 'CallBackJS.pas',
+    {$ENDIF}
+  {$IFEND}
+  Rows.P in 'Rows.P.pas';
 
 end.

@@ -14,10 +14,21 @@ uses
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
-    StdCtrls,
-    Buttons,
-    SHDocVw,
-    Dialogs,
+    {$IF RTLVERSION > 20 }
+      VCL.StdCtrls,
+      VCL.Buttons,
+      SHDocVw,
+      VCL.Dialogs,
+    {$IFEND}
+    {$IF RTLVERSION < 20 }
+      StdCtrls,
+      Buttons,
+      SHDocVw,
+      Dialogs,
+    {$IFEND}
+
+
+
   {$ENDIF}
   {$IF RTLVERSION > 20 }
     {$IFDEF FULL}
