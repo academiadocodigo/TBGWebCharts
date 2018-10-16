@@ -11,10 +11,10 @@ uses
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
-    SHDocVw,
     {$IF RTLVERSION > 20 }
       VCL.StdCtrls,
       VCL.Buttons,
+      SHDocVw,
     {$IFEND}
     {$IF RTLVERSION < 20 }
       StdCtrls,
@@ -216,6 +216,7 @@ type
     function Fill (Value : String) : iModelHTMLDataSet<T>;
     function ResultScript : String;
     function ResultLabels : String;
+    function Types (Value : String) : iModelHTMLDataSet<T>;
     function &End : T;
   end;
 
@@ -372,6 +373,15 @@ type
     function &End : iModelButton;
   end;
 
+  iModelCSS = interface
+    ['{DBC52618-B95B-4871-9BC5-632B7737F2FD}']
+    function PackCSS : String;
+  end;
+
+  iModelJS = interface
+    ['{CB37AC61-A8D6-4CEB-BFD1-FDC26CDEB2AA}']
+    function PackJS : String;
+  end;
 
 //  iCacheControl = interface
 //  ['{9DAA1668-B543-45B9-AFAE-E39BE919D610}']

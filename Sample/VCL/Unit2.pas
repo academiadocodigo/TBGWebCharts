@@ -91,6 +91,7 @@ type
     ComboBox1: TComboBox;
     Carregar: TButton;
     SpeedButton14: TSpeedButton;
+    SpeedButton15: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -113,6 +114,7 @@ type
     procedure CarregarClick(Sender: TObject);
     procedure testeClick(Sender: TObject);
     procedure SpeedButton14Click(Sender: TObject);
+    procedure SpeedButton15Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -727,6 +729,51 @@ begin
       .ClassProvider(Self)
     .&End
     .Generated;
+end;
+
+procedure TForm2.SpeedButton15Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Configuracoes
+          .H1('Gráfico de Barras')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      .Bar
+        .Attributes
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Title('Meu Gráfico de Barras')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+            .Types('line')
+            .Fill('false')
+            .BorderWidth(2)
+            .BorderColor('30,182,203')
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+            .Types('bar')
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet2)
+            .Types('bar')
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
 end;
 
 procedure TForm2.SpeedButton1Click(Sender: TObject);

@@ -67,39 +67,6 @@ begin
   FParent.HTML('}); ');
   FParent.HTML('</script>  ');
   FParent.HTML('</div>');
-
-
-
-
-//
-//  Result := FParent;
-//  FParent.HTML('<div class="col-'+IntToStr(FConfig.ColSpan)+'">  ');
-//  FParent.HTML('<canvas id="'+FConfig.Name+'" ');
-//  if FConfig.Width > 0 then
-//    FParent.HTML('width="'+IntToStr(FConfig.Width)+'" ');
-//  if FConfig.Heigth > 0 then
-//    FParent.HTML('height="'+IntToStr(FConfig.Heigth)+'" ');
-//  FParent.HTML('></canvas>  ');
-//  FParent.HTML('<script>  ');
-//  FParent.HTML('var config = { ');
-//  FParent.HTML('type: ''pie'', ');
-//  FParent.HTML('data: { ');
-//  FParent.HTML('datasets: [  ');
-//  FParent.HTML(FConfig.ResultDataSet);
-//  FParent.HTML('],  ');
-//  FParent.HTML('labels: '+FConfig.ResultLabels+',  ');
-//  FParent.HTML('}, ');
-//  FParent.HTML('options: { ');
-//  FParent.HTML('responsive: true ');
-//  FParent.HTML('} ');
-//  FParent.HTML('}; ');
-//  FParent.HTML(' ');
-//  FParent.HTML('window.onload = function() { ');
-//  FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
-//  FParent.HTML('window.myPie = new Chart(ctx, config); ');
-//  FParent.HTML('}; ');
-//  FParent.HTML('</script>  ');
-//  FParent.HTML('</div>  ');
 end;
 
 function TModelHTMLChartsPie.HTML: String;

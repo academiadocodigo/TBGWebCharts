@@ -7,24 +7,30 @@ interface
 uses
   Interfaces,
 
-  Registry,
-
   Generics.Collections,
   {$IFDEF HAS_FMX}
-    FMX.StdCtrls,
-    FMX.WebBrowser,
+    {$IFDEF ANDROID}
+      FMX.StdCtrls,
+      FMX.WebBrowser,
+    {$ELSE}
+      FMX.StdCtrls,
+      FMX.WebBrowser,
+      Registry,
+    {$IFEND}
   {$ELSE}
     {$IF RTLVERSION > 20 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
       VCL.Dialogs,
+      Registry,
     {$IFEND}
     {$IF RTLVERSION < 20 }
       StdCtrls,
       Buttons,
       SHDocVw,
       Dialogs,
+      Registry,
     {$IFEND}
 
 
@@ -36,7 +42,7 @@ uses
       Button,
     {$ENDIF}
   {$IFEND}
-  Classes;
+  Classes, PackJS, PackCss;
 
 Type
   TModelHTML = class(TInterfacedObject, iModelHTML, iCallbackJS)
@@ -46,8 +52,11 @@ Type
     FContainer : Boolean;
     FFolderDefaultRWC : String;
     function Container(Value : Boolean) : iModelHTML;
+   {$IFDEF HAS_FMX}
+   {$ELSE}
     procedure DefineIEVersion(Versao: Integer);
-    procedure ExtractResources;
+    //procedure ExtractResources;
+    {$IFEND}
     procedure GeneratedCssResourcesList(var Lista : TStringList);
     procedure GeneratedJSResourcesList(var Lista : TStringList);
     procedure _DeleteFileOld;
@@ -83,7 +92,12 @@ Type
 implementation
 
 uses
-  Factory, SysUtils, Windows, Injection;
+  Factory, SysUtils,
+  {$IFDEF HAS_FMX}
+   {$ELSE}
+    Windows,
+  {$IFEND}
+  Injection;
 
 { TModelHTML }
 
@@ -112,11 +126,16 @@ end;
 constructor TModelHTML.Create;
 begin
   FContainer := True;
+  {$IFDEF HAS_FMX}
+  {$ELSE}
   DefineIEVersion(11000);
-  ExtractResources;
+  //ExtractResources;
+  {$IFEND}
   _DeleteFileOld;
 end;
 
+{$IFDEF HAS_FMX}
+{$ELSE}
 procedure TModelHTML.DefineIEVersion(Versao: Integer);
 const
   REG_KEY = 'Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION';
@@ -144,71 +163,74 @@ begin
   if (Assigned(Reg)) then
     FreeAndNil(Reg);
 end;
-
+{$IFEND}
 destructor TModelHTML.Destroy;
 begin
   inherited;
 end;
 
-procedure TModelHTML.ExtractResources;
-var
-  Arq : TResourceStream;
-  Lista : TStringList;
-  I : Integer;
-begin
-  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
-
-  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
-    ForceDirectories(FFolderDefaultRWC + 'css');
-
-  Lista := TStringList.Create;
-  try
-    GeneratedCssResourcesList(Lista);
-     for I := 0 to Pred(Lista.Count) do
-     begin
-      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
-      begin
-        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
-        try
-          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
-        finally
-          FreeAndNil(Arq);
-        end;
-      end;
-     end;
-  finally
-    Lista.Free;
-  end;
-
-  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
-    ForceDirectories(FFolderDefaultRWC + 'js');
-
-  Lista := TStringList.Create;
-  try
-    GeneratedJSResourcesList(Lista);
-     for I := 0 to Pred(Lista.Count) do
-     begin
-      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
-      begin
-        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
-        try
-          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
-        finally
-          FreeAndNil(Arq);
-        end;
-      end;
-     end;
-  finally
-    Lista.Free;
-  end;
-
-end;
-
+{$IFDEF HAS_FMX}
+{$ELSE}
+//procedure TModelHTML.ExtractResources;
+//var
+//  Arq : TResourceStream;
+//  Lista : TStringList;
+//  I : Integer;
+//begin
+//  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+//
+//  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
+//    ForceDirectories(FFolderDefaultRWC + 'css');
+//
+//  Lista := TStringList.Create;
+//  try
+//    GeneratedCssResourcesList(Lista);
+//     for I := 0 to Pred(Lista.Count) do
+//     begin
+//      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
+//      begin
+//        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
+//        try
+//          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
+//        finally
+//          FreeAndNil(Arq);
+//        end;
+//      end;
+//     end;
+//  finally
+//    Lista.Free;
+//  end;
+//
+//  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
+//    ForceDirectories(FFolderDefaultRWC + 'js');
+//
+//  Lista := TStringList.Create;
+//  try
+//     for I := 0 to Pred(Lista.Count) do
+//     begin
+//      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
+//      begin
+//        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
+//        try
+//          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
+//        finally
+//          FreeAndNil(Arq);
+//        end;
+//      end;
+//     end;
+//  finally
+//    Lista.Free;
+//  end;
+//end;
+{$IFEND}
 function TModelHTML.FolderDefaultRWC(Value : String) : iModelHTML;
 begin
   Result := Self;
   FFolderDefaultRWC := Value;
-  ExtractResources;
+  {$IFDEF HAS_FMX}
+  {$ELSE}
+  //ExtractResources;
+  {$ENDIF}
   _DeleteFileOld;
 end;
 
@@ -221,9 +243,9 @@ begin
 
   GenerateFooter;
   {$IFDEF HAS_FMX}
+  FWebBrowser.LoadFromStrings(FHTML,'TBG');
   {$ELSE}
     FWebBrowser.Silent := True;
-  {$ENDIF}
   SL := TStringList.Create;
   try
       SL.Add(FHTML);
@@ -231,9 +253,11 @@ begin
       if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
       SL.SaveToFile(FFolderDefaultRWC + Arquivo, TEncoding.UTF8);
   finally
+
       FWebBrowser.Navigate(WideString(FFolderDefaultRWC + Arquivo));
     SL.Free;
   end;
+  {$ENDIF}
 end;
 
 procedure TModelHTML.GeneratedCssResourcesList(var Lista: TStringList);
@@ -311,15 +335,8 @@ begin
   FHTML := FHTML + '<meta charset="UTF-8"> ';
   FHTML := FHTML + '<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
   FHTML := FHTML + '<title></title> ';
-  FHTML := FHTML + '<link rel="stylesheet" href="css/bootstrap.min.css"> ';
-  FHTML := FHTML + '<script defer src="js/fontawesome-all.js"></script>';
-  FHTML := FHTML + '<script src="js/Chart.min.js"></script> ';
-  FHTML := FHTML + '<script src="js/jquery-3.3.1.min.js"></script> ';
-  FHTML := FHTML + '<script src="js/tether.min.js"></script> ';
-  FHTML := FHTML + '<script src="js/bootstrap.min.js" ></script> ';
-  FHTML := FHTML + '<script src="js/Chart.bundle.js"></script> ';
-  FHTML := FHTML + '<script src="js/utils.js"></script>';
-  FHTML := FHTML + '<script src="js/popper.js"></script>';
+  FHTML := FHTML + TPackCss.New.PackCSS;
+  FHTML := FHTML + TPackJS.New.PackJS;
   if Assigned(Value) then
   begin
     for I := 0 to Pred(Value.Count) do
