@@ -55,7 +55,7 @@ Type
    {$IFDEF HAS_FMX}
    {$ELSE}
     procedure DefineIEVersion(Versao: Integer);
-    procedure ExtractResources;
+    //procedure ExtractResources;
     {$IFEND}
     procedure GeneratedCssResourcesList(var Lista : TStringList);
     procedure GeneratedJSResourcesList(var Lista : TStringList);
@@ -129,7 +129,7 @@ begin
   {$IFDEF HAS_FMX}
   {$ELSE}
   DefineIEVersion(11000);
-  ExtractResources;
+  //ExtractResources;
   {$IFEND}
   _DeleteFileOld;
 end;
@@ -171,57 +171,57 @@ end;
 
 {$IFDEF HAS_FMX}
 {$ELSE}
-procedure TModelHTML.ExtractResources;
-var
-  Arq : TResourceStream;
-  Lista : TStringList;
-  I : Integer;
-begin
-  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
-
-  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
-    ForceDirectories(FFolderDefaultRWC + 'css');
-
-  Lista := TStringList.Create;
-  try
-    GeneratedCssResourcesList(Lista);
-     for I := 0 to Pred(Lista.Count) do
-     begin
-      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
-      begin
-        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
-        try
-          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
-        finally
-          FreeAndNil(Arq);
-        end;
-      end;
-     end;
-  finally
-    Lista.Free;
-  end;
-
-  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
-    ForceDirectories(FFolderDefaultRWC + 'js');
-
-  Lista := TStringList.Create;
-  try
-     for I := 0 to Pred(Lista.Count) do
-     begin
-      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
-      begin
-        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
-        try
-          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
-        finally
-          FreeAndNil(Arq);
-        end;
-      end;
-     end;
-  finally
-    Lista.Free;
-  end;
-end;
+//procedure TModelHTML.ExtractResources;
+//var
+//  Arq : TResourceStream;
+//  Lista : TStringList;
+//  I : Integer;
+//begin
+//  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+//
+//  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
+//    ForceDirectories(FFolderDefaultRWC + 'css');
+//
+//  Lista := TStringList.Create;
+//  try
+//    GeneratedCssResourcesList(Lista);
+//     for I := 0 to Pred(Lista.Count) do
+//     begin
+//      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
+//      begin
+//        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
+//        try
+//          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
+//        finally
+//          FreeAndNil(Arq);
+//        end;
+//      end;
+//     end;
+//  finally
+//    Lista.Free;
+//  end;
+//
+//  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
+//    ForceDirectories(FFolderDefaultRWC + 'js');
+//
+//  Lista := TStringList.Create;
+//  try
+//     for I := 0 to Pred(Lista.Count) do
+//     begin
+//      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
+//      begin
+//        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
+//        try
+//          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
+//        finally
+//          FreeAndNil(Arq);
+//        end;
+//      end;
+//     end;
+//  finally
+//    Lista.Free;
+//  end;
+//end;
 {$IFEND}
 function TModelHTML.FolderDefaultRWC(Value : String) : iModelHTML;
 begin
@@ -229,7 +229,7 @@ begin
   FFolderDefaultRWC := Value;
   {$IFDEF HAS_FMX}
   {$ELSE}
-  ExtractResources;
+  //ExtractResources;
   {$ENDIF}
   _DeleteFileOld;
 end;
