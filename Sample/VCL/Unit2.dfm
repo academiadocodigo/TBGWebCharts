@@ -184,10 +184,11 @@ object Form2: TForm2
         ParentFont = False
         ParentBiDiMode = False
         OnClick = SpeedButton3Click
+        ExplicitLeft = -2
       end
       object SpeedButton10: TSpeedButton
         Left = 0
-        Top = 40
+        Top = 80
         Width = 185
         Height = 40
         Align = alTop
@@ -207,7 +208,7 @@ object Form2: TForm2
       end
       object SpeedButton4: TSpeedButton
         Left = 0
-        Top = 80
+        Top = 120
         Width = 185
         Height = 40
         Align = alTop
@@ -224,7 +225,7 @@ object Form2: TForm2
       end
       object SpeedButton6: TSpeedButton
         Left = 0
-        Top = 120
+        Top = 160
         Width = 185
         Height = 40
         Align = alTop
@@ -241,7 +242,7 @@ object Form2: TForm2
       end
       object SpeedButton7: TSpeedButton
         Left = 0
-        Top = 160
+        Top = 200
         Width = 185
         Height = 40
         Align = alTop
@@ -254,11 +255,10 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton7Click
-        ExplicitTop = 200
       end
       object SpeedButton2: TSpeedButton
         Left = 0
-        Top = 200
+        Top = 240
         Width = 185
         Height = 40
         Align = alTop
@@ -275,7 +275,7 @@ object Form2: TForm2
       end
       object SpeedButton8: TSpeedButton
         Left = 0
-        Top = 240
+        Top = 280
         Width = 185
         Height = 40
         Align = alTop
@@ -292,7 +292,7 @@ object Form2: TForm2
       end
       object SpeedButton9: TSpeedButton
         Left = 0
-        Top = 280
+        Top = 320
         Width = 185
         Height = 40
         Align = alTop
@@ -327,7 +327,7 @@ object Form2: TForm2
       end
       object SpeedButton1: TSpeedButton
         Left = 0
-        Top = 320
+        Top = 360
         Width = 185
         Height = 40
         Align = alTop
@@ -344,7 +344,7 @@ object Form2: TForm2
       end
       object SpeedButton11: TSpeedButton
         Left = 0
-        Top = 360
+        Top = 400
         Width = 185
         Height = 40
         Align = alTop
@@ -361,7 +361,7 @@ object Form2: TForm2
       end
       object SpeedButton12: TSpeedButton
         Left = 0
-        Top = 400
+        Top = 440
         Width = 185
         Height = 40
         Align = alTop
@@ -378,7 +378,7 @@ object Form2: TForm2
       end
       object SpeedButton13: TSpeedButton
         Left = 0
-        Top = 440
+        Top = 480
         Width = 185
         Height = 40
         Align = alTop
@@ -395,7 +395,7 @@ object Form2: TForm2
       end
       object SpeedButton14: TSpeedButton
         Left = 0
-        Top = 480
+        Top = 520
         Width = 185
         Height = 40
         Align = alTop
@@ -410,6 +410,26 @@ object Form2: TForm2
         OnClick = SpeedButton14Click
         ExplicitLeft = -2
         ExplicitTop = 526
+      end
+      object SpeedButton15: TSpeedButton
+        Left = 0
+        Top = 40
+        Width = 185
+        Height = 40
+        Align = alTop
+        BiDiMode = bdLeftToRight
+        Caption = 'Bars/Lines'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        Font.Quality = fqClearType
+        ParentFont = False
+        ParentBiDiMode = False
+        OnClick = SpeedButton15Click
+        ExplicitTop = 34
       end
     end
   end
@@ -442,7 +462,6 @@ object Form2: TForm2
     Top = 346
   end
   object WebCharts1: TWebCharts
-    FolderDefaultRWC = 'D:\Nova pasta\'
     Left = 269
     Top = 113
   end

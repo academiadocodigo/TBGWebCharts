@@ -26,7 +26,7 @@ implementation
 uses
   SysUtils,
   {$IFDEF HAS_FMX}
-    FMX.ExtCtrls,
+      FMX.ExtCtrls,
   {$ELSE}
     {$IF RTLVERSION > 20 }
       VCL.ExtCtrls,

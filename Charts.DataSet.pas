@@ -3,7 +3,7 @@ unit Charts.DataSet;
 interface
 
 uses
-  Interfaces, DB;
+  Interfaces, DB, System.SysUtils;
 
 Type
   TModelHTMLChartsDataSet<T : IInterface> = class(TInterfacedObject, iModelHTMLDataSet<T>)
@@ -18,12 +18,14 @@ Type
       FFill : String;
       FScript : String;
       FLabels : String;
+      FTypes : String;
       procedure generatedLabel;
       procedure generatedBackgroundColor;
       procedure generatedBorderColor;
       procedure generatedBorderWidth;
       procedure generatedData;
       procedure generatedFill;
+      function replaceValue(Value, Masc1, Masc2 : String) : String;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -37,6 +39,7 @@ Type
       function Fill (Value : String) : iModelHTMLDataSet<T>;
       function ResultScript : String;
       function ResultLabels : String;
+      function Types (Value : String) : iModelHTMLDataSet<T>;
       function &End : T;
   end;
 
@@ -150,7 +153,7 @@ begin
   begin
     if I = Pred(FDataSet.RecordCount) then
       Aux := '';
-    FData := FData + FDataSet.FieldByName('Value').AsString + Aux;
+    FData := FData + replaceValue(replaceValue(FDataSet.FieldByName('Value').AsString,'.',''),',','.') + Aux;
     FDataSet.Next;
   end;
   FData := FData + ']';
@@ -169,6 +172,11 @@ end;
 class function TModelHTMLChartsDataSet<T>.New(Parent : T): iModelHTMLDataSet<T>;
 begin
   Result := Self.Create(Parent);
+end;
+
+function TModelHTMLChartsDataSet<T>.replaceValue(Value, Masc1, Masc2: String): String;
+begin
+  result := stringreplace(value, Masc1, Masc2,[rfReplaceAll, rfIgnoreCase]);;
 end;
 
 function TModelHTMLChartsDataSet<T>.ResultLabels: String;
@@ -201,6 +209,7 @@ begin
   generatedData;
   generatedFill;
   FScript := FScript + '{' + #13;
+  if FTypes <> '' then FScript := FScript + 'type : '''+FTypes+''', ' + #13;
   FScript := FScript + 'label: '''+FtextLabel+''', ' + #13;
   if FBackgroundColor <> '' then
     FScript := FScript + 'backgroundColor: '+FBackgroundColor+', ' + #13;
@@ -219,6 +228,12 @@ function TModelHTMLChartsDataSet<T>.textLabel(
 begin
   Result := Self;
   FtextLabel := Value;
+end;
+
+function TModelHTMLChartsDataSet<T>.Types(Value: String): iModelHTMLDataSet<T>;
+begin
+  Result := Self;
+  FTypes := Value;
 end;
 
 end.

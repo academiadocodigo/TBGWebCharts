@@ -38,7 +38,12 @@ var
 implementation
 
 uses
-  System.TypInfo, Vcl.Forms, Injection;
+  System.TypInfo,
+  {$IFDEF HAS_FMX}
+  {$ELSE}
+  Vcl.Forms,
+  {$IFEND}
+  Injection;
 
 
 
