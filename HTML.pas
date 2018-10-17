@@ -52,7 +52,15 @@ Type
    {$IFDEF HAS_FMX}
    {$ELSE}
     procedure DefineIEVersion(Versao: Integer);
+<<<<<<< HEAD
     {$IFEND}
+=======
+    //procedure ExtractResources;
+    {$IFEND}
+    procedure GeneratedCssResourcesList(var Lista : TStringList);
+    procedure GeneratedJSResourcesList(var Lista : TStringList);
+    procedure _DeleteFileOld;
+>>>>>>> 96df77bb06fc00614187d20244cb3617b3b43596
     function FolderDefaultRWC(Value : String) : iModelHTML;
     procedure HtmlBrowserGenerated(CONST HTMLCode: string);
   public
@@ -136,7 +144,13 @@ begin
   {$IFDEF HAS_FMX}
   {$ELSE}
   DefineIEVersion(11000);
+<<<<<<< HEAD
   {$IFEND}
+=======
+  //ExtractResources;
+  {$IFEND}
+  _DeleteFileOld;
+>>>>>>> 96df77bb06fc00614187d20244cb3617b3b43596
 end;
 
 {$IFDEF HAS_FMX}
@@ -174,9 +188,75 @@ begin
   inherited;
 end;
 
+<<<<<<< HEAD
 function TModelHTML.FolderDefaultRWC(Value : String) : iModelHTML;
 begin
   Result := Self;
+=======
+{$IFDEF HAS_FMX}
+{$ELSE}
+//procedure TModelHTML.ExtractResources;
+//var
+//  Arq : TResourceStream;
+//  Lista : TStringList;
+//  I : Integer;
+//begin
+//  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+//
+//  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
+//    ForceDirectories(FFolderDefaultRWC + 'css');
+//
+//  Lista := TStringList.Create;
+//  try
+//    GeneratedCssResourcesList(Lista);
+//     for I := 0 to Pred(Lista.Count) do
+//     begin
+//      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
+//      begin
+//        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
+//        try
+//          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
+//        finally
+//          FreeAndNil(Arq);
+//        end;
+//      end;
+//     end;
+//  finally
+//    Lista.Free;
+//  end;
+//
+//  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
+//    ForceDirectories(FFolderDefaultRWC + 'js');
+//
+//  Lista := TStringList.Create;
+//  try
+//     for I := 0 to Pred(Lista.Count) do
+//     begin
+//      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
+//      begin
+//        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
+//        try
+//          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
+//        finally
+//          FreeAndNil(Arq);
+//        end;
+//      end;
+//     end;
+//  finally
+//    Lista.Free;
+//  end;
+//end;
+{$IFEND}
+function TModelHTML.FolderDefaultRWC(Value : String) : iModelHTML;
+begin
+  Result := Self;
+  FFolderDefaultRWC := Value;
+  {$IFDEF HAS_FMX}
+  {$ELSE}
+  //ExtractResources;
+  {$ENDIF}
+  _DeleteFileOld;
+>>>>>>> 96df77bb06fc00614187d20244cb3617b3b43596
 end;
 
 function TModelHTML.Generated: iModelHTML;
@@ -189,8 +269,78 @@ begin
   FWebBrowser.LoadFromStrings(FHTML,'TBG');
   {$ELSE}
     FWebBrowser.Silent := True;
+<<<<<<< HEAD
     HtmlBrowserGenerated(FHTML);
   {$ENDIF}
+=======
+  SL := TStringList.Create;
+  try
+      SL.Add(FHTML);
+      Arquivo := FormatDateTime('{ddhhyyyyMMnnss-MMyyyyhhssdd}', now) + '.rwc';
+      if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
+      SL.SaveToFile(FFolderDefaultRWC + Arquivo, TEncoding.UTF8);
+  finally
+
+      FWebBrowser.Navigate(WideString(FFolderDefaultRWC + Arquivo));
+    SL.Free;
+  end;
+  {$ENDIF}
+end;
+
+procedure TModelHTML.GeneratedCssResourcesList(var Lista: TStringList);
+begin
+  Lista.Clear;
+  Lista.Add('bootstrap.css');
+  Lista.Add('bootstrap.css.map');
+  Lista.Add('bootstrap.min.css');
+  Lista.Add('bootstrap.min.css.map');
+  Lista.Add('bootstrap-grid.css');
+  Lista.Add('bootstrap-grid.css.map');
+  Lista.Add('bootstrap-grid.min.css');
+  Lista.Add('bootstrap-grid.min.css.map');
+  Lista.Add('bootstrap-reboot.css');
+  Lista.Add('bootstrap-reboot.css.map');
+  Lista.Add('bootstrap-reboot.min.css');
+  Lista.Add('bootstrap-reboot.min.css.map');
+  Lista.Add('custom.min.css');
+  Lista.Add('fa-brands.css');
+  Lista.Add('fa-brands.min.css');
+  Lista.Add('fa-regular.css');
+  Lista.Add('fa-regular.min.css');
+  Lista.Add('fa-solid.css');
+  Lista.Add('fa-solid.min.css');
+  Lista.Add('fontawesome.css');
+  Lista.Add('fontawesome.min.css');
+  Lista.Add('fontawesome-all.css');
+  Lista.Add('fontawesome-all.min.css');
+  Lista.Add('green.css');
+end;
+
+procedure TModelHTML.GeneratedJSResourcesList(var Lista: TStringList);
+begin
+  Lista.Clear;
+  Lista.Add('bootstrap.js');
+  Lista.Add('bootstrap.min.js');
+  Lista.Add('Chart.bundle.js');
+  Lista.Add('Chart.min.js');
+  Lista.Add('fa-brands.js');
+  Lista.Add('fa-brands.min.js');
+  Lista.Add('fa-regular.js');
+  Lista.Add('fa-regular.min.js');
+  Lista.Add('fa-solid.js');
+  Lista.Add('fa-solid.min.js');
+  Lista.Add('fa-v4-shims.js');
+  Lista.Add('fa-v4-shims.min.js');
+  Lista.Add('fontawesome.js');
+  Lista.Add('fontawesome.min.js');
+  Lista.Add('fontawesome-all.js');
+  Lista.Add('fontawesome-all.min.js');
+  Lista.Add('jquery-3.3.1.min.js');
+  Lista.Add('popper.js');
+  Lista.Add('popper.min.js');
+  Lista.Add('tether.min.js');
+  Lista.Add('utils.js');
+>>>>>>> 96df77bb06fc00614187d20244cb3617b3b43596
 end;
 
 function TModelHTML.GenerateFooter: iModelHTML;
