@@ -32,9 +32,6 @@ uses
       Dialogs,
       Registry,
     {$IFEND}
-
-
-
   {$ENDIF}
   {$IF RTLVERSION > 20 }
     {$IFDEF FULL}
@@ -55,12 +52,9 @@ Type
    {$IFDEF HAS_FMX}
    {$ELSE}
     procedure DefineIEVersion(Versao: Integer);
-    //procedure ExtractResources;
     {$IFEND}
-    procedure GeneratedCssResourcesList(var Lista : TStringList);
-    procedure GeneratedJSResourcesList(var Lista : TStringList);
-    procedure _DeleteFileOld;
     function FolderDefaultRWC(Value : String) : iModelHTML;
+    procedure HtmlBrowserGenerated(CONST HTMLCode: string);
   public
     constructor Create;
     destructor Destroy; override;
@@ -101,6 +95,19 @@ uses
 
 { TModelHTML }
 
+procedure TModelHTML.HtmlBrowserGenerated(CONST HTMLCode: string);
+var
+  Doc: Variant;
+begin
+  if NOT Assigned(FWebBrowser.Document) then
+    FWebBrowser.Navigate('about:blank');
+
+  Doc := FWebBrowser.Document;
+  Doc.Clear;
+  Doc.Write(HTMLCode);
+  Doc.Close;
+end;
+
 function TModelHTML.&End : iModelHTML;
 begin
   Result := Self;
@@ -129,9 +136,7 @@ begin
   {$IFDEF HAS_FMX}
   {$ELSE}
   DefineIEVersion(11000);
-  //ExtractResources;
   {$IFEND}
-  _DeleteFileOld;
 end;
 
 {$IFDEF HAS_FMX}
@@ -169,69 +174,9 @@ begin
   inherited;
 end;
 
-{$IFDEF HAS_FMX}
-{$ELSE}
-//procedure TModelHTML.ExtractResources;
-//var
-//  Arq : TResourceStream;
-//  Lista : TStringList;
-//  I : Integer;
-//begin
-//  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
-//
-//  if not DirectoryExists(FFolderDefaultRWC + 'css' ) then
-//    ForceDirectories(FFolderDefaultRWC + 'css');
-//
-//  Lista := TStringList.Create;
-//  try
-//    GeneratedCssResourcesList(Lista);
-//     for I := 0 to Pred(Lista.Count) do
-//     begin
-//      if not FileExists(FFolderDefaultRWC + 'css\' + Lista[I]) then
-//      begin
-//        Arq := TResourceStream.Create(HInstance,'RCL_' + IntToStr(I),RT_RCDATA);
-//        try
-//          Arq.SaveToFile(FFolderDefaultRWC + 'css\' + Lista[I]);
-//        finally
-//          FreeAndNil(Arq);
-//        end;
-//      end;
-//     end;
-//  finally
-//    Lista.Free;
-//  end;
-//
-//  if not DirectoryExists(FFolderDefaultRWC + 'js' ) then
-//    ForceDirectories(FFolderDefaultRWC + 'js');
-//
-//  Lista := TStringList.Create;
-//  try
-//     for I := 0 to Pred(Lista.Count) do
-//     begin
-//      if not FileExists(FFolderDefaultRWC + 'js\' + Lista[I]) then
-//      begin
-//        Arq := TResourceStream.Create(HInstance,'JSR_' + IntToStr(I),RT_RCDATA);
-//        try
-//          Arq.SaveToFile(FFolderDefaultRWC + 'js\' + Lista[I]);
-//        finally
-//          FreeAndNil(Arq);
-//        end;
-//      end;
-//     end;
-//  finally
-//    Lista.Free;
-//  end;
-//end;
-{$IFEND}
 function TModelHTML.FolderDefaultRWC(Value : String) : iModelHTML;
 begin
   Result := Self;
-  FFolderDefaultRWC := Value;
-  {$IFDEF HAS_FMX}
-  {$ELSE}
-  //ExtractResources;
-  {$ENDIF}
-  _DeleteFileOld;
 end;
 
 function TModelHTML.Generated: iModelHTML;
@@ -239,80 +184,13 @@ var
   SL: TStringList;
   Arquivo: string;
 begin
-  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
-
   GenerateFooter;
   {$IFDEF HAS_FMX}
   FWebBrowser.LoadFromStrings(FHTML,'TBG');
   {$ELSE}
     FWebBrowser.Silent := True;
-  SL := TStringList.Create;
-  try
-      SL.Add(FHTML);
-      Arquivo := FormatDateTime('{ddhhyyyyMMnnss-MMyyyyhhssdd}', now) + '.rwc';
-      if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
-      SL.SaveToFile(FFolderDefaultRWC + Arquivo, TEncoding.UTF8);
-  finally
-
-      FWebBrowser.Navigate(WideString(FFolderDefaultRWC + Arquivo));
-    SL.Free;
-  end;
+    HtmlBrowserGenerated(FHTML);
   {$ENDIF}
-end;
-
-procedure TModelHTML.GeneratedCssResourcesList(var Lista: TStringList);
-begin
-  Lista.Clear;
-  Lista.Add('bootstrap.css');
-  Lista.Add('bootstrap.css.map');
-  Lista.Add('bootstrap.min.css');
-  Lista.Add('bootstrap.min.css.map');
-  Lista.Add('bootstrap-grid.css');
-  Lista.Add('bootstrap-grid.css.map');
-  Lista.Add('bootstrap-grid.min.css');
-  Lista.Add('bootstrap-grid.min.css.map');
-  Lista.Add('bootstrap-reboot.css');
-  Lista.Add('bootstrap-reboot.css.map');
-  Lista.Add('bootstrap-reboot.min.css');
-  Lista.Add('bootstrap-reboot.min.css.map');
-  Lista.Add('custom.min.css');
-  Lista.Add('fa-brands.css');
-  Lista.Add('fa-brands.min.css');
-  Lista.Add('fa-regular.css');
-  Lista.Add('fa-regular.min.css');
-  Lista.Add('fa-solid.css');
-  Lista.Add('fa-solid.min.css');
-  Lista.Add('fontawesome.css');
-  Lista.Add('fontawesome.min.css');
-  Lista.Add('fontawesome-all.css');
-  Lista.Add('fontawesome-all.min.css');
-  Lista.Add('green.css');
-end;
-
-procedure TModelHTML.GeneratedJSResourcesList(var Lista: TStringList);
-begin
-  Lista.Clear;
-  Lista.Add('bootstrap.js');
-  Lista.Add('bootstrap.min.js');
-  Lista.Add('Chart.bundle.js');
-  Lista.Add('Chart.min.js');
-  Lista.Add('fa-brands.js');
-  Lista.Add('fa-brands.min.js');
-  Lista.Add('fa-regular.js');
-  Lista.Add('fa-regular.min.js');
-  Lista.Add('fa-solid.js');
-  Lista.Add('fa-solid.min.js');
-  Lista.Add('fa-v4-shims.js');
-  Lista.Add('fa-v4-shims.min.js');
-  Lista.Add('fontawesome.js');
-  Lista.Add('fontawesome.min.js');
-  Lista.Add('fontawesome-all.js');
-  Lista.Add('fontawesome-all.min.js');
-  Lista.Add('jquery-3.3.1.min.js');
-  Lista.Add('popper.js');
-  Lista.Add('popper.min.js');
-  Lista.Add('tether.min.js');
-  Lista.Add('utils.js');
 end;
 
 function TModelHTML.GenerateFooter: iModelHTML;
@@ -450,22 +328,6 @@ function TModelHTML.WebBrowser(Value: TWebBrowser): iModelHTML;
 begin
   Result := Self;
   FWebBrowser := Value;
-end;
-
-procedure TModelHTML._DeleteFileOld;
-var
-  SearchRec: TSearchRec;
-begin
-  if FFolderDefaultRWC = '' then FFolderDefaultRWC := ExtractFilePath(ParamStr(0));
-
-  try
-    FindFirst(FFolderDefaultRWC + '*.rwc', faAnyFile, SearchRec);
-    repeat
-      DeleteFile(PWideChar(FFolderDefaultRWC + SearchRec.name));
-    until FindNext(SearchRec) <> 0;
-  finally
-    SysUtils.FindClose(SearchRec);
-  end;
 end;
 
 end.

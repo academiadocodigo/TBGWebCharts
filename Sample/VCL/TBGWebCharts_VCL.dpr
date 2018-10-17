@@ -1,6 +1,6 @@
 program TBGWebCharts_VCL;
 
-{$R 'TBGWebChartsResource.res' '..\..\TBGWebChartsResource.rc'}
+
 
 uses
   Forms,
