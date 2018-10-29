@@ -99,6 +99,8 @@ procedure TModelHTML.HtmlBrowserGenerated(CONST HTMLCode: string);
 var
   Doc: Variant;
 begin
+  {$IFDEF HAS_FMX}
+   {$ELSE}
   if NOT Assigned(FWebBrowser.Document) then
     FWebBrowser.Navigate('about:blank');
 
@@ -106,6 +108,7 @@ begin
   Doc.Clear;
   Doc.Write(HTMLCode);
   Doc.Close;
+  {$IFEND}
 end;
 
 function TModelHTML.&End : iModelHTML;
