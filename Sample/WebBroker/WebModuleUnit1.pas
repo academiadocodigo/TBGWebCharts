@@ -74,8 +74,7 @@ end;
 
 procedure TWebModule1.WebModuleCreate(Sender: TObject);
 begin
-ClientDataSet1.LoadFromFile('C:\Projetos\TBGWebCharts.git\trunk\Sample\VCL\Data\CDSChats.xml');
-ClientDataSet1.Active:=True;
+  ClientDataSet1.Active:=True;
 end;
 
 end.

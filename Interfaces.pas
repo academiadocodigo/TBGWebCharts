@@ -11,14 +11,15 @@ uses
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
-    {$IF RTLVERSION > 20 }
+    {$IF RTLVERSION > 21 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
     {$IFEND}
-    {$IF RTLVERSION < 20 }
+    {$IF RTLVERSION < 22 }
       StdCtrls,
       Buttons,
+      SHDocVw,
     {$IFEND}
   {$ENDIF}
    Classes;

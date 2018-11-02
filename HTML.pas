@@ -16,16 +16,16 @@ uses
       FMX.StdCtrls,
       FMX.WebBrowser,
       Registry,
-    {$IFEND}
+    {$ENDIF}
   {$ELSE}
-    {$IF RTLVERSION > 20 }
+    {$IF RTLVERSION > 21 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
       VCL.Dialogs,
       Registry,
     {$IFEND}
-    {$IF RTLVERSION < 20 }
+    {$IF RTLVERSION < 22 }
       StdCtrls,
       Buttons,
       SHDocVw,
@@ -42,7 +42,7 @@ uses
   Classes, PackJS, PackCss;
 
 Type
-  TModelHTML = class(TInterfacedObject, iModelHTML, iCallbackJS)
+  TModelHTML = class(TInterfacedObject, iModelHTML{$IF RTLVERSION > 21 }, iCallbackJS{$IFEND})
   private
     FHTML: String;
     FWebBrowser: TWebBrowser;
@@ -52,7 +52,7 @@ Type
    {$IFDEF HAS_FMX}
    {$ELSE}
     procedure DefineIEVersion(Versao: Integer);
-    {$IFEND}
+    {$ENDIF}
     function FolderDefaultRWC(Value : String) : iModelHTML;
     procedure HtmlBrowserGenerated(CONST HTMLCode: string);
   public
@@ -73,7 +73,7 @@ Type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
-    {$IF RTLVERSION > 20 }
+    {$IF RTLVERSION > 21 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     function ClassProvider(Value : TObject) : iCallbackJS;
@@ -90,7 +90,7 @@ uses
   {$IFDEF HAS_FMX}
    {$ELSE}
     Windows,
-  {$IFEND}
+  {$ENDIF}
   Injection;
 
 { TModelHTML }
@@ -108,13 +108,10 @@ begin
   Doc.Clear;
   Doc.Write(HTMLCode);
   Doc.Close;
-  {$IFEND}
+  {$ENDIF}
 end;
 
-function TModelHTML.&End : iModelHTML;
-begin
-  Result := Self;
-end;
+
 
 function TModelHTML.Charts: iModelHTMLCharts;
 begin
@@ -139,7 +136,7 @@ begin
   {$IFDEF HAS_FMX}
   {$ELSE}
   DefineIEVersion(11000);
-  {$IFEND}
+  {$ENDIF}
 end;
 
 {$IFDEF HAS_FMX}
@@ -171,7 +168,7 @@ begin
   if (Assigned(Reg)) then
     FreeAndNil(Reg);
 end;
-{$IFEND}
+{$ENDIF}
 destructor TModelHTML.Destroy;
 begin
   inherited;
@@ -291,7 +288,12 @@ begin
   Result := TModelHTMLFactory.New.Table(Self);
 end;
 
-{$IF RTLVERSION > 20 }
+{$IF RTLVERSION > 21 }
+function TModelHTML.&End : iModelHTML;
+begin
+  Result := Self;
+end;
+
 function TModelHTML.CallbackJS : iCallbackJS;
 begin
   if not Assigned(FWebBrowser) then

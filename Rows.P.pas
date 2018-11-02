@@ -39,7 +39,7 @@ var
 begin
   Result := FParent;
   FParent.HTML('<p ');
-  if not FClass.IsEmpty then
+  if FClass <> '' then
     FParent.HTML('class="' + FClass + '"');
   FParent.HTML(' >');
   for I := 0 to Pred(FLista.Count) do

@@ -4,20 +4,17 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.WebBrowser,
-  FMX.Controls.Presentation, FMX.StdCtrls, View.WebCharts, Data.DB,
-  Datasnap.DBClient;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  FMX.Controls.Presentation, FMX.StdCtrls, Data.DB, Datasnap.DBClient,
+  View.WebCharts, FMX.WebBrowser;
 
 type
   TForm2 = class(TForm)
-    WebCharts1: TWebCharts;
     Button1: TButton;
     WebBrowser1: TWebBrowser;
+    WebCharts1: TWebCharts;
     ClientDataSet1: TClientDataSet;
     ClientDataSet2: TClientDataSet;
-    ClientDataSet2FIRST_NAME: TStringField;
-    ClientDataSet2CITY: TStringField;
-    ClientDataSet2STATE: TStringField;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -31,18 +28,20 @@ var
 implementation
 
 {$R *.fmx}
-{$R *.NmXhdpiPh.fmx ANDROID}
 
 procedure TForm2.Button1Click(Sender: TObject);
+var a,b:string;
 begin
+a:='Meu Gráfico de Barras';
+b:='Meu Gráfico de Pie';
 WebCharts1
   .NewProject
     .Charts
       .Bar
         .Attributes
-          .Name('Meu Grafico de Barras')
+          .Name(a)
           .ColSpan(12)
-         .Title('Meu Grafico de Barras')
+         .Title(a)
          .Heigth(250)
           .DataSet
             .textLabel('Meu DataSet 1')
@@ -54,9 +53,9 @@ WebCharts1
     .Charts
       .Pie
         .Attributes
-          .Name('Meu Grafico de Pie')
+          .Name(b)
           .ColSpan(12)
-         .Title('Meu Grafico de Pie')
+         .Title(b)
          .Legend(False)
           .DataSet
             .textLabel('Meu DataSet 1')

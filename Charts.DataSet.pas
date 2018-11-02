@@ -3,7 +3,7 @@ unit Charts.DataSet;
 interface
 
 uses
-  Interfaces, DB, System.SysUtils;
+  Interfaces, DB, SysUtils;
 
 Type
   TModelHTMLChartsDataSet<T : IInterface> = class(TInterfacedObject, iModelHTMLDataSet<T>)
@@ -78,7 +78,7 @@ end;
 
 constructor TModelHTMLChartsDataSet<T>.Create(Parent : T);
 begin
-  {$IF RTLVERSION > 20 }
+  {$IF RTLVERSION > 21 }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;
