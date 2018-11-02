@@ -29,6 +29,7 @@ package TBGWebCharts;
 {$IMPLICITBUILD ON}
 
 requires
+<<<<<<< HEAD
   rtl,
   vcl,
   vclie,
@@ -69,4 +70,46 @@ contains
   {$IF RTLVERSION > 21 }CallBackJS in 'CallBackJS.pas',{$IFEND}
   PackJS in 'PackJS.pas';
 
+=======
+  rtl,
+  vcl,
+  vclie,
+  dbrtl,
+  fmx;
+
+contains
+  Charts.Bar in 'Charts.Bar.pas',
+  Charts.Config in 'Charts.Config.pas',
+  Charts.Doughnut in 'Charts.Doughnut.pas',
+  Charts in 'Charts.pas',
+  Factory in 'Factory.pas',
+  HTML in 'HTML.pas',
+  Rows in 'Rows.pas',
+  Rows.Tag in 'Rows.Tag.pas',
+  Rows.Title.Config in 'Rows.Title.Config.pas',
+  Rows.Title in 'Rows.Title.pas',
+  Interfaces in 'Interfaces.pas',
+  View.Reg in 'View.Reg.pas',
+  View.WebCharts in 'View.WebCharts.pas',
+  Charts.Lines in 'Charts.Lines.pas',
+  Charts.DataSet in 'Charts.DataSet.pas',
+  Charts.LineStacked in 'Charts.LineStacked.pas',
+  Charts.Pie in 'Charts.Pie.pas',
+  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas',
+  Rows.Divv in 'Rows.Divv.pas',
+  Table.DataSet in 'Table.DataSet.pas',
+  Table in 'Table.pas',
+  Cards in 'Cards.pas',
+  Color in 'Color.pas',
+  Cards.DataSet in 'Cards.DataSet.pas',
+  Injection in 'Injection.pas',
+  Image in 'Image.pas',
+  Image.DataSet in 'Image.DataSet.pas',
+  Image.Classes in 'Image.Classes.pas',
+  Rows.P in 'Rows.P.pas',
+  PackCss in 'PackCss.pas',
+  PackJS in 'PackJS.pas',
+  CallBackJS in 'CallBackJS.pas';
+
+>>>>>>> c0fc31b82f9e05e610803dbe09ffa16e18e3b86d
 end.
