@@ -23,7 +23,7 @@ uses
       VCL.Buttons,
       SHDocVw,
       VCL.Dialogs,
-      Registry,
+      Win.Registry,
     {$IFEND}
     {$IF RTLVERSION < 22 }
       StdCtrls,

@@ -14,6 +14,7 @@ Type
     function AddResource(Value : String) : iWebCharts;
   end;
 
+  {$IF RTLVERSION > 21 }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
   TWebCharts = class(TComponent, iWebCharts)
     private
       FModelHTML : iModelHTML;
