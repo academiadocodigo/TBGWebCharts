@@ -90,8 +90,9 @@ type
     Panel8: TPanel;
     ComboBox1: TComboBox;
     Carregar: TButton;
-    SpeedButton14: TSpeedButton;
+    btnSemiCircule: TSpeedButton;
     SpeedButton15: TSpeedButton;
+    SpeedButton16: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -115,6 +116,7 @@ type
     procedure testeClick(Sender: TObject);
     procedure SpeedButton14Click(Sender: TObject);
     procedure SpeedButton15Click(Sender: TObject);
+    procedure btnSemiCirculeClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -132,6 +134,29 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm2.btnSemiCirculeClick(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+  .NewProject
+    .Charts
+      .Doughnut
+        .SemiCircule(True)
+        .Attributes
+          .Name('Meu Grafico Doughnut')
+          .ColSpan(12)
+          .Title('Meu Grafico Doughnut')
+          .DataSet
+            .textLabel('Meu DataSet 4')
+            .DataSet(ClientDataSet4)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin

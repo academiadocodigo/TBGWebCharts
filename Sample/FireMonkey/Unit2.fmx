@@ -130,7 +130,7 @@ object Form2: TForm2
       object SpeedButton8: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 280.000000000000000000
+        Position.Y = 320.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -142,7 +142,7 @@ object Form2: TForm2
       object SpeedButton9: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 320.000000000000000000
+        Position.Y = 360.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -154,7 +154,7 @@ object Form2: TForm2
       object SpeedButton10: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 400.000000000000000000
+        Position.Y = 440.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -166,7 +166,7 @@ object Form2: TForm2
       object SpeedButton11: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 440.000000000000000000
+        Position.Y = 480.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -178,7 +178,7 @@ object Form2: TForm2
       object SpeedButton12: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 480.000000000000000000
+        Position.Y = 520.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -202,7 +202,7 @@ object Form2: TForm2
       object SpeedButton14: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 360.000000000000000000
+        Position.Y = 400.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -210,6 +210,18 @@ object Form2: TForm2
         TextSettings.Font.Size = 14.000000000000000000
         TextSettings.FontColor = claWhite
         OnClick = SpeedButton14Click
+      end
+      object btnSemiCircule: TSpeedButton
+        Align = Top
+        StyledSettings = [Family, Style]
+        Position.Y = 280.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'SemiCircule'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.FontColor = claWhite
+        OnClick = btnSemiCirculeClick
       end
     end
     object Layout4: TLayout
@@ -439,8 +451,8 @@ object Form2: TForm2
   object BindSourceDB1: TBindSourceDB
     DataSet = ClientDataSet1
     ScopeMappings = <>
-    Left = 520
-    Top = 344
+    Left = 232
+    Top = 552
   end
   object BindingsList1: TBindingsList
     Methods = <>
@@ -492,7 +504,7 @@ object Form2: TForm2
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 241
+    Left = 233
     Top = 219
   end
   object ClientDataSet3: TClientDataSet
@@ -554,7 +566,7 @@ object Form2: TForm2
     Aggregates = <>
     Params = <>
     Left = 233
-    Top = 283
+    Top = 275
   end
   object ClientDataSet4: TClientDataSet
     PersistDataPacket.Data = {
@@ -603,8 +615,8 @@ object Form2: TForm2
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 241
-    Top = 347
+    Left = 233
+    Top = 331
   end
   object ClientDataSet5: TClientDataSet
     PersistDataPacket.Data = {
@@ -846,8 +858,8 @@ object Form2: TForm2
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 249
-    Top = 403
+    Left = 233
+    Top = 387
   end
   object ClientDataSet6: TClientDataSet
     PersistDataPacket.Data = {
@@ -11187,8 +11199,8 @@ object Form2: TForm2
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 249
-    Top = 467
+    Left = 233
+    Top = 443
   end
   object ClientDataSet7: TClientDataSet
     PersistDataPacket.Data = {
@@ -21528,8 +21540,8 @@ object Form2: TForm2
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 265
-    Top = 531
+    Left = 233
+    Top = 499
     object ClientDataSet7LAST_NAME: TStringField
       FieldName = 'LAST_NAME'
     end
@@ -21576,7 +21588,7 @@ object Form2: TForm2
     end
   end
   object WebCharts1: TWebCharts
-    Left = 273
-    Top = 131
+    Left = 233
+    Top = 115
   end
 end

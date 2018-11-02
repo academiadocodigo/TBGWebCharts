@@ -11,6 +11,7 @@ Type
       FHTML : String;
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsDoughnut>;
+      FSemiCircule : Boolean;
     public
       constructor Create(Parent : iModelHTMLCharts);
       destructor Destroy; override;
@@ -18,6 +19,7 @@ Type
       function Attributes : iModelHTMLChartsConfig<iModelHTMLChartsDoughnut>;
       function HTML(Value : String) : iModelHTMLChartsDoughnut; overload;
       function HTML : String; overload;
+      function SemiCircule ( aValue : Boolean ) : iModelHTMLChartsDoughnut; overload;
       function &End : iModelHTMLCharts;
   end;
 
@@ -49,6 +51,11 @@ begin
   FParent.HTML('labels: '+FConfig.ResultLabels+',  ');
   FParent.HTML('}, ');
   FParent.HTML('options: { ');
+  if FSemiCircule then
+  begin
+    FParent.HTML('circumference : Math.PI, ');
+    FParent.HTML('rotation : -Math.PI, ');
+  end;
   FParent.HTML('responsive: true, ');
   FParent.HTML('legend: { ');
   FParent.HTML('position: ''top'', ');
@@ -89,6 +96,7 @@ constructor TModelHTMLChartsDoughnut.Create(Parent : iModelHTMLCharts);
 begin
   TInjection.Weak(@FParent, Parent);
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsDoughnut>.New(Self);
+  FSemiCircule := False;
 end;
 
 destructor TModelHTMLChartsDoughnut.Destroy;
@@ -100,6 +108,13 @@ end;
 class function TModelHTMLChartsDoughnut.New(Parent : iModelHTMLCharts) : iModelHTMLChartsDoughnut;
 begin
   Result := Self.Create(Parent);
+end;
+
+function TModelHTMLChartsDoughnut.SemiCircule(
+  aValue: Boolean): iModelHTMLChartsDoughnut;
+begin
+  Result := Self;
+  FSemiCircule := aValue;
 end;
 
 end.

@@ -68,6 +68,7 @@ type
     ClientDataSet7RISK_LEVEL: TStringField;
     ClientDataSet7OCCUPATION: TStringField;
     ClientDataSet7OBJECTIVES: TStringField;
+    btnSemiCircule: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
@@ -85,6 +86,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure SpeedButton14Click(Sender: TObject);
     procedure SpeedButton15Click(Sender: TObject);
+    procedure btnSemiCirculeClick(Sender: TObject);
   private
     { Private declarations }
     function ConvertString(aValue : String) : String;
@@ -98,6 +100,33 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TForm2.btnSemiCirculeClick(Sender: TObject);
+begin
+  TabControl1.TabIndex := 0;
+  WebCharts1
+  .NewProject
+    .Charts
+      .Doughnut
+        .SemiCircule(True)
+        .Attributes
+          .Name('Meu Grafico Doughnut')
+          .ColSpan(12)
+          .Title('Meu Grafico Doughnut')
+          .DataSet
+            .textLabel('Meu DataSet 4')
+            .DataSet(ClientDataSet4)
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin

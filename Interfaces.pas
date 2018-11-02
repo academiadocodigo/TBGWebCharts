@@ -140,6 +140,7 @@ type
 
   iModelHTMLChartsDoughnut = interface
     ['{709FF228-7F8A-4E2B-8AB9-EFAEC9AEE1B4}']
+    function SemiCircule ( aValue : Boolean ) : iModelHTMLChartsDoughnut; overload;
     function HTML(Value : String) : iModelHTMLChartsDoughnut; overload;
     function HTML : String; overload;
     function Attributes : iModelHTMLChartsConfig<iModelHTMLChartsDoughnut>;
