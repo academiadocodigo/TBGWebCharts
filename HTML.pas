@@ -23,7 +23,12 @@ uses
       VCL.Buttons,
       SHDocVw,
       VCL.Dialogs,
-      Win.Registry,
+      {$IF RTLVERSION > 31 }
+        Win.Registry,
+      {$IFEND}
+      {$IF RTLVERSION < 32 }
+        Win.Registry,
+      {$IFEND}
     {$IFEND}
     {$IF RTLVERSION < 24 }
       StdCtrls,
