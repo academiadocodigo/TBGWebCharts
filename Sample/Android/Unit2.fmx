@@ -3,15 +3,14 @@ object Form2: TForm2
   Top = 0
   Caption = 'Form2'
   ClientHeight = 480
-  ClientWidth = 640
+  ClientWidth = 320
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   DesignerMasterStyle = 3
   object Button1: TButton
-    Align = Bottom
-    Position.Y = 424.000000000000000000
-    Size.Width = 640.000000000000000000
+    Align = Top
+    Size.Width = 320.000000000000000000
     Size.Height = 56.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
@@ -20,7 +19,7 @@ object Form2: TForm2
   end
   object WebBrowser1: TWebBrowser
     Align = Client
-    Size.Width = 640.000000000000000000
+    Size.Width = 320.000000000000000000
     Size.Height = 424.000000000000000000
     Size.PlatformDefault = False
   end
