@@ -28,10 +28,10 @@ uses
   {$IFDEF HAS_FMX}
       FMX.ExtCtrls,
   {$ELSE}
-    {$IF RTLVERSION > 20 }
+    {$IF RTLVERSION > 23 }
       VCL.ExtCtrls,
     {$IFEND}
-    {$IF RTLVERSION < 20 }
+    {$IF RTLVERSION < 24 }
       ExtCtrls,
     {$IFEND}
   {$ENDIF}
