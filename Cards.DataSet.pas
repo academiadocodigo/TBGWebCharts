@@ -24,7 +24,7 @@ implementation
 uses
   SysUtils, Injection;
 
-{ TModelCardsDataSet }
+{ TModelCardsDataSet  }
 
 function TModelCardsDataSet.&End: iModelCards;
 begin

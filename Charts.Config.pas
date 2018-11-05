@@ -72,7 +72,7 @@ end;
 constructor TModelHTMLChartsConfig<T>.Create(Parent : T);
 begin
   FLegend := true;
-  {$IF RTLVERSION > 23 }
+  {$IF RTLVERSION > 23  }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;

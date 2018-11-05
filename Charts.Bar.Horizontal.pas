@@ -26,7 +26,7 @@ implementation
 uses
   Charts.Config, SysUtils, Injection;
 
-{ TModelHTMLChartsBarHorizontal }
+{ TModelHTMLChartsBarHorizontal  }
 
 function TModelHTMLChartsBarHorizontal.&End: iModelHTMLCharts;
 begin

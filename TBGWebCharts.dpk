@@ -66,7 +66,7 @@ contains
   Image.Classes in 'Image.Classes.pas',
   Rows.P in 'Rows.P.pas',
   PackCss in 'PackCss.pas',
-  {$IF RTLVERSION > 23 }CallBackJS in 'CallBackJS.pas',{$IFEND}
+  {$IF RTLVERSION > 23 } CallBackJS in 'CallBackJS.pas',{$IFEND}
   PackJS in 'PackJS.pas';
 
 end.

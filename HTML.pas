@@ -42,7 +42,7 @@ uses
   Classes, PackJS, PackCss;
 
 Type
-  TModelHTML = class(TInterfacedObject, iModelHTML{$IF RTLVERSION > 21 }, iCallbackJS{$IFEND})
+  TModelHTML = class(TInterfacedObject, iModelHTML{$IF RTLVERSION > 23 }, iCallbackJS{$IFEND})
   private
     FHTML: String;
     FWebBrowser: TWebBrowser;

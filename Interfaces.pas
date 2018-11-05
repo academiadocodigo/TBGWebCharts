@@ -46,7 +46,7 @@ type
   iModelCards = interface;
   iModelButtonClass = interface;
   iModelButton = interface;
-  {$IF RTLVERSION > 20 }
+  {$IF RTLVERSION > 23 }
     iCallbackJS = interface;
   {$IFEND}
   iModelImageDataSet = interface;
@@ -74,7 +74,7 @@ type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
-    {$IF RTLVERSION > 20 }
+    {$IF RTLVERSION > 23 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     {$IFEND}

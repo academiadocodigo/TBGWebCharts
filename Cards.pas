@@ -37,7 +37,7 @@ implementation
 uses
   Color, Cards.DataSet, SysUtils, Injection;
 
-{ TModelCards }
+{ TModelCards  }
 
 function TModelCards.&End: iModelHTML;
 var
