@@ -18,14 +18,14 @@ uses
       Registry,
     {$ENDIF}
   {$ELSE}
-    {$IF RTLVERSION > 21 }
+    {$IF RTLVERSION > 23 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
       VCL.Dialogs,
       Win.Registry,
     {$IFEND}
-    {$IF RTLVERSION < 22 }
+    {$IF RTLVERSION < 24 }
       StdCtrls,
       Buttons,
       SHDocVw,
@@ -33,7 +33,7 @@ uses
       Registry,
     {$IFEND}
   {$ENDIF}
-  {$IF RTLVERSION > 20 }
+  {$IF RTLVERSION > 23 }
     {$IFDEF FULL}
       CallBackJS,
       Button,
@@ -73,7 +73,7 @@ Type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
-    {$IF RTLVERSION > 21 }
+    {$IF RTLVERSION > 23 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     function ClassProvider(Value : TObject) : iCallbackJS;
@@ -288,7 +288,7 @@ begin
   Result := TModelHTMLFactory.New.Table(Self);
 end;
 
-{$IF RTLVERSION > 21 }
+{$IF RTLVERSION > 23 }
 function TModelHTML.&End : iModelHTML;
 begin
   Result := Self;

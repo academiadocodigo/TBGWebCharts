@@ -11,12 +11,12 @@ uses
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
-    {$IF RTLVERSION > 21 }
+    {$IF RTLVERSION > 23 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
     {$IFEND}
-    {$IF RTLVERSION < 22 }
+    {$IF RTLVERSION < 24 }
       StdCtrls,
       Buttons,
       SHDocVw,
