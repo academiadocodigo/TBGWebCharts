@@ -38,7 +38,7 @@ var
 implementation
 
 uses
-  System.TypInfo,
+  TypInfo,
   {$IFDEF HAS_FMX}
   {$ELSE}
   Vcl.Forms,
