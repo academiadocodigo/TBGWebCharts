@@ -13,8 +13,6 @@ type
     Button1: TButton;
     WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
-    ClientDataSet1: TClientDataSet;
-    ClientDataSet2: TClientDataSet;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -43,41 +41,7 @@ WebCharts1
           .ColSpan(12)
          .Title(a)
          .Heigth(250)
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
         .&End
-      .&End
-    .&End
-    .Charts
-      .Pie
-        .Attributes
-          .Name(b)
-          .ColSpan(12)
-         .Title(b)
-         .Legend(False)
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Rows
-      .Title
-        .Configuracoes
-          .H4('&nbsp&nbsp&nbsp Tabela de clientes')
-        .&End
-      .&End
-    .&End
-    .Table
-      .TableClass
-        .tableSm
-      .EndTableClass
-      .DataSet
-        .DataSet(ClientDataSet2)
       .&End
     .&End
   .WebBrowser(WebBrowser1)
