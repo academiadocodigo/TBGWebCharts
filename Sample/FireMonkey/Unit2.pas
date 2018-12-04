@@ -45,7 +45,6 @@ type
     SpeedButton9: TSpeedButton;
     SpeedButton10: TSpeedButton;
     SpeedButton11: TSpeedButton;
-    SpeedButton12: TSpeedButton;
     SpeedButton13: TSpeedButton;
     ClientDataSet2: TClientDataSet;
     ClientDataSet3: TClientDataSet;
@@ -69,6 +68,7 @@ type
     ClientDataSet7OCCUPATION: TStringField;
     ClientDataSet7OBJECTIVES: TStringField;
     btnSemiCircule: TSpeedButton;
+    btnBarsLabel: TSpeedButton;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
@@ -80,16 +80,15 @@ type
     procedure SpeedButton9Click(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
     procedure SpeedButton11Click(Sender: TObject);
-    procedure SpeedButton12Click(Sender: TObject);
     procedure SpeedButton13Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure SpeedButton14Click(Sender: TObject);
     procedure SpeedButton15Click(Sender: TObject);
     procedure btnSemiCirculeClick(Sender: TObject);
+    procedure btnBarsLabelClick(Sender: TObject);
   private
     { Private declarations }
-    function ConvertString(aValue : String) : String;
   public
     { Public declarations }
   end;
@@ -100,6 +99,43 @@ var
 implementation
 
 {$R *.fmx}
+
+
+procedure TForm2.btnBarsLabelClick(Sender: TObject);
+begin
+  TabControl1.TabIndex := 0;
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Configuracoes
+          .H1('Gráfico de Barras')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      .Bar
+        .Attributes
+          .Labelling(True)
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Title('Meu Gráfico de Barras')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
 
 procedure TForm2.btnSemiCirculeClick(Sender: TObject);
 begin
@@ -141,36 +177,27 @@ begin
   end;
 end;
 
-function TForm2.ConvertString(aValue: String): String;
-var
-  rbs : RawByteString;
-begin
-  rbs := UTF8Encode(aValue);
-  SetCodePage(rbs,0,false);
-  Result := UnicodeString(rbs);
-end;
-
 procedure TForm2.FormCreate(Sender: TObject);
 begin
-  ClientDataSet1.LoadFromFile('..\..\..\VCL\Data\CDSChats.xml');
+  ClientDataSet1.LoadFromFile('..\VCL\Data\CDSChats.xml');
   ClientDataSet1.Open;
 
-  ClientDataSet2.LoadFromFile('..\..\..\VCL\Data\CDSChats2.xml');
+  ClientDataSet2.LoadFromFile('..\VCL\Data\CDSChats2.xml');
   ClientDataSet2.Open;
 
-  ClientDataSet3.LoadFromFile('..\..\..\VCL\Data\CDSChats3.xml');
+  ClientDataSet3.LoadFromFile('..\VCL\Data\CDSChats3.xml');
   ClientDataSet3.Open;
 
-  ClientDataSet4.LoadFromFile('..\..\..\VCL\Data\CDSChats4.xml');
+  ClientDataSet4.LoadFromFile('..\VCL\Data\CDSChats4.xml');
   ClientDataSet4.Open;
 
-  ClientDataSet5.LoadFromFile('..\..\..\VCL\Data\customer.xml');
+  ClientDataSet5.LoadFromFile('..\VCL\Data\customer.xml');
   ClientDataSet5.Open;
 
-  ClientDataSet6.LoadFromFile('..\..\..\VCL\Data\clients.xml');
+  ClientDataSet6.LoadFromFile('..\VCL\Data\clients.xml');
   ClientDataSet6.Open;
 
-  ClientDataSet7.LoadFromFile('..\..\..\VCL\Data\clients.xml');
+  ClientDataSet7.LoadFromFile('..\VCL\Data\clients.xml');
   ClientDataSet7.Open;
 end;
 
@@ -214,147 +241,6 @@ begin
     .Generated;
 end;
 
-procedure TForm2.SpeedButton12Click(Sender: TObject);
-begin
-  TabControl1.TabIndex := 0;
-    WebCharts1
-    .NewProject
-
-    .Buttons
-      .Title('Primary')
-      .ButtonClass
-        .primary
-      .&End
-      //.CallbackLink('Primary', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('secondary')
-      .ButtonClass
-        .secondary
-      .&End
-      //.CallbackLink('secondary', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('success')
-      .ButtonClass
-        .success
-      .&End
-      //.CallbackLink('success', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('danger')
-      .ButtonClass
-        .danger
-      .&End
-      //.CallbackLink('danger', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('warning')
-      .ButtonClass
-        .warning
-      .&End
-      //.CallbackLink('warning', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('info')
-      .ButtonClass
-        .info
-      .&End
-      //.CallbackLink('info', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('light')
-      .ButtonClass
-        .light
-      .&End
-      //.CallbackLink('light', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('dark')
-      .ButtonClass
-        .dark
-      .&End
-      //.CallbackLink('dark', 'ShowButtons')
-    .&End
-
-    .Jumpline
-    .Jumpline
-
-    .Buttons
-      .Title('outline')
-      .ButtonClass
-        .outline
-        .primary
-      .&End
-      //.CallbackLink('outline', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('small')
-      .ButtonClass
-        .secondary
-        .small
-      .&End
-      //.CallbackLink('small', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('large')
-      .ButtonClass
-        .success
-        .large
-      .&End
-      //.CallbackLink('large', 'ShowButtons')
-    .&End
-
-    .Jumpline
-    .Jumpline
-
-    .Buttons
-      .Title('block')
-      .ButtonClass
-        .danger
-        .block
-      .&End
-      //.CallbackLink('block', 'ShowButtons')
-    .&End
-
-    .Jumpline
-    .Jumpline
-
-    .Buttons
-      .Title('active')
-      .ButtonClass
-        .warning
-        .active
-      .&End
-      //.CallbackLink('active', 'ShowButtons')
-    .&End
-
-    .Buttons
-      .Title('disabled')
-      .ButtonClass
-        .info
-        .disabled
-      .&End
-      //.CallbackLink('disabled', 'ShowButtons')
-    .&End
-
-
-    .WebBrowser(WebBrowser1)
-    .CallbackJS
-      .ClassProvider(Self)
-    .&End
-    .Generated;
-end;
-
 procedure TForm2.SpeedButton13Click(Sender: TObject);
 begin
   TabControl1.TabIndex := 1;
@@ -371,15 +257,10 @@ begin
         .tableHover
       .EndTableClass
       .DataSet
-        //.CallbackLink('CustNo', 'RelCust')
-        //.CallbackLink('Contact', 'RelContato')
         .DataSet(ClientDataSet5)
       .&End
     .&End
     .WebBrowser(WebBrowser1)
-    .CallbackJS
-      .ClassProvider(Self)
-    .&End
     .Generated;
 end;
 
@@ -394,14 +275,10 @@ begin
         .tableHover
       .EndTableClass
       .DataSet
-        //.CallbackLink('ACCT_NBR', 'RelAvatar')
         .DataSet(ClientDataSet7)
       .&End
     .&End
     .WebBrowser(WebBrowser1)
-    .CallbackJS
-      .ClassProvider(Self)
-    .&End
     .Generated;
 end;
 
@@ -413,7 +290,7 @@ begin
     .Rows
       .Title
         .Configuracoes
-          .H1(ConvertString('Gráfico de Barras'))
+          .H1('Gráfico de Barras')
         .&End
       .&End
     .&End
@@ -422,9 +299,9 @@ begin
     .Charts
       .Bar
         .Attributes
-          .Name(ConvertString('Meu Grafico de Barras'))
+          .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title(ConvertString('Meu Gráfico de Barras'))
+          .Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -448,7 +325,7 @@ WebCharts1
     .Rows
       .Title
         .Configuracoes
-          .H1(ConvertString('Gráfico de Barras'))
+          .H1('Gráfico de Barras')
         .&End
       .&End
     .&End
@@ -457,9 +334,9 @@ WebCharts1
     .Charts
       .Bar
         .Attributes
-          .Name(ConvertString('Meu Gráfico de Barras'))
+          .Name('Meu Gráfico de Barras')
           .ColSpan(12)
-          .Title(ConvertString('Meu Gráfico de Barras'))
+          .Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -493,7 +370,7 @@ TabControl1.TabIndex := 0;
     .Rows
       .Title
         .Configuracoes
-          .H1('Grafico de Barras')
+          .H1('Gráfico de Barras')
         .&End
       .&End
     .&End
@@ -502,9 +379,9 @@ TabControl1.TabIndex := 0;
     .Charts
       .BarHorizontal
         .Attributes
-          .Name('Meu Grafico de Barras')
+          .Name('Meu GrÁfico de Barras')
           .ColSpan(12)
-          .Title('Meu Grafico de Barras')
+          .Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -524,9 +401,9 @@ TabControl1.TabIndex := 0;
       .Charts
         .Lines
           .Attributes
-            .Name('Meu Grafico de Barras')
+            .Name('Meu Gráfico de Barras')
             .ColSpan(12)
-            .Title('Meu Grafico de Barras')
+            .Title('Meu Gráfico de Barras')
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
@@ -548,9 +425,9 @@ TabControl1.TabIndex := 0;
       .Charts
         .Lines
           .Attributes
-            .Name('Meu Grafico de Barras')
+            .Name('Meu Gráfico de Barras')
             .ColSpan(12)
-            .Title('Meu Grafico de Barras')
+            .Title('Meu Gráfico de Barras')
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
@@ -632,9 +509,9 @@ TabControl1.TabIndex := 0;
     .Charts
       .Doughnut
         .Attributes
-          .Name('Meu Grafico Doughnut')
+          .Name('Meu Gráfico Doughnut')
           .ColSpan(12)
-          .Title('Meu Grafico Doughnut')
+          .Title('Meu Gráfico Doughnut')
           .DataSet
             .textLabel('Meu DataSet 4')
             .DataSet(ClientDataSet4)
@@ -695,7 +572,7 @@ TabControl1.TabIndex := 0;
       .Rows
         .Title
           .Configuracoes
-            .H4('Entradas/Saidas')
+            .H4('Entradas/Saídas')
           .&End
         .&End
       .&End

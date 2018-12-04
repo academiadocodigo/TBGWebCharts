@@ -2,7 +2,7 @@ object Form2: TForm2
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 723
+  ClientHeight = 800
   ClientWidth = 1074
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -27,20 +27,20 @@ object Form2: TForm2
   object Layout2: TLayout
     Align = Client
     Size.Width = 1074.000000000000000000
-    Size.Height = 650.000000000000000000
+    Size.Height = 727.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     object Layout3: TLayout
       Align = Left
       Size.Width = 201.000000000000000000
-      Size.Height = 650.000000000000000000
+      Size.Height = 727.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object Rectangle2: TRectangle
         Align = Contents
         Fill.Color = xFF6D6D6D
         Size.Width = 201.000000000000000000
-        Size.Height = 650.000000000000000000
+        Size.Height = 727.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
       end
@@ -70,7 +70,7 @@ object Form2: TForm2
       object SpeedButton3: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 80.000000000000000000
+        Position.Y = 120.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -82,7 +82,7 @@ object Form2: TForm2
       object SpeedButton4: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 120.000000000000000000
+        Position.Y = 160.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -94,7 +94,7 @@ object Form2: TForm2
       object SpeedButton5: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 160.000000000000000000
+        Position.Y = 200.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -106,7 +106,7 @@ object Form2: TForm2
       object SpeedButton6: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 200.000000000000000000
+        Position.Y = 240.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -118,7 +118,7 @@ object Form2: TForm2
       object SpeedButton7: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 240.000000000000000000
+        Position.Y = 280.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -130,7 +130,7 @@ object Form2: TForm2
       object SpeedButton8: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 320.000000000000000000
+        Position.Y = 360.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -142,7 +142,7 @@ object Form2: TForm2
       object SpeedButton9: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 360.000000000000000000
+        Position.Y = 400.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -154,7 +154,7 @@ object Form2: TForm2
       object SpeedButton10: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 440.000000000000000000
+        Position.Y = 480.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -166,7 +166,7 @@ object Form2: TForm2
       object SpeedButton11: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 480.000000000000000000
+        Position.Y = 520.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -175,22 +175,10 @@ object Form2: TForm2
         TextSettings.FontColor = claWhite
         OnClick = SpeedButton11Click
       end
-      object SpeedButton12: TSpeedButton
-        Align = Top
-        StyledSettings = [Family, Style]
-        Position.Y = 520.000000000000000000
-        Size.Width = 201.000000000000000000
-        Size.Height = 40.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'Buttons'
-        TextSettings.Font.Size = 14.000000000000000000
-        TextSettings.FontColor = claWhite
-        OnClick = SpeedButton12Click
-      end
       object SpeedButton13: TSpeedButton
         Align = Bottom
         StyledSettings = [Family, Style]
-        Position.Y = 610.000000000000000000
+        Position.Y = 687.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -202,7 +190,7 @@ object Form2: TForm2
       object SpeedButton14: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 400.000000000000000000
+        Position.Y = 440.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -214,7 +202,7 @@ object Form2: TForm2
       object btnSemiCircule: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 280.000000000000000000
+        Position.Y = 320.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -223,26 +211,38 @@ object Form2: TForm2
         TextSettings.FontColor = claWhite
         OnClick = btnSemiCirculeClick
       end
+      object btnBarsLabel: TSpeedButton
+        Align = Top
+        StyledSettings = [Family, Style]
+        Position.Y = 80.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Bars/Label'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.FontColor = claWhite
+        OnClick = btnBarsLabelClick
+      end
     end
     object Layout4: TLayout
       Align = Client
       Size.Width = 873.000000000000000000
-      Size.Height = 650.000000000000000000
+      Size.Height = 727.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
       object TabControl1: TTabControl
         Align = Client
         Size.Width = 873.000000000000000000
-        Size.Height = 650.000000000000000000
+        Size.Height = 727.000000000000000000
         Size.PlatformDefault = False
         TabIndex = 0
         TabOrder = 0
         TabPosition = PlatformDefault
         Sizes = (
           873s
-          624s
+          701s
           873s
-          624s)
+          701s)
         object TabItem1: TTabItem
           CustomIcon = <
             item
@@ -259,7 +259,7 @@ object Form2: TForm2
           object WebBrowser1: TWebBrowser
             Align = Client
             Size.Width = 873.000000000000000000
-            Size.Height = 624.000000000000000000
+            Size.Height = 701.000000000000000000
             Size.PlatformDefault = False
           end
         end
@@ -278,7 +278,7 @@ object Form2: TForm2
           ExplicitSize.cy = 26.000000000000000000
           object NavigatorBindSourceDB1: TBindNavigator
             Align = Bottom
-            Position.Y = 599.000000000000000000
+            Position.Y = 676.000000000000000000
             Size.Width = 873.000000000000000000
             Size.Height = 25.000000000000000000
             Size.PlatformDefault = False
@@ -320,7 +320,7 @@ object Form2: TForm2
           object Layout6: TLayout
             Align = Client
             Size.Width = 873.000000000000000000
-            Size.Height = 518.000000000000000000
+            Size.Height = 595.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 2
             object StringGrid1: TStringGrid
@@ -328,12 +328,12 @@ object Form2: TForm2
               CanFocus = True
               ClipChildren = True
               Size.Width = 873.000000000000000000
-              Size.Height = 518.000000000000000000
+              Size.Height = 595.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
               RowCount = 12
               Viewport.Width = 869.000000000000000000
-              Viewport.Height = 493.000000000000000000
+              Viewport.Height = 570.000000000000000000
             end
           end
         end

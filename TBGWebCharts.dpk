@@ -1,7 +1,6 @@
 package TBGWebCharts;
 
 {$R *.res}
-{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -65,6 +64,14 @@ contains
   Image.Classes in 'Image.Classes.pas',
   Rows.P in 'Rows.P.pas',
   PackCss in 'PackCss.pas',
-  PackJS in 'PackJS.pas';
+  PackJS in 'PackJS.pas',
+  {$IFDEF HAS_FMX}
+  {$ELSE}
+  {$IF RTLVERSION > 27}
+  CallBackJS in 'CallBackJS.pas',
+  {$IFEND}
+  {$ENDIF}
+  Charts.Labelling in 'Charts.Labelling.pas',
+  Charts.Callback in 'Charts.Callback.pas';
 
 end.

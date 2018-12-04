@@ -64,6 +64,10 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel5: TPanel
           Left = -4
           Top = 320
@@ -132,7 +136,7 @@ object Form2: TForm2
             Top = 17
             Width = 145
             Height = 21
-            ItemHeight = 13
+            ItemHeight = 0
             ItemIndex = 0
             TabOrder = 0
             Text = 'ClientDataSet1'

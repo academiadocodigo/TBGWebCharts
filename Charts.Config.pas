@@ -19,6 +19,9 @@ Type
       FName : String;
       FLabels : String;
       FLegend : Boolean;
+      FStacked : Boolean;
+      FMethod : String;
+      FLabelling : Boolean;
       FDataSet : TList<iModelHTMLDataSet<iModelHTMLChartsConfig<T>>>;
     public
       constructor Create(Parent : T);
@@ -47,6 +50,12 @@ Type
       function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig<T>>;
       function ResultDataSet : String;
       function ResultLabels : String;
+      function Stacked(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
+      function Stacked : Boolean; overload;
+      function CallBackLink(Value : String) : iModelHTMLChartsConfig<T>; overload;
+      function CallBackLink : String; overload;
+      function Labelling(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
+      function Labelling : Boolean; overload;
       function &End : T;
   end;
 
@@ -64,6 +73,18 @@ begin
   FColSpan := Value;
 end;
 
+function TModelHTMLChartsConfig<T>.CallBackLink: String;
+begin
+  Result := FMethod;
+end;
+
+function TModelHTMLChartsConfig<T>.CallBackLink(
+  Value: String): iModelHTMLChartsConfig<T>;
+begin
+  Result := Self;
+  FMethod := Value;
+end;
+
 function TModelHTMLChartsConfig<T>.ColSpan: Integer;
 begin
   Result := FColSpan;
@@ -72,7 +93,7 @@ end;
 constructor TModelHTMLChartsConfig<T>.Create(Parent : T);
 begin
   FLegend := true;
-  {$IF RTLVERSION > 23  }
+  {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;
@@ -114,6 +135,18 @@ end;
 function TModelHTMLChartsConfig<T>.Heigth: Integer;
 begin
   Result := FHeigth;
+end;
+
+function TModelHTMLChartsConfig<T>.Labelling: Boolean;
+begin
+  Result := FLabelling;
+end;
+
+function TModelHTMLChartsConfig<T>.Labelling(
+  Value: Boolean): iModelHTMLChartsConfig<T>;
+begin
+  Result := Self;
+  FLabelling := Value;
 end;
 
 function TModelHTMLChartsConfig<T>.Labels: String;
@@ -206,6 +239,18 @@ begin
     FLabels := FDataSet[0].ResultLabels;
 
   Result := FLabels;
+end;
+
+function TModelHTMLChartsConfig<T>.Stacked: Boolean;
+begin
+  Result := FStacked;
+end;
+
+function TModelHTMLChartsConfig<T>.Stacked(
+  Value: Boolean): iModelHTMLChartsConfig<T>;
+begin
+  Result := Self;
+  FStacked := Value;
 end;
 
 function TModelHTMLChartsConfig<T>.Title(

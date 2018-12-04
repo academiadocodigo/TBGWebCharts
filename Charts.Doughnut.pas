@@ -26,7 +26,7 @@ Type
 implementation
 
 uses
-  Charts.Config, SysUtils, Injection;
+  Charts.Config, SysUtils, Injection, Charts.Labelling, Charts.Callback;
 
 { TModelHTMLChartsDoughnut }
 
@@ -41,6 +41,8 @@ begin
     FParent.HTML('height="'+IntToStr(FConfig.Heigth)+'px" ');
   FParent.HTML('></canvas>  ');
   FParent.HTML('<script>  ');
+
+  FParent.HTML('var myCallBack = document.getElementById('''+FConfig.Name+''');');
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
   FParent.HTML('var myChart = new Chart(ctx, { ');
   FParent.HTML('type: ''doughnut'', ');
@@ -72,6 +74,13 @@ begin
   FParent.HTML('} ');
   FParent.HTML('} ');
   FParent.HTML('}); ');
+
+  if FConfig.CallBackLink <> '' then
+    FParent.HTML(TChartsCallback.New.Result(FConfig.CallBackLink));
+
+  if FConfig.Labelling then
+    FParent.HTML(TChartsLabelling.New.Result);
+
   FParent.HTML('</script>  ');
   FParent.HTML('</div>');
 end;

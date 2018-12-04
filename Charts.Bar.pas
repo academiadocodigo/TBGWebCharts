@@ -24,7 +24,7 @@ Type
 implementation
 
 uses
-  Charts.Config, SysUtils, Injection;
+  Charts.Config, SysUtils, Injection, Charts.Labelling, Charts.Callback;
 
 { TModelHTMLChartsBar }
 
@@ -40,6 +40,7 @@ begin
   FParent.HTML('></canvas>  ');
   FParent.HTML('<script>  ');
 
+  FParent.HTML('var myCallBack = document.getElementById('''+FConfig.Name+''');');
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
   FParent.HTML('var myChart = new Chart(ctx, { ');
   FParent.HTML('type: ''bar'', ');
@@ -49,8 +50,20 @@ begin
   FParent.HTML(FConfig.ResultDataSet);
   FParent.HTML(']  ');
   FParent.HTML('}, ');
-  FParent.HTML('options: {  scales: { yAxes: [{ ticks: { beginAtZero: true } }] }, responsive: true, legend: { position: ''top'', }, title: { display: true, text: '''+FConfig.Title+''' } }, ');
+  FParent.HTML('options: {  scales: { ');
+  if FConfig.Stacked then
+    FParent.HTML('xAxes: [{	stacked: true,}],	yAxes: [{	stacked: true }]')
+  else
+    FParent.HTML('yAxes: [{ ticks: { beginAtZero: true } }]');
+  FParent.HTML('}, responsive: true, legend: { position: ''top'', }, title: { display: true, text: '''+FConfig.Title+''' } }, ');
   FParent.HTML('}); ');
+
+  if FConfig.CallBackLink <> '' then
+    FParent.HTML(TChartsCallback.New.Result(FConfig.CallBackLink));
+
+  if FConfig.Labelling then
+    FParent.HTML(TChartsLabelling.New.Result);
+
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
 end;

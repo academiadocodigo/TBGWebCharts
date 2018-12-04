@@ -30,7 +30,6 @@ type
     Panel3: TPanel;
     DBGrid1: TDBGrid;
     Panel7: TPanel;
-    SpeedButton3: TSpeedButton;
     SpeedButton10: TSpeedButton;
     SpeedButton4: TSpeedButton;
     SpeedButton6: TSpeedButton;
@@ -93,6 +92,10 @@ type
     btnSemiCircule: TSpeedButton;
     SpeedButton15: TSpeedButton;
     SpeedButton16: TSpeedButton;
+    btnBarsStacked: TSpeedButton;
+    btnBarLabel: TSpeedButton;
+    btnBarCall: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -117,6 +120,9 @@ type
     procedure SpeedButton14Click(Sender: TObject);
     procedure SpeedButton15Click(Sender: TObject);
     procedure btnSemiCirculeClick(Sender: TObject);
+    procedure btnBarsStackedClick(Sender: TObject);
+    procedure btnBarCallClick(Sender: TObject);
+    procedure btnBarLabelClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -126,6 +132,7 @@ type
     procedure RelAvatar(Value : Currency);
     procedure RelContato(Value : String);
     procedure SampleWC(Value : Currency);
+    procedure CallBack(value : string);
   end;
 
 var
@@ -134,6 +141,135 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm2.btnBarCallClick(Sender: TObject);
+begin
+PageControl1.ActivePageIndex := 0;
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Configuracoes
+          .H1('Gráfico de Barras')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      .Bar
+        .Attributes
+          .CallBackLink('CallBack')
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Title('Meu Gráfico de Barras')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .textLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .textLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .CallbackJS
+      .ClassProvider(Self)
+    .&End
+  .Generated;
+end;
+
+procedure TForm2.btnBarLabelClick(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Configuracoes
+          .H1('Gráfico de Barras')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      .Bar
+        .Attributes
+          .Labelling(True)
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Title('Meu Gráfico de Barras')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .textLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .textLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm2.btnBarsStackedClick(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Configuracoes
+          .H1('Gráfico de Barras')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      .Bar
+        .Attributes
+          .Stacked(true)
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Title('Meu Gráfico de Barras')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .textLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .textLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
 
 procedure TForm2.btnSemiCirculeClick(Sender: TObject);
 begin
@@ -482,26 +618,26 @@ begin
    TabSheet1.TabVisible := False;
    TabSheet2.TabVisible := False;
 
-  ClientDataSet1.LoadFromFile('Data\CDSChats.xml');
-  ClientDataSet1.Open;
-
-  ClientDataSet2.LoadFromFile('Data\CDSChats2.xml');
-  ClientDataSet2.Open;
-
-  ClientDataSet3.LoadFromFile('Data\CDSChats3.xml');
-  ClientDataSet3.Open;
-
-  ClientDataSet4.LoadFromFile('Data\CDSChats4.xml');
-  ClientDataSet4.Open;
-
-  ClientDataSet5.LoadFromFile('Data\customer.xml');
-  ClientDataSet5.Open;
-
-  ClientDataSet6.LoadFromFile('Data\clients.xml');
-  ClientDataSet6.Open;
-
-  ClientDataSet7.LoadFromFile('Data\clients.xml');
-  ClientDataSet7.Open;
+//  ClientDataSet1.LoadFromFile('Data\CDSChats.xml');
+//  ClientDataSet1.Open;
+//
+//  ClientDataSet2.LoadFromFile('Data\CDSChats2.xml');
+//  ClientDataSet2.Open;
+//
+//  ClientDataSet3.LoadFromFile('Data\CDSChats3.xml');
+//  ClientDataSet3.Open;
+//
+//  ClientDataSet4.LoadFromFile('Data\CDSChats4.xml');
+//  ClientDataSet4.Open;
+//
+//  ClientDataSet5.LoadFromFile('Data\customer.xml');
+//  ClientDataSet5.Open;
+//
+//  ClientDataSet6.LoadFromFile('Data\clients.xml');
+//  ClientDataSet6.Open;
+//
+//  ClientDataSet7.LoadFromFile('Data\clients.xml');
+//  ClientDataSet7.Open;
 end;
 
 procedure TForm2.RelCust(Value: Integer);
@@ -833,6 +969,7 @@ begin
     .Charts
       .Doughnut
         .Attributes
+          .Labelling(true)
           .Name('Meu Grafico Doughnut')
           .ColSpan(12)
           .Title('Meu Grafico Doughnut')
@@ -876,8 +1013,14 @@ begin
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
+            .BackgroundColor('30,182,203')
             .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .textLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
           .&End
         .&End
       .&End
@@ -894,6 +1037,7 @@ begin
       .Charts
         .Lines
           .Attributes
+            .Labelling(True)
             .Name('Meu Grafico de Barras')
             .ColSpan(12)
             .Title('Meu Grafico de Barras')
@@ -1389,6 +1533,11 @@ begin
 
     .WebBrowser(WebBrowser1)
     .Generated;
+end;
+
+procedure TForm2.CallBack(value: string);
+begin
+  ShowMessage(value);
 end;
 
 procedure TForm2.testeClick(Sender: TObject);

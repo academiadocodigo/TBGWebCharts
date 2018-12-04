@@ -11,12 +11,12 @@ uses
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
-    {$IF RTLVERSION > 23 }
+    {$IF RTLVERSION > 27 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
     {$IFEND}
-    {$IF RTLVERSION < 24 }
+    {$IF RTLVERSION < 28 }
       StdCtrls,
       Buttons,
       SHDocVw,
@@ -46,7 +46,7 @@ type
   iModelCards = interface;
   iModelButtonClass = interface;
   iModelButton = interface;
-  {$IF RTLVERSION > 23 }
+  {$IF RTLVERSION > 27 }
     iCallbackJS = interface;
   {$IFEND}
   iModelImageDataSet = interface;
@@ -74,14 +74,22 @@ type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
-    {$IF RTLVERSION > 23 }
+    {$IFDEF HAS_FMX}
+    {$ELSE}
+    {$IF RTLVERSION > 27 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     {$IFEND}
+    {$ENDIF}
     function Image : iModelImage;
     //function CacheControl : iCacheControl;
     {$ENDIF}
   end;
+
+  iLabelLing = interface
+    function Result : String;
+  end;
+
 
   IModelHTMLRows = interface
     ['{684C6EA3-4C2D-4AA9-9A94-BF0A07B14A8B}']
@@ -204,6 +212,12 @@ type
     function Legend : Boolean; overload;
     function ResultDataSet : String;
     function ResultLabels : String;
+    function Stacked(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
+    function Stacked : Boolean; overload;
+    function CallBackLink(Value : String) : iModelHTMLChartsConfig<T>; overload;
+    function CallBackLink : String; overload;
+    function Labelling(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
+    function Labelling : Boolean; overload;
     function &End : T;
   end;
 
@@ -319,6 +333,11 @@ type
     function &End : iModelHTML;
   end;
 
+  iChartsCallback = interface
+  ['{4040F646-6D4F-477A-B5CE-98FDD025DAEB}']
+    function Result (Value : String) : String;
+  end;
+
   iModelImage = interface
     ['{477D75E4-1BEE-4E4B-B15F-80B92DA186EA}']
     function &End : iModelHTML;
@@ -384,15 +403,6 @@ type
     ['{CB37AC61-A8D6-4CEB-BFD1-FDC26CDEB2AA}']
     function PackJS : String;
   end;
-
-//  iCacheControl = interface
-//  ['{9DAA1668-B543-45B9-AFAE-E39BE919D610}']
-//    function Back(Button : TButton) : iCacheControl; overload;
-//    function Next(Button : TButton) : iCacheControl; overload;
-//    function Back(Button : TSpeedButton) : iCacheControl; overload;
-//    function Next(Button : TSpeedButton) : iCacheControl; overload;
-//    function &EndCacheControl : iModelHTML;
-//  end;
 
   {$ENDIF}
 

@@ -4,9 +4,10 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup>
-        <DeviceId Condition="'$(Platform)'=='Android'">3a52e2e0</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='Android'">0022701774</DeviceId>
     </PropertyGroup>
     <ItemGroup Condition="'$(Platform)'=='Win32'"/>
+    <ItemGroup Condition="'$(Platform)'=='Win64'"/>
     <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Project2\res\drawable-ldpi\</RemoteDir>
@@ -44,7 +45,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="bin\styles.xml" Condition="'$(Config)'=='Debug'">
+        <DeployFile Include="styles.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Project2\res\values\</RemoteDir>
             <RemoteName>styles.xml</RemoteName>
             <DeployClass>AndroidSplashStyles</DeployClass>
@@ -89,7 +90,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="bin\libProject2.so" Condition="'$(Config)'=='Debug'">
+        <DeployFile Include="libProject2.so" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Project2\library\lib\armeabi-v7a\</RemoteDir>
             <RemoteName>libProject2.so</RemoteName>
             <DeployClass>ProjectOutput</DeployClass>
@@ -117,16 +118,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="bin\classes.dex" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>Project2\classes\</RemoteDir>
-            <RemoteName>classes.dex</RemoteName>
-            <DeployClass>AndroidClassesDexFile</DeployClass>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="bin\splash_image_def.xml" Condition="'$(Config)'=='Debug'">
+        <DeployFile Include="splash_image_def.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Project2\res\drawable\</RemoteDir>
             <RemoteName>splash_image_def.xml</RemoteName>
             <DeployClass>AndroidSplashImageDef</DeployClass>
@@ -144,7 +136,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="bin\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
+        <DeployFile Include="AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Project2\</RemoteDir>
             <RemoteName>AndroidManifest.xml</RemoteName>
             <DeployClass>ProjectAndroidManifest</DeployClass>

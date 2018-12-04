@@ -1,6 +1,7 @@
 unit HTML;
 
 {$I TBGWebCharts.inc}
+{$HINTS OFF}
 
 interface
 
@@ -18,7 +19,7 @@ uses
       Registry,
     {$ENDIF}
   {$ELSE}
-    {$IF RTLVERSION > 23 }
+    {$IF RTLVERSION > 27 }
       VCL.StdCtrls,
       VCL.Buttons,
       SHDocVw,
@@ -27,10 +28,10 @@ uses
         Win.Registry,
       {$IFEND}
       {$IF RTLVERSION < 32 }
-        Win.Registry,
+        Registry,
       {$IFEND}
     {$IFEND}
-    {$IF RTLVERSION < 24 }
+    {$IF RTLVERSION < 28 }
       StdCtrls,
       Buttons,
       SHDocVw,
@@ -38,7 +39,7 @@ uses
       Registry,
     {$IFEND}
   {$ENDIF}
-  {$IF RTLVERSION > 23 }
+  {$IF RTLVERSION > 27 }
     {$IFDEF FULL}
       CallBackJS,
       Button,
@@ -47,7 +48,11 @@ uses
   Classes, PackJS, PackCss;
 
 Type
-  TModelHTML = class(TInterfacedObject, iModelHTML{$IF RTLVERSION > 23 }, iCallbackJS{$IFEND})
+  {$IFDEF HAS_FMX}
+    TModelHTML = class(TInterfacedObject, iModelHTML)
+  {$ELSE}
+    TModelHTML = class(TInterfacedObject, iModelHTML {$IF RTLVERSION > 27} , iCallbackJS {$IFEND})
+  {$ENDIF}
   private
     FHTML: String;
     FWebBrowser: TWebBrowser;
@@ -60,6 +65,7 @@ Type
     {$ENDIF}
     function FolderDefaultRWC(Value : String) : iModelHTML;
     procedure HtmlBrowserGenerated(CONST HTMLCode: string);
+    function ConvertString(aValue : String) : String;
   public
     constructor Create;
     destructor Destroy; override;
@@ -78,12 +84,15 @@ Type
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
-    {$IF RTLVERSION > 23 }
+    {$IFDEF HAS_FMX}
+    {$ELSE}
+    {$IF RTLVERSION > 27 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     function ClassProvider(Value : TObject) : iCallbackJS;
     function &End : iModelHTML;
     {$IFEND}
+    {$ENDIF}
     function Image : iModelImage;
     {$ENDIF}
   end;
@@ -99,6 +108,15 @@ uses
   Injection;
 
 { TModelHTML }
+
+function TModelHTML.ConvertString(aValue : String) : String;
+var
+  rbs : RawByteString;
+begin
+  rbs := UTF8Encode(aValue);
+  SetCodePage(rbs,0,false);
+  Result := UnicodeString(rbs);
+end;
 
 procedure TModelHTML.HtmlBrowserGenerated(CONST HTMLCode: string);
 var
@@ -191,7 +209,11 @@ var
 begin
   GenerateFooter;
   {$IFDEF HAS_FMX}
-  FWebBrowser.LoadFromStrings(FHTML,'TBG');
+    {$IFDEF ANDROID}
+      FWebBrowser.LoadFromStrings(FHTML,'TBG');
+    {$ELSE}
+      FWebBrowser.LoadFromStrings(ConvertString(FHTML),'TBG');
+    {$ENDIF}
   {$ELSE}
     FWebBrowser.Silent := True;
     HtmlBrowserGenerated(FHTML);
@@ -292,8 +314,9 @@ function TModelHTML.Table: iModelTable;
 begin
   Result := TModelHTMLFactory.New.Table(Self);
 end;
-
-{$IF RTLVERSION > 23 }
+{$IFDEF HAS_FMX}
+{$ELSE}
+{$IF RTLVERSION > 27 }
 function TModelHTML.&End : iModelHTML;
 begin
   Result := Self;
@@ -321,6 +344,7 @@ begin
   Result := TModelButton.New(Self);
 end;
 {$IFEND}
+{$ENDIF}
 
 function TModelHTML.Cards : iModelCards;
 begin

@@ -13,6 +13,8 @@ type
     Button1: TButton;
     WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet2: TClientDataSet;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -28,20 +30,51 @@ implementation
 {$R *.fmx}
 
 procedure TForm2.Button1Click(Sender: TObject);
-var a,b:string;
 begin
-a:='Meu Gráfico de Barras';
-b:='Meu Gráfico de Pie';
 WebCharts1
   .NewProject
     .Charts
       .Bar
         .Attributes
-          .Name(a)
+          .Name('Meu Gráfico de Barras')
           .ColSpan(12)
-         .Title(a)
+         .Title('Meu Gráfico de Barras')
          .Heigth(250)
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
         .&End
+      .&End
+    .&End
+    .Charts
+      .Pie
+        .Attributes
+          .Name('Meu Gráfico de Pie')
+          .ColSpan(12)
+         .Title('Meu Gráfico de Pie')
+         .Legend(False)
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Rows
+      .Title
+        .Configuracoes
+          .H4('&nbsp&nbsp&nbsp Tabela de clientes')
+        .&End
+      .&End
+    .&End
+    .Table
+      .TableClass
+        .tableSm
+      .EndTableClass
+      .DataSet
+        .DataSet(ClientDataSet2)
       .&End
     .&End
   .WebBrowser(WebBrowser1)
