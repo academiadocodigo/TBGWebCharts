@@ -8,6 +8,7 @@ uses
 Type
   TModelImageDataSet = class(TInterfacedObject, iModelImageDataSet)
     private
+      [weak]
       FParent : iModelImage;
       FDataSet : TDataSet;
       FField : String;
@@ -52,7 +53,11 @@ end;
 
 constructor TModelImageDataSet.Create(Parent : iModelImage);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 function TModelImageDataSet.DataSet(Value: TDataSet): iModelImageDataSet;

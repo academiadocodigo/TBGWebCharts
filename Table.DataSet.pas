@@ -8,6 +8,7 @@ uses
 Type
   TModelTableDataSet = class(TInterfacedObject, iModelTableDataSet)
     private
+      [weak]
       FParent : iModelTable;
       FDataSet : TDataSet;
       FCallbackLink  : TDictionary<string, string>;
@@ -41,7 +42,11 @@ end;
 
 constructor TModelTableDataSet.Create(Parent : iModelTable);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FCallbackLink := TDictionary<string, string>.Create;
 end;
 

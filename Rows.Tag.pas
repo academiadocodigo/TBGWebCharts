@@ -8,6 +8,7 @@ uses
 Type
   TModelHTMLRowsTag = class(TInterfacedObject, IModelHTMLRowsTag)
     private
+      [weak]
       FParent : IModelHTMLRows;
       FLista : TList<String>;
     public
@@ -44,7 +45,11 @@ end;
 
 constructor TModelHTMLRowsTag.Create(Parent : IModelHTMLRows);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FLista := TList<String>.Create;
 end;
 

@@ -8,6 +8,7 @@ uses
 Type
   TModelCards = class(TInterfacedObject, iModelCards)
     private
+      [weak]
       FParent : iModelHtml;
       FFieldHearder : String;
       FFieldTitle : String;
@@ -66,7 +67,11 @@ end;
 
 constructor TModelCards.Create(Value : iModelHTML);
 begin
-  TInjection.Weak(@FParent, Value);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Value);
+  {$ELSE}
+    FParent := Value;
+  {$IFEND}
   FColors := TModelColor<iModelCards>.New(Self);
   FDataSet := TList<iModelCardsDataSet>.Create;
 end;

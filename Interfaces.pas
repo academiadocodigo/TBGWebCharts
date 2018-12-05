@@ -46,9 +46,12 @@ type
   iModelCards = interface;
   iModelButtonClass = interface;
   iModelButton = interface;
-  {$IF RTLVERSION > 27 }
+  {$IFDEF HAS_FMX}
+    {$ELSE}
+    {$IF RTLVERSION > 22 }
     iCallbackJS = interface;
-  {$IFEND}
+    {$IFEND}
+    {$ENDIF}
   iModelImageDataSet = interface;
   iModelImage = interface;
   iModelImageClass = interface;
@@ -76,7 +79,7 @@ type
     function Cards : iModelCards;
     {$IFDEF HAS_FMX}
     {$ELSE}
-    {$IF RTLVERSION > 27 }
+    {$IF RTLVERSION > 22 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     {$IFEND}

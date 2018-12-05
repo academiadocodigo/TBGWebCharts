@@ -9,6 +9,7 @@ Type
   TModelHTMLChartsLineStacked = class(TInterfacedObject, iModelHTMLChartsLineStacked)
     private
       FHTML : String;
+      [weak]
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsLineStacked>;
     public
@@ -95,7 +96,11 @@ end;
 
 constructor TModelHTMLChartsLineStacked.Create(Parent : iModelHTMLCharts);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsLineStacked>.New(Self);
 end;
 

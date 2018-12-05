@@ -8,6 +8,7 @@ uses
 Type
   TModelHTMLRowsTitle = class(TInterfacedObject, iModelHTMLRowsTitle)
     private
+      [weak]
       FParent : IModelHTMLRows;
       FConfig : IModelRowsTitleConfig;
     public
@@ -51,7 +52,11 @@ end;
 
 constructor TModelHTMLRowsTitle.Create(Parent : IModelHTMLRows);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FConfig := TModelHTMLRowsTitleConfig.New(Self);
 end;
 

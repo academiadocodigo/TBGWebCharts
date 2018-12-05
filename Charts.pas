@@ -8,6 +8,7 @@ uses
 Type
   TModelHTMLCharts = class(TInterfacedObject, iModelHTMLCharts)
     private
+      [weak]
       FParent : IModelHTML;
       FChartBar : iModelHTMLChartsBar;
       FDoughnut : iModelHTMLChartsDoughnut;
@@ -74,7 +75,11 @@ end;
 
 constructor TModelHTMLCharts.Create(Parent : IModelHTML);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 destructor TModelHTMLCharts.Destroy;

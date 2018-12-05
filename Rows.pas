@@ -10,6 +10,7 @@ uses
 Type
   TModelHTMLRows = class(TInterfacedObject, IModelHTMLRows)
     private
+      [weak]
       FParent : IModelHTML;
       FRowsTitle : iModelHTMLRowsTitle;
       FRowTag : IModelHTMLRowsTag;
@@ -59,7 +60,11 @@ end;
 
 constructor TModelHTMLRows.Create(Parent : IModelHTML);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FParent.HTML('<div class="row">');
 end;
 

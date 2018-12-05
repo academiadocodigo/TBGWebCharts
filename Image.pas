@@ -8,6 +8,7 @@ uses
 Type
   TModelImage = class(TInterfacedObject, iModelImage)
     private
+      [weak]
       FParent : iModelHTML;
       FDataSet : TList<iModelImageDataSet>;
       FImageClass : iModelImageClass;
@@ -43,7 +44,11 @@ end;
 
 constructor TModelImage.Create(Parent : iModelHTML);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FDataSet := TList<iModelImageDataSet>.Create;
   FImageClass := TModelImageClass.New(Self);
 end;

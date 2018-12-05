@@ -39,7 +39,7 @@ uses
       Registry,
     {$IFEND}
   {$ENDIF}
-  {$IF RTLVERSION > 27 }
+  {$IF RTLVERSION > 22 }
     {$IFDEF FULL}
       CallBackJS,
       Button,
@@ -51,7 +51,7 @@ Type
   {$IFDEF HAS_FMX}
     TModelHTML = class(TInterfacedObject, iModelHTML)
   {$ELSE}
-    TModelHTML = class(TInterfacedObject, iModelHTML {$IF RTLVERSION > 27} , iCallbackJS {$IFEND})
+    TModelHTML = class(TInterfacedObject, iModelHTML {$IF RTLVERSION > 22} , iCallbackJS {$IFEND})
   {$ENDIF}
   private
     FHTML: String;
@@ -86,7 +86,7 @@ Type
     function Cards : iModelCards;
     {$IFDEF HAS_FMX}
     {$ELSE}
-    {$IF RTLVERSION > 27 }
+    {$IF RTLVERSION > 22 }
     function CallbackJS : iCallbackJS;
     function Buttons : iModelButton;
     function ClassProvider(Value : TObject) : iCallbackJS;
@@ -316,7 +316,7 @@ begin
 end;
 {$IFDEF HAS_FMX}
 {$ELSE}
-{$IF RTLVERSION > 27 }
+{$IF RTLVERSION > 22 }
 function TModelHTML.&End : iModelHTML;
 begin
   Result := Self;

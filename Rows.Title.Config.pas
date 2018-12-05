@@ -9,6 +9,7 @@ Type
   TModelHTMLRowsTitleConfig = class(TInterfacedObject,
     IModelRowsTitleConfig)
   private
+    [weak]
     FParent : iModelHTMLRowsTitle;
     FH1 : String;
     FH2 : String;
@@ -43,7 +44,11 @@ end;
 
 constructor TModelHTMLRowsTitleConfig.Create(Parent : iModelHTMLRowsTitle);
 begin
-  TInjection.Weak(@FParent, IInterface(Parent));
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, IInterface(Parent));
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 destructor TModelHTMLRowsTitleConfig.Destroy;

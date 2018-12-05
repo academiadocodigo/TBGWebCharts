@@ -8,6 +8,7 @@ uses
 Type
   TModelCardsDataSet = class(TInterfacedObject, iModelCardsDataSet)
     private
+      [weak]
       FParent : iModelCards;
       FDataSet : TDataSet;
     public
@@ -33,7 +34,11 @@ end;
 
 constructor TModelCardsDataSet.Create(Parent : iModelCards);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 function TModelCardsDataSet.DataSet(Value: TDataSet): iModelCardsDataSet;

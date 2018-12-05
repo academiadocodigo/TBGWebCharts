@@ -8,6 +8,7 @@ uses
 Type
   TModelColor<T : IInterface> = class(TInterfacedObject, iModelColors<T>)
     private
+      [weak]
       FParent : T;
       FColor : String;
     public
@@ -40,7 +41,11 @@ end;
 
 constructor TModelColor<T>.Create(Parent : T);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 function TModelColor<T>.Danger: iModelColors<T>;

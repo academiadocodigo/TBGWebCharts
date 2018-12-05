@@ -9,6 +9,7 @@ Type
   TModelHTMLChartsBar = class(TInterfacedObject, iModelHTMLChartsBar)
     private
       FHTML : String;
+      [weak]
       FParent : iModelHTMLCharts;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsBar>;
     public
@@ -86,7 +87,11 @@ end;
 
 constructor TModelHTMLChartsBar.Create(Parent : iModelHTMLCharts);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FConfig := TModelHTMLChartsConfig<iModelHTMLChartsBar>.New(Self);
 end;
 
