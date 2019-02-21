@@ -74,6 +74,8 @@ type
     function Generated : iModelHTML;
     function Container(Value : Boolean) : iModelHTML;
     function FolderDefaultRWC(Value : String) : iModelHTML;
+    function BackgroundColor( Value : String) : iModelHTML;
+    function FontColor ( Value : String) : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
@@ -400,6 +402,8 @@ type
   iModelCSS = interface
     ['{DBC52618-B95B-4871-9BC5-632B7737F2FD}']
     function PackCSS : String;
+    function BackgroundColor ( Value : String ) :  iModelCSS;
+    function FontColor ( Value : String ) : iModelCSS;
   end;
 
   iModelJS = interface

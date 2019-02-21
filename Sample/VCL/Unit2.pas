@@ -1322,8 +1322,10 @@ procedure TForm2.SpeedButton9Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
   WebCharts1
-    .AddResource('<link href="css/green.css" rel="stylesheet">')
-    .AddResource('<link href="css/custom.min.css" rel="stylesheet">')
+    //.AddResource('<link href="green.css" rel="stylesheet">')
+    //.AddResource('<link href="style.css" rel="stylesheet">')
+    .BackgroundColor('#23272b')
+    .FontColor('#8f9894')
     .NewProject
 
       //Criando uma Linha com 6 Colunas e Adicionando conteudo HTML em cada uma

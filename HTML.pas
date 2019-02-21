@@ -58,6 +58,8 @@ Type
     FWebBrowser: TWebBrowser;
     FContainer : Boolean;
     FFolderDefaultRWC : String;
+    FBackgroundColor : String;
+    FFontColor : String;
     function Container(Value : Boolean) : iModelHTML;
    {$IFDEF HAS_FMX}
    {$ELSE}
@@ -81,6 +83,8 @@ Type
     function ClearHTML : iModelHTML;
     function WebBrowser(Value: TWebBrowser): iModelHTML;
     function Generated: iModelHTML;
+    function BackgroundColor( Value : String) : iModelHTML;
+    function FontColor ( Value : String) : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
@@ -108,6 +112,17 @@ uses
   Injection;
 
 { TModelHTML }
+function TModelHTML.BackgroundColor( Value : String) : iModelHTML;
+begin
+  Result := Self;
+  FBackgroundColor := Value;
+end;
+
+function TModelHTML.FontColor ( Value : String) : iModelHTML;
+begin
+  Result := Self;
+  FFontColor := Value;
+end;
 
 function TModelHTML.ConvertString(aValue : String) : String;
 var
@@ -240,7 +255,10 @@ begin
   FHTML := FHTML + '<meta charset="UTF-8"> ';
   FHTML := FHTML + '<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
   FHTML := FHTML + '<title></title> ';
-  FHTML := FHTML + TPackCss.New.PackCSS;
+  FHTML := FHTML + TPackCss.New
+                    .BackgroundColor(FBackgroundColor)
+                    .FontColor(FFontColor)
+                    .PackCSS;
   FHTML := FHTML + TPackJS.New.PackJS;
   if Assigned(Value) then
   begin

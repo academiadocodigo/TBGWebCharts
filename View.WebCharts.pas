@@ -12,6 +12,8 @@ Type
     function NewProject(Container : Boolean) : iModelHTML; overload;
     function ContinuosProject : iModelHTML;
     function AddResource(Value : String) : iWebCharts;
+    function BackgroundColor(Value : String) : iWebCharts;
+    function FontColor(Value : String) : iWebCharts;
   end;
 
   {$IF RTLVERSION > 27  }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
@@ -19,7 +21,9 @@ Type
     private
       FModelHTML : iModelHTML;
       FCss : TList<String>;
-    FFolderDefaultRWC: String;
+      FFolderDefaultRWC: String;
+      FBackgroundColor : String;
+      FFontColor : String;
     procedure SetFolderDefaultRWC(const Value: String);
     public
       constructor Create;
@@ -29,6 +33,8 @@ Type
       function NewProject : iModelHTML; overload;
       function NewProject(Container : Boolean) : iModelHTML; overload;
       function ContinuosProject : iModelHTML;
+      function BackgroundColor(Value : String) : iWebCharts;
+      function FontColor(Value : String) : iWebCharts;
     published
       property FolderDefaultRWC : String read FFolderDefaultRWC write SetFolderDefaultRWC;
   end;
@@ -52,6 +58,12 @@ begin
   inherited;
 end;
 
+function TWebCharts.FontColor(Value: String): iWebCharts;
+begin
+  Result := Self;
+  FFontColor := Value;
+end;
+
 function TWebCharts.AddResource(Value: String): iWebCharts;
 begin
   Result := Self;
@@ -59,6 +71,12 @@ begin
     FCss := TList<String>.Create;
 
   FCss.Add(Value);
+end;
+
+function TWebCharts.BackgroundColor(Value: String): iWebCharts;
+begin
+  Result := Self;
+  FBackgroundColor := Value;
 end;
 
 function TWebCharts.ContinuosProject: iModelHTML;
@@ -77,7 +95,10 @@ begin
   Result.ClearHTML;
   Result.Container(Container);
   Result.FolderDefaultRWC(FFolderDefaultRWC);
-  Result.GenerateHead(FCss);
+  Result
+    .BackgroundColor(FBackgroundColor)
+    .FontColor(FFontColor)
+    .GenerateHead(FCss);
 end;
 
 procedure TWebCharts.SetFolderDefaultRWC(const Value: String);
@@ -89,7 +110,10 @@ function TWebCharts.NewProject: iModelHTML;
 begin
   Result := TModelHTML.New;
   Result.ClearHTML;
-  Result.GenerateHead(FCss);
+  Result
+    .BackgroundColor(FBackgroundColor)
+    .FontColor(FFontColor)
+    .GenerateHead(FCss);
   Result.FolderDefaultRWC(FFolderDefaultRWC);
 end;
 

@@ -8,10 +8,14 @@ type
   TBootstrapCss = class(TInterfacedObject,iModelCSS)
     private
       FPack : TStringList;
+      FBackgroundColor : String;
+      FFontColor : String;
     public
       constructor Create;
       destructor Destroy; override;
       class function New : iModelCSS;
+      function BackgroundColor ( Value : String ) :  iModelCSS;
+      function FontColor ( Value : String ) : iModelCSS;
 	    procedure BootstrapCss_1;
       procedure BootstrapCss_2;
       procedure BootstrapCss_3;
@@ -50,6 +54,8 @@ uses
 constructor TBootstrapCss.Create;
 begin
   FPack := TStringList.Create;
+  FBackgroundColor := '#fff';
+  FFontColor := '#212529';
 end;
 
 destructor TBootstrapCss.Destroy;
@@ -58,9 +64,21 @@ begin
   inherited;
 end;
 
-class function TBootstrapCss.New: iModelCSS;
+function TBootstrapCss.FontColor(Value: String): iModelCSS;
+begin
+  Result := Self;
+  FFontColor := Value;
+end;
+
+class function TBootstrapCss.New : iModelCSS;
 begin
   Result := Self.Create;
+end;
+
+function TBootstrapCss.BackgroundColor(Value: String): iModelCSS;
+begin
+  Result := Self;
+  FBackgroundColor := Value;
 end;
 
 procedure TBootstrapCss.BootstrapCss_1;
@@ -162,8 +180,8 @@ begin
   FPack.add('  font-size: 1rem;');
   FPack.add('  font-weight: normal;');
   FPack.add('  line-height: 1.5;');
-  FPack.add('  color: #212529;');
-  FPack.add('  background-color: #fff;');
+  FPack.add('  color: '+FFontColor+';');
+  FPack.add('  background-color:'+FBackgroundColor+';');
   FPack.add('}');
   FPack.add('');
   FPack.add('[tabindex="-1"]:focus {');
