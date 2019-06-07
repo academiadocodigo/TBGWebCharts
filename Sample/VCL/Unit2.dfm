@@ -171,7 +171,7 @@ object Form2: TForm2
         Top = 74
         Width = 232
         Height = 730
-        ActivePage = TabSheet6
+        ActivePage = TabSheet10
         Align = alClient
         TabOrder = 0
         object TabSheet3: TTabSheet
@@ -277,175 +277,193 @@ object Form2: TForm2
         object TabSheet5: TTabSheet
           Caption = 'Scale xAxe'
           ImageIndex = 2
-          object ValueListEditor3: TValueListEditor
+          object ScrollBox2: TScrollBox
             Left = 0
             Top = 0
             Width = 224
-            Height = 98
-            Align = alTop
+            Height = 699
+            Align = alClient
             BorderStyle = bsNone
             Color = clWhite
-            DrawingStyle = gdsClassic
-            FixedColor = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Strings.Strings = (
-              'Position=bottom'
-              'OffSet=True'
-              'type='
-              'Stacked=False')
+            ParentColor = False
             TabOrder = 0
-            ColWidths = (
-              96
-              126)
-          end
-          object Panel10: TPanel
-            Left = 0
-            Top = 98
-            Width = 224
-            Height = 23
-            Align = alTop
-            BevelOuter = bvNone
-            Caption = 'Ticks'
-            Color = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBackground
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentBackground = False
-            ParentFont = False
-            TabOrder = 1
-          end
-          object ValueListEditor4: TValueListEditor
-            Left = 0
-            Top = 121
-            Width = 224
-            Height = 172
-            Align = alTop
-            BorderStyle = bsNone
-            Color = clWhite
-            DrawingStyle = gdsClassic
-            FixedColor = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Strings.Strings = (
-              'fontColor=#666'
-              'autoSkip=False'
-              'autoSkipPadding=100'
-              'labelOffset=0'
-              'maxRotation=50'
-              'minRotation=0'
-              'mirror=False'
-              'padding=0')
-            TabOrder = 2
-            ColWidths = (
-              96
-              126)
-          end
-          object Panel11: TPanel
-            Left = 0
-            Top = 293
-            Width = 224
-            Height = 23
-            Align = alTop
-            BevelOuter = bvNone
-            Caption = 'GridLines'
-            Color = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBackground
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentBackground = False
-            ParentFont = False
-            TabOrder = 3
-          end
-          object ValueListEditor5: TValueListEditor
-            Left = 0
-            Top = 316
-            Width = 224
-            Height = 191
-            Align = alTop
-            BorderStyle = bsNone
-            Color = clWhite
-            DrawingStyle = gdsClassic
-            FixedColor = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Strings.Strings = (
-              'display=True'
-              'circular=False'
-              'colorRGBA=102,102,102,0.1'
-              'drawBorder=True'
-              'drawOnChartArea=True'
-              'drawTicks=True'
-              'tickMarkLength=10'
-              'zeroLineWidth=50'
-              'zeroLineColorRGBA=102,102,102,100')
-            TabOrder = 4
-            ColWidths = (
-              96
-              126)
-          end
-          object Panel12: TPanel
-            Left = 0
-            Top = 507
-            Width = 224
-            Height = 23
-            Align = alTop
-            BevelOuter = bvNone
-            Caption = 'ScaleLabel'
-            Color = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBackground
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentBackground = False
-            ParentFont = False
-            TabOrder = 5
-          end
-          object ValueListEditor6: TValueListEditor
-            Left = 0
-            Top = 530
-            Width = 224
-            Height = 157
-            Align = alTop
-            BorderStyle = bsNone
-            Color = clWhite
-            DrawingStyle = gdsClassic
-            FixedColor = clWhite
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            Strings.Strings = (
-              'display=True'
-              'labelString=Faturamento por M'#234's'
-              'fontColorHEX=#666'
-              'fontFamily=Arial'
-              'fontSize=15'
-              'fontStyle=normal'
-              'padding=10')
-            TabOrder = 6
-            ColWidths = (
-              96
-              126)
+            object ValueListEditor3: TValueListEditor
+              Left = 0
+              Top = 0
+              Width = 224
+              Height = 98
+              Align = alTop
+              BorderStyle = bsNone
+              Color = clWhite
+              DrawingStyle = gdsClassic
+              FixedColor = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Strings.Strings = (
+                'Position=bottom'
+                'OffSet=True'
+                'type='
+                'Stacked=False')
+              TabOrder = 0
+              ExplicitTop = 8
+              ColWidths = (
+                96
+                126)
+            end
+            object Panel10: TPanel
+              Left = 0
+              Top = 98
+              Width = 224
+              Height = 23
+              Align = alTop
+              BevelOuter = bvNone
+              Caption = 'Ticks'
+              Color = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBackground
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 1
+              ExplicitTop = 106
+            end
+            object ValueListEditor4: TValueListEditor
+              Left = 0
+              Top = 121
+              Width = 224
+              Height = 172
+              Align = alTop
+              BorderStyle = bsNone
+              Color = clWhite
+              DrawingStyle = gdsClassic
+              FixedColor = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Strings.Strings = (
+                'fontColor=#666'
+                'autoSkip=False'
+                'autoSkipPadding=100'
+                'labelOffset=0'
+                'maxRotation=50'
+                'minRotation=0'
+                'mirror=False'
+                'padding=0')
+              TabOrder = 2
+              ExplicitTop = 129
+              ColWidths = (
+                96
+                126)
+            end
+            object Panel11: TPanel
+              Left = 0
+              Top = 293
+              Width = 224
+              Height = 23
+              Align = alTop
+              BevelOuter = bvNone
+              Caption = 'GridLines'
+              Color = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBackground
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 3
+              ExplicitTop = 301
+            end
+            object ValueListEditor5: TValueListEditor
+              Left = 0
+              Top = 316
+              Width = 224
+              Height = 191
+              Align = alTop
+              BorderStyle = bsNone
+              Color = clWhite
+              DrawingStyle = gdsClassic
+              FixedColor = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Strings.Strings = (
+                'display=True'
+                'circular=False'
+                'colorRGBA=102,102,102,0.1'
+                'drawBorder=True'
+                'drawOnChartArea=True'
+                'drawTicks=True'
+                'tickMarkLength=10'
+                'zeroLineWidth=50'
+                'zeroLineColorRGBA=102,102,102,100')
+              TabOrder = 4
+              ExplicitTop = 324
+              ColWidths = (
+                96
+                126)
+            end
+            object Panel12: TPanel
+              Left = 0
+              Top = 507
+              Width = 224
+              Height = 23
+              Align = alTop
+              BevelOuter = bvNone
+              Caption = 'ScaleLabel'
+              Color = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBackground
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 5
+              ExplicitTop = 515
+            end
+            object ValueListEditor6: TValueListEditor
+              Left = 0
+              Top = 530
+              Width = 224
+              Height = 157
+              Align = alTop
+              BorderStyle = bsNone
+              Color = clWhite
+              DrawingStyle = gdsClassic
+              FixedColor = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              Strings.Strings = (
+                'display=True'
+                'labelString=Faturamento por M'#234's'
+                'fontColorHEX=#666'
+                'fontFamily=Arial'
+                'fontSize=15'
+                'fontStyle=normal'
+                'padding=10')
+              TabOrder = 6
+              ExplicitTop = 538
+              ColWidths = (
+                96
+                126)
+            end
           end
         end
         object TabSheet6: TTabSheet
