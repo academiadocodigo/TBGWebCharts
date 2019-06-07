@@ -110,13 +110,6 @@ type
     Panel12: TPanel;
     ValueListEditor6: TValueListEditor;
     TabSheet6: TTabSheet;
-    ValueListEditor7: TValueListEditor;
-    Panel13: TPanel;
-    ValueListEditor8: TValueListEditor;
-    Panel14: TPanel;
-    ValueListEditor9: TValueListEditor;
-    Panel15: TPanel;
-    ValueListEditor10: TValueListEditor;
     TabSheet7: TTabSheet;
     ValueListEditor11: TValueListEditor;
     TabSheet8: TTabSheet;
@@ -132,6 +125,14 @@ type
     TabSheet10: TTabSheet;
     ValueListEditor16: TValueListEditor;
     SpeedButton1: TSpeedButton;
+    ScrollBox1: TScrollBox;
+    ValueListEditor7: TValueListEditor;
+    Panel13: TPanel;
+    ValueListEditor8: TValueListEditor;
+    Panel14: TPanel;
+    ValueListEditor9: TValueListEditor;
+    Panel15: TPanel;
+    ValueListEditor10: TValueListEditor;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
