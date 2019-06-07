@@ -25,6 +25,9 @@ var
 
 implementation
 
+uses
+  Charts.Types;
+
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
@@ -55,11 +58,15 @@ Response.Content :=
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gráfico de Barras')
+          .Options
+            .Title
+              .text('Meu Gráfico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)

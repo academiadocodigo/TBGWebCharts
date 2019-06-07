@@ -1,5 +1,7 @@
 unit Unit2;
 
+{$DEFINE HAS_FMX}
+
 interface
 
 uses
@@ -27,6 +29,9 @@ var
 
 implementation
 
+uses
+  Charts.Types;
+
 {$R *.fmx}
 
 procedure TForm2.Button1Click(Sender: TObject);
@@ -34,12 +39,16 @@ begin
 WebCharts1
   .NewProject
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Gráfico de Barras')
           .ColSpan(12)
-         .Title('Meu Gráfico de Barras')
-         .Heigth(250)
+          .Heigth(250)
+          .Options
+            .Title
+              .text('Meu Gráfico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -48,12 +57,18 @@ WebCharts1
       .&End
     .&End
     .Charts
-      .Pie
+      ._ChartType(pie)
         .Attributes
           .Name('Meu Gráfico de Pie')
           .ColSpan(12)
-         .Title('Meu Gráfico de Pie')
-         .Legend(False)
+         .Options
+            .Title
+              .text('Meu Gráfico Pie')
+            .&End
+            .Legend
+              .display(False)
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)

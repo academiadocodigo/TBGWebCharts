@@ -13,16 +13,16 @@ Type
       FWidth : Integer;
       FHeigth : Integer;
       FData : String;
-      FTitle : String;
       FBackgroundColor : String;
-      FOptions : String;
       FName : String;
       FLabels : String;
-      FLegend : Boolean;
       FStacked : Boolean;
       FMethod : String;
-      FLabelling : Boolean;
+      FLabelling : iModelLabellingConfig<iModelHTMLChartsConfig<T>>;
+      FNumeral : String;
       FDataSet : TList<iModelHTMLDataSet<iModelHTMLChartsConfig<T>>>;
+      FOptions : iModelHTMLOptions<iModelHTMLChartsConfig<T>>;
+      function Numeral: String;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -35,18 +35,12 @@ Type
       function Heigth : Integer; overload;
       function Data(Value : String) : iModelHTMLChartsConfig<T>; overload;
       function Data : String; overload;
-      function Title(Value : String) : iModelHTMLChartsConfig<T>; overload;
-      function Title : String; overload;
       function BackgroundColor(Value : String) : iModelHTMLChartsConfig<T>; overload;
       function BackgroundColor : String; overload;
-      function Options(Value : String) : iModelHTMLChartsConfig<T>; overload;
-      function Options : String; overload;
       function Name(Value : String) : iModelHTMLChartsConfig<T>; overload;
       function Name : String; overload;
       function Labels(Value : String) : iModelHTMLChartsConfig<T>; overload;
       function Labels : String; overload;
-      function Legend(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
-      function Legend : Boolean; overload;
       function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig<T>>;
       function ResultDataSet : String;
       function ResultLabels : String;
@@ -54,15 +48,16 @@ Type
       function Stacked : Boolean; overload;
       function CallBackLink(Value : String) : iModelHTMLChartsConfig<T>; overload;
       function CallBackLink : String; overload;
-      function Labelling(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
-      function Labelling : Boolean; overload;
+      function Labelling : iModelLabellingConfig<iModelHTMLChartsConfig<T>>; overload;
+      function Options : iModelHTMLOptions<iModelHTMLChartsConfig<T>>;
       function &End : T;
   end;
 
 implementation
 
 uses
-  SysUtils, Charts.DataSet, Injection;
+  SysUtils, Charts.DataSet, Injection, Charts.Labelling, Charts.Axes,
+  Charts.Legends, Charts.Title, Charts.Scales, Charts.Options;
 
 { TModelHTMLChartsConfig<T> }
 
@@ -92,13 +87,14 @@ end;
 
 constructor TModelHTMLChartsConfig<T>.Create(Parent : T);
 begin
-  FLegend := true;
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;
   {$IFEND}
   FDataSet := TList<iModelHTMLDataSet<iModelHTMLChartsConfig<T>>>.Create;
+  FLabelling := TChartsLabelling<iModelHTMLChartsConfig<T>>.New(Self);
+  FOptions := TModelHTMLChartsOptions<iModelHTMLChartsConfig<T>>.New(Self);
 end;
 
 function TModelHTMLChartsConfig<T>.Data: String;
@@ -137,33 +133,14 @@ begin
   Result := FHeigth;
 end;
 
-function TModelHTMLChartsConfig<T>.Labelling: Boolean;
+function TModelHTMLChartsConfig<T>.Labelling : iModelLabellingConfig<iModelHTMLChartsConfig<T>>;
 begin
   Result := FLabelling;
-end;
-
-function TModelHTMLChartsConfig<T>.Labelling(
-  Value: Boolean): iModelHTMLChartsConfig<T>;
-begin
-  Result := Self;
-  FLabelling := Value;
 end;
 
 function TModelHTMLChartsConfig<T>.Labels: String;
 begin
   Result := FLabels;
-end;
-
-function TModelHTMLChartsConfig<T>.Legend: Boolean;
-begin
-  Result := FLegend;
-end;
-
-function TModelHTMLChartsConfig<T>.Legend(
-  Value: Boolean): iModelHTMLChartsConfig<T>;
-begin
-  Result := Self;
-  FLegend := Value;
 end;
 
 function TModelHTMLChartsConfig<T>.Labels(
@@ -190,6 +167,16 @@ begin
   Result := Self.Create(Parent);
 end;
 
+function TModelHTMLChartsConfig<T>.Numeral: String;
+begin
+  Result := FNumeral;
+end;
+
+function TModelHTMLChartsConfig<T>.Options: iModelHTMLOptions<iModelHTMLChartsConfig<T>>;
+begin
+  Result := FOptions;
+end;
+
 function TModelHTMLChartsConfig<T>.BackgroundColor(
   Value: String): iModelHTMLChartsConfig<T>;
 begin
@@ -205,18 +192,6 @@ end;
 function TModelHTMLChartsConfig<T>.&End: T;
 begin
   Result := FParent;
-end;
-
-function TModelHTMLChartsConfig<T>.Options(
-  Value: String): iModelHTMLChartsConfig<T>;
-begin
-  Result := Self;
-  FOptions := Value;
-end;
-
-function TModelHTMLChartsConfig<T>.Options: String;
-begin
-  Result := FOptions;
 end;
 
 function TModelHTMLChartsConfig<T>.ResultDataSet: String;
@@ -251,18 +226,6 @@ function TModelHTMLChartsConfig<T>.Stacked(
 begin
   Result := Self;
   FStacked := Value;
-end;
-
-function TModelHTMLChartsConfig<T>.Title(
-  Value: String): iModelHTMLChartsConfig<T>;
-begin
-  Result := Self;
-  FTitle := Value;
-end;
-
-function TModelHTMLChartsConfig<T>.Title: String;
-begin
-  Result := FTitle;
 end;
 
 function TModelHTMLChartsConfig<T>.Width(

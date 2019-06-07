@@ -9,7 +9,7 @@ uses
   ExtCtrls, View.WebCharts, OleCtrls, SHDocVw,
   DBCtrls, StdCtrls,
   DB, DBClient,  Grids, DBGrids,
-  ComCtrls;
+  ComCtrls, Vcl.ValEdit, Interfaces;
 
 type
   TForm2 = class(TForm)
@@ -30,14 +30,6 @@ type
     Panel3: TPanel;
     DBGrid1: TDBGrid;
     Panel7: TPanel;
-    SpeedButton10: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton8: TSpeedButton;
-    SpeedButton9: TSpeedButton;
-    SpeedButton5: TSpeedButton;
     WebCharts1: TWebCharts;
     ClientDataSet5: TClientDataSet;
     ClientDataSet5CustNo: TFloatField;
@@ -49,8 +41,6 @@ type
     ClientDataSet5Phone: TStringField;
     ClientDataSet5TaxRate: TFloatField;
     ClientDataSet5Contact: TStringField;
-    SpeedButton1: TSpeedButton;
-    SpeedButton11: TSpeedButton;
     ClientDataSet6: TClientDataSet;
     ClientDataSet6LAST_NAME: TStringField;
     ClientDataSet6FIRST_NAME: TStringField;
@@ -69,7 +59,6 @@ type
     ClientDataSet6OBJECTIVES: TStringField;
     ClientDataSet6INTERESTS: TStringField;
     ClientDataSet6IMAGE: TBlobField;
-    SpeedButton12: TSpeedButton;
     ClientDataSet7: TClientDataSet;
     ClientDataSet7LAST_NAME: TStringField;
     ClientDataSet7FIRST_NAME: TStringField;
@@ -84,18 +73,65 @@ type
     ClientDataSet7RISK_LEVEL: TStringField;
     ClientDataSet7OCCUPATION: TStringField;
     ClientDataSet7OBJECTIVES: TStringField;
-    SpeedButton13: TSpeedButton;
     DBNavigator1: TDBNavigator;
     Panel8: TPanel;
     ComboBox1: TComboBox;
     Carregar: TButton;
-    btnSemiCircule: TSpeedButton;
-    SpeedButton15: TSpeedButton;
-    SpeedButton16: TSpeedButton;
-    btnBarsStacked: TSpeedButton;
-    btnBarLabel: TSpeedButton;
-    btnBarCall: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    Panel9: TPanel;
+    SpeedButton14: TSpeedButton;
+    SpeedButton17: TSpeedButton;
+    SpeedButton19: TSpeedButton;
+    SpeedButton20: TSpeedButton;
+    SpeedButton21: TSpeedButton;
+    SpeedButton22: TSpeedButton;
+    SpeedButton23: TSpeedButton;
+    SpeedButton24: TSpeedButton;
+    SpeedButton25: TSpeedButton;
+    SpeedButton26: TSpeedButton;
+    SpeedButton27: TSpeedButton;
+    SpeedButton28: TSpeedButton;
+    SpeedButton29: TSpeedButton;
+    SpeedButton30: TSpeedButton;
+    SpeedButton31: TSpeedButton;
+    SpeedButton32: TSpeedButton;
+    SpeedButton33: TSpeedButton;
+    SpeedButton34: TSpeedButton;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
+    TabSheet5: TTabSheet;
+    ValueListEditor1: TValueListEditor;
+    ValueListEditor2: TValueListEditor;
+    ValueListEditor3: TValueListEditor;
+    Panel10: TPanel;
+    ValueListEditor4: TValueListEditor;
+    Panel11: TPanel;
+    ValueListEditor5: TValueListEditor;
+    Panel12: TPanel;
+    ValueListEditor6: TValueListEditor;
+    TabSheet6: TTabSheet;
+    ValueListEditor7: TValueListEditor;
+    Panel13: TPanel;
+    ValueListEditor8: TValueListEditor;
+    Panel14: TPanel;
+    ValueListEditor9: TValueListEditor;
+    Panel15: TPanel;
+    ValueListEditor10: TValueListEditor;
+    TabSheet7: TTabSheet;
+    ValueListEditor11: TValueListEditor;
+    TabSheet8: TTabSheet;
+    ValueListEditor12: TValueListEditor;
+    Panel16: TPanel;
+    ValueListEditor13: TValueListEditor;
+    TabSheet9: TTabSheet;
+    ValueListEditor14: TValueListEditor;
+    Panel17: TPanel;
+    ValueListEditor15: TValueListEditor;
+    Panel18: TPanel;
+    cbTypeChart: TComboBox;
+    TabSheet10: TTabSheet;
+    ValueListEditor16: TValueListEditor;
+    SpeedButton1: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -140,6 +176,9 @@ var
 
 implementation
 
+uses
+  Charts.Types, TypInfo;
+
 {$R *.dfm}
 
 procedure TForm2.btnBarCallClick(Sender: TObject);
@@ -157,12 +196,12 @@ PageControl1.ActivePageIndex := 0;
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .CallBackLink('CallBack')
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gráfico de Barras')
+          //.Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -202,20 +241,22 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
-          .Labelling(True)
+          .Labelling
+            .Format('$0,0.00') //Consultar em http://numeraljs.com/#format
+            .RGBColor('102,102,102') //Cor RGB separado por Virgula
+            .FontSize(10) //Tamanho da Fonte
+            .FontStyle('normal') //normal, bold, italic
+            .FontFamily('Open Sans') //Open Sans, Arial, Helvetica e etc..
+            .Padding(5) //Numeros negativos e positivos
+          .&End
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gráfico de Barras')
+          //.Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
@@ -244,12 +285,22 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
-          .Stacked(true)
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gráfico de Barras')
+          .Options
+            .Scales
+              .Axes
+                .xAxe
+                  .Stacked(True)
+                .&End
+                .yAxe
+                  .Stacked(True)
+                .&End
+              .&End
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -277,12 +328,13 @@ begin
   WebCharts1
   .NewProject
     .Charts
-      .Doughnut
-        .SemiCircule(True)
+      ._ChartType(doughnut)
         .Attributes
           .Name('Meu Grafico Doughnut')
           .ColSpan(12)
-          .Title('Meu Grafico Doughnut')
+          .Options
+            .SemiCircule(True)
+          .&End
           .DataSet
             .textLabel('Meu DataSet 4')
             .DataSet(ClientDataSet4)
@@ -328,11 +380,11 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-         .Title('Meu Grafico de Barras')
+         //.Title('Meu Grafico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -501,16 +553,16 @@ begin
            WebCharts1
           .ContinuosProject
           .Charts
-            .Lines
+            ._ChartType(line)
               .Attributes
                 .ColSpan(12)
                 .Name('l1')
                 .Heigth(100)
-                .Legend(False)
+                //.Legend(False)
                 .DataSet
                   .textLabel('l1')
                   .DataSet(ClientDataSet3)
-                  .Fill('false')
+                  .Fill(False)
                 .&End
             .&End
           .&End
@@ -525,15 +577,15 @@ begin
            WebCharts1
           .ContinuosProject
           .Charts
-            .Doughnut
+            ._ChartType(doughnut)
               .Attributes
                 .ColSpan(4)
                 .Name('d1')
-                .Legend(True)
+                //.Legend(True)
                 .DataSet
                   .textLabel('d1')
                   .DataSet(ClientDataSet4)
-                  .Fill('false')
+                  .Fill(False)
                 .&End
             .&End
           .&End
@@ -545,15 +597,15 @@ begin
            WebCharts1
           .ContinuosProject
           .Charts
-            .Doughnut
+            ._ChartType(doughnut)
               .Attributes
                 .ColSpan(4)
                 .Name('d2')
-                .Legend(True)
+                //.Legend(True)
                 .DataSet
                   .textLabel('d2')
                   .DataSet(ClientDataSet4)
-                  .Fill('false')
+                  .Fill(False)
                 .&End
             .&End
           .&End
@@ -565,15 +617,15 @@ begin
            WebCharts1
           .ContinuosProject
           .Charts
-            .Doughnut
+            ._ChartType(doughnut)
               .Attributes
                 .ColSpan(4)
                 .Name('d3')
-                .Legend(True)
+                //.Legend(True)
                 .DataSet
                   .textLabel('d3')
                   .DataSet(ClientDataSet4)
-                  .Fill('false')
+                  .Fill(False)
                 .&End
             .&End
           .&End
@@ -598,7 +650,7 @@ begin
         .&End
       .&End
       .Charts
-        .Lines
+        ._ChartType(line)
           .Attributes
             .Name('l1')
             .ColSpan(12)
@@ -617,27 +669,6 @@ procedure TForm2.FormCreate(Sender: TObject);
 begin
    TabSheet1.TabVisible := False;
    TabSheet2.TabVisible := False;
-
-//  ClientDataSet1.LoadFromFile('Data\CDSChats.xml');
-//  ClientDataSet1.Open;
-//
-//  ClientDataSet2.LoadFromFile('Data\CDSChats2.xml');
-//  ClientDataSet2.Open;
-//
-//  ClientDataSet3.LoadFromFile('Data\CDSChats3.xml');
-//  ClientDataSet3.Open;
-//
-//  ClientDataSet4.LoadFromFile('Data\CDSChats4.xml');
-//  ClientDataSet4.Open;
-//
-//  ClientDataSet5.LoadFromFile('Data\customer.xml');
-//  ClientDataSet5.Open;
-//
-//  ClientDataSet6.LoadFromFile('Data\clients.xml');
-//  ClientDataSet6.Open;
-//
-//  ClientDataSet7.LoadFromFile('Data\clients.xml');
-//  ClientDataSet7.Open;
 end;
 
 procedure TForm2.RelCust(Value: Integer);
@@ -659,25 +690,137 @@ procedure TForm2.SpeedButton10Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
   WebCharts1
+  .BackgroundColor(ValueListEditor1.Values['BackgroundColor'])
+  .FontColor(ValueListEditor1.Values['FontColor'])
   .NewProject
-    .Rows
-      .Title
-        .Configuracoes
-          .H1('Grafico de Barras')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
     .Charts
-      .BarHorizontal
+      ._ChartType(TTypeChart(GetEnumValue(TypeInfo(TTypeChart), cbTypeChart.Text)))
         .Attributes
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          .Title('Meu Grafico de Barras')
+          .Name(ValueListEditor2.Values['Name'])
+          .ColSpan(ValueListEditor2.Values['ColSpan'].ToInteger)
+          .Width(ValueListEditor2.Values['Width'].ToInteger)
+          .Heigth(ValueListEditor2.Values['Heigth'].ToInteger)
+          .BackgroundColor(ValueListEditor2.Values['BackgroundColor'])
+          .Options
+            .SemiCircule(ValueListEditor15.Values['SemiCircule'].ToBoolean)
+            .Legend
+              .display(ValueListEditor12.Values['display'].ToBoolean)
+              .position(ValueListEditor12.Values['position'])
+              .Labels
+                .fontSize(ValueListEditor13.Values['fontSize'].ToInteger)
+                .fontStyle(ValueListEditor13.Values['fontStyle'])
+                .fontColorHEX(ValueListEditor13.Values['fontColorHEX'])
+                .fontFamily(ValueListEditor13.Values['fontFamily'])
+                .padding(ValueListEditor13.Values['padding'].ToInteger)
+              .&End
+            .&End
+            .Title
+              .text(ValueListEditor14.Values['text'])
+              .display(ValueListEditor14.Values['display'].ToBoolean)
+              .position(ValueListEditor14.Values['position'])
+              .fontSize(ValueListEditor14.Values['fontSize'].ToInteger)
+              .fontFamily(ValueListEditor14.Values['fontFamily'])
+              .fontColorHEX(ValueListEditor14.Values['fontColorHEX'])
+              .fontStyle(ValueListEditor14.Values['fontStyle'])
+              .padding(ValueListEditor14.Values['padding'].ToInteger)
+            .&End
+            .Scales
+              .Axes
+                .xAxe
+                  .Position(ValueListEditor3.Values['Position']) //top', 'left', 'bottom','right'
+                  .OffSet(ValueListEditor3.Values['OffSet'].ToBoolean)
+                  ._Type(ValueListEditor3.Values['type'])
+                  .Stacked(ValueListEditor3.Values['Stacked'].ToBoolean)
+                  .Ticks
+                    .fontColor(ValueListEditor4.Values['fontColor'])
+                    .autoSkip(ValueListEditor4.Values['autoSkip'].ToBoolean)
+                    .autoSkipPadding(ValueListEditor4.Values['autoSkipPadding'].ToInteger)
+                    .labelOffset(ValueListEditor4.Values['labelOffset'].ToInteger)
+                    .maxRotation(ValueListEditor4.Values['maxRotation'].ToInteger)
+                    .minRotation(ValueListEditor4.Values['minRotation'].ToInteger)
+                    .mirror(ValueListEditor4.Values['mirror'].ToBoolean)
+                    .padding(ValueListEditor4.Values['padding'].ToInteger)
+                  .&End
+                  .GridLines
+                    .display(ValueListEditor5.Values['display'].ToBoolean)
+                    .circular(ValueListEditor5.Values['circular'].ToBoolean)
+                    .colorRGBA(ValueListEditor5.Values['colorRGBA'])
+                    .drawBorder(ValueListEditor5.Values['drawBorder'].ToBoolean)
+                    .drawOnChartArea(ValueListEditor5.Values['drawOnChartArea'].ToBoolean)
+                    .drawTicks(ValueListEditor5.Values['drawTicks'].ToBoolean)
+                    .tickMarkLength(ValueListEditor5.Values['tickMarkLength'].ToInteger)
+                    .zeroLineWidth(ValueListEditor5.Values['zeroLineWidth'].ToInteger)
+                    .zeroLineColorRGBA(ValueListEditor5.Values['zeroLineColorRGBA'])
+                  .&End
+                  .ScaleLabel
+                    .display(ValueListEditor6.Values['display'].ToBoolean)
+                    .labelString(ValueListEditor6.Values['labelString'])
+                    .fontColorHEX(ValueListEditor6.Values['fontColorHEX'])
+                    .fontFamily(ValueListEditor6.Values['fontFamily'])
+                    .fontSize(ValueListEditor6.Values['fontSize'].ToInteger)
+                    .fontStyle(ValueListEditor6.Values['fontStyle']) //i.e. normal, bold, italic, oblique, initial, inherit
+                    .padding(ValueListEditor6.Values['padding'].ToInteger)
+                  .&End
+                .&End
+                .yAxe
+                  .Position(ValueListEditor7.Values['Position']) //top', 'left', 'bottom','right'
+                  .OffSet(ValueListEditor7.Values['OffSet'].ToBoolean)
+                  ._type(ValueListEditor7.Values['type'])
+                  .Stacked(ValueListEditor7.Values['Stacked'].ToBoolean)
+                  .Ticks
+                    .fontColor(ValueListEditor8.Values['fontColor'])
+                    .autoSkip(ValueListEditor8.Values['autoSkip'].ToBoolean)
+                    .autoSkipPadding(ValueListEditor8.Values['autoSkipPadding'].ToInteger)
+                    .labelOffset(ValueListEditor8.Values['labelOffset'].ToInteger)
+                    .maxRotation(ValueListEditor8.Values['maxRotation'].ToInteger)
+                    .minRotation(ValueListEditor8.Values['minRotation'].ToInteger)
+                    .mirror(ValueListEditor8.Values['mirror'].ToBoolean)
+                    .padding(ValueListEditor8.Values['padding'].ToInteger)
+                  .&End
+                  .GridLines
+                    .display(ValueListEditor9.Values['display'].ToBoolean)
+                    .circular(ValueListEditor9.Values['circular'].ToBoolean)
+                    .colorRGBA(ValueListEditor9.Values['colorRGBA'])
+                    .drawBorder(ValueListEditor9.Values['drawBorder'].ToBoolean)
+                    .drawOnChartArea(ValueListEditor9.Values['drawOnChartArea'].ToBoolean)
+                    .drawTicks(ValueListEditor9.Values['drawTicks'].ToBoolean)
+                    .tickMarkLength(ValueListEditor9.Values['tickMarkLength'].ToInteger)
+                    .zeroLineWidth(ValueListEditor9.Values['zeroLineWidth'].ToInteger)
+                    .zeroLineColorRGBA(ValueListEditor9.Values['zeroLineColorRGBA'])
+                  .&End
+                  .ScaleLabel
+                    .display(ValueListEditor10.Values['display'].ToBoolean)
+                    .labelString(ValueListEditor10.Values['labelString'])
+                    .fontColorHEX(ValueListEditor10.Values['fontColorHEX'])
+                    .fontFamily(ValueListEditor10.Values['fontFamily'])
+                    .fontSize(ValueListEditor10.Values['fontSize'].ToInteger)
+                    .fontStyle(ValueListEditor10.Values['fontStyle']) //i.e. normal, bold, italic, oblique, initial, inherit
+                    .padding(ValueListEditor10.Values['padding'].ToInteger)
+                  .&End
+                .&End
+              .&End
+            .&End
+          .&End
+          .Labelling
+            .Format(ValueListEditor11.Values['Format']) //Consultar em http://numeraljs.com/#format
+            .RGBColor(ValueListEditor11.Values['RGBColor']) //Cor RGB separado por Virgula
+            .FontSize(ValueListEditor11.Values['FontSize'].ToInteger)
+            .FontStyle(ValueListEditor11.Values['FontStyle']) //normal, bold, italic
+            .FontFamily(ValueListEditor11.Values['FontFamily']) //Open Sans, Arial, Helvetica e etc..
+            .Padding(ValueListEditor11.Values['Padding'].ToInteger) //Numeros negativos e positivos
+          .&End
           .DataSet
-            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
+            .textLabel(ValueListEditor16.Values['textLabel'])
+            .BackgroundColor(ValueListEditor16.Values['BackgroundColor'])
+            .BorderColor(ValueListEditor16.Values['BorderColor'])
+            .BorderWidth(ValueListEditor16.Values['BorderWidth'].ToInteger)
+            .Fill(ValueListEditor16.Values['Fill'].ToBoolean)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .textLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
           .&End
         .&End
       .&End
@@ -907,16 +1050,16 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gráfico de Barras')
+          //.Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
             .Types('line')
-            .Fill('false')
+            .Fill(false)
             .BorderWidth(2)
             .BorderColor('30,182,203')
           .&End
@@ -967,12 +1110,18 @@ begin
   WebCharts1
   .NewProject
     .Charts
-      .Doughnut
+      ._ChartType(doughnut)
         .Attributes
-          .Labelling(true)
+          .Labelling
+            .Format('0%') //Consultar em http://numeraljs.com/#format
+            .RGBColor('255,255,255') //Cor RGB separado por Virgula
+            .FontSize(12)
+            .FontStyle('bold') //normal, bold, italic
+            .FontFamily('Arial') //Open Sans, Arial, Helvetica e etc..
+            .Padding(5) //Numeros negativos e positivos
+          .&End
           .Name('Meu Grafico Doughnut')
           .ColSpan(12)
-          .Title('Meu Grafico Doughnut')
           .DataSet
             .textLabel('Meu DataSet 4')
             .DataSet(ClientDataSet4)
@@ -1003,11 +1152,10 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gráfico de Barras')
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -1035,49 +1183,49 @@ begin
   WebCharts1
     .NewProject
       .Charts
-        .Lines
+        ._ChartType(line)
           .Attributes
-            .Labelling(True)
+            //.Labelling(True)
             .Name('Meu Grafico de Barras')
             .ColSpan(12)
-            .Title('Meu Grafico de Barras')
+            //.Title('Meu Grafico de Barras')
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
               .BackgroundColor('227,233,235')
               .BorderColor('227,233,235')
-              .Fill('false')
+              .Fill(False)
             .&End
             .DataSet
               .textLabel('Meu DataSet 2')
               .DataSet(ClientDataSet2)
               .BackgroundColor('30,182,203')
               .BorderColor('30,182,203')
-              .Fill('false')
+              .Fill(False)
             .&End
 
           .&End
         .&End
       .&End
       .Charts
-        .Lines
+        ._ChartType(line)
           .Attributes
             .Name('Meu Grafico de Barras')
             .ColSpan(12)
-            .Title('Meu Grafico de Barras')
+            //.Title('Meu Grafico de Barras')
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
               .BackgroundColor('227,233,235')
               .BorderColor('227,233,235')
-              .Fill('false')
+              .Fill(False)
             .&End
             .DataSet
               .textLabel('Meu DataSet 2')
               .DataSet(ClientDataSet2)
               .BackgroundColor('30,182,203')
               .BorderColor('30,182,203')
-              .Fill('false')
+              .Fill(False)
             .&End
           .&End
         .&End
@@ -1093,15 +1241,15 @@ end;
 
 procedure TForm2.SpeedButton6Click(Sender: TObject);
 begin
-  PageControl1.ActivePageIndex := 0;
+ PageControl1.ActivePageIndex := 0;
   WebCharts1
     .NewProject
       .Charts
-        .LineStacked
+        ._ChartType(line)
           .Attributes
             .Name('Meu Grafico de Barras')
             .ColSpan(12)
-            .Title('Meu Grafico de Barras')
+            //.Title('Meu Grafico de Barras')
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
@@ -1127,11 +1275,11 @@ begin
   WebCharts1
   .NewProject
     .Charts
-      .Pie
+      ._ChartType(pie)
         .Attributes
           .Name('Meu Grafico Pie')
           .ColSpan(12)
-          .Title('Meu Grafico Pie')
+          //.Title('Meu Grafico Pie')
           .DataSet
             .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
@@ -1170,10 +1318,10 @@ begin
       .Jumpline
 
       .Charts
-        .Bar
+        ._ChartType(bar)
           .Attributes
             .Name('analiseMensal')
-            .Title('Analise Mensal')
+            //.Title('Analise Mensal')
             .Heigth(80)
             .DataSet
               .DataSet(ClientDataSet1)
@@ -1202,9 +1350,9 @@ begin
             WebCharts1
             .ContinuosProject
               .Charts
-                .Doughnut
+                ._ChartType(doughnut)
                   .Attributes
-                    .Legend(false)
+                    //.Legend(false)
                     .Name('movimento1')
                     .ColSpan(4)
                     .DataSet
@@ -1223,9 +1371,9 @@ begin
             WebCharts1
             .ContinuosProject
               .Charts
-                .Doughnut
+                ._ChartType(doughnut)
                   .Attributes
-                    .Legend(false)
+                    //.Legend(false)
                     .Name('movimento2')
                     .ColSpan(4)
                     .DataSet
@@ -1244,9 +1392,9 @@ begin
             WebCharts1
             .ContinuosProject
               .Charts
-                .Doughnut
+                ._ChartType(doughnut)
                   .Attributes
-                    .Legend(false)
+                    //.Legend(false)
                     .Name('movimento3')
                     .ColSpan(4)
                     .DataSet
@@ -1267,7 +1415,7 @@ begin
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .Lines
+                  ._ChartType(line)
                     .Attributes
                       .Name('graficolinhas')
                       .ColSpan(12)
@@ -1277,14 +1425,14 @@ begin
                         .textLabel('Analise de Compras Mensal')
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
-                        .Fill('false')
+                        .Fill(False)
                       .&End
                       .DataSet
                         .DataSet(ClientDataSet1)
                         .textLabel('Analise de Compras Mensal')
                         .BackgroundColor('30,182,203')
                         .BorderColor('30,182,203')
-                        .Fill('false')
+                        .Fill(False)
                       .&End
                     .&End
                   .&End
@@ -1405,12 +1553,12 @@ begin
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .LineStacked
+                  ._ChartType(line)
                     .Attributes
                       .Name('linestacked1')
                       .ColSpan(8)
                       .Heigth(150)
-                      .Title('Network Activities Graph title sub-title')
+                      //.Title('Network Activities Graph title sub-title')
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet1)
@@ -1436,12 +1584,12 @@ begin
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .BarHorizontal
+                  ._ChartType(bar)
                     .Attributes
                       .Name('horizontabar1')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('Top Campaign Performance')
+                      //.Title('Top Campaign Performance')
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
@@ -1462,12 +1610,12 @@ begin
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .BarHorizontal
+                  ._ChartType(bar)
                     .Attributes
                       .Name('horizontabar2')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('App Usage across versions')
+                      //.Title('App Usage across versions')
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
@@ -1486,12 +1634,12 @@ begin
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .Doughnut
+                  ._ChartType(doughnut)
                     .Attributes
                       .Name('Doughnut')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('Device Usage')
+                      //.Title('Device Usage')
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet4)
@@ -1510,12 +1658,12 @@ begin
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .Doughnut
+                  ._ChartType(doughnut)
                     .Attributes
                       .Name('Pie1')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('Device Usage')
+                      //.Title('Device Usage')
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
@@ -1528,11 +1676,7 @@ begin
                 .HTML
           )
         .&End
-
-
       .&End
-
-
     .WebBrowser(WebBrowser1)
     .Generated;
 end;

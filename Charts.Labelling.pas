@@ -3,70 +3,183 @@ unit Charts.Labelling;
 interface
 
 uses
-  Interfaces, Classes;
+  Classes, Interfaces;
 
 Type
-  TChartsLabelling = class(TInterfacedObject, iLabelLing)
+  TChartsLabelling<T> = class(TInterfacedObject, iModelLabellingConfig<T>)
     private
-      FParent : String;
+      FParent : T;
+      FFormat : String;
+      FAction : String;
+      FResult : String;
+      FRGBColor : String;
+      FFontSize : Integer;
+      FFontStyle : String;
+      FFontFamily : String;
+      FPadding : Integer;
     public
-      constructor Create;
+      constructor Create(Parent : T);
       destructor Destroy; override;
-      class function New : iLabelLing;
+      class function New(Parent : T) : iModelLabellingConfig<T>;
       function Result : String;
+      function Format ( Value : String) : iModelLabellingConfig<T>; overload;
+      function Format : String; overload;
+      function RGBColor ( Value : String ) : iModelLabellingConfig<T>; overload;
+      function RGBColor : String; overload;
+      function FontSize ( Value : Integer) : iModelLabellingConfig<T>; overload;
+      function FontSize : Integer; overload;
+      function FontStyle (Value : String) : iModelLabellingConfig<T>; overload;
+      function FontStyle : String; overload;
+      function FontFamily (Value : String) : iModelLabellingConfig<T>; overload;
+      function FontFamily : String; overload;
+      function Padding (Value : Integer) : iModelLabellingConfig<T>; overload;
+      function Padding : Integer; overload;
+      function &End : T;
+
   end;
 
 implementation
 
+uses
+  Charts.Config, System.SysUtils;
+
+
 { TChartsLabelling }
 
-constructor TChartsLabelling.Create;
+function TChartsLabelling<T>.&End: T;
 begin
-
+  Result := FParent;
 end;
 
-destructor TChartsLabelling.Destroy;
+constructor TChartsLabelling<T>.Create(Parent : T);
+begin
+  FParent := Parent;
+  FFormat :='';
+  FRGBColor := '133, 133, 133';
+  FFontSize := 12;
+  FFontStyle := 'normal';
+  FFontFamily := 'Open Sans';
+  FPadding := 5;
+end;
+
+destructor TChartsLabelling<T>.Destroy;
 begin
 
   inherited;
 end;
 
-class function TChartsLabelling.New: iLabelLing;
+function TChartsLabelling<T>.FontFamily(
+  Value: String): iModelLabellingConfig<T>;
 begin
-  Result := Self.Create;
+  Result := Self;
+  FFontFamily := Value;
 end;
 
-function TChartsLabelling.Result: String;
+function TChartsLabelling<T>.FontFamily: String;
 begin
-  FParent := FParent + 'Chart.plugins.register({' ;
-  FParent := FParent + 'afterDatasetsDraw: function(chart) { ';
-  FParent := FParent + 'var ctx = chart.ctx;';
-  FParent := FParent + '';
-  FParent := FParent + 'chart.data.datasets.forEach(function(dataset, i) { ';
-  FParent := FParent + 'var meta = chart.getDatasetMeta(i); ';
-  FParent := FParent + 'if (!meta.hidden) { ';
-  FParent := FParent + 'meta.data.forEach(function(element, index) { ';
-  FParent := FParent + 'ctx.fillStyle = ''rgb(133, 133, 133)''; ';
-  FParent := FParent + '';
-  FParent := FParent + 'var fontSize = 12; ';
-  FParent := FParent + 'var fontStyle = ''normal''; ';
-  FParent := FParent + 'var fontFamily = ''Open Sans''; ';
-  FParent := FParent + 'ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily); ';
-  FParent := FParent + '';
-  FParent := FParent + 'var dataString = dataset.data[index].toString();';
-  FParent := FParent + '';
-  FParent := FParent + 'ctx.textAlign = ''center''; ';
-  FParent := FParent + 'ctx.textBaseline = ''middle''; ';
-  FParent := FParent + '';
-  FParent := FParent + 'var padding = 5; ';
-  FParent := FParent + 'var position = element.tooltipPosition(); ';
-  FParent := FParent + 'ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding); ';
-  FParent := FParent + '});';
-  FParent := FParent + '}';
-  FParent := FParent + '});';
-  FParent := FParent + '}';
-  FParent := FParent + '});';
-  Result := FParent;
+  Result := FFontFamily;
+end;
+
+function TChartsLabelling<T>.FontSize(Value: Integer): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FFontSize := Value;
+end;
+
+function TChartsLabelling<T>.FontSize: Integer;
+begin
+  Result := FFontSize;
+end;
+
+function TChartsLabelling<T>.FontStyle(Value: String): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FFontStyle := Value;
+end;
+
+function TChartsLabelling<T>.FontStyle: String;
+begin
+  Result := FFontStyle;
+end;
+
+function TChartsLabelling<T>.Format: String;
+begin
+  Result := FFormat;
+end;
+
+function TChartsLabelling<T>.Format(Value: String): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FFormat := Value;
+  FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index].toString()).format('+QuotedStr(FFormat)+');';
+end;
+
+class function TChartsLabelling<T>.New(Parent : T): iModelLabellingConfig<T>;
+begin
+  Result := Self.Create(Parent);
+end;
+
+function TChartsLabelling<T>.Padding(Value: Integer): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FPadding := Value;
+end;
+
+function TChartsLabelling<T>.Padding: Integer;
+begin
+  Result := FPadding;
+end;
+
+function TChartsLabelling<T>.Result: String;
+begin
+  FResult := '';
+  if FFormat <> '' then
+  begin
+    FResult := FResult + 'Chart.plugins.register({' ;
+    FResult := FResult + 'afterDatasetsDraw: function(chart) { ';
+    FResult := FResult + 'var ctx = chart.ctx;';
+    FResult := FResult + '';
+    FResult := FResult + 'chart.data.datasets.forEach(function(dataset, i) { ';
+    FResult := FResult + 'var meta = chart.getDatasetMeta(i); ';
+    FResult := FResult + 'if (!meta.hidden) { ';
+    FResult := FResult + 'meta.data.forEach(function(element, index) { ';
+    FResult := FResult + 'ctx.fillStyle = ''rgb('+FRGBColor+')''; ';
+    FResult := FResult + '';
+    FResult := FResult + 'var fontSize = '+IntToStr(FFontSize)+'; ';
+    FResult := FResult + 'var fontStyle = '''+FFontStyle+'''; ';
+    FResult := FResult + 'var fontFamily = '''+FFontFamily+'''; ';
+    FResult := FResult + 'ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily); ';
+    FResult := FResult + '';
+    if FFormat<>'' then
+      FResult := FResult + FAction
+    else
+      FResult := FResult + 'var dataString = dataset.data[index].toString();';
+    FResult := FResult + '';
+    FResult := FResult + 'ctx.textAlign = ''center''; ';
+    FResult := FResult + 'ctx.textBaseline = ''middle''; ';
+    FResult := FResult + '';
+    FResult := FResult + 'var padding = '+IntToStr(FPadding)+'; ';
+    FResult := FResult + 'var position = element.tooltipPosition(); ';
+    FResult := FResult + 'ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding); ';
+    FResult := FResult + '});';
+    FResult := FResult + '}';
+    FResult := FResult + '});';
+    FResult := FResult + '}';
+    FResult := FResult + '});';
+    Result := FResult;
+  end;
+
+end;
+
+function TChartsLabelling<T>.RGBColor(Value: String): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FRGBColor := Value;
+end;
+
+function TChartsLabelling<T>.RGBColor: String;
+begin
+  Result := FRGBColor;
 end;
 
 end.

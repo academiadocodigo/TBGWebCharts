@@ -31,12 +31,11 @@ requires
   rtl,
   vcl,
   vclie,
-  dbrtl;
+  dbrtl,
+  fmx;
 
 contains
-  Charts.Bar in 'Charts.Bar.pas',
   Charts.Config in 'Charts.Config.pas',
-  Charts.Doughnut in 'Charts.Doughnut.pas',
   Charts in 'Charts.pas',
   Factory in 'Factory.pas',
   HTML in 'HTML.pas',
@@ -47,11 +46,7 @@ contains
   Interfaces in 'Interfaces.pas',
   View.Reg in 'View.Reg.pas',
   View.WebCharts in 'View.WebCharts.pas',
-  Charts.Lines in 'Charts.Lines.pas',
   Charts.DataSet in 'Charts.DataSet.pas',
-  Charts.LineStacked in 'Charts.LineStacked.pas',
-  Charts.Pie in 'Charts.Pie.pas',
-  Charts.Bar.Horizontal in 'Charts.Bar.Horizontal.pas',
   Rows.Divv in 'Rows.Divv.pas',
   Table.DataSet in 'Table.DataSet.pas',
   Table in 'Table.pas',
@@ -65,13 +60,20 @@ contains
   Rows.P in 'Rows.P.pas',
   PackCss in 'PackCss.pas',
   PackJS in 'PackJS.pas',
-  {$IFDEF HAS_FMX}
-  {$ELSE}
-  {$IF RTLVERSION > 27}
-  CallBackJS in 'CallBackJS.pas',
-  {$IFEND}
-  {$ENDIF}
   Charts.Labelling in 'Charts.Labelling.pas',
-  Charts.Callback in 'Charts.Callback.pas';
+  Charts.Callback in 'Charts.Callback.pas',
+  NumberJS in 'NumberJS.pas',
+  Charts.Axes.Params in 'Charts.Axes.Params.pas',
+  Charts.Axes in 'Charts.Axes.pas',
+  Charts.Axes.Ticks in 'Charts.Axes.Ticks.pas',
+  Charts.Axes.GridLines in 'Charts.Axes.GridLines.pas',
+  Charts.Axes.ScaleLabel in 'Charts.Axes.ScaleLabel.pas',
+  Charts.Legends in 'Charts.Legends.pas',
+  Charts.Legends.Labels in 'Charts.Legends.Labels.pas',
+  Charts.Title in 'Charts.Title.pas',
+  Charts.Scales in 'Charts.Scales.pas',
+  Charts.Options in 'Charts.Options.pas',
+  Charts.Generic in 'Charts.Generic.pas',
+  Charts.Types in 'Charts.Types.pas';
 
 end.

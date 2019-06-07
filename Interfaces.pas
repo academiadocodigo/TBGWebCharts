@@ -22,7 +22,7 @@ uses
       SHDocVw,
     {$IFEND}
   {$ENDIF}
-   Classes;
+   Classes, Charts.Types;
 
 type
   iModelHTMLChartsBar = interface;
@@ -37,6 +37,18 @@ type
   iModelHTMLDataSet<T> = interface;
   iModelHTMLChartsLineStacked = interface;
   iModelHTMLChartsPie = interface;
+  iModelLabellingConfig<T> = interface;
+  iModelHTMLChartsAxes<T> = interface;
+  iModelHTMLChartsAxesTicks<T> = interface;
+  iModelHTMLChartsAxesParam<T> = interface;
+  iModelHTMLChartsAxesGridLines<T> = interface;
+  iModelHTMLChatsAxesScaleLabel<T> = interface;
+  iModelHTMLLegendLabels<T> = interface;
+  iModelHTMLLegend<T> = interface;
+  iModelHTMLTitle<T> = interface;
+  iModelHTMLScales<T> = interface;
+  iModelHTMLOptions<T> = interface;
+  iModelHTMLChartsGeneric = interface;
   {$IFDEF FULL}
   iModelTable = interface;
   iModelTableDataSet = interface;
@@ -55,7 +67,7 @@ type
   iModelImageDataSet = interface;
   iModelImage = interface;
   iModelImageClass = interface;
-   IModelHTMLRowsP = interface;
+  IModelHTMLRowsP = interface;
   //iCacheControl = interface;
   {$ENDIF}
 
@@ -92,9 +104,13 @@ type
   end;
 
   iLabelLing = interface
+    function Numeral(Value : String) : iLabelLing;
     function Result : String;
   end;
 
+  iNumeral = interface
+    function Result(Value : String) : String;
+  end;
 
   IModelHTMLRows = interface
     ['{684C6EA3-4C2D-4AA9-9A94-BF0A07B14A8B}']
@@ -140,15 +156,19 @@ type
 
   iModelHTMLCharts = interface
     ['{4CC23536-78BD-40F7-B4A8-D5625E849065}']
+    function _ChartType(Value : TTypeChart) : iModelHTMLChartsGeneric; overload;
+    function _ChartType : TTypeChart; overload;
     function HTML(Value : String) : iModelHTMLCharts; overload;
     function HTML : String; overload;
-    function Bar : iModelHTMLChartsBar;
-    function BarHorizontal : iModelHTMLChartsBar;
-    function Doughnut : iModelHTMLChartsDoughnut;
-    function Lines : iModelHTMLChartsLines;
-    function LineStacked : iModelHTMLChartsLineStacked;
-    function Pie : iModelHTMLChartsPie;
     function &End : iModelHTML;
+  end;
+
+  iModelHTMLChartsGeneric = interface
+    ['{83AA6A13-6102-4352-9503-FF9C4AA2C4C7}']
+    function HTML(Value : String) : iModelHTMLChartsGeneric; overload;
+    function HTML : String; overload;
+    function Attributes : iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
+    function &End : iModelHTMLCharts;
   end;
 
   iModelHTMLChartsDoughnut = interface
@@ -206,23 +226,193 @@ type
     function Heigth : Integer; overload;
     function Data(Value : String) : iModelHTMLChartsConfig<T>; overload;
     function Data : String; overload;
-    function Title(Value : String) : iModelHTMLChartsConfig<T>; overload;
-    function Title : String; overload;
     function BackgroundColor(Value : String) : iModelHTMLChartsConfig<T>; overload;
     function BackgroundColor : String; overload;
-    function Options(Value : String) : iModelHTMLChartsConfig<T>; overload;
-    function Options : String; overload;
     function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig<T>>;
-    function Legend(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
-    function Legend : Boolean; overload;
     function ResultDataSet : String;
     function ResultLabels : String;
     function Stacked(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
     function Stacked : Boolean; overload;
     function CallBackLink(Value : String) : iModelHTMLChartsConfig<T>; overload;
     function CallBackLink : String; overload;
-    function Labelling(Value : Boolean) : iModelHTMLChartsConfig<T>; overload;
-    function Labelling : Boolean; overload;
+    function Labelling : iModelLabellingConfig<iModelHTMLChartsConfig<T>>; overload;
+    function Options : iModelHTMLOptions<iModelHTMLChartsConfig<T>>;
+    function &End : T;
+  end;
+
+  iModelHTMLOptions<T> = interface
+    ['{8984AFE4-EBFC-4C97-B7BC-D3DA8FFFB42B}']
+    function SemiCircule ( Value : Boolean ) : iModelHTMLOptions<T>;
+    function Scales : iModelHTMLScales<iModelHTMLOptions<T>>;
+    function Legend : iModelHTMLLegend<iModelHTMLOptions<T>>;
+    function Title : iModelHTMLTitle<iModelHTMLOptions<T>>;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLScales<T> = interface
+    ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
+    function GeneratedAxes ( Value : Boolean ) : iModelHTMLScales<T>;
+    function Axes : iModelHTMLChartsAxes<iModelHTMLScales<T>>;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLTitle<T> = interface
+    ['{21A4474D-87C2-435B-9881-D385518C6EA6}']
+    function display ( Value : Boolean ) :  iModelHTMLTitle<T>; overload;
+    function display : Boolean; overload;
+    function text ( Value : String ) : iModelHTMLTitle<T>; overload;
+    function text : string; overload;
+    function position ( Value : String ) : iModelHTMLTitle<T>; overload;
+    function position : String; overload;
+    function fontSize ( Value : Integer ) : iModelHTMLTitle<T>; overload;
+    function fontSize : Integer; overload;
+    function fontFamily ( Value : String ) : iModelHTMLTitle<T>; overload;
+    function fontFamily : String; overload;
+    function fontColorHEX ( Value : String ) : iModelHTMLTitle<T>; overload;
+    function fontColorHEX : String; overload;
+    function fontStyle ( Value : String ) : iModelHTMLTitle<T>; overload;
+    function fontStyle : String; overload;
+    function padding ( Value : Integer ) : iModelHTMLTitle<T>; overload;
+    function padding : Integer; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLLegend<T> = interface
+    ['{BC60AEB1-5404-4355-868A-D26BB5A2C773}']
+    function Labels : iModelHTMLLegendLabels<iModelHTMLLegend<T>>;
+    function display ( Value : Boolean ) : iModelHTMLLegend<T>; overload;
+    function display : Boolean; overload;
+    function position ( Value : String ) : iModelHTMLLegend<T>; overload;
+    function position : String; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLLegendLabels<T> = interface
+    ['{796188B6-4031-43E8-ABF1-43D6C8E1B18D}']
+    function fontSize (Value : Integer) : iModelHTMLLegendLabels<T>; overload;
+    function fontSize : Integer; overload;
+    function fontStyle ( Value : String ) : iModelHTMLLegendLabels<T>; overload;
+    function fontStyle : String; overload;
+    function fontColorHEX ( Value : String ) : iModelHTMLLegendLabels<T>; overload;
+    function fontColorHEX : String; overload;
+    function fontFamily ( Value : String ) : iModelHTMLLegendLabels<T>; overload;
+    function fontFamily : String; overload;
+    function padding ( Value : Integer ) : iModelHTMLLegendLabels<T>; overload;
+    function padding : Integer; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelLabellingConfig<T> = interface
+    ['{4BBEDE9F-9F02-4E92-AFA4-3B301DEC6672}']
+    function Format ( Value : String) : iModelLabellingConfig<T>; overload;
+    function Format : String; overload;
+    function RGBColor ( Value : String ) : iModelLabellingConfig<T>; overload;
+    function RGBColor : String; overload;
+    function FontSize ( Value : Integer) : iModelLabellingConfig<T>; overload;
+    function FontSize : Integer; overload;
+    function FontStyle (Value : String) : iModelLabellingConfig<T>; overload;
+    function FontStyle : String; overload;
+    function FontFamily (Value : String) : iModelLabellingConfig<T>; overload;
+    function FontFamily : String; overload;
+    function Padding (Value : Integer) : iModelLabellingConfig<T>; overload;
+    function Padding : Integer; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLChartsAxes<T> = interface
+    ['{2E97CD69-FDAC-4A01-ADA6-0EA9F1FFFF7C}']
+    function xAxe : iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
+    function yAxe : iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLChartsAxesParam<T> = interface
+    ['{E4C5DE93-B372-4D75-ADD2-8A3D1F30223E}']
+    function Ticks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam<T>>;
+    function GridLines : iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam<T>>;
+    function ScaleLabel : iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam<T>>;
+    function Position (Value : String) : iModelHTMLChartsAxesParam<T>; overload;
+    function Position : String; overload;
+    function OffSet (Value : Boolean) : iModelHTMLChartsAxesParam<T>; overload;
+    function OffSet : Boolean; overload;
+    function _Type (Value : String) : iModelHTMLChartsAxesParam<T>; overload;
+    function _Type : String; overload;
+    function Stacked ( Value : Boolean ) : iModelHTMLChartsAxesParam<T>; overload;
+    function Stacked : Boolean; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLChatsAxesScaleLabel<T> = interface
+    ['{FC645855-267C-4876-8BE2-EE540732C6A5}']
+    function display (Value : Boolean) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function display : Boolean; overload;
+    function labelString ( Value : String ) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function labelString : String; overload;
+    function fontColorHEX ( Value : String ) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function fontColorHEX  : String; overload;
+    function fontFamily ( Value : String ) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function fontFamily : String; overload;
+    function fontSize ( Value : Integer) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function fontSize : Integer; overload;
+    function fontStyle ( Value : String) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function fontStyle : String; overload;
+    function padding ( Value : Integer ) : iModelHTMLChatsAxesScaleLabel<T>; overload;
+    function padding : Integer; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLChartsAxesGridLines<T> = interface
+    ['{F9043117-4398-478D-8EA2-8E5E065FB142}']
+    function display (Value : Boolean) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function display : Boolean; overload;
+    function circular (Value : Boolean) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function circular : Boolean; overload;
+    function colorRGBA ( Value : String ) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function colorRGBA : String; overload;
+    function drawBorder ( Value : Boolean ) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function drawBorder : Boolean; overload;
+    function drawOnChartArea ( Value : Boolean) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function drawOnChartArea : Boolean; overload;
+    function drawTicks ( Value : Boolean) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function drawTicks : Boolean; overload;
+    function tickMarkLength ( Value : Integer ) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function tickMarkLength : Integer; overload;
+    function zeroLineWidth ( Value : Integer ) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function zeroLineWidth : Integer; overload;
+    function zeroLineColorRGBA ( Value : String ) : iModelHTMLChartsAxesGridLines<T>; overload;
+    function zeroLineColorRGBA : String; overload;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLChartsAxesTicks<T> = interface
+    ['{C56445FE-00C6-47E1-8B38-F0FE57419A71}']
+    function fontColor (Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
+    function fontColor : String; overload;
+    function autoSkip (Value : Boolean) : iModelHTMLChartsAxesTicks<T>; overload;
+    function autoSkip : Boolean; overload;
+    function autoSkipPadding (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
+    function autoSkipPadding : Integer; overload;
+    function labelOffset (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
+    function labelOffset : Integer; overload;
+    function maxRotation (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
+    function maxRotation : Integer; overload;
+    function minRotation (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
+    function minRotation : Integer; overload;
+    function mirror ( Value : Boolean) : iModelHTMLChartsAxesTicks<T>; overload;
+    function mirror : Boolean; overload;
+    function padding ( Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
+    function padding : Integer; overload;
+    function Result : String;
     function &End : T;
   end;
 
@@ -234,7 +424,7 @@ type
     function BorderColor (Value : String) : iModelHTMLDataSet<T>;
     function BorderWidth (Value : Integer) : iModelHTMLDataSet<T>;
     function Data (Value : String) : iModelHTMLDataSet<T>;
-    function Fill (Value : String) : iModelHTMLDataSet<T>;
+    function Fill (Value : Boolean) : iModelHTMLDataSet<T>;
     function ResultScript : String;
     function ResultLabels : String;
     function Types (Value : String) : iModelHTMLDataSet<T>;
@@ -245,7 +435,6 @@ type
     ['{8CF35864-C906-4B8B-AC69-CD2F2001D906}']
     function HTML : iModelHTML;
     function Charts(Parent : iModelHTML) : iModelHTMLCharts;
-    function ChartBar(Parent : iModelHTMLCharts) : iModelHTMLChartsBar;
     function Rows(Parent : iModelHTML) : IModelHTMLRows;
     function RowsTitle(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
     {$IFDEF FULL}

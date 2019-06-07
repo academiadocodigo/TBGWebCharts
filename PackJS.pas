@@ -3,7 +3,7 @@ unit PackJS;
 interface
 
 uses Interfaces, Classes, BootstrapJS, ChartbundleJS, FontawesomeallJS,
-	JqueryJS, PopperJS, TetherminJS, UtilsJS;
+	JqueryJS, PopperJS, TetherminJS, UtilsJS, NumberJS;
 
 type
   TPackJS = class(TInterfacedObject,iModelJS)
@@ -48,7 +48,8 @@ begin
 			TJqueryJS.New.PackJS+
 			TPopperJS.New.PackJS+
 			TTetherminJS.New.PackJS+
-			TUtilsJS.New.PackJS;
+			TUtilsJS.New.PackJS+
+      TNumberJS.New.PackJS;
 end;
 
 end.

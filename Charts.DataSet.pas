@@ -15,7 +15,7 @@ Type
       FBorderColor : String;
       FBorderWidth : Integer;
       FData : String;
-      FFill : String;
+      FFill : Boolean;
       FScript : String;
       FLabels : String;
       FTypes : String;
@@ -36,7 +36,7 @@ Type
       function BorderColor (Value : String) : iModelHTMLDataSet<T>;
       function BorderWidth (Value : Integer) : iModelHTMLDataSet<T>;
       function Data (Value : String) : iModelHTMLDataSet<T>;
-      function Fill (Value : String) : iModelHTMLDataSet<T>;
+      function Fill (Value : Boolean) : iModelHTMLDataSet<T>;
       function ResultScript : String;
       function ResultLabels : String;
       function Types (Value : String) : iModelHTMLDataSet<T>;
@@ -54,7 +54,8 @@ function TModelHTMLChartsDataSet<T>.BackgroundColor(
   Value: String): iModelHTMLDataSet<T>;
 begin
   Result := Self;
-  FBackgroundColor := '"rgba(' + Value + ', 100)"';
+  if Value <> '' then
+    FBackgroundColor := '"rgba(' + Value + ', 100)"';
 end;
 
 function TModelHTMLChartsDataSet<T>.BorderColor(
@@ -104,7 +105,7 @@ begin
   inherited;
 end;
 
-function TModelHTMLChartsDataSet<T>.Fill(Value: String): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet<T>.Fill(Value: Boolean): iModelHTMLDataSet<T>;
 begin
   Result := Self;
   FFill := Value;
@@ -216,8 +217,7 @@ begin
   if FBorderColor <> '' then
     FScript := FScript + 'borderColor: "rgba('+FBorderColor+', 100)", ' + #13;
   FScript := FScript + 'borderWidth: 1, ' + #13;
-  if FFill <> '' then
-    FScript := FScript + 'fill: '+FFill+',';
+  if FFill then FScript := FScript + 'fill: true,' else FScript := FScript + 'fill: false,';
   FScript := FScript + 'data: ' + FData + #13;
   FScript := FScript + '} ' + #13;
   Result := FScript;

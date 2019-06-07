@@ -2,6 +2,8 @@ unit Unit2;
 
 interface
 
+{$DEFINE HAS_FMX}
+
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, System.Rtti,
@@ -38,7 +40,6 @@ type
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     SpeedButton7: TSpeedButton;
     SpeedButton8: TSpeedButton;
@@ -73,7 +74,6 @@ type
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
-    procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure SpeedButton8Click(Sender: TObject);
@@ -98,6 +98,9 @@ var
 
 implementation
 
+uses
+  Charts.Types;
+
 {$R *.fmx}
 
 
@@ -116,12 +119,15 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
-          .Labelling(True)
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gr·fico de Barras')
+          .Options
+            .Title
+              .text('Meu Gr·fico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -143,12 +149,16 @@ begin
   WebCharts1
   .NewProject
     .Charts
-      .Doughnut
-        .SemiCircule(True)
+      ._ChartType(doughnut)
         .Attributes
           .Name('Meu Grafico Doughnut')
           .ColSpan(12)
-          .Title('Meu Grafico Doughnut')
+          .Options
+            .SemiCircule(True)
+            .Title
+              .text('Meu Gr·fico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 4')
             .DataSet(ClientDataSet4)
@@ -297,11 +307,15 @@ begin
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
-          .Title('Meu Gr·fico de Barras')
+          .Options
+            .Title
+              .text('Meu Gr·fico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -332,16 +346,20 @@ WebCharts1
     .Jumpline
     .Jumpline
     .Charts
-      .Bar
+      ._ChartType(bar)
         .Attributes
           .Name('Meu Gr·fico de Barras')
           .ColSpan(12)
-          .Title('Meu Gr·fico de Barras')
+          .Options
+            .Title
+              .text('Meu Gr·fico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
             .Types('line')
-            .Fill('false')
+            .Fill(False)
             .BorderWidth(2)
             .BorderColor('30,182,203')
           .&End
@@ -377,11 +395,16 @@ TabControl1.TabIndex := 0;
     .Jumpline
     .Jumpline
     .Charts
-      .BarHorizontal
+      ._ChartType(horizontalBar)
         .Attributes
           .Name('Meu Gr¡fico de Barras')
           .ColSpan(12)
-          .Title('Meu Gr·fico de Barras')
+          .Options
+            .SemiCircule(True)
+            .Title
+              .text('Meu Gr·fico de Barras')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
@@ -399,48 +422,56 @@ TabControl1.TabIndex := 0;
   WebCharts1
     .NewProject
       .Charts
-        .Lines
+        ._ChartType(line)
           .Attributes
             .Name('Meu Gr·fico de Barras')
             .ColSpan(12)
-            .Title('Meu Gr·fico de Barras')
+            .Options
+              .Title
+                .text('Meu Gr·fico de Linhas')
+              .&End
+            .&End
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
               .BackgroundColor('227,233,235')
               .BorderColor('227,233,235')
-              .Fill('false')
+              .Fill(False)
             .&End
             .DataSet
               .textLabel('Meu DataSet 2')
               .DataSet(ClientDataSet2)
               .BackgroundColor('30,182,203')
               .BorderColor('30,182,203')
-              .Fill('false')
+              .Fill(False)
             .&End
 
           .&End
         .&End
       .&End
       .Charts
-        .Lines
+        ._ChartType(line)
           .Attributes
             .Name('Meu Gr·fico de Barras')
             .ColSpan(12)
-            .Title('Meu Gr·fico de Barras')
+            .Options
+              .Title
+                .text('Meu Gr·fico de Linhas')
+              .&End
+            .&End
             .DataSet
               .textLabel('Meu DataSet 1')
               .DataSet(ClientDataSet1)
               .BackgroundColor('227,233,235')
               .BorderColor('227,233,235')
-              .Fill('false')
+              .Fill(False)
             .&End
             .DataSet
               .textLabel('Meu DataSet 2')
               .DataSet(ClientDataSet2)
               .BackgroundColor('30,182,203')
               .BorderColor('30,182,203')
-              .Fill('false')
+              .Fill(False)
             .&End
           .&End
         .&End
@@ -449,35 +480,7 @@ TabControl1.TabIndex := 0;
     .Generated;
 end;
 
-procedure TForm2.SpeedButton5Click(Sender: TObject);
-begin
-TabControl1.TabIndex := 0;
-  WebCharts1
-    .NewProject
-      .Charts
-        .LineStacked
-          .Attributes
-            .Name('Meu Grafico de Barras')
-            .ColSpan(12)
-            .Title('Meu Grafico de Barras')
-            .DataSet
-              .textLabel('Meu DataSet 1')
-              .DataSet(ClientDataSet1)
-              .BackgroundColor('227,233,235')
-              .BorderColor('227,233,235')
-            .&End
-            .DataSet
-              .textLabel('Meu DataSet 2')
-              .DataSet(ClientDataSet2)
-              .BackgroundColor('30,182,203')
-              .BorderColor('30,182,203')
-            .&End
-          .&End
-        .&End
-      .&End
-    .WebBrowser(WebBrowser1)
-    .Generated;
-end;
+
 
 procedure TForm2.SpeedButton6Click(Sender: TObject);
 begin
@@ -485,11 +488,15 @@ TabControl1.TabIndex := 0;
   WebCharts1
   .NewProject
     .Charts
-      .Pie
+      ._ChartType(pie)
         .Attributes
           .Name('Meu Grafico Pie')
           .ColSpan(12)
-          .Title('Meu Grafico Pie')
+          .Options
+            .Title
+              .text('Meu Gr·fico de Pie')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
@@ -507,11 +514,15 @@ TabControl1.TabIndex := 0;
   WebCharts1
   .NewProject
     .Charts
-      .Doughnut
+      ._ChartType(doughnut)
         .Attributes
-          .Name('Meu Gr·fico Doughnut')
+          .Name('D1')
           .ColSpan(12)
-          .Title('Meu Gr·fico Doughnut')
+          .Options
+            .Title
+              .text('Meu Gr·fico de Doughnut')
+            .&End
+          .&End
           .DataSet
             .textLabel('Meu DataSet 4')
             .DataSet(ClientDataSet4)
@@ -554,10 +565,14 @@ TabControl1.TabIndex := 0;
       .Jumpline
 
       .Charts
-        .Bar
+        ._ChartType(bar)
           .Attributes
             .Name('analiseMensal')
-            .Title('Analise Mensal')
+            .Options
+              .Title
+                .text('Analise Mensal')
+              .&End
+            .&End
             .Heigth(80)
             .DataSet
               .DataSet(ClientDataSet1)
@@ -586,11 +601,15 @@ TabControl1.TabIndex := 0;
             WebCharts1
             .ContinuosProject
               .Charts
-                .Doughnut
+                ._ChartType(doughnut)
                   .Attributes
-                    .Legend(false)
                     .Name('movimento1')
                     .ColSpan(4)
+                    .Options
+                      .Legend
+                        .display(False)
+                      .&End
+                    .&End
                     .DataSet
                       .textLabel('Movimento 1')
                       .DataSet(ClientDataSet3)
@@ -607,11 +626,15 @@ TabControl1.TabIndex := 0;
             WebCharts1
             .ContinuosProject
               .Charts
-                .Doughnut
+                ._ChartType(doughnut)
                   .Attributes
-                    .Legend(false)
                     .Name('movimento2')
                     .ColSpan(4)
+                    .Options
+                      .Legend
+                        .display(False)
+                      .&End
+                    .&End
                     .DataSet
                       .textLabel('Movimento 2')
                       .DataSet(ClientDataSet4)
@@ -628,9 +651,13 @@ TabControl1.TabIndex := 0;
             WebCharts1
             .ContinuosProject
               .Charts
-                .Doughnut
+                ._ChartType(doughnut)
                   .Attributes
-                    .Legend(false)
+                    .Options
+                      .Legend
+                        .display(False)
+                      .&End
+                    .&End
                     .Name('movimento3')
                     .ColSpan(4)
                     .DataSet
@@ -651,7 +678,7 @@ TabControl1.TabIndex := 0;
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .Lines
+                  ._ChartType(line)
                     .Attributes
                       .Name('graficolinhas')
                       .ColSpan(12)
@@ -661,14 +688,14 @@ TabControl1.TabIndex := 0;
                         .textLabel('Analise de Compras Mensal')
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
-                        .Fill('false')
+                        .Fill(False)
                       .&End
                       .DataSet
                         .DataSet(ClientDataSet1)
                         .textLabel('Analise de Compras Mensal')
                         .BackgroundColor('30,182,203')
                         .BorderColor('30,182,203')
-                        .Fill('false')
+                        .Fill(False)
                       .&End
                     .&End
                   .&End
@@ -781,18 +808,32 @@ TabControl1.TabIndex := 0;
       //Adicionando uma nova linha com um gr·fico LineStack e Barras Horizontal
       .Rows
 
-        //Adicionando Grafico LineStacked
+        //Adicionando Grafico Line
         .Tag
           .Add(
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .LineStacked
+                  ._ChartType(line)
                     .Attributes
                       .Name('linestacked1')
                       .ColSpan(8)
                       .Heigth(150)
-                      .Title('Network Activities Graph title sub-title')
+                      .Options
+                        .Scales
+                          .Axes
+                            .xAxe
+                              .Stacked(True)
+                            .&End
+                            .yAxe
+                              .Stacked(True)
+                            .&End
+                          .&End
+                        .&End
+                        .Title
+                          .text('Network Activities Graph title sub-title')
+                        .&End
+                      .&End
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet1)
@@ -818,12 +859,16 @@ TabControl1.TabIndex := 0;
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .BarHorizontal
+                  ._ChartType(horizontalBar)
                     .Attributes
                       .Name('horizontabar1')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('Top Campaign Performance')
+                      .Options
+                        .Title
+                          .text('Top Campaign Performance')
+                        .&End
+                      .&End
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
@@ -844,12 +889,16 @@ TabControl1.TabIndex := 0;
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .BarHorizontal
+                  ._ChartType(horizontalBar)
                     .Attributes
                       .Name('horizontabar2')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('App Usage across versions')
+                      .Options
+                        .Title
+                          .text('App Usage across versions')
+                        .&End
+                      .&End
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
@@ -868,12 +917,16 @@ TabControl1.TabIndex := 0;
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .Doughnut
+                  ._ChartType(doughnut)
                     .Attributes
                       .Name('Doughnut')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('Device Usage')
+                      .Options
+                        .Title
+                          .text('Device Usage')
+                        .&End
+                      .&End
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet4)
@@ -892,12 +945,16 @@ TabControl1.TabIndex := 0;
             WebCharts1
               .ContinuosProject
                 .Charts
-                  .Doughnut
+                  ._ChartType(doughnut)
                     .Attributes
                       .Name('Pie1')
                       .ColSpan(4)
                       .Heigth(295)
-                      .Title('Device Usage')
+                      .Options
+                        .Title
+                          .text('Device Usage')
+                        .&End
+                      .&End
                       .DataSet
                         .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)

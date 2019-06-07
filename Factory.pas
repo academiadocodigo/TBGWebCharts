@@ -16,7 +16,6 @@ Type
     class function New: iModelHTMLFactory;
     function HTML: iModelHTML;
     function Charts(Parent: iModelHTML): iModelHTMLCharts;
-    function ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
     function Rows(Parent : iModelHTML) : IModelHTMLRows;
     function RowsTitle(Parent : IModelHTMLRows) : iModelHTMLRowsTitle;
     {$IFDEF FULL}
@@ -31,7 +30,6 @@ implementation
 { TModelHTMLFactory }
 
 uses
-  Charts.Bar,
   Charts,
   HTML,
   Rows.Title,
@@ -41,11 +39,6 @@ uses
   Image,
   {$ENDIF}
   Rows;
-
-function TModelHTMLFactory.ChartBar(Parent: iModelHTMLCharts): iModelHTMLChartsBar;
-begin
-  Result := TModelHTMLChartsBar.New(Parent);
-end;
 
 function TModelHTMLFactory.Charts(Parent: iModelHTML): iModelHTMLCharts;
 begin

@@ -91,22 +91,10 @@ object Form2: TForm2
         TextSettings.FontColor = claWhite
         OnClick = SpeedButton4Click
       end
-      object SpeedButton5: TSpeedButton
-        Align = Top
-        StyledSettings = [Family, Style]
-        Position.Y = 200.000000000000000000
-        Size.Width = 201.000000000000000000
-        Size.Height = 40.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'LineStacked'
-        TextSettings.Font.Size = 14.000000000000000000
-        TextSettings.FontColor = claWhite
-        OnClick = SpeedButton5Click
-      end
       object SpeedButton6: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 240.000000000000000000
+        Position.Y = 200.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -118,7 +106,7 @@ object Form2: TForm2
       object SpeedButton7: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 280.000000000000000000
+        Position.Y = 240.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -130,7 +118,7 @@ object Form2: TForm2
       object SpeedButton8: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 360.000000000000000000
+        Position.Y = 320.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -142,7 +130,7 @@ object Form2: TForm2
       object SpeedButton9: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 400.000000000000000000
+        Position.Y = 360.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -154,7 +142,7 @@ object Form2: TForm2
       object SpeedButton10: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 480.000000000000000000
+        Position.Y = 440.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -166,7 +154,7 @@ object Form2: TForm2
       object SpeedButton11: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 520.000000000000000000
+        Position.Y = 480.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -190,7 +178,7 @@ object Form2: TForm2
       object SpeedButton14: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 440.000000000000000000
+        Position.Y = 400.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
@@ -202,7 +190,7 @@ object Form2: TForm2
       object btnSemiCircule: TSpeedButton
         Align = Top
         StyledSettings = [Family, Style]
-        Position.Y = 320.000000000000000000
+        Position.Y = 280.000000000000000000
         Size.Width = 201.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
