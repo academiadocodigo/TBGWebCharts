@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLAxesGridLines<T> = class(TInterfacedObject, iModelHTMLChartsAxesGridLines<T>)
+  TModelHTMLAxesGridLines<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsAxesGridLines<T>)
     private
       FParent : T;
       FResult : String;
@@ -48,7 +48,7 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, Injection;
 
 { TModelHTMLAxesGridLines<T> }
 
@@ -83,7 +83,11 @@ end;
 
 constructor TModelHTMLAxesGridLines<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   Fdisplay := True;
   Fcircular := False;
   FcolorRGBA := '0,0,0,0.1';

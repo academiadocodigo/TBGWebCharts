@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLAxesScaleLabel<T> = class(TInterfacedObject, iModelHTMLChatsAxesScaleLabel<T>)
+  TModelHTMLAxesScaleLabel<T : IInterface> = class(TInterfacedObject, iModelHTMLChatsAxesScaleLabel<T>)
     private
       FParent : T;
       Fdisplay : Boolean;
@@ -41,7 +41,7 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, Injection;
 
 { TModelHTMLAxesScaleLabel<T> }
 
@@ -112,7 +112,11 @@ end;
 
 constructor TModelHTMLAxesScaleLabel<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   Fdisplay := False;
   FlabelString := '';
   FfontColorHEX := '#666';

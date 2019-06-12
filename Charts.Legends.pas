@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsLegends<T> = class(TInterfacedObject, iModelHTMLLegend<T>)
+  TModelHTMLChartsLegends<T : IInterface> = class(TInterfacedObject, iModelHTMLLegend<T>)
     private
       FParent : T;
       Fdisplay : Boolean;
@@ -28,7 +28,7 @@ type
 implementation
 
 uses
-  Charts.Legends.Labels;
+  Charts.Legends.Labels, Injection;
 
 { TModelHTMLChartsLegends<T> }
 
@@ -44,7 +44,12 @@ end;
 
 constructor TModelHTMLChartsLegends<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
+
   FLabels := TModelHTMLLegendsLabels<iModelHTMLLegend<T>>.New(Self);
   Fdisplay := True;
   Fposition := 'top';

@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLAxesTicks<T> = class(TInterfacedObject, iModelHTMLChartsAxesTicks<T>)
+  TModelHTMLAxesTicks<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsAxesTicks<T>)
     private
       FParent : T;
       FFontColor : String;
@@ -45,7 +45,7 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, Injection;
 
 { TModelHTMLAxesTicks }
 
@@ -80,7 +80,11 @@ end;
 
 constructor TModelHTMLAxesTicks<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FAutoSkip := False;
   FautoSkipPadding := 0;
   FlabelOffset := 0;

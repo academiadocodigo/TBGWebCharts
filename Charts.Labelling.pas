@@ -6,7 +6,7 @@ uses
   Classes, Interfaces;
 
 Type
-  TChartsLabelling<T> = class(TInterfacedObject, iModelLabellingConfig<T>)
+  TChartsLabelling<T : IInterface> = class(TInterfacedObject, iModelLabellingConfig<T>)
     private
       FParent : T;
       FFormat : String;
@@ -41,7 +41,7 @@ Type
 implementation
 
 uses
-  Charts.Config, System.SysUtils;
+  Charts.Config, System.SysUtils, Injection;
 
 
 { TChartsLabelling }
@@ -53,7 +53,11 @@ end;
 
 constructor TChartsLabelling<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FFormat :='';
   FRGBColor := '133, 133, 133';
   FFontSize := 12;

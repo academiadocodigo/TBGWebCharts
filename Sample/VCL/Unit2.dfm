@@ -309,7 +309,6 @@ object Form2: TForm2
                 'type='
                 'Stacked=False')
               TabOrder = 0
-              ExplicitTop = 8
               ColWidths = (
                 96
                 126)
@@ -331,7 +330,6 @@ object Form2: TForm2
               ParentBackground = False
               ParentFont = False
               TabOrder = 1
-              ExplicitTop = 106
             end
             object ValueListEditor4: TValueListEditor
               Left = 0
@@ -359,7 +357,6 @@ object Form2: TForm2
                 'mirror=False'
                 'padding=0')
               TabOrder = 2
-              ExplicitTop = 129
               ColWidths = (
                 96
                 126)
@@ -381,7 +378,6 @@ object Form2: TForm2
               ParentBackground = False
               ParentFont = False
               TabOrder = 3
-              ExplicitTop = 301
             end
             object ValueListEditor5: TValueListEditor
               Left = 0
@@ -410,7 +406,6 @@ object Form2: TForm2
                 'zeroLineWidth=50'
                 'zeroLineColorRGBA=102,102,102,100')
               TabOrder = 4
-              ExplicitTop = 324
               ColWidths = (
                 96
                 126)
@@ -432,7 +427,6 @@ object Form2: TForm2
               ParentBackground = False
               ParentFont = False
               TabOrder = 5
-              ExplicitTop = 515
             end
             object ValueListEditor6: TValueListEditor
               Left = 0
@@ -459,7 +453,6 @@ object Form2: TForm2
                 'fontStyle=normal'
                 'padding=10')
               TabOrder = 6
-              ExplicitTop = 538
               ColWidths = (
                 96
                 126)
@@ -501,7 +494,6 @@ object Form2: TForm2
                 'type='#39#39
                 'Stacked=False')
               TabOrder = 0
-              ExplicitTop = 8
               ColWidths = (
                 96
                 126)
@@ -523,7 +515,6 @@ object Form2: TForm2
               ParentBackground = False
               ParentFont = False
               TabOrder = 1
-              ExplicitTop = 106
             end
             object ValueListEditor8: TValueListEditor
               Left = 0
@@ -551,7 +542,6 @@ object Form2: TForm2
                 'mirror=False'
                 'padding=0')
               TabOrder = 2
-              ExplicitTop = 129
               ColWidths = (
                 96
                 126)
@@ -573,7 +563,6 @@ object Form2: TForm2
               ParentBackground = False
               ParentFont = False
               TabOrder = 3
-              ExplicitTop = 301
             end
             object ValueListEditor9: TValueListEditor
               Left = 0
@@ -602,7 +591,6 @@ object Form2: TForm2
                 'zeroLineWidth=50'
                 'zeroLineColorRGBA=102,102,102,0.2')
               TabOrder = 4
-              ExplicitTop = 324
               ColWidths = (
                 96
                 126)
@@ -624,7 +612,6 @@ object Form2: TForm2
               ParentBackground = False
               ParentFont = False
               TabOrder = 5
-              ExplicitTop = 515
             end
             object ValueListEditor10: TValueListEditor
               Left = 0
@@ -651,7 +638,6 @@ object Form2: TForm2
                 'fontStyle=normal'
                 'padding=10')
               TabOrder = 6
-              ExplicitTop = 538
               ColWidths = (
                 96
                 126)

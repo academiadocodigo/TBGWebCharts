@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLAxesParams<T> = class(TInterfacedObject, iModelHTMLChartsAxesParam<T>)
+  TModelHTMLAxesParams<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsAxesParam<T>)
     private
       FParent : T;
       FPosition : String;
@@ -40,7 +40,7 @@ implementation
 
 uses
   System.SysUtils, Charts.Axes.Ticks, Charts.Axes.GridLines,
-  Charts.Axes.ScaleLabel;
+  Charts.Axes.ScaleLabel, Injection;
 
 { TModelHTMLAxesParams<T> }
 
@@ -56,7 +56,11 @@ end;
 
 constructor TModelHTMLAxesParams<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FOffSet := True;
   FType := '';
   FStacked := False;

@@ -8,9 +8,9 @@ uses
 type
   TModelChartsGeneric = class(TInterfacedObject, iModelHTMLChartsGeneric)
     private
-      FHTML : String;
       [weak]
       FParent : iModelHTMLCharts;
+      FHTML : String;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
     public
       constructor Create(Parent : iModelHTMLCharts);

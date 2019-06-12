@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsTitle<T> = class(TInterfacedObject, iModelHTMLTitle<T>)
+  TModelHTMLChartsTitle<T : IInterface> = class(TInterfacedObject, iModelHTMLTitle<T>)
     private
       FParent : T;
       Fdisplay : Boolean;
@@ -44,7 +44,7 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, Injection;
 
 { TModelHTMLChartsTitle<T> }
 
@@ -100,7 +100,11 @@ end;
 
 constructor TModelHTMLChartsTitle<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   Fdisplay := True;
   Ftext := '';
   Fposition := 'top';

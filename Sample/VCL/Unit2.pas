@@ -154,7 +154,7 @@ type
     procedure SpeedButton13Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure CarregarClick(Sender: TObject);
-    procedure testeClick(Sender: TObject);
+    procedure teste22Click(Sender: TObject);
     procedure SpeedButton14Click(Sender: TObject);
     procedure SpeedButton15Click(Sender: TObject);
     procedure btnSemiCirculeClick(Sender: TObject);
@@ -1688,7 +1688,7 @@ begin
   ShowMessage(value);
 end;
 
-procedure TForm2.testeClick(Sender: TObject);
+procedure TForm2.teste22Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
   WebCharts1

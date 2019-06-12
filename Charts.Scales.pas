@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsScales<T> = class(TInterfacedObject, iModelHTMLScales<T>)
+  TModelHTMLChartsScales<T : IInterface> = class(TInterfacedObject, iModelHTMLScales<T>)
     private
       FParent : T;
       FAxes : iModelHTMLChartsAxes<iModelHTMLScales<T>>;
@@ -24,7 +24,7 @@ type
 implementation
 
 uses
-  Charts.Axes;
+  Charts.Axes, Injection;
 
 { TModelHTMLChartsScales<T> }
 
@@ -47,7 +47,11 @@ end;
 
 constructor TModelHTMLChartsScales<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FAxes := TModelHTMLChartsAxes<iModelHTMLScales<T>>.New(Self);
   FGeneratedAxes := True;
 end;

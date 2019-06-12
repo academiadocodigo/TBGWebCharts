@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLLegendsLabels<T> = class(TInterfacedObject, iModelHTMLLegendLabels<T>)
+  TModelHTMLLegendsLabels<T : IInterface> = class(TInterfacedObject, iModelHTMLLegendLabels<T>)
     private
       FParent : T;
       FfontSize : Integer;
@@ -35,7 +35,7 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, Injection;
 
 { TModelHTMLLegendsLabels }
 
@@ -94,7 +94,11 @@ end;
 
 constructor TModelHTMLLegendsLabels<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FfontSize := 12;
   FfontStyle := 'normal';
   FfontColorHEX := '#666';

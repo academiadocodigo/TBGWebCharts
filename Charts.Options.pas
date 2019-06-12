@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsOptions<T> = class(TInterfacedObject, iModelHTMLOptions<T>)
+  TModelHTMLChartsOptions<T : IInterface> = class(TInterfacedObject, iModelHTMLOptions<T>)
     private
       FParent : T;
       FScales : iModelHTMLScales<iModelHTMLOptions<T>>;
@@ -28,7 +28,10 @@ type
 implementation
 
 uses
-  Charts.Scales, Charts.Legends, Charts.Title;
+  Charts.Scales,
+  Charts.Legends,
+  Charts.Title,
+  Injection;
 
 { TModelHTMLChartsOptions<T> }
 
@@ -44,7 +47,11 @@ end;
 
 constructor TModelHTMLChartsOptions<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FScales := TModelHTMLChartsScales<iModelHTMLOptions<T>>.New(Self);
   FLegend := TModelHTMLChartsLegends<iModelHTMLOptions<T>>.New(Self);
   FTitle := TModelHTMLChartsTitle<iModelHTMLOptions<T>>.New(Self);

@@ -51,11 +51,7 @@ end;
 
 constructor TModelHTMLCharts.Create(Parent : IModelHTML);
 begin
-  {$IF RTLVERSION > 27  }
-    TInjection.Weak(@FParent, Parent);
-  {$ELSE}
-    FParent := Parent;
-  {$IFEND}
+  FParent := Parent;
 end;
 
 destructor TModelHTMLCharts.Destroy;

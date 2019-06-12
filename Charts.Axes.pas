@@ -6,7 +6,7 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsAxes<T> = class(TInterfacedObject, iModelHTMLChartsAxes<T>)
+  TModelHTMLChartsAxes<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsAxes<T>)
     private
       FParent : T;
       FFontColor : String;
@@ -26,7 +26,7 @@ type
 implementation
 
 uses
-  Charts.Axes.Ticks, Charts.Axes.Params;
+  Charts.Axes.Ticks, Charts.Axes.Params, Injection;
 
 { TModelHTMLChartsAxes<T> }
 
@@ -37,7 +37,11 @@ end;
 
 constructor TModelHTMLChartsAxes<T>.Create(Parent : T);
 begin
-  FParent := Parent;
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FxAxe := TModelHTMLAxesParams<iModelHTMLChartsAxes<T>>.New(Self);
   FyAxe := TModelHTMLAxesParams<iModelHTMLChartsAxes<T>>.New(Self);
 end;
