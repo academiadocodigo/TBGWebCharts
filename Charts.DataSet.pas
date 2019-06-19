@@ -25,7 +25,8 @@ Type
       procedure generatedBorderWidth;
       procedure generatedData;
       procedure generatedFill;
-      function replaceValue(Value, Masc1, Masc2 : String) : String;
+//      function replaceValue(Value, Masc1, Masc2 : String) : String;
+      function replaceValue(Value : String) : String;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -154,7 +155,8 @@ begin
   begin
     if I = Pred(FDataSet.RecordCount) then
       Aux := '';
-    FData := FData + replaceValue(replaceValue(FDataSet.FieldByName('Value').AsString,'.',''),',','.') + Aux;
+//    FData := FData + replaceValue(replaceValue(FDataSet.FieldByName('Value').AsString,'.',''),',','.') + Aux;
+      FData := FData + replaceValue(FDataSet.FieldByName('Value').AsString) + Aux;
     FDataSet.Next;
   end;
   FData := FData + ']';
@@ -175,9 +177,29 @@ begin
   Result := Self.Create(Parent);
 end;
 
-function TModelHTMLChartsDataSet<T>.replaceValue(Value, Masc1, Masc2: String): String;
+function TModelHTMLChartsDataSet<T>.replaceValue(Value: String): String;
+var
+  I,cont : Integer;
+  caracter : string;
 begin
-  result := stringreplace(value, Masc1, Masc2,[rfReplaceAll, rfIgnoreCase]);;
+  caracter := '';
+  cont := 0;
+  for I := Length(Value) downto 1 do
+  begin
+      if (value[i] in ['0'..'9']) then
+        caracter := value[i] + caracter
+      else
+      begin
+        if cont=0 then
+        begin
+          value[i]:='.';
+          caracter := value[i] + caracter;
+          inc(cont);
+        end;
+      end;
+  end;
+  result:=caracter;
+//  result := stringreplace(value, Masc1, Masc2,[rfReplaceAll, rfIgnoreCase]);
 end;
 
 function TModelHTMLChartsDataSet<T>.ResultLabels: String;
