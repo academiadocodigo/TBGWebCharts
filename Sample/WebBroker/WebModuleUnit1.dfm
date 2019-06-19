@@ -16,8 +16,8 @@ object WebModule1: TWebModule1
   Height = 230
   Width = 415
   object WebCharts1: TWebCharts
-    Left = 208
-    Top = 56
+    Left = 200
+    Top = 48
   end
   object ClientDataSet1: TClientDataSet
     PersistDataPacket.Data = {
@@ -125,6 +125,6 @@ object WebModule1: TWebModule1
     Aggregates = <>
     Params = <>
     Left = 88
-    Top = 112
+    Top = 48
   end
 end
