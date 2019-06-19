@@ -115,7 +115,8 @@ function TChartsLabelling<T>.Format(Value: String): iModelLabellingConfig<T>;
 begin
   Result := Self;
   FFormat := Value;
-  FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index].toString()).format('+QuotedStr(FFormat)+');';
+//  FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index].toString()).format('+QuotedStr(FFormat)+');';
+FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index]).format('+QuotedStr(FFormat)+');';
 end;
 
 class function TChartsLabelling<T>.New(Parent : T): iModelLabellingConfig<T>;
