@@ -530,6 +530,7 @@ type
   iChartsCallback = interface
   ['{4040F646-6D4F-477A-B5CE-98FDD025DAEB}']
     function Result (Value : String) : String;
+    function IDChart ( Value : String) : iChartsCallback;
   end;
 
   iModelImage = interface

@@ -12,6 +12,8 @@ type
       FParent : iModelHTMLCharts;
       FHTML : String;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
+
+      function RemoveAccents(Value: String): String;
     public
       constructor Create(Parent : iModelHTMLCharts);
       destructor Destroy; override;
@@ -35,8 +37,11 @@ begin
 end;
 
 function TModelChartsGeneric.&End: iModelHTMLCharts;
+var
+  vIdChart : String;
 begin
   Result := FParent;
+  vIdChart :=  RemoveAccents(StringReplace(FConfig.Name, ' ', '',[rfReplaceAll, rfIgnoreCase]));
   FParent.HTML('<div class="col-'+IntToStr(FConfig.ColSpan)+'">  ');
   FParent.HTML('<canvas id="'+FConfig.Name+'" ');
   if FConfig.Width > 0 then
@@ -48,7 +53,7 @@ begin
 
   FParent.HTML('var myCallBack = document.getElementById('''+FConfig.Name+''');');
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
-  FParent.HTML('var myChart = new Chart(ctx, { ');
+  FParent.HTML('var myChart_'+vIdChart+' = new Chart(ctx, { ');
   FParent.HTML('type: '''+ TTypeChart(FParent._ChartType).ToString+''', ');
   FParent.HTML('data: { ');
   FParent.HTML('labels: '+FConfig.ResultLabels+',  ');
@@ -58,7 +63,7 @@ begin
   FParent.HTML('}, ');
   FParent.HTML(FConfig.Options.Result);
   FParent.HTML('}); ');
-  if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.Result(FConfig.CallBackLink));
+  if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+vIdChart).Result(FConfig.CallBackLink));
   FParent.HTML(FConfig.Labelling.Result);
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
@@ -94,6 +99,21 @@ end;
 class function TModelChartsGeneric.New(Parent : iModelHTMLCharts): iModelHTMLChartsGeneric;
 begin
     Result := Self.Create(Parent);
+end;
+
+function TModelChartsGeneric.RemoveAccents(Value: String): String;
+const
+  WinAccents = '‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹';
+  WoutAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCU';
+var
+  i : Integer;
+begin
+   for i := 1 to Length(Value) do begin
+      if Pos(Value[i],WinAccents) <> 0 then begin
+         Value[i] := WoutAcento[Pos(Value[i],WinAccents)];
+      end;
+   end;
+   Result := Value;
 end;
 
 end.
