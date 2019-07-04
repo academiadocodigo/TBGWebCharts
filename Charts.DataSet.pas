@@ -184,7 +184,11 @@ var
 begin
   caracter := '';
   cont := 0;
+  {$IFDEF ANDROID}
+  for I := Length(Value) downto 0 do
+  {$ELSE}
   for I := Length(Value) downto 1 do
+  {$ENDIF}
   begin
       if (value[i] in ['0'..'9']) then
         caracter := value[i] + caracter
