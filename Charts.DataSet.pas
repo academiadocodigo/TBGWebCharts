@@ -25,7 +25,6 @@ Type
       procedure generatedBorderWidth;
       procedure generatedData;
       procedure generatedFill;
-//      function replaceValue(Value, Masc1, Masc2 : String) : String;
       function replaceValue(Value : String) : String;
     public
       constructor Create(Parent : T);
@@ -155,7 +154,6 @@ begin
   begin
     if I = Pred(FDataSet.RecordCount) then
       Aux := '';
-//    FData := FData + replaceValue(replaceValue(FDataSet.FieldByName('Value').AsString,'.',''),',','.') + Aux;
       FData := FData + replaceValue(FDataSet.FieldByName('Value').AsString) + Aux;
     FDataSet.Next;
   end;
@@ -196,14 +194,16 @@ begin
       begin
         if cont=0 then
         begin
-          value[i]:='.';
-          caracter := value[i] + caracter;
-          inc(cont);
+          if ((value[i]='.') or (value[i]=',')) then
+          begin
+            value[i]:='.';
+            caracter := value[i] + caracter;
+            inc(cont);
+          end;
         end;
       end;
   end;
   result:=caracter;
-//  result := stringreplace(value, Masc1, Masc2,[rfReplaceAll, rfIgnoreCase]);
 end;
 
 function TModelHTMLChartsDataSet<T>.ResultLabels: String;
