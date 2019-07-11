@@ -12,6 +12,7 @@ type
       FScales : iModelHTMLScales<iModelHTMLOptions<T>>;
       FLegend : iModelHTMLLegend<iModelHTMLOptions<T>>;
       FTitle  : iModelHTMLTitle<iModelHTMLOptions<T>>;
+      FTooltip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
       FSemiCircule : Boolean;
     public
       constructor Create(Parent : T);
@@ -20,6 +21,7 @@ type
       function Scales : iModelHTMLScales<iModelHTMLOptions<T>>;
       function Legend : iModelHTMLLegend<iModelHTMLOptions<T>>;
       function Title : iModelHTMLTitle<iModelHTMLOptions<T>>;
+      function Tootip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
       function SemiCircule ( Value : Boolean ) : iModelHTMLOptions<T>;
       function Result : String;
       function &End : T;
@@ -31,6 +33,7 @@ uses
   Charts.Scales,
   Charts.Legends,
   Charts.Title,
+  Charts.Tooltip,
   Injection;
 
 { TModelHTMLChartsOptions<T> }
@@ -55,6 +58,7 @@ begin
   FScales := TModelHTMLChartsScales<iModelHTMLOptions<T>>.New(Self);
   FLegend := TModelHTMLChartsLegends<iModelHTMLOptions<T>>.New(Self);
   FTitle := TModelHTMLChartsTitle<iModelHTMLOptions<T>>.New(Self);
+  FTooltip := TModelHTMLChartsTooltip<iModelHTMLOptions<T>>.New(Self);
 end;
 
 destructor TModelHTMLChartsOptions<T>.Destroy;
@@ -80,6 +84,7 @@ begin
   Result := Result + FScales.Result;
   Result := Result + FLegend.Result;
   Result := Result + FTitle.Result;
+  Result := Result + FTooltip.Result;
   Result := Result + ' responsive: true ';
   Result := Result + '}';
 end;
@@ -99,6 +104,11 @@ end;
 function TModelHTMLChartsOptions<T>.Title: iModelHTMLTitle<iModelHTMLOptions<T>>;
 begin
   Result := FTitle;
+end;
+
+function TModelHTMLChartsOptions<T>.Tootip: iModelHTMLTooltip<iModelHTMLOptions<T>>;
+begin
+  Result := FTooltip;
 end;
 
 end.

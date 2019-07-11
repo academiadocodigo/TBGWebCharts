@@ -134,6 +134,8 @@ type
     ValueListEditor5: TValueListEditor;
     Panel12: TPanel;
     ValueListEditor6: TValueListEditor;
+    TabSheet11: TTabSheet;
+    ValueListEditor17: TValueListEditor;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -801,6 +803,9 @@ begin
                   .&End
                 .&End
               .&End
+            .&End
+            .Tootip
+              .Format(ValueListEditor17.Values['Format'])
             .&End
           .&End
           .Labelling

@@ -2,7 +2,7 @@ object Form2: TForm2
   Left = 0
   Top = 0
   Caption = 'TBGWebCharts VCL'
-  ClientHeight = 861
+  ClientHeight = 749
   ClientWidth = 1122
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -30,7 +30,7 @@ object Form2: TForm2
     Left = 0
     Top = 57
     Width = 1122
-    Height = 804
+    Height = 692
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
@@ -38,7 +38,7 @@ object Form2: TForm2
       Left = 417
       Top = 0
       Width = 705
-      Height = 804
+      Height = 692
       ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
@@ -48,13 +48,12 @@ object Form2: TForm2
           Left = 0
           Top = 0
           Width = 697
-          Height = 773
+          Height = 661
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 920
-          ExplicitHeight = 640
+          ExplicitHeight = 773
           ControlData = {
-            4C00000009480000E44F00000000000000000000000000000000000000000000
+            4C00000009480000514400000000000000000000000000000000000000000000
             000000004C000000000000000000000001000000E0D057007335CF11AE690800
             2B2E126208000000000000004C0000000114020000000000C000000000000046
             8000000000000000000000000000000000000000000000000000000000000000
@@ -100,7 +99,7 @@ object Form2: TForm2
           Left = 0
           Top = 70
           Width = 697
-          Height = 678
+          Height = 566
           Align = alClient
           DataSource = DataSource1
           TabOrder = 4
@@ -112,7 +111,7 @@ object Form2: TForm2
         end
         object DBNavigator1: TDBNavigator
           Left = 0
-          Top = 748
+          Top = 636
           Width = 697
           Height = 25
           DataSource = DataSource1
@@ -160,7 +159,7 @@ object Form2: TForm2
       Left = 185
       Top = 0
       Width = 232
-      Height = 804
+      Height = 692
       Align = alLeft
       BevelOuter = bvNone
       Color = clGrayText
@@ -170,8 +169,8 @@ object Form2: TForm2
         Left = 0
         Top = 74
         Width = 232
-        Height = 730
-        ActivePage = TabSheet10
+        Height = 618
+        ActivePage = TabSheet11
         Align = alClient
         TabOrder = 0
         object TabSheet3: TTabSheet
@@ -281,7 +280,7 @@ object Form2: TForm2
             Left = 0
             Top = 0
             Width = 224
-            Height = 699
+            Height = 587
             Align = alClient
             BorderStyle = bsNone
             Color = clWhite
@@ -290,7 +289,7 @@ object Form2: TForm2
             object ValueListEditor3: TValueListEditor
               Left = 0
               Top = 0
-              Width = 224
+              Width = 207
               Height = 98
               Align = alTop
               BorderStyle = bsNone
@@ -311,12 +310,12 @@ object Form2: TForm2
               TabOrder = 0
               ColWidths = (
                 96
-                126)
+                92)
             end
             object Panel10: TPanel
               Left = 0
               Top = 98
-              Width = 224
+              Width = 207
               Height = 23
               Align = alTop
               BevelOuter = bvNone
@@ -334,7 +333,7 @@ object Form2: TForm2
             object ValueListEditor4: TValueListEditor
               Left = 0
               Top = 121
-              Width = 224
+              Width = 207
               Height = 172
               Align = alTop
               BorderStyle = bsNone
@@ -359,12 +358,12 @@ object Form2: TForm2
               TabOrder = 2
               ColWidths = (
                 96
-                126)
+                92)
             end
             object Panel11: TPanel
               Left = 0
               Top = 293
-              Width = 224
+              Width = 207
               Height = 23
               Align = alTop
               BevelOuter = bvNone
@@ -382,7 +381,7 @@ object Form2: TForm2
             object ValueListEditor5: TValueListEditor
               Left = 0
               Top = 316
-              Width = 224
+              Width = 207
               Height = 191
               Align = alTop
               BorderStyle = bsNone
@@ -408,12 +407,12 @@ object Form2: TForm2
               TabOrder = 4
               ColWidths = (
                 96
-                126)
+                92)
             end
             object Panel12: TPanel
               Left = 0
               Top = 507
-              Width = 224
+              Width = 207
               Height = 23
               Align = alTop
               BevelOuter = bvNone
@@ -431,7 +430,7 @@ object Form2: TForm2
             object ValueListEditor6: TValueListEditor
               Left = 0
               Top = 530
-              Width = 224
+              Width = 207
               Height = 157
               Align = alTop
               BorderStyle = bsNone
@@ -455,7 +454,7 @@ object Form2: TForm2
               TabOrder = 6
               ColWidths = (
                 96
-                126)
+                92)
             end
           end
         end
@@ -466,7 +465,7 @@ object Form2: TForm2
             Left = 0
             Top = 0
             Width = 224
-            Height = 699
+            Height = 587
             Align = alClient
             BorderStyle = bsNone
             Color = clWhite
@@ -475,7 +474,7 @@ object Form2: TForm2
             object ValueListEditor7: TValueListEditor
               Left = 0
               Top = 0
-              Width = 224
+              Width = 207
               Height = 98
               Align = alTop
               BorderStyle = bsNone
@@ -501,7 +500,7 @@ object Form2: TForm2
             object Panel13: TPanel
               Left = 0
               Top = 98
-              Width = 224
+              Width = 207
               Height = 23
               Align = alTop
               BevelOuter = bvNone
@@ -519,7 +518,7 @@ object Form2: TForm2
             object ValueListEditor8: TValueListEditor
               Left = 0
               Top = 121
-              Width = 224
+              Width = 207
               Height = 172
               Align = alTop
               BorderStyle = bsNone
@@ -549,7 +548,7 @@ object Form2: TForm2
             object Panel14: TPanel
               Left = 0
               Top = 293
-              Width = 224
+              Width = 207
               Height = 23
               Align = alTop
               BevelOuter = bvNone
@@ -567,7 +566,7 @@ object Form2: TForm2
             object ValueListEditor9: TValueListEditor
               Left = 0
               Top = 316
-              Width = 224
+              Width = 207
               Height = 191
               Align = alTop
               BorderStyle = bsNone
@@ -598,7 +597,7 @@ object Form2: TForm2
             object Panel15: TPanel
               Left = 0
               Top = 507
-              Width = 224
+              Width = 207
               Height = 23
               Align = alTop
               BevelOuter = bvNone
@@ -616,7 +615,7 @@ object Form2: TForm2
             object ValueListEditor10: TValueListEditor
               Left = 0
               Top = 530
-              Width = 224
+              Width = 207
               Height = 157
               Align = alTop
               BorderStyle = bsNone
@@ -814,6 +813,34 @@ object Form2: TForm2
               126)
           end
         end
+        object TabSheet11: TTabSheet
+          Caption = 'Tooltip'
+          ImageIndex = 8
+          object ValueListEditor17: TValueListEditor
+            Left = 0
+            Top = 0
+            Width = 224
+            Height = 185
+            Align = alTop
+            BorderStyle = bsNone
+            Color = clWhite
+            DrawingStyle = gdsClassic
+            FixedColor = clWhite
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Strings.Strings = (
+              'Format=')
+            TabOrder = 0
+            ExplicitTop = 8
+            ColWidths = (
+              96
+              126)
+          end
+        end
       end
       object Panel18: TPanel
         Left = 0
@@ -871,7 +898,7 @@ object Form2: TForm2
       Left = 0
       Top = 0
       Width = 185
-      Height = 804
+      Height = 692
       Align = alLeft
       BevelOuter = bvNone
       Color = clGrayText
@@ -985,7 +1012,7 @@ object Form2: TForm2
       end
       object SpeedButton23: TSpeedButton
         Left = 0
-        Top = 744
+        Top = 632
         Width = 185
         Height = 60
         Align = alBottom

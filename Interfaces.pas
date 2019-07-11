@@ -47,6 +47,7 @@ type
   iModelHTMLLegend<T> = interface;
   iModelHTMLTitle<T> = interface;
   iModelHTMLScales<T> = interface;
+  iModelHTMLTooltip<T> = interface;
   iModelHTMLOptions<T> = interface;
   iModelHTMLChartsGeneric = interface;
   {$IFDEF FULL}
@@ -246,6 +247,7 @@ type
     function Scales : iModelHTMLScales<iModelHTMLOptions<T>>;
     function Legend : iModelHTMLLegend<iModelHTMLOptions<T>>;
     function Title : iModelHTMLTitle<iModelHTMLOptions<T>>;
+    function Tootip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
     function Result : String;
     function &End : T;
   end;
@@ -254,6 +256,13 @@ type
     ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
     function GeneratedAxes ( Value : Boolean ) : iModelHTMLScales<T>;
     function Axes : iModelHTMLChartsAxes<iModelHTMLScales<T>>;
+    function Result : String;
+    function &End : T;
+  end;
+
+  iModelHTMLTooltip<T> = interface
+    ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
+    function Format(Value : String) : iModelHTMLTooltip<T>;
     function Result : String;
     function &End : T;
   end;
