@@ -247,7 +247,7 @@ type
     function Scales : iModelHTMLScales<iModelHTMLOptions<T>>;
     function Legend : iModelHTMLLegend<iModelHTMLOptions<T>>;
     function Title : iModelHTMLTitle<iModelHTMLOptions<T>>;
-    function Tootip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
+    function Tooltip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
     function Result : String;
     function &End : T;
   end;

@@ -833,9 +833,8 @@ object Form2: TForm2
             Font.Style = []
             ParentFont = False
             Strings.Strings = (
-              'Format=')
+              'Format=$0,0.00')
             TabOrder = 0
-            ExplicitTop = 8
             ColWidths = (
               96
               126)
@@ -922,7 +921,6 @@ object Form2: TForm2
         ParentFont = False
         ParentBiDiMode = False
         OnClick = SpeedButton10Click
-        ExplicitTop = 50
       end
       object SpeedButton17: TSpeedButton
         Left = 0
@@ -939,8 +937,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton4Click
-        ExplicitLeft = -2
-        ExplicitTop = 126
       end
       object SpeedButton19: TSpeedButton
         Left = 0
@@ -957,7 +953,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton7Click
-        ExplicitTop = 200
       end
       object SpeedButton20: TSpeedButton
         Left = 0
@@ -974,7 +969,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton2Click
-        ExplicitTop = 250
       end
       object SpeedButton21: TSpeedButton
         Left = 0
@@ -991,7 +985,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton8Click
-        ExplicitTop = 300
       end
       object SpeedButton22: TSpeedButton
         Left = 0
@@ -1008,7 +1001,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton9Click
-        ExplicitTop = 350
       end
       object SpeedButton23: TSpeedButton
         Left = 0
@@ -1043,7 +1035,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton1Click
-        ExplicitTop = 400
       end
       object SpeedButton26: TSpeedButton
         Left = 0
@@ -1060,7 +1051,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton12Click
-        ExplicitTop = 500
       end
       object SpeedButton27: TSpeedButton
         Left = 0
@@ -1077,7 +1067,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton13Click
-        ExplicitTop = 550
       end
       object SpeedButton28: TSpeedButton
         Left = 0
@@ -1094,7 +1083,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = btnSemiCirculeClick
-        ExplicitTop = 274
       end
       object SpeedButton29: TSpeedButton
         Left = 0
@@ -1114,7 +1102,6 @@ object Form2: TForm2
         ParentFont = False
         ParentBiDiMode = False
         OnClick = SpeedButton15Click
-        ExplicitTop = 34
       end
       object SpeedButton30: TSpeedButton
         Left = 0
@@ -1149,8 +1136,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = btnBarsStackedClick
-        ExplicitLeft = -2
-        ExplicitTop = 64
       end
       object SpeedButton32: TSpeedButton
         Left = 0
@@ -1170,8 +1155,6 @@ object Form2: TForm2
         ParentFont = False
         ParentBiDiMode = False
         OnClick = btnBarLabelClick
-        ExplicitLeft = -2
-        ExplicitTop = 154
       end
       object SpeedButton33: TSpeedButton
         Left = 0
@@ -1188,8 +1171,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = btnBarCallClick
-        ExplicitLeft = -2
-        ExplicitTop = 114
       end
       object SpeedButton34: TSpeedButton
         Left = 0
@@ -1209,7 +1190,6 @@ object Form2: TForm2
         ParentFont = False
         ParentBiDiMode = False
         OnClick = SpeedButton3Click
-        ExplicitTop = -6
       end
       object SpeedButton25: TSpeedButton
         Left = 0
@@ -1226,8 +1206,6 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton11Click
-        ExplicitLeft = -6
-        ExplicitTop = 554
       end
     end
   end

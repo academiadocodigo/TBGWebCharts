@@ -21,7 +21,7 @@ type
       function Scales : iModelHTMLScales<iModelHTMLOptions<T>>;
       function Legend : iModelHTMLLegend<iModelHTMLOptions<T>>;
       function Title : iModelHTMLTitle<iModelHTMLOptions<T>>;
-      function Tootip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
+      function Tooltip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
       function SemiCircule ( Value : Boolean ) : iModelHTMLOptions<T>;
       function Result : String;
       function &End : T;
@@ -106,7 +106,7 @@ begin
   Result := FTitle;
 end;
 
-function TModelHTMLChartsOptions<T>.Tootip: iModelHTMLTooltip<iModelHTMLOptions<T>>;
+function TModelHTMLChartsOptions<T>.Tooltip: iModelHTMLTooltip<iModelHTMLOptions<T>>;
 begin
   Result := FTooltip;
 end;

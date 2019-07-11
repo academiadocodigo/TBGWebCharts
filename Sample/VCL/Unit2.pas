@@ -804,7 +804,7 @@ begin
                 .&End
               .&End
             .&End
-            .Tootip
+            .Tooltip
               .Format(ValueListEditor17.Values['Format'])
             .&End
           .&End
