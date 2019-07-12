@@ -61,8 +61,8 @@ begin
   Result := '';
   Result := Result + 'tooltips: {';
   Result := Result + 'callbacks: {';
-  Result := Result + '	label: function(tooltipItem) {';
-  Result := Result + '  	return numeral(tooltipItem.yLabel).format('+QuotedStr(FFormat)+');';
+  Result := Result + '	label: function(tooltipItem, data) {';
+  Result := Result + '  	return numeral(data['+QuotedStr('datasets')+'][0]['+QuotedStr('data')+'][tooltipItem['+QuotedStr('index')+']]).format('+QuotedStr(FFormat)+');';
   Result := Result + '	}';
   Result := Result + '}';
   Result := Result + '},';
