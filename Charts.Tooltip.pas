@@ -62,7 +62,8 @@ begin
   Result := Result + 'tooltips: {';
   Result := Result + 'callbacks: {';
   Result := Result + '	label: function(tooltipItem, data) {';
-  Result := Result + '  	return numeral(data['+QuotedStr('datasets')+'][0]['+QuotedStr('data')+'][tooltipItem['+QuotedStr('index')+']]).format('+QuotedStr(FFormat)+');';
+  //Result := Result + '  	return numeral(data['+QuotedStr('datasets')+'][0]['+QuotedStr('data')+'][tooltipItem['+QuotedStr('index')+']]).format('+QuotedStr(FFormat)+');';
+  Result := Result + '    return numeral(data['+QuotedStr('datasets')+'][tooltipItem.datasetIndex]['+QuotedStr('data')+'][tooltipItem['+QuotedStr('index')+']]).format('+QuotedStr(FFormat)+');';
   Result := Result + '	}';
   Result := Result + '}';
   Result := Result + '},';
