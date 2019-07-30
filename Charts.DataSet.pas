@@ -188,7 +188,7 @@ begin
   for I := Length(Value) downto 1 do
   {$ENDIF}
   begin
-      if (value[i] in ['0'..'9']) then
+      if ((value[i] in ['0'..'9']) or (value[i]='-')) then
         caracter := value[i] + caracter
       else
       begin
