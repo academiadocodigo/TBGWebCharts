@@ -63,6 +63,10 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Panel5: TPanel
           Left = -4
           Top = 320
@@ -175,6 +179,10 @@ object Form2: TForm2
         TabOrder = 0
         object TabSheet3: TTabSheet
           Caption = 'General'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ValueListEditor1: TValueListEditor
             Left = 0
             Top = 0
@@ -244,6 +252,10 @@ object Form2: TForm2
         object TabSheet4: TTabSheet
           Caption = 'Attributes'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ValueListEditor2: TValueListEditor
             Left = 0
             Top = 0
@@ -276,6 +288,10 @@ object Form2: TForm2
         object TabSheet5: TTabSheet
           Caption = 'Scale xAxe'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox2: TScrollBox
             Left = 0
             Top = 0
@@ -461,6 +477,10 @@ object Form2: TForm2
         object TabSheet6: TTabSheet
           Caption = 'Scale yAxe'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox1: TScrollBox
             Left = 0
             Top = 0
@@ -646,6 +666,10 @@ object Form2: TForm2
         object TabSheet7: TTabSheet
           Caption = 'Labelling'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ValueListEditor11: TValueListEditor
             Left = 0
             Top = 0
@@ -678,6 +702,10 @@ object Form2: TForm2
         object TabSheet8: TTabSheet
           Caption = 'Legend'
           ImageIndex = 5
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ValueListEditor12: TValueListEditor
             Left = 0
             Top = 0
@@ -751,6 +779,10 @@ object Form2: TForm2
         object TabSheet9: TTabSheet
           Caption = 'Title'
           ImageIndex = 6
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ValueListEditor14: TValueListEditor
             Left = 0
             Top = 0
@@ -785,6 +817,10 @@ object Form2: TForm2
         object TabSheet10: TTabSheet
           Caption = 'DataSet'
           ImageIndex = 7
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ValueListEditor16: TValueListEditor
             Left = 0
             Top = 0

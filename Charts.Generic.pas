@@ -11,7 +11,7 @@ type
       [weak]
       FParent : iModelHTMLCharts;
       FHTML : String;
-      FConfig : iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
+      FConfig : iModelHTMLChartsConfig;
       function RemoveAccents(Value: String): String;
     public
       constructor Create(Parent : iModelHTMLCharts);
@@ -19,7 +19,7 @@ type
       class function New(Parent : iModelHTMLCharts) : iModelHTMLChartsGeneric;
       function HTML(Value : String) : iModelHTMLChartsGeneric; overload;
       function HTML : String; overload;
-      function Attributes : iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
+      function Attributes : iModelHTMLChartsConfig;
       function &End : iModelHTMLCharts;
   end;
 
@@ -30,7 +30,7 @@ uses
 
 { TModelChartsGeneric }
 
-function TModelChartsGeneric.Attributes: iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
+function TModelChartsGeneric.Attributes: iModelHTMLChartsConfig;
 begin
   Result := FConfig;
 end;
@@ -75,7 +75,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
-  FConfig := TModelHTMLChartsConfig<iModelHTMLChartsGeneric>.New(Self);
+  FConfig := TModelHTMLChartsConfig.New(Self);
 end;
 
 destructor TModelChartsGeneric.Destroy;

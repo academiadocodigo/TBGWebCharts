@@ -34,7 +34,7 @@ type
   IModelHTMLRowsTag = interface;
   iModelHTMLChartsDoughnut = interface;
   iModelHTMLChartsLines = interface;
-  iModelHTMLDataSet<T> = interface;
+  iModelHTMLDataSet = interface;
   iModelHTMLChartsLineStacked = interface;
   iModelHTMLChartsPie = interface;
   iModelLabellingConfig<T> = interface;
@@ -229,7 +229,7 @@ type
     function Data : String; overload;
     function BackgroundColor(Value : String) : iModelHTMLChartsConfig; overload;
     function BackgroundColor : String; overload;
-    function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig>;
+    function DataSet : iModelHTMLDataSet;
     function ResultDataSet : String;
     function ResultLabels : String;
     function Stacked(Value : Boolean) : iModelHTMLChartsConfig; overload;

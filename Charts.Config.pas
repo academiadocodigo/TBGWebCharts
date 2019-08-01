@@ -20,7 +20,7 @@ Type
       FMethod : String;
       FLabelling : iModelLabellingConfig<iModelHTMLChartsConfig>;
       FNumeral : String;
-      FDataSet : TList<iModelHTMLDataSet<iModelHTMLChartsConfig>>;
+      FDataSet : TList<iModelHTMLDataSet>;
       FOptions : iModelHTMLOptions;
       function Numeral: String;
     public
@@ -41,7 +41,7 @@ Type
       function Name : String; overload;
       function Labels(Value : String) : iModelHTMLChartsConfig; overload;
       function Labels : String; overload;
-      function DataSet : iModelHTMLDataSet<iModelHTMLChartsConfig>;
+      function DataSet : iModelHTMLDataSet;
       function ResultDataSet : String;
       function ResultLabels : String;
       function Stacked(Value : Boolean) : iModelHTMLChartsConfig; overload;
@@ -102,9 +102,9 @@ begin
   Result := FData;
 end;
 
-function TModelHTMLChartsConfig.DataSet: iModelHTMLDataSet<iModelHTMLChartsConfig>;
+function TModelHTMLChartsConfig.DataSet: iModelHTMLDataSet;
 begin
-  FDataSet.Add(TModelHTMLChartsDataSet<iModelHTMLChartsConfig>.New(Self));
+  FDataSet.Add(TModelHTMLChartsDataSet.New(Self));
   Result := FDataSet[Pred(FDataSet.Count)];
 end;
 
@@ -133,7 +133,7 @@ begin
   Result := FHeigth;
 end;
 
-function TModelHTMLChartsConfig.Labelling : iModelLabellingConfig<iModelHTMLChartsConfig<T>>;
+function TModelHTMLChartsConfig.Labelling : iModelLabellingConfig<iModelHTMLChartsConfig>;
 begin
   Result := FLabelling;
 end;
@@ -172,7 +172,7 @@ begin
   Result := FNumeral;
 end;
 
-function TModelHTMLChartsConfig.Options: iModelHTMLOptions<iModelHTMLChartsConfig>;
+function TModelHTMLChartsConfig.Options: iModelHTMLOptions;
 begin
   Result := FOptions;
 end;

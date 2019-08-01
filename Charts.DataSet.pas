@@ -6,9 +6,9 @@ uses
   Interfaces, DB, SysUtils;
 
 Type
-  TModelHTMLChartsDataSet<T : IInterface> = class(TInterfacedObject, iModelHTMLDataSet<T>)
+  TModelHTMLChartsDataSet = class(TInterfacedObject, iModelHTMLDataSet)
     private
-      FParent : T;
+      FParent : iModelHTMLChartsConfig;
       FDataSet : TDataSet;
       FtextLabel : String;
       FBackgroundColor : String;
@@ -27,20 +27,20 @@ Type
       procedure generatedFill;
       function replaceValue(Value : String) : String;
     public
-      constructor Create(Parent : T);
+      constructor Create(Parent : iModelHTMLChartsConfig);
       destructor Destroy; override;
-      class function New(Parent : T) : iModelHTMLDataSet<T>;
-      function DataSet (Value : TDataSet) : iModelHTMLDataSet<T>;
-      function textLabel(Value : String) : iModelHTMLDataSet<T>;
-      function BackgroundColor (Value : String) : iModelHTMLDataSet<T>;
-      function BorderColor (Value : String) : iModelHTMLDataSet<T>;
-      function BorderWidth (Value : Integer) : iModelHTMLDataSet<T>;
-      function Data (Value : String) : iModelHTMLDataSet<T>;
-      function Fill (Value : Boolean) : iModelHTMLDataSet<T>;
+      class function New(Parent : iModelHTMLChartsConfig) : iModelHTMLDataSet;
+      function DataSet (Value : TDataSet) : iModelHTMLDataSet;
+      function textLabel(Value : String) : iModelHTMLDataSet;
+      function BackgroundColor (Value : String) : iModelHTMLDataSet;
+      function BorderColor (Value : String) : iModelHTMLDataSet;
+      function BorderWidth (Value : Integer) : iModelHTMLDataSet;
+      function Data (Value : String) : iModelHTMLDataSet;
+      function Fill (Value : Boolean) : iModelHTMLDataSet;
       function ResultScript : String;
       function ResultLabels : String;
-      function Types (Value : String) : iModelHTMLDataSet<T>;
-      function &End : T;
+      function Types (Value : String) : iModelHTMLDataSet;
+      function &End : iModelHTMLChartsConfig;
   end;
 
 implementation
@@ -50,34 +50,34 @@ uses
 
 { TModelHTMLChartsDataSet<T> }
 
-function TModelHTMLChartsDataSet<T>.BackgroundColor(
-  Value: String): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.BackgroundColor(
+  Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   if Value <> '' then
     FBackgroundColor := '"rgba(' + Value + ', 100)"';
 end;
 
-function TModelHTMLChartsDataSet<T>.BorderColor(
-  Value: String): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.BorderColor(
+  Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FBorderColor := Value;
 end;
 
-function TModelHTMLChartsDataSet<T>.BorderWidth(
-  Value: Integer): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.BorderWidth(
+  Value: Integer): iModelHTMLDataSet;
 begin
   Result := Self;
   FBorderWidth := Value;
 end;
 
-function TModelHTMLChartsDataSet<T>.&End: T;
+function TModelHTMLChartsDataSet.&End: iModelHTMLChartsConfig;
 begin
   Result := FParent;
 end;
 
-constructor TModelHTMLChartsDataSet<T>.Create(Parent : T);
+constructor TModelHTMLChartsDataSet.Create(Parent : iModelHTMLChartsConfig);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
@@ -86,32 +86,32 @@ begin
   {$IFEND}
 end;
 
-function TModelHTMLChartsDataSet<T>.Data(Value: String): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.Data(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FData := Value;
 end;
 
-function TModelHTMLChartsDataSet<T>.DataSet(
-  Value: TDataSet): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.DataSet(
+  Value: TDataSet): iModelHTMLDataSet;
 begin
   Result := Self;
   FDataSet := Value;
 end;
 
-destructor TModelHTMLChartsDataSet<T>.Destroy;
+destructor TModelHTMLChartsDataSet.Destroy;
 begin
 
   inherited;
 end;
 
-function TModelHTMLChartsDataSet<T>.Fill(Value: Boolean): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.Fill(Value: Boolean): iModelHTMLDataSet;
 begin
   Result := Self;
   FFill := Value;
 end;
 
-procedure TModelHTMLChartsDataSet<T>.generatedBackgroundColor;
+procedure TModelHTMLChartsDataSet.generatedBackgroundColor;
 var
   Local_I: Integer;
   Aux : String;
@@ -132,17 +132,17 @@ begin
   end;
 end;
 
-procedure TModelHTMLChartsDataSet<T>.generatedBorderColor;
+procedure TModelHTMLChartsDataSet.generatedBorderColor;
 begin
 
 end;
 
-procedure TModelHTMLChartsDataSet<T>.generatedBorderWidth;
+procedure TModelHTMLChartsDataSet.generatedBorderWidth;
 begin
 
 end;
 
-procedure TModelHTMLChartsDataSet<T>.generatedData;
+procedure TModelHTMLChartsDataSet.generatedData;
 var
   Aux: string;
   I, X : Integer;
@@ -160,22 +160,22 @@ begin
   FData := FData + ']';
 end;
 
-procedure TModelHTMLChartsDataSet<T>.generatedFill;
+procedure TModelHTMLChartsDataSet.generatedFill;
 begin
 
 end;
 
-procedure TModelHTMLChartsDataSet<T>.generatedLabel;
+procedure TModelHTMLChartsDataSet.generatedLabel;
 begin
 
 end;
 
-class function TModelHTMLChartsDataSet<T>.New(Parent : T): iModelHTMLDataSet<T>;
+class function TModelHTMLChartsDataSet.New(Parent : iModelHTMLChartsConfig): iModelHTMLDataSet;
 begin
   Result := Self.Create(Parent);
 end;
 
-function TModelHTMLChartsDataSet<T>.replaceValue(Value: String): String;
+function TModelHTMLChartsDataSet.replaceValue(Value: String): String;
 var
   I,cont : Integer;
   caracter : string;
@@ -206,7 +206,7 @@ begin
   result:=caracter;
 end;
 
-function TModelHTMLChartsDataSet<T>.ResultLabels: String;
+function TModelHTMLChartsDataSet.ResultLabels: String;
 var
   Local_I: Integer;
   Aux : String;
@@ -227,7 +227,7 @@ begin
   Result := FLabels;
 end;
 
-function TModelHTMLChartsDataSet<T>.ResultScript: String;
+function TModelHTMLChartsDataSet.ResultScript: String;
 begin
   generatedLabel;
   generatedBackgroundColor;
@@ -249,14 +249,14 @@ begin
   Result := FScript;
 end;
 
-function TModelHTMLChartsDataSet<T>.textLabel(
-  Value: String): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.textLabel(
+  Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FtextLabel := Value;
 end;
 
-function TModelHTMLChartsDataSet<T>.Types(Value: String): iModelHTMLDataSet<T>;
+function TModelHTMLChartsDataSet.Types(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FTypes := Value;
