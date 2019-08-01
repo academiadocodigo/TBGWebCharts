@@ -6,25 +6,25 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsOptions<T : IInterface> = class(TInterfacedObject, iModelHTMLOptions<T>)
+  TModelHTMLChartsOptions = class(TInterfacedObject, iModelHTMLOptions)
     private
-      FParent : T;
-      FScales : iModelHTMLScales<iModelHTMLOptions<T>>;
-      FLegend : iModelHTMLLegend<iModelHTMLOptions<T>>;
-      FTitle  : iModelHTMLTitle<iModelHTMLOptions<T>>;
-      FTooltip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
+      FParent : iModelHTMLChartsConfig;
+      FScales : iModelHTMLScales;
+      FLegend : iModelHTMLLegend;
+      FTitle  : iModelHTMLTitle<iModelHTMLOptions>;
+      FTooltip : iModelHTMLTooltip<iModelHTMLOptions>;
       FSemiCircule : Boolean;
     public
-      constructor Create(Parent : T);
+      constructor Create(Parent : iModelHTMLChartsConfig);
       destructor Destroy; override;
-      class function New(Parent : T) : iModelHTMLOptions<T>;
-      function Scales : iModelHTMLScales<iModelHTMLOptions<T>>;
-      function Legend : iModelHTMLLegend<iModelHTMLOptions<T>>;
-      function Title : iModelHTMLTitle<iModelHTMLOptions<T>>;
-      function Tooltip : iModelHTMLTooltip<iModelHTMLOptions<T>>;
-      function SemiCircule ( Value : Boolean ) : iModelHTMLOptions<T>;
+      class function New(Parent : iModelHTMLChartsConfig) : iModelHTMLOptions;
+      function Scales : iModelHTMLScales;
+      function Legend : iModelHTMLLegend;
+      function Title : iModelHTMLTitle<iModelHTMLOptions>;
+      function Tooltip : iModelHTMLTooltip<iModelHTMLOptions>;
+      function SemiCircule ( Value : Boolean ) : iModelHTMLOptions;
       function Result : String;
-      function &End : T;
+      function &End : iModelHTMLChartsConfig;
   end;
 
 implementation
@@ -38,41 +38,41 @@ uses
 
 { TModelHTMLChartsOptions<T> }
 
-function TModelHTMLChartsOptions<T>.&End: T;
+function TModelHTMLChartsOptions.&End: iModelHTMLChartsConfig;
 begin
   Result := FParent;
 end;
 
-function TModelHTMLChartsOptions<T>.Legend: iModelHTMLLegend<iModelHTMLOptions<T>>;
+function TModelHTMLChartsOptions.Legend: iModelHTMLLegend;
 begin
   Result := FLegend;
 end;
 
-constructor TModelHTMLChartsOptions<T>.Create(Parent : T);
+constructor TModelHTMLChartsOptions.Create(Parent : iModelHTMLChartsConfig);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;
   {$IFEND}
-  FScales := TModelHTMLChartsScales<iModelHTMLOptions<T>>.New(Self);
-  FLegend := TModelHTMLChartsLegends<iModelHTMLOptions<T>>.New(Self);
-  FTitle := TModelHTMLChartsTitle<iModelHTMLOptions<T>>.New(Self);
-  FTooltip := TModelHTMLChartsTooltip<iModelHTMLOptions<T>>.New(Self);
+  FScales := TModelHTMLChartsScales.New(Self);
+  FLegend := TModelHTMLChartsLegends.New(Self);
+  FTitle := TModelHTMLChartsTitle<iModelHTMLOptions>.New(Self);
+  FTooltip := TModelHTMLChartsTooltip<iModelHTMLOptions>.New(Self);
 end;
 
-destructor TModelHTMLChartsOptions<T>.Destroy;
+destructor TModelHTMLChartsOptions.Destroy;
 begin
 
   inherited;
 end;
 
-class function TModelHTMLChartsOptions<T>.New(Parent : T): iModelHTMLOptions<T>;
+class function TModelHTMLChartsOptions.New(Parent : iModelHTMLChartsConfig): iModelHTMLOptions;
 begin
     Result := Self.Create(Parent);
 end;
 
-function TModelHTMLChartsOptions<T>.Result: String;
+function TModelHTMLChartsOptions.Result: String;
 begin
   Result := '';
   Result := Result + 'options: { ';
@@ -89,24 +89,24 @@ begin
   Result := Result + '}';
 end;
 
-function TModelHTMLChartsOptions<T>.Scales: iModelHTMLScales<iModelHTMLOptions<T>>;
+function TModelHTMLChartsOptions.Scales: iModelHTMLScales;
 begin
   Result := FScales;
 end;
 
-function TModelHTMLChartsOptions<T>.SemiCircule(
-  Value: Boolean): iModelHTMLOptions<T>;
+function TModelHTMLChartsOptions.SemiCircule(
+  Value: Boolean): iModelHTMLOptions;
 begin
   Result := Self;
   FSemiCircule := Value;
 end;
 
-function TModelHTMLChartsOptions<T>.Title: iModelHTMLTitle<iModelHTMLOptions<T>>;
+function TModelHTMLChartsOptions.Title: iModelHTMLTitle<iModelHTMLOptions>;
 begin
   Result := FTitle;
 end;
 
-function TModelHTMLChartsOptions<T>.Tooltip: iModelHTMLTooltip<iModelHTMLOptions<T>>;
+function TModelHTMLChartsOptions.Tooltip: iModelHTMLTooltip<iModelHTMLOptions>;
 begin
   Result := FTooltip;
 end;

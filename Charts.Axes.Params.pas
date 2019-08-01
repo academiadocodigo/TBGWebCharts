@@ -6,34 +6,34 @@ uses
   Interfaces;
 
 type
-  TModelHTMLAxesParams<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsAxesParam<T>)
+  TModelHTMLAxesParams = class(TInterfacedObject, iModelHTMLChartsAxesParam)
     private
-      FParent : T;
+      FParent : iModelHTMLChartsAxes;
       FPosition : String;
       FOffSet : Boolean;
       FType : String;
       FResult : String;
       FStacked : Boolean;
-      FTicks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam<T>>;
-      FGridLines : iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam<T>>;
-      FScaleLabel : iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam<T>>;
+      FTicks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam>;
+      FGridLines : iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam>;
+      FScaleLabel : iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam>;
     public
-      constructor Create(Parent : T);
+      constructor Create(Parent : iModelHTMLChartsAxes);
       destructor Destroy; override;
-      class function New(Parent : T) : iModelHTMLChartsAxesParam<T>;
-      function Ticks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam<T>>;
-      function GridLines : iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam<T>>;
-      function ScaleLabel : iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam<T>>;
-      function Position (Value : String) : iModelHTMLChartsAxesParam<T>; overload;
+      class function New(Parent : iModelHTMLChartsAxes) : iModelHTMLChartsAxesParam;
+      function Ticks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam>;
+      function GridLines : iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam>;
+      function ScaleLabel : iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam>;
+      function Position (Value : String) : iModelHTMLChartsAxesParam; overload;
       function Position : String; overload;
-      function OffSet (Value : Boolean) : iModelHTMLChartsAxesParam<T>; overload;
+      function OffSet (Value : Boolean) : iModelHTMLChartsAxesParam; overload;
       function OffSet : Boolean; overload;
-      function _Type (Value : String) : iModelHTMLChartsAxesParam<T>; overload;
+      function _Type (Value : String) : iModelHTMLChartsAxesParam; overload;
       function _Type : String; overload;
-      function Stacked ( Value : Boolean ) : iModelHTMLChartsAxesParam<T>; overload;
+      function Stacked ( Value : Boolean ) : iModelHTMLChartsAxesParam; overload;
       function Stacked : Boolean; overload;
       function Result : String;
-      function &End : T;
+      function &End : iModelHTMLChartsAxes;
   end;
 
 implementation
@@ -44,17 +44,17 @@ uses
 
 { TModelHTMLAxesParams<T> }
 
-function TModelHTMLAxesParams<T>.&End: T;
+function TModelHTMLAxesParams.&End: iModelHTMLChartsAxes;
 begin
   Result := FParent;
 end;
 
-function TModelHTMLAxesParams<T>.GridLines: iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam<T>>;
+function TModelHTMLAxesParams.GridLines: iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam>;
 begin
   Result := FGridLines;
 end;
 
-constructor TModelHTMLAxesParams<T>.Create(Parent : T);
+constructor TModelHTMLAxesParams.Create(Parent : iModelHTMLChartsAxes);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
@@ -64,47 +64,47 @@ begin
   FOffSet := True;
   FType := '';
   FStacked := False;
-  FTicks := TModelHTMLAxesTicks<iModelHTMLChartsAxesParam<T>>.New(Self);
-  FGridLines := TModelHTMLAxesGridLines<iModelHTMLChartsAxesParam<T>>.New(Self);
-  FScaleLabel := TModelHTMLAxesScaleLabel<iModelHTMLChartsAxesParam<T>>.New(Self);
+  FTicks := TModelHTMLAxesTicks<iModelHTMLChartsAxesParam>.New(Self);
+  FGridLines := TModelHTMLAxesGridLines<iModelHTMLChartsAxesParam>.New(Self);
+  FScaleLabel := TModelHTMLAxesScaleLabel<iModelHTMLChartsAxesParam>.New(Self);
 end;
 
-destructor TModelHTMLAxesParams<T>.Destroy;
+destructor TModelHTMLAxesParams.Destroy;
 begin
 
   inherited;
 end;
 
-class function TModelHTMLAxesParams<T>.New(Parent : T): iModelHTMLChartsAxesParam<T>;
+class function TModelHTMLAxesParams.New(Parent : iModelHTMLChartsAxes): iModelHTMLChartsAxesParam;
 begin
     Result := Self.Create(Parent);
 end;
 
-function TModelHTMLAxesParams<T>.OffSet: Boolean;
+function TModelHTMLAxesParams.OffSet: Boolean;
 begin
   Result := FOffSet;
 end;
 
-function TModelHTMLAxesParams<T>.OffSet(
-  Value: Boolean): iModelHTMLChartsAxesParam<T>;
+function TModelHTMLAxesParams.OffSet(
+  Value: Boolean): iModelHTMLChartsAxesParam;
 begin
   Result := Self;
   FOffSet := Value;
 end;
 
-function TModelHTMLAxesParams<T>.Position: String;
+function TModelHTMLAxesParams.Position: String;
 begin
   Result := FPosition;
 end;
 
-function TModelHTMLAxesParams<T>.Position(
-  Value: String): iModelHTMLChartsAxesParam<T>;
+function TModelHTMLAxesParams.Position(
+  Value: String): iModelHTMLChartsAxesParam;
 begin
   Result := Self;
   FPosition := Value;
 end;
 
-function TModelHTMLAxesParams<T>.Result: String;
+function TModelHTMLAxesParams.Result: String;
 begin
   FResult := '';
   if FPosition <> '' then FResult := FResult + 'position : ' + QuotedStr(FPosition) + ',';
@@ -116,35 +116,35 @@ begin
   Result := FResult;
 end;
 
-function TModelHTMLAxesParams<T>.ScaleLabel: iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam<T>>;
+function TModelHTMLAxesParams.ScaleLabel: iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam>;
 begin
   Result := FScaleLabel;
 end;
 
-function TModelHTMLAxesParams<T>.Stacked: Boolean;
+function TModelHTMLAxesParams.Stacked: Boolean;
 begin
   Result := FStacked;
 end;
 
-function TModelHTMLAxesParams<T>.Stacked(
-  Value: Boolean): iModelHTMLChartsAxesParam<T>;
+function TModelHTMLAxesParams.Stacked(
+  Value: Boolean): iModelHTMLChartsAxesParam;
 begin
   Result := Self;
   FStacked := Value;
 end;
 
-function TModelHTMLAxesParams<T>.Ticks: iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam<T>>;
+function TModelHTMLAxesParams.Ticks: iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam>;
 begin
   Result := FTicks;
 end;
 
-function TModelHTMLAxesParams<T>._Type: String;
+function TModelHTMLAxesParams._Type: String;
 begin
   Result := FType;
 end;
 
-function TModelHTMLAxesParams<T>._Type(
-  Value: String): iModelHTMLChartsAxesParam<T>;
+function TModelHTMLAxesParams._Type(
+  Value: String): iModelHTMLChartsAxesParam;
 begin
   Result := Self;
   FType := Value;

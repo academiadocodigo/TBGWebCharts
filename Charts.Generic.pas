@@ -12,7 +12,6 @@ type
       FParent : iModelHTMLCharts;
       FHTML : String;
       FConfig : iModelHTMLChartsConfig<iModelHTMLChartsGeneric>;
-
       function RemoveAccents(Value: String): String;
     public
       constructor Create(Parent : iModelHTMLCharts);

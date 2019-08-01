@@ -6,23 +6,23 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsLegends<T : IInterface> = class(TInterfacedObject, iModelHTMLLegend<T>)
+  TModelHTMLChartsLegends = class(TInterfacedObject, iModelHTMLLegend)
     private
-      FParent : T;
+      FParent : iModelHTMLOptions;
       Fdisplay : Boolean;
       Fposition : String;
-      FLabels : iModelHTMLLegendLabels<iModelHTMLLegend<T>>;
+      FLabels : iModelHTMLLegendLabels<iModelHTMLLegend>;
     public
-      constructor Create(Parent : T);
+      constructor Create(Parent : iModelHTMLOptions);
       destructor Destroy; override;
-      class function New(Parent : T) : iModelHTMLLegend<T>;
-      function Labels : iModelHTMLLegendLabels<iModelHTMLLegend<T>>;
-      function display ( Value : Boolean ) : iModelHTMLLegend<T>; overload;
+      class function New(Parent : iModelHTMLOptions) : iModelHTMLLegend;
+      function Labels : iModelHTMLLegendLabels<iModelHTMLLegend>;
+      function display ( Value : Boolean ) : iModelHTMLLegend; overload;
       function display : Boolean; overload;
-      function position ( Value : String ) : iModelHTMLLegend<T>; overload;
+      function position ( Value : String ) : iModelHTMLLegend; overload;
       function position : String; overload;
       function Result : String;
-      function &End : T;
+      function &End : iModelHTMLOptions;
   end;
 
 implementation
@@ -32,17 +32,17 @@ uses
 
 { TModelHTMLChartsLegends<T> }
 
-function TModelHTMLChartsLegends<T>.&End: T;
+function TModelHTMLChartsLegends.&End: iModelHTMLOptions;
 begin
   Result := FParent;
 end;
 
-function TModelHTMLChartsLegends<T>.Labels: iModelHTMLLegendLabels<iModelHTMLLegend<T>>;
+function TModelHTMLChartsLegends.Labels: iModelHTMLLegendLabels<iModelHTMLLegend>;
 begin
   Result := FLabels;
 end;
 
-constructor TModelHTMLChartsLegends<T>.Create(Parent : T);
+constructor TModelHTMLChartsLegends.Create(Parent : iModelHTMLOptions);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
@@ -50,47 +50,47 @@ begin
     FParent := Parent;
   {$IFEND}
 
-  FLabels := TModelHTMLLegendsLabels<iModelHTMLLegend<T>>.New(Self);
+  FLabels := TModelHTMLLegendsLabels<iModelHTMLLegend>.New(Self);
   Fdisplay := True;
   Fposition := 'top';
 end;
 
-destructor TModelHTMLChartsLegends<T>.Destroy;
+destructor TModelHTMLChartsLegends.Destroy;
 begin
 
   inherited;
 end;
 
-function TModelHTMLChartsLegends<T>.display: Boolean;
+function TModelHTMLChartsLegends.display: Boolean;
 begin
   Result := Fdisplay;
 end;
 
-function TModelHTMLChartsLegends<T>.display(
-  Value: Boolean): iModelHTMLLegend<T>;
+function TModelHTMLChartsLegends.display(
+  Value: Boolean): iModelHTMLLegend;
 begin
   Result := Self;
   FDisplay := Value;
 end;
 
-class function TModelHTMLChartsLegends<T>.New(Parent : T): iModelHTMLLegend<T>;
+class function TModelHTMLChartsLegends.New(Parent : iModelHTMLOptions): iModelHTMLLegend;
 begin
     Result := Self.Create(Parent);
 end;
 
-function TModelHTMLChartsLegends<T>.position: String;
+function TModelHTMLChartsLegends.position: String;
 begin
   Result := Fposition;
 end;
 
-function TModelHTMLChartsLegends<T>.position(
-  Value: String): iModelHTMLLegend<T>;
+function TModelHTMLChartsLegends.position(
+  Value: String): iModelHTMLLegend;
 begin
   Result := Self;
   Fposition := Value;
 end;
 
-function TModelHTMLChartsLegends<T>.Result: String;
+function TModelHTMLChartsLegends.Result: String;
 begin
   Result := '';
   Result := Result + 'legend : { ';

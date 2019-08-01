@@ -6,19 +6,19 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsScales<T : IInterface> = class(TInterfacedObject, iModelHTMLScales<T>)
+  TModelHTMLChartsScales = class(TInterfacedObject, iModelHTMLScales)
     private
-      FParent : T;
-      FAxes : iModelHTMLChartsAxes<iModelHTMLScales<T>>;
+      FParent : iModelHTMLOptions;
+      FAxes : iModelHTMLChartsAxes;
       FGeneratedAxes : Boolean;
     public
-      constructor Create(Parent : T);
+      constructor Create(Parent : iModelHTMLOptions);
       destructor Destroy; override;
-      class function New(Parent : T) : iModelHTMLScales<T>;
-      function Axes : iModelHTMLChartsAxes<iModelHTMLScales<T>>;
-      function GeneratedAxes ( Value : Boolean ) : iModelHTMLScales<T>;
+      class function New(Parent : iModelHTMLOptions) : iModelHTMLScales;
+      function Axes : iModelHTMLChartsAxes;
+      function GeneratedAxes ( Value : Boolean ) : iModelHTMLScales;
       function Result : String;
-      function &End : T;
+      function &End : iModelHTMLOptions;
   end;
 
 implementation
@@ -28,46 +28,46 @@ uses
 
 { TModelHTMLChartsScales<T> }
 
-function TModelHTMLChartsScales<T>.&End: T;
+function TModelHTMLChartsScales.&End: iModelHTMLOptions;
 begin
   Result := FParent;
 end;
 
-function TModelHTMLChartsScales<T>.GeneratedAxes(
-  Value: Boolean): iModelHTMLScales<T>;
+function TModelHTMLChartsScales.GeneratedAxes(
+  Value: Boolean): iModelHTMLScales;
 begin
   Result := Self;
   FGeneratedAxes := Value;
 end;
 
-function TModelHTMLChartsScales<T>.Axes: iModelHTMLChartsAxes<iModelHTMLScales<T>>;
+function TModelHTMLChartsScales.Axes: iModelHTMLChartsAxes;
 begin
   Result := FAxes;
 end;
 
-constructor TModelHTMLChartsScales<T>.Create(Parent : T);
+constructor TModelHTMLChartsScales.Create(Parent : iModelHTMLOptions);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;
   {$IFEND}
-  FAxes := TModelHTMLChartsAxes<iModelHTMLScales<T>>.New(Self);
+  FAxes := TModelHTMLChartsAxes.New(Self);
   FGeneratedAxes := True;
 end;
 
-destructor TModelHTMLChartsScales<T>.Destroy;
+destructor TModelHTMLChartsScales.Destroy;
 begin
 
   inherited;
 end;
 
-class function TModelHTMLChartsScales<T>.New(Parent : T): iModelHTMLScales<T>;
+class function TModelHTMLChartsScales.New(Parent : iModelHTMLOptions): iModelHTMLScales;
 begin
     Result := Self.Create(Parent);
 end;
 
-function TModelHTMLChartsScales<T>.Result: String;
+function TModelHTMLChartsScales.Result: String;
 begin
   Result := '';
   Result := Result + 'scales: { ';

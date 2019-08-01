@@ -6,21 +6,21 @@ uses
   Interfaces;
 
 type
-  TModelHTMLChartsAxes<T : IInterface> = class(TInterfacedObject, iModelHTMLChartsAxes<T>)
+  TModelHTMLChartsAxes = class(TInterfacedObject, iModelHTMLChartsAxes)
     private
-      FParent : T;
+      FParent : iModelHTMLScales;
       FFontColor : String;
       FResult : String;
-      FxAxe : iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
-      FyAxe : iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
+      FxAxe : iModelHTMLChartsAxesParam;
+      FyAxe : iModelHTMLChartsAxesParam;
     public
-      constructor Create(Parent : T);
+      constructor Create(Parent : iModelHTMLScales);
       destructor Destroy; override;
-      class function New(Parent : T) : iModelHTMLChartsAxes<T>;
+      class function New(Parent : iModelHTMLScales) : iModelHTMLChartsAxes;
       function Result : String;
-      function xAxe : iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
-      function yAxe : iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
-      function &End : T;
+      function xAxe : iModelHTMLChartsAxesParam;
+      function yAxe : iModelHTMLChartsAxesParam;
+      function &End : iModelHTMLScales;
   end;
 
 implementation
@@ -30,34 +30,34 @@ uses
 
 { TModelHTMLChartsAxes<T> }
 
-function TModelHTMLChartsAxes<T>.&End: T;
+function TModelHTMLChartsAxes.&End: iModelHTMLScales;
 begin
   Result := FParent;
 end;
 
-constructor TModelHTMLChartsAxes<T>.Create(Parent : T);
+constructor TModelHTMLChartsAxes.Create(Parent : iModelHTMLScales);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
   {$ELSE}
     FParent := Parent;
   {$IFEND}
-  FxAxe := TModelHTMLAxesParams<iModelHTMLChartsAxes<T>>.New(Self);
-  FyAxe := TModelHTMLAxesParams<iModelHTMLChartsAxes<T>>.New(Self);
+  FxAxe := TModelHTMLAxesParams.New(Self);
+  FyAxe := TModelHTMLAxesParams.New(Self);
 end;
 
-destructor TModelHTMLChartsAxes<T>.Destroy;
+destructor TModelHTMLChartsAxes.Destroy;
 begin
 
   inherited;
 end;
 
-class function TModelHTMLChartsAxes<T>.New(Parent : T): iModelHTMLChartsAxes<T>;
+class function TModelHTMLChartsAxes.New(Parent : iModelHTMLScales): iModelHTMLChartsAxes;
 begin
     Result := Self.Create(Parent);
 end;
 
-function TModelHTMLChartsAxes<T>.Result: String;
+function TModelHTMLChartsAxes.Result: String;
 begin
   FResult := FResult + 'yAxes: [{';
   FResult := FResult + FyAxe.Result;
@@ -68,12 +68,12 @@ begin
   Result := FResult;
 end;
 
-function TModelHTMLChartsAxes<T>.xAxe: iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
+function TModelHTMLChartsAxes.xAxe: iModelHTMLChartsAxesParam;
 begin
   Result := FxAxe;
 end;
 
-function TModelHTMLChartsAxes<T>.yAxe: iModelHTMLChartsAxesParam<iModelHTMLChartsAxes<T>>;
+function TModelHTMLChartsAxes.yAxe: iModelHTMLChartsAxesParam;
 begin
   Result := FyAxe;
 end;
