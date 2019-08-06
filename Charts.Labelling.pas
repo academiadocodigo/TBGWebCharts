@@ -115,8 +115,7 @@ function TChartsLabelling<T>.Format(Value: String): iModelLabellingConfig<T>;
 begin
   Result := Self;
   FFormat := Value;
-//  FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index].toString()).format('+QuotedStr(FFormat)+');';
-FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index]).format('+QuotedStr(FFormat)+');';
+  FAction := 'numeral.locale(''pt-br''); var dataString = numeral(dataset.data[index]).format('+QuotedStr(FFormat)+');';
 end;
 
 class function TChartsLabelling<T>.New(Parent : T): iModelLabellingConfig<T>;
@@ -140,7 +139,7 @@ begin
   FResult := '';
   if FFormat <> '' then
   begin
-    FResult := FResult + 'Chart.plugins.register({' ;
+    FResult := FResult + ',plugins : [{';
     FResult := FResult + 'afterDatasetsDraw: function(chart) { ';
     FResult := FResult + 'var ctx = chart.ctx;';
     FResult := FResult + '';
@@ -170,7 +169,7 @@ begin
     FResult := FResult + '}';
     FResult := FResult + '});';
     FResult := FResult + '}';
-    FResult := FResult + '});';
+    FResult := FResult + '}]';
     Result := FResult;
   end;
 

@@ -61,9 +61,9 @@ begin
   FParent.HTML(']  ');
   FParent.HTML('}, ');
   FParent.HTML(FConfig.Options.Result);
-  FParent.HTML('}); ');
   if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+vIdChart).Result(FConfig.CallBackLink));
-  FParent.HTML(FConfig.Labelling.Result);
+    FParent.HTML(FConfig.Labelling.Result);
+  FParent.HTML('}); ');
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
 end;
