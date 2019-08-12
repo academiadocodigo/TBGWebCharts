@@ -61,9 +61,9 @@ begin
   FParent.HTML(']  ');
   FParent.HTML('}, ');
   FParent.HTML(FConfig.Options.Result);
-  if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+vIdChart).Result(FConfig.CallBackLink));
-    FParent.HTML(FConfig.Labelling.Result);
+  FParent.HTML(FConfig.Labelling.Result);
   FParent.HTML('}); ');
+  if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+vIdChart).Result(FConfig.CallBackLink));
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
 end;
@@ -102,7 +102,7 @@ end;
 
 function TModelChartsGeneric.RemoveAccents(Value: String): String;
 const
-  WinAccents = '‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹';
+  WinAccents = '√†√¢√™√¥√ª√£√µ√°√©√≠√≥√∫√ß√º√Ä√Ç√ä√î√õ√É√ï√Å√â√ç√ì√ö√á√ú';
   WoutAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCU';
 var
   i : Integer;
