@@ -12,6 +12,11 @@ object WebModule1: TWebModule1
       Name = 'tbgchart'
       PathInfo = '/tbgchart'
       OnAction = WebModule1tbgchartAction
+    end
+    item
+      Name = 'chartsnocdn'
+      PathInfo = '/chartnocdn'
+      OnAction = WebModule1chartsnocdnAction
     end>
   Height = 230
   Width = 415
