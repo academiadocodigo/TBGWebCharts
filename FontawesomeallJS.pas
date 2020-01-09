@@ -57,6 +57,7 @@ type
       procedure FontawesomeallJS_21_1;
       procedure FontawesomeallJS_22;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
@@ -65,6 +66,11 @@ uses
   SysUtils;
 
 { TFontawesomeallJS }
+
+function TFontawesomeallJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TFontawesomeallJS.Create;
 begin

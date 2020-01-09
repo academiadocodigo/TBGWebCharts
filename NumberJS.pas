@@ -15,11 +15,17 @@ type
       procedure LocaleNumeralJS;
       class function New : iModelJS;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
 
 { TNumberJS }
+
+function TNumberJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TNumberJS.Create;
 begin

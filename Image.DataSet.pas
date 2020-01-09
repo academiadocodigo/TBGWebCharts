@@ -1,5 +1,7 @@
 unit Image.DataSet;
 
+{$I TBGWebCharts.inc}
+
 interface
 
 uses

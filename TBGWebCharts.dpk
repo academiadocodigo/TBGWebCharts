@@ -1,7 +1,6 @@
 package TBGWebCharts;
 
 {$R *.res}
-{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -38,13 +37,11 @@ requires
 contains
   Charts.Config in 'Charts.Config.pas',
   Charts in 'Charts.pas',
-  Factory in 'Factory.pas',
   HTML in 'HTML.pas',
   Rows in 'Rows.pas',
   Rows.Tag in 'Rows.Tag.pas',
   Rows.Title.Config in 'Rows.Title.Config.pas',
   Rows.Title in 'Rows.Title.pas',
-  Interfaces in 'Interfaces.pas',
   View.Reg in 'View.Reg.pas',
   View.WebCharts in 'View.WebCharts.pas',
   Charts.DataSet in 'Charts.DataSet.pas',
@@ -75,6 +72,21 @@ contains
   Charts.Scales in 'Charts.Scales.pas',
   Charts.Options in 'Charts.Options.pas',
   Charts.Generic in 'Charts.Generic.pas',
-  Charts.Types in 'Charts.Types.pas';
+  Charts.Types in 'Charts.Types.pas',
+  Table.Options in 'Table.Options.pas',
+  DataTableJS in 'DataTableJS.pas',
+  DataTableCss in 'DataTableCss.pas',
+  BootstrapCss in 'BootstrapCss.pas',
+  Table.Data in 'Table.Data.pas',
+  Table.Features in 'Table.Features.pas',
+  Table.Callback in 'Table.Callback.pas',
+  Interfaces in 'Interfaces.pas',
+  StyleCSS in 'StyleCSS.pas',
+  Charts.Easy.Pie in 'Charts.Easy.Pie.pas',
+  Chart.Easy.PieJS in 'Chart.Easy.PieJS.pas',
+  Chart.Easy.PieCSS in 'Chart.Easy.PieCSS.pas',
+  Button in 'Button.pas',
+  Buttons.Classes in 'Buttons.Classes.pas',
+  Factory in 'Factory.pas';
 
 end.

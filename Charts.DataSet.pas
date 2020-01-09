@@ -10,6 +10,9 @@ Type
     private
       FParent : iModelHTMLChartsConfig;
       FDataSet : TDataSet;
+      FLabelName : String;
+      FValueName : String;
+      FRGBName : String;
       FtextLabel : String;
       FBackgroundColor : String;
       FBorderColor : String;
@@ -31,6 +34,9 @@ Type
       destructor Destroy; override;
       class function New(Parent : iModelHTMLChartsConfig) : iModelHTMLDataSet;
       function DataSet (Value : TDataSet) : iModelHTMLDataSet;
+      function LabelName(Value : String) : iModelHTMLDataSet;
+      function ValueName(Value : String) : iModelHTMLDataSet;
+      function RGBName(Value : String)  : iModelHTMLDataSet;
       function textLabel(Value : String) : iModelHTMLDataSet;
       function BackgroundColor (Value : String) : iModelHTMLDataSet;
       function BorderColor (Value : String) : iModelHTMLDataSet;
@@ -84,6 +90,9 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
+  FLabelName := 'Label';
+  FValueName := 'Value';
+  FRGBName := 'RGB';
 end;
 
 function TModelHTMLChartsDataSet.Data(Value: String): iModelHTMLDataSet;
@@ -125,7 +134,7 @@ begin
     for Local_I := 0 to Pred(FDataSet.RecordCount) do
     begin
       if Local_I = Pred(FDataSet.RecordCount) then Aux := ', 100)';
-      FBackgroundColor := FBackgroundColor + 'rgba(' + FDataSet.FieldByName('RGB').AsString + Aux;
+      FBackgroundColor := FBackgroundColor + 'rgba(' + FDataSet.FieldByName(FRGBName).AsString + Aux;
       FDataSet.Next;
     end;
     FBackgroundColor := FBackgroundColor + '"]';
@@ -146,6 +155,7 @@ procedure TModelHTMLChartsDataSet.generatedData;
 var
   Aux: string;
   I, X : Integer;
+  vField : TField;
 begin
   FData := '[';
   Aux := ', ';
@@ -154,7 +164,7 @@ begin
   begin
     if I = Pred(FDataSet.RecordCount) then
       Aux := '';
-      FData := FData + replaceValue(FDataSet.FieldByName('Value').AsString) + Aux;
+    FData := FData + replaceValue(FDataSet.FieldByName(FValueName).AsString) + Aux;
     FDataSet.Next;
   end;
   FData := FData + ']';
@@ -170,6 +180,12 @@ begin
 
 end;
 
+function TModelHTMLChartsDataSet.LabelName(Value: String): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FLabelName := Value;
+end;
+
 class function TModelHTMLChartsDataSet.New(Parent : iModelHTMLChartsConfig): iModelHTMLDataSet;
 begin
   Result := Self.Create(Parent);
@@ -182,7 +198,7 @@ var
 begin
   caracter := '';
   cont := 0;
-  {$IFDEF ANDROID}
+   {$IF Defined(ANDROID) or Defined(IOS)}
   for I := Length(Value) downto 0 do
   {$ELSE}
   for I := Length(Value) downto 1 do
@@ -220,7 +236,7 @@ begin
   begin
     if Local_I = Pred(FDataSet.RecordCount) then
       Aux := '"';
-    FLabels := FLabels + FDataSet.FieldByName('Label').AsString + Aux;
+    FLabels := FLabels + FDataSet.FieldByName(FLabelName).AsString + Aux;
     FDataSet.Next;
   end;
   FLabels := FLabels + ']';
@@ -249,6 +265,12 @@ begin
   Result := FScript;
 end;
 
+function TModelHTMLChartsDataSet.RGBName(Value: String): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FRGBName := Value;
+end;
+
 function TModelHTMLChartsDataSet.textLabel(
   Value: String): iModelHTMLDataSet;
 begin
@@ -260,6 +282,12 @@ function TModelHTMLChartsDataSet.Types(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FTypes := Value;
+end;
+
+function TModelHTMLChartsDataSet.ValueName(Value: String): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FValueName := Value;
 end;
 
 end.

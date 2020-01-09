@@ -10,7 +10,7 @@ uses
 
   Generics.Collections,
   {$IFDEF HAS_FMX}
-    {$IFDEF ANDROID}
+    {$IF Defined(ANDROID) or Defined(IOS)}
       FMX.StdCtrls,
       FMX.WebBrowser,
     {$ELSE}
@@ -45,7 +45,7 @@ uses
       Button,
     {$ENDIF}
   {$IFEND}
-  Classes, PackJS, PackCss;
+  Classes, PackJS, PackCss, Charts.Types;
 
 Type
   {$IFDEF HAS_FMX}
@@ -60,6 +60,7 @@ Type
     FFolderDefaultRWC : String;
     FBackgroundColor : String;
     FFontColor : String;
+    FCDN : Boolean;
     function Container(Value : Boolean) : iModelHTML;
    {$IFDEF HAS_FMX}
    {$ELSE}
@@ -68,6 +69,7 @@ Type
     function FolderDefaultRWC(Value : String) : iModelHTML;
     procedure HtmlBrowserGenerated(CONST HTMLCode: string);
     function ConvertString(aValue : String) : String;
+    procedure _DivContainer(Value : String);
   public
     constructor Create;
     destructor Destroy; override;
@@ -85,9 +87,12 @@ Type
     function Generated: iModelHTML;
     function BackgroundColor( Value : String) : iModelHTML;
     function FontColor ( Value : String) : iModelHTML;
+    function ContainerClass(Value : TTypeContainer) : iModelHTML;
+    function CDN(Value : Boolean) : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
+    function ChartEasyPie : iModelChartEasyPie;
     {$IFDEF HAS_FMX}
     {$ELSE}
     {$IF RTLVERSION > 22 }
@@ -108,8 +113,9 @@ uses
   {$IFDEF HAS_FMX}
    {$ELSE}
     Windows,
+    ActiveX,
   {$ENDIF}
-  Injection;
+  Injection, Charts.Easy.Pie;
 
 { TModelHTML }
 function TModelHTML.BackgroundColor( Value : String) : iModelHTML;
@@ -124,6 +130,31 @@ begin
   FFontColor := Value;
 end;
 
+procedure TModelHTML._DivContainer(Value : String);
+begin
+    FHTML := FHTML + '<div class="'+Value+'">';
+//    FHTML := FHTML + '<br><br>';
+end;
+
+function TModelHTML.ContainerClass(Value : TTypeContainer) : iModelHTML;
+begin
+  Result := Self;
+  case Value of
+    _container: _DivContainer(Copy(TTypeContainer(Value).ToString,2,Length(TTypeContainer(Value).ToString)));
+    fluid,
+    lg,
+    md,
+    sm,
+    xl: _DivContainer('container-'+TTypeContainer(Value).ToString);
+  end;
+end;
+
+function TModelHTML.CDN(Value : Boolean) : iModelHTML;
+begin
+  Result := Self;
+  FCDN := Value;
+end;
+
 function TModelHTML.ConvertString(aValue : String) : String;
 var
   rbs : RawByteString;
@@ -135,21 +166,36 @@ end;
 
 procedure TModelHTML.HtmlBrowserGenerated(CONST HTMLCode: string);
 var
-  Doc: Variant;
+  sl : TStringList;
+  ms : TMemoryStream;
 begin
   {$IFDEF HAS_FMX}
    {$ELSE}
-  if NOT Assigned(FWebBrowser.Document) then
+
+   if NOT Assigned(FWebBrowser.Document) then
     FWebBrowser.Navigate('about:blank');
 
-  Doc := FWebBrowser.Document;
-  Doc.Clear;
-  Doc.Write(HTMLCode);
-  Doc.Close;
+   sl := TStringList.Create;
+   try
+     ms := TMemoryStream.Create;
+     try
+       sl.Text := HTMLCode;
+       sl.SaveToStream(ms) ;
+       ms.Seek(0, 0);
+       (FWebBrowser.Document as IPersistStreamInit).Load(TStreamAdapter.Create(ms)) ;
+     finally
+       ms.Free;
+     end;
+   finally
+     sl.Free;
+   end;
   {$ENDIF}
 end;
 
-
+function TModelHTML.ChartEasyPie : iModelChartEasyPie;
+begin
+  Result := TModelHTMLFactory.New.ChartEasyPie(Self);
+end;
 
 function TModelHTML.Charts: iModelHTMLCharts;
 begin
@@ -162,10 +208,11 @@ begin
   FHTML := '';
 end;
 
-function TModelHTML.Container(Value: Boolean): iModelHTML;
+function TModelHTML.Container (Value : Boolean) : iModelHTML;
 begin
   Result := Self;
   FContainer := Value;
+  FCDN := False;
 end;
 
 constructor TModelHTML.Create;
@@ -224,14 +271,14 @@ var
 begin
   GenerateFooter;
   {$IFDEF HAS_FMX}
-    {$IFDEF ANDROID}
+    {$IF Defined(ANDROID) or Defined(IOS)}
       FWebBrowser.LoadFromStrings(FHTML,'TBG');
     {$ELSE}
       FWebBrowser.LoadFromStrings(ConvertString(FHTML),'TBG');
     {$ENDIF}
   {$ELSE}
     FWebBrowser.Silent := True;
-    HtmlBrowserGenerated(FHTML);
+    HtmlBrowserGenerated(ConvertString(FHTML));
   {$ENDIF}
 end;
 
@@ -241,25 +288,30 @@ begin
   if FContainer then
     FHTML := FHTML + '</div> ';
   FHTML := FHTML + '</body> ';
-  FHTML := FHTML + '</html> ';
+  FHTML := FHTML + '</html>';
 end;
 
 function TModelHTML.GenerateHead(Value: TList<String>): iModelHTML;
 var
   I: Integer;
 begin
+  {Alterado para compatiblidade com IOS Contribuicao do Guilherme Lanius}
   Result := Self;
   FHTML := FHTML + '<!DOCTYPE html> ';
   FHTML := FHTML + '<html lang="pt-br"> ';
   FHTML := FHTML + '<head> ';
-  FHTML := FHTML + '<meta charset="UTF-8"> ';
   FHTML := FHTML + '<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
+  {$IFDEF IOS}
+  FHTML := FHTML + '<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86"/>';
+  {$ENDIF}
+  FHTML := FHTML + '<meta charset="UTF-8"/> ';
   FHTML := FHTML + '<title></title> ';
   FHTML := FHTML + TPackCss.New
                     .BackgroundColor(FBackgroundColor)
                     .FontColor(FFontColor)
+                    .CDN(FCDN)
                     .PackCSS;
-  FHTML := FHTML + TPackJS.New.PackJS;
+  FHTML := FHTML + TPackJS.New.CDN(FCDN).PackJS;
   if Assigned(Value) then
   begin
     for I := 0 to Pred(Value.Count) do
@@ -267,37 +319,31 @@ begin
   end;
   FHTML := FHTML + '</head> ';
   FHTML := FHTML + '<body> ';
-  if FContainer then
-  begin
-    FHTML := FHTML + '<div class="container"> ';
-    FHTML := FHTML + '<br><br> ';
-  end;
-
 end;
 
 function TModelHTML.GenerateHead: iModelHTML;
 begin
+  {Alterado para compatiblidade com IOS Contribuicao do Guilherme Lanius}
   Result := Self;
   FHTML := FHTML + '<!DOCTYPE html> ';
   FHTML := FHTML + '<html lang="pt-br"> ';
   FHTML := FHTML + '<head> ';
-  FHTML := FHTML + '<meta charset="UTF-8"> ';
   FHTML := FHTML + '<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
+  {$IFDEF IOS}
+  FHTML := FHTML + '<meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86"/>';
+  {$ENDIF}
+  FHTML := FHTML + '<meta charset="UTF-8"/> ';
   FHTML := FHTML + '<title></title> ';
-  FHTML := FHTML + '<link rel="stylesheet" href="css/bootstrap.min.css"> ';
-  FHTML := FHTML + '<link href="css/font-awesome.min.css" rel="stylesheet">';
-  FHTML := FHTML + '<script src="js/Chart.min.js"></script> ';
-  FHTML := FHTML + '<script src="js/jquery-3.3.1.min.js"></script> ';
-  FHTML := FHTML + '<script src="js/tether.min.js"></script> ';
-  FHTML := FHTML + '<script src="js/bootstrap.min.js" ></script> ';
-  FHTML := FHTML + '<script src="js/Chart.bundle.js"></script> ';
-  FHTML := FHTML + '<script src="js/utils.js"></script>';
-  FHTML := FHTML + '<script src="js/popper.js"></script>';
+  FHTML := FHTML + TPackCss.New
+                      .BackgroundColor(FBackgroundColor)
+                      .FontColor(FFontColor)
+                      .CDN(FCDN)
+                      .PackCSS;
+  FHTML := FHTML + TPackJS.New
+                      .CDN(FCDN)
+                      .PackJS;
   FHTML := FHTML + '</head> ';
   FHTML := FHTML + '<body> ';
-  if FContainer then
-    FHTML := FHTML + '<div class="container"> ';
-  FHTML := FHTML + '<br><br> ';
 end;
 
 function TModelHTML.HTML(Value: String): iModelHTML;

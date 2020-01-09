@@ -25,6 +25,7 @@ type
       procedure BootstrapJS_11;
       procedure BootstrapJS_12;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
@@ -33,6 +34,11 @@ uses
   SysUtils;
 
 { TBootstrapJS }
+
+function TBootstrapJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TBootstrapJS.Create;
 begin
@@ -4111,7 +4117,7 @@ begin
 end;
 
 
-function TBootstrapJS.PackJS: String;
+function TBootstrapJS.PackJS : String;
 begin
   BootstrapJS_1;
   BootstrapJS_2;

@@ -88,6 +88,9 @@ WebCharts1
       .TableClass
         .tableSm
       .EndTableClass
+      .TableOptions
+        .Responsive(true)
+      .&End
       .DataSet
         .DataSet(ClientDataSet2)
       .&End

@@ -13,6 +13,7 @@ type
       destructor Destroy; override;
       class function New : iModelJS;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
 	  procedure PopperJS_1;
 	  procedure PopperJS_2;
 	  procedure PopperJS_3;
@@ -29,6 +30,11 @@ uses
   SysUtils;
 
 { TPopperJS }
+
+function TPopperJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TPopperJS.Create;
 begin

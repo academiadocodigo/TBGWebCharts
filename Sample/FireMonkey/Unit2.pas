@@ -296,6 +296,7 @@ procedure TForm2.SpeedButton1Click(Sender: TObject);
 begin
   TabControl1.TabIndex := 0;
   WebCharts1
+  .CDN(true)
   .NewProject
     .Rows
       .Title

@@ -3,7 +3,7 @@ unit View.WebCharts;
 interface
 
 uses
-  Interfaces, Classes, Generics.Collections, SysUtils;
+  Interfaces, Classes, Generics.Collections, SysUtils, Charts.Types;
 
 Type
   iWebCharts = interface
@@ -13,7 +13,9 @@ Type
     function ContinuosProject : iModelHTML;
     function AddResource(Value : String) : iWebCharts;
     function BackgroundColor(Value : String) : iWebCharts;
+    function Container(Value : TTypeContainer) : iWebCharts;
     function FontColor(Value : String) : iWebCharts;
+    function CDN(Value : Boolean) : iWebCharts;
   end;
 
   {$IF RTLVERSION > 27  }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
@@ -24,6 +26,9 @@ Type
       FFolderDefaultRWC: String;
       FBackgroundColor : String;
       FFontColor : String;
+      FContainer : String;
+      FContainerClass : TTypeContainer;
+      FCDN : Boolean;
     procedure SetFolderDefaultRWC(const Value: String);
     public
       constructor Create;
@@ -35,6 +40,8 @@ Type
       function ContinuosProject : iModelHTML;
       function BackgroundColor(Value : String) : iWebCharts;
       function FontColor(Value : String) : iWebCharts;
+      function Container(Value : TTypeContainer) : iWebCharts;
+      function CDN(Value : Boolean) : iWebCharts;
     published
       property FolderDefaultRWC : String read FFolderDefaultRWC write SetFolderDefaultRWC;
   end;
@@ -49,6 +56,7 @@ uses
 constructor TWebCharts.Create;
 begin
   FModelHTML := TModelHTML.New;
+  FCDN := False;
 end;
 
 destructor TWebCharts.Destroy;
@@ -79,6 +87,18 @@ begin
   FBackgroundColor := Value;
 end;
 
+function TWebCharts.CDN(Value: Boolean): iWebCharts;
+begin
+  Result := Self;
+  FCDN := Value;
+end;
+
+function TWebCharts.Container(Value: TTypeContainer): iWebCharts;
+begin
+  Result := Self;
+  FContainerClass := Value;
+end;
+
 function TWebCharts.ContinuosProject: iModelHTML;
 begin
  Result := TModelHTML.New;
@@ -99,6 +119,7 @@ begin
     .BackgroundColor(FBackgroundColor)
     .FontColor(FFontColor)
     .GenerateHead(FCss);
+  Result.ContainerClass(FContainerClass);
 end;
 
 procedure TWebCharts.SetFolderDefaultRWC(const Value: String);
@@ -110,10 +131,12 @@ function TWebCharts.NewProject: iModelHTML;
 begin
   Result := TModelHTML.New;
   Result.ClearHTML;
+  Result.CDN(FCDN);
   Result
     .BackgroundColor(FBackgroundColor)
     .FontColor(FFontColor)
     .GenerateHead(FCss);
+  Result.ContainerClass(FContainerClass);
   Result.FolderDefaultRWC(FFolderDefaultRWC);
 end;
 

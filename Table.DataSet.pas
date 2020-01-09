@@ -25,7 +25,7 @@ Type
 implementation
 
 uses
-  SysUtils, Injection;
+  SysUtils, Injection,StrUtils;
 
 { TModelTableDataSet }
 
@@ -99,12 +99,6 @@ begin
         Begin
          _tdClass := '';
           case FDataSet.Fields[X].DataType of
-           { ftInteger, ftSmallint:
-            Begin
-               _tdClass := 'text-right';
-               _value := FormatFloat((FDataSet.Fields[X] as TCurrencyField).DisplayFormat,
-                                                        FDataSet.FieldByName(FDataSet.Fields[x].FieldName).AsInteger) ;
-            end;       }
             ftFloat,ftCurrency :
             Begin
                _tdClass := 'text-right';
@@ -125,7 +119,9 @@ begin
     FDataSet.Next;
   end;
   Result := Result + '</tbody>';
+
 end;
 
 end.
+
 

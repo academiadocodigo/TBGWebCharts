@@ -53,10 +53,14 @@ type
   {$IFDEF FULL}
   iModelTable = interface;
   iModelTableDataSet = interface;
+  iModelTableOption = interface;
+  iModelTableData = interface;
+  iModelTableFeatures = interface;
   iModelTableClass = interface;
   IModelHTMLRowsDiv = interface;
   iModelCardsDataSet = interface;
   iModelCards = interface;
+  iModelChartEasyPie = interface;
   iModelButtonClass = interface;
   iModelButton = interface;
   {$IFDEF HAS_FMX}
@@ -89,9 +93,12 @@ type
     function FolderDefaultRWC(Value : String) : iModelHTML;
     function BackgroundColor( Value : String) : iModelHTML;
     function FontColor ( Value : String) : iModelHTML;
+    function ContainerClass(Value : TTypeContainer) : iModelHTML;
+    function CDN(Value : Boolean) : iModelHTML;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
+    function ChartEasyPie : iModelChartEasyPie;
     {$IFDEF HAS_FMX}
     {$ELSE}
     {$IF RTLVERSION > 22 }
@@ -330,6 +337,8 @@ type
     function FontFamily : String; overload;
     function Padding (Value : Integer) : iModelLabellingConfig<T>; overload;
     function Padding : Integer; overload;
+    function PaddingX (Value : Integer) : iModelLabellingConfig<T>; overload;
+    function PaddingX : Integer; overload;
     function Result : String;
     function &End : T;
   end;
@@ -407,6 +416,8 @@ type
     ['{C56445FE-00C6-47E1-8B38-F0FE57419A71}']
     function fontColor (Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
     function fontColor : String; overload;
+    function fontSize (Value : integer) : iModelHTMLChartsAxesTicks<T>; overload;
+    function fontSize : integer; overload;
     function autoSkip (Value : Boolean) : iModelHTMLChartsAxesTicks<T>; overload;
     function autoSkip : Boolean; overload;
     function autoSkipPadding (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
@@ -421,6 +432,8 @@ type
     function mirror : Boolean; overload;
     function padding ( Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
     function padding : Integer; overload;
+    function format ( Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
+    function format : String; overload;
     function Result : String;
     function &End : T;
   end;
@@ -428,6 +441,9 @@ type
   iModelHTMLDataSet = interface
     ['{761961EF-0C2B-4B88-AC8F-B4806D530D07}']
     function DataSet (Value : TDataSet) : iModelHTMLDataSet;
+    function LabelName(Value : String) : iModelHTMLDataSet;
+    function ValueName(Value : String) : iModelHTMLDataSet;
+    function RGBName(Value : String)  : iModelHTMLDataSet;
     function textLabel(Value : String) : iModelHTMLDataSet;
     function BackgroundColor (Value : String) : iModelHTMLDataSet;
     function BorderColor (Value : String) : iModelHTMLDataSet;
@@ -450,6 +466,7 @@ type
     function Table(Parent : iModelHTML) : iModelTable;
     function Cards(Parent : iModelHTML) : iModelCards;
     function Image(Parent : iModelHTML) : iModelImage;
+    function ChartEasyPie(Parent : iModelHTML) : iModelChartEasyPie;
     {$ENDIF}
   end;
 
@@ -480,6 +497,10 @@ type
     function &End : iModelHTML;
     function DataSet : iModelTableDataSet;
     function TableClass : iModelTableClass;
+    function TableOptions : iModelTableOption;
+    function TableFeatures : iModelTableFeatures;
+    function TableData : iModelTableData;
+    function Datatable(Value : Boolean) : iModelTable;
   end;
 
   iModelTableClass = interface
@@ -498,6 +519,62 @@ type
     function DataSet (Value : TDataSet) : iModelTableDataSet;
     function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet;
     function ResultScript : String;
+    function &End : iModelTable;
+  end;
+
+  iModelTableOption = interface
+    ['{2DFF85D5-1116-4160-AAE4-8A5172B8EFD8}']
+    function ScrollCollapse(Value : Boolean) : iModelTableOption; //Permita que a tabela reduza em altura quando um número limitado de linhas for mostrado.
+    function Responsive(Value : Boolean) : iModelTableOption; //Habilitar e configurar a extensão responsiva para DataTables
+    function DeferLoading(Value : Integer) : iModelTableOption; //Atraso no carregamento dos dados do servidor até o segundo sorteio
+    function OpDestroy(Value : Boolean) : iModelTableOption; //Destrua qualquer tabela existente que corresponda ao seletor e substitua pelas novas opções.
+    function DisplayStart(Value : Integer) : iModelTableOption; //Ponto inicial de paginação inicial
+    function LengthMenu(Value : String) : iModelTableOption; //Altere as opções na selectlista de comprimento da página .
+    function Order(Value : String) : iModelTableOption; //Ordem inicial (classificação) a ser aplicada à tabela
+    function OrderCellsTop(Value : Boolean) : iModelTableOption; //Controlar em qual célula o manipulador de eventos do pedido será aplicado em uma coluna
+    function OrderClasses(Value : Boolean) : iModelTableOption; //Destaque as colunas que estão sendo ordenadas no corpo da tabela
+    function OrderFixed(Value : String) : iModelTableOption; //Ordenação para sempre ser aplicada à tabela
+    function OrderMulti(Value : Boolean) : iModelTableOption; //Controle de capacidade de ordenação de várias colunas.
+    function PageLength(Value : Integer) : iModelTableOption; //Alterar o comprimento da página inicial (número de linhas por página)
+    function PagingType(Value : String) : iModelTableOption; //Opções de exibição do botão de paginação
+    function Retrieve(Value : Boolean) : iModelTableOption; //Recuperar uma instância existente do DataTables
+    function Result : String;
+    function &End : iModelTable;
+  end;
+
+  iModelTableFeatures = interface
+    ['{3A297833-19EA-46CB-A10D-5AF1905791FC}']
+    function AutoWidth(Value : Boolean) : iModelTableFeatures; //Controle de recursos Tratamento de largura de colunas inteligentes do DataTables
+    function deferRender(Value : Boolean) : iModelTableFeatures; //Controle diferenciado renderização adiada para velocidade adicional de inicialização.
+    function Info(Value : Boolean) : iModelTableFeatures; //Campo de exibição de informações da tabela de controle de recursos
+    function LengthChange(Value : Boolean) : iModelTableFeatures; //O recurso controla a capacidade do usuário final de alterar o comprimento da exibição de paginação da tabela.
+    function Ordering(Value : Boolean) : iModelTableFeatures; //Recursos de ordenação de controle de recursos (classificação) no DataTables.
+    function Paging(Value : Boolean) : iModelTableFeatures; //Ativar ou desativar a paginação da tabela
+    function Processing(Value : Boolean) : iModelTableFeatures; //O recurso controla o indicador de processamento
+    function ScrollX(Value : Boolean) : iModelTableFeatures; //rolagem horizontal
+    function ScrollY(Value : Integer) : iModelTableFeatures; //rolagem vertical
+    function Searching(Value : Boolean) : iModelTableFeatures; //Recursos de pesquisa (filtragem) de controle de recursos
+    function ServerSide(Value : Boolean) : iModelTableFeatures; //Controle de recurso Modo de processamento no lado do servidor do DataTables
+    function StateSave(Value : Boolean) : iModelTableFeatures; //Economia de estado - restaura o estado da tabela no recarregamento da página.
+    function Result : String;
+    function &End : iModelTable;
+  end;
+
+  iModelTableData = interface
+    ['{6241E52E-02AF-4395-B162-6FF6B5821A6C}']
+    function Server(Value : String) : iModelTableData;
+    function Columns(Value : Array of String) : iModelTableData;
+    function JType(Value : String) : iModelTableData;
+    function DataSrc(Value : String) : iModelTableData;
+    function ResultTable : String;
+    function Result : String;
+    function &End : iModelTable;
+  end;
+
+  iModelTableCallback = interface
+    ['{CB685C9B-1FC8-4C23-BECC-BFCBBAA99C37}']
+    function formatNumber(aCampo, aFormat : String) : iModelTableCallback;
+    function Result : String;
     function &End : iModelTable;
   end;
 
@@ -601,13 +678,32 @@ type
   iModelCSS = interface
     ['{DBC52618-B95B-4871-9BC5-632B7737F2FD}']
     function PackCSS : String;
+    function CDN(Value : Boolean) : iModelCSS;
     function BackgroundColor ( Value : String ) :  iModelCSS;
     function FontColor ( Value : String ) : iModelCSS;
+    function BorderColor ( Value : String ) : iModelCSS;
   end;
 
   iModelJS = interface
     ['{CB37AC61-A8D6-4CEB-BFD1-FDC26CDEB2AA}']
     function PackJS : String;
+    function CDN(Value : Boolean) : iModelJS;
+  end;
+
+  iModelChartEasyPie = interface
+    ['{236E2A17-A50A-4E23-A414-19A1E8A7B34E}']
+    function BarColor(Value : String) : iModelChartEasyPie;
+    function TrackColor(Value : String) : iModelChartEasyPie;
+    function ScaleColor(Value : String) : iModelChartEasyPie;
+    function LineCap(Value : String) : iModelChartEasyPie;
+    function LinheWidth(Value : String) : iModelChartEasyPie;
+    function Size(Value : String) : iModelChartEasyPie;
+    function Animate(Value : String) : iModelChartEasyPie;
+    function OnStart(Value : String) : iModelChartEasyPie;
+    function OnStop(Value : String) : iModelChartEasyPie;
+    function OnStep(Value : String) : iModelChartEasyPie;
+    function DataPercent(Value : String) : iModelChartEasyPie;
+    function &End : iModelHTML;
   end;
 
   {$ENDIF}

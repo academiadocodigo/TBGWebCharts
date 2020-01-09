@@ -17,6 +17,7 @@ Type
       FFontStyle : String;
       FFontFamily : String;
       FPadding : Integer;
+      FPaddingX : Integer;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -34,6 +35,8 @@ Type
       function FontFamily : String; overload;
       function Padding (Value : Integer) : iModelLabellingConfig<T>; overload;
       function Padding : Integer; overload;
+      function PaddingX (Value : Integer) : iModelLabellingConfig<T>; overload;
+      function PaddingX : Integer; overload;
       function &End : T;
 
   end;
@@ -64,6 +67,7 @@ begin
   FFontStyle := 'normal';
   FFontFamily := 'Open Sans';
   FPadding := 5;
+  FPaddingX := 0;
 end;
 
 destructor TChartsLabelling<T>.Destroy;
@@ -134,6 +138,17 @@ begin
   Result := FPadding;
 end;
 
+function TChartsLabelling<T>.PaddingX: Integer;
+begin
+  Result := FPaddingX;
+end;
+
+function TChartsLabelling<T>.PaddingX(Value: Integer): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FPaddingX := Value;
+end;
+
 function TChartsLabelling<T>.Result: String;
 begin
   FResult := '';
@@ -163,8 +178,9 @@ begin
     FResult := FResult + 'ctx.textBaseline = ''middle''; ';
     FResult := FResult + '';
     FResult := FResult + 'var padding = '+IntToStr(FPadding)+'; ';
+    FResult := FResult + 'var paddingX = '+IntToStr(FPaddingX)+'; ';
     FResult := FResult + 'var position = element.tooltipPosition(); ';
-    FResult := FResult + 'ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding); ';
+    FResult := FResult + 'ctx.fillText(dataString, position.x + paddingX, position.y - (fontSize / 2) - padding); ';
     FResult := FResult + '});';
     FResult := FResult + '}';
     FResult := FResult + '});';

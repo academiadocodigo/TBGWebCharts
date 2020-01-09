@@ -136,6 +136,10 @@ type
     ValueListEditor6: TValueListEditor;
     TabSheet11: TTabSheet;
     ValueListEditor17: TValueListEditor;
+    SpeedButton2: TSpeedButton;
+    Table: TTabSheet;
+    ValueListEditor18: TValueListEditor;
+    SpeedButton3: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -163,6 +167,8 @@ type
     procedure btnBarsStackedClick(Sender: TObject);
     procedure btnBarCallClick(Sender: TObject);
     procedure btnBarLabelClick(Sender: TObject);
+    procedure SpeedButton24Click(Sender: TObject);
+    procedure SpeedButton19Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -693,6 +699,50 @@ end;
 procedure TForm2.SpeedButton10Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
+  if cbTypeChart.Text='table' then
+  begin
+  WebCharts1
+    .NewProject
+    .Table
+      .TableClass
+        .tableSm
+        .tableHover
+      .EndTableClass
+      .TableOptions
+        .Responsive(ValueListEditor18.Values['Responsive'].ToBoolean)
+        .ScrollCollapse(ValueListEditor18.Values['ScrollCollapse'].ToBoolean)
+        .DisplayStart(ValueListEditor18.Values['DisplayStart'].ToInteger)
+        .LengthMenu(ValueListEditor18.Values['LengthMenu'])
+        .Order(ValueListEditor18.Values['Order'])
+        .OrderFixed(ValueListEditor18.Values['OrderFixed'])
+        .OrderMulti(ValueListEditor18.Values['OrderMulti'].ToBoolean)
+        .PageLength(ValueListEditor18.Values['PageLength'].ToInteger)
+        .PagingType(ValueListEditor18.Values['PagingType'])
+      .&End
+      .TableFeatures
+        .Info(ValueListEditor18.Values['Info'].ToBoolean)
+        .LengthChange(ValueListEditor18.Values['LengthChange'].ToBoolean)
+        .Ordering(ValueListEditor18.Values['Ordering'].ToBoolean)
+        .Paging(ValueListEditor18.Values['Paging'].ToBoolean)
+        .Processing(ValueListEditor18.Values['Processing'].ToBoolean)
+        .ScrollX(ValueListEditor18.Values['ScrollX'].ToBoolean)
+        .ScrollY(ValueListEditor18.Values['ScrollY'].ToInteger)
+        .Searching(ValueListEditor18.Values['Searching'].ToBoolean)
+      .&End
+      .DataSet
+        .CallbackLink('CustNo', 'RelCust')
+        .CallbackLink('Contact', 'RelContato')
+        .DataSet(ClientDataSet5)
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
+    .Generated;
+  end
+  else
+  begin
   WebCharts1
   .BackgroundColor(ValueListEditor1.Values['BackgroundColor'])
   .FontColor(ValueListEditor1.Values['FontColor'])
@@ -834,6 +884,7 @@ begin
     .&End
   .WebBrowser(WebBrowser1)
   .Generated;
+  end;
 end;
 
 procedure TForm2.SpeedButton11Click(Sender: TObject);
@@ -1087,16 +1138,28 @@ begin
   .Generated;
 end;
 
+procedure TForm2.SpeedButton19Click(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .ChartEasyPie
+      .DataPercent('73')
+      .Animate('1000')
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
 procedure TForm2.SpeedButton1Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 0;
-
-  WebCharts1
+ WebCharts1
     .NewProject
     .Table
       .TableClass
         .tableSm
         .tableHover
+        .tableResponsive
       .EndTableClass
       .DataSet
         .CallbackLink('CustNo', 'RelCust')
@@ -1108,6 +1171,29 @@ begin
     .CallbackJS
       .ClassProvider(Self)
     .&End
+    .Generated;
+end;
+
+procedure TForm2.SpeedButton24Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+  WebCharts1
+    .NewProject
+    .Table
+      .TableClass
+        .tableSm
+        .tableHover
+      .EndTableClass
+      .Datatable(true)
+      .TableOptions
+        .Responsive(true)
+      .&End
+      .TableData
+        .Server('http://viacep.com.br/ws/RS/Porto Alegre/Domingos/json/')
+        .Columns(['cep','logradouro','complemento','bairro','localidade','uf','unidade','ibge','gia'])
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
     .Generated;
 end;
 
@@ -1328,7 +1414,6 @@ begin
         ._ChartType(bar)
           .Attributes
             .Name('analiseMensal')
-            //.Title('Analise Mensal')
             .Heigth(80)
             .DataSet
               .DataSet(ClientDataSet1)
@@ -1459,17 +1544,30 @@ begin
       .Jumpline
       .Jumpline
       .Table
-        .TableClass
-          .tableSm
-          .tableHover
-        .EndTableClass
-        .DataSet
-          .DataSet(ClientDataSet5)
-        .&End
+      .TableClass
+        .tableSm
+        .tableHover
+      .EndTableClass
+      .TableOptions
+        .Responsive(true)
       .&End
+      .TableFeatures
+        .AutoWidth(false)
+        .LengthChange(false)
+        .Info(false)
+      .&End
+      .DataSet
+        .CallbackLink('CustNo', 'RelCust')
+        .CallbackLink('Contact', 'RelContato')
+        .DataSet(ClientDataSet5)
+      .&End
+    .&End
 
 
     .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
     .Generated;
 end;
 

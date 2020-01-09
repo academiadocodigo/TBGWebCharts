@@ -10,6 +10,7 @@ type
     private
       FParent : T;
       FFontColor : String;
+      FFontSize : integer;
       FAutoSkip : Boolean;
       FlabelOffset : Integer;
       FResult : String;
@@ -18,12 +19,17 @@ type
       FminRotation : Integer;
       Fmirror : Boolean;
       Fpadding : Integer;
+      Fformat : string;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
       class function New(Parent : T) : iModelHTMLChartsAxesTicks<T>;
+      function format ( Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
+      function format : String; overload;
       function fontColor (Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
       function fontColor : String; overload;
+      function fontSize (Value : integer) : iModelHTMLChartsAxesTicks<T>; overload;
+      function fontSize : integer; overload;
       function autoSkip (Value : Boolean) : iModelHTMLChartsAxesTicks<T>; overload;
       function autoSkip : Boolean; overload;
       function autoSkipPadding (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
@@ -92,6 +98,8 @@ begin
   FminRotation := 0;
   Fmirror := False;
   Fpadding := 0;
+  FFontSize := 0;
+  Fformat := '';
 end;
 
 destructor TModelHTMLAxesTicks<T>.Destroy;
@@ -110,6 +118,28 @@ end;
 function TModelHTMLAxesTicks<T>.FontColor: String;
 begin
   Result := FFontColor;
+end;
+
+function TModelHTMLAxesTicks<T>.fontSize: integer;
+begin
+  result := FFontSize;
+end;
+
+function TModelHTMLAxesTicks<T>.fontSize(Value: integer): iModelHTMLChartsAxesTicks<T>;
+begin
+  result := self;
+  FFontSize := Value;
+end;
+
+function TModelHTMLAxesTicks<T>.format: String;
+begin
+  result := Fformat;
+end;
+
+function TModelHTMLAxesTicks<T>.format(Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  result := self;
+  Fformat := Value;
 end;
 
 function TModelHTMLAxesTicks<T>.labelOffset: Integer;
@@ -181,6 +211,10 @@ function TModelHTMLAxesTicks<T>.Result: String;
 begin
   Result := '';
   FResult := FResult + 'ticks: { ';
+  if Fformat <> '' then
+    fResult := fResult + 'callback: function(value, index, values) {return numeral(value).format('+Fformat.QuotedString+');},';
+  if FFontSize > 0 then
+    FResult := FResult + 'fontSize : '+FontSize.ToString+', ';
   FResult := FResult + 'fontColor : "'+FontColor+'", ';
   if FAutoSkip then FResult := FResult + 'autoSkip : true, ' else FResult := FResult + 'autoSkip : false, ';
   FResult := FResult + 'autoSkipPadding : ' + IntToStr(FautoSkipPadding) + ',';

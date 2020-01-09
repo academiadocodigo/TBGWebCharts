@@ -8,14 +8,13 @@ type
   TBootstrapCss = class(TInterfacedObject,iModelCSS)
     private
       FPack : TStringList;
-      FBackgroundColor : String;
-      FFontColor : String;
     public
       constructor Create;
       destructor Destroy; override;
       class function New : iModelCSS;
       function BackgroundColor ( Value : String ) :  iModelCSS;
       function FontColor ( Value : String ) : iModelCSS;
+      function BorderColor ( Value : String ) : iModelCSS;
 	    procedure BootstrapCss_1;
       procedure BootstrapCss_2;
       procedure BootstrapCss_3;
@@ -42,6 +41,7 @@ type
       procedure BootstrapCss_24;
       procedure BootstrapCss_25;
       function PackCSS : String;
+      function CDN(Value : Boolean) : iModelCSS;
   end;
 
 implementation
@@ -51,11 +51,14 @@ uses
 
 { TBootstrapCss }
 
+function TBootstrapCss.CDN(Value: Boolean): iModelCSS;
+begin
+  Result := SElf;
+end;
+
 constructor TBootstrapCss.Create;
 begin
   FPack := TStringList.Create;
-  FBackgroundColor := '#fff';
-  FFontColor := '#212529';
 end;
 
 destructor TBootstrapCss.Destroy;
@@ -67,7 +70,6 @@ end;
 function TBootstrapCss.FontColor(Value: String): iModelCSS;
 begin
   Result := Self;
-  FFontColor := Value;
 end;
 
 class function TBootstrapCss.New : iModelCSS;
@@ -78,7 +80,6 @@ end;
 function TBootstrapCss.BackgroundColor(Value: String): iModelCSS;
 begin
   Result := Self;
-  FBackgroundColor := Value;
 end;
 
 procedure TBootstrapCss.BootstrapCss_1;
@@ -180,8 +181,8 @@ begin
   FPack.add('  font-size: 1rem;');
   FPack.add('  font-weight: normal;');
   FPack.add('  line-height: 1.5;');
-  FPack.add('  color: '+FFontColor+';');
-  FPack.add('  background-color:'+FBackgroundColor+';');
+  FPack.add('  color: #212529');
+  FPack.add('  background-color: #fff');
   FPack.add('}');
   FPack.add('');
   FPack.add('[tabindex="-1"]:focus {');
@@ -3139,6 +3140,11 @@ begin
   FPack.add('}');
   FPack.add('');
   FPack.add('.custom-control-input:disabled ~ .custom-control-indicator {');
+end;
+
+function TBootstrapCss.BorderColor(Value: String): iModelCSS;
+begin
+  Result := Self;
 end;
 
 procedure TBootstrapCss.BootstrapCss_10;

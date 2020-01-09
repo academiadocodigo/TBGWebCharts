@@ -14,6 +14,7 @@ type
       class function New : iModelJS;
 	  procedure TetherminJS_1;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
@@ -22,6 +23,11 @@ uses
   SysUtils;
 
 { TTetherminJS }
+
+function TTetherminJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TTetherminJS.Create;
 begin
@@ -333,7 +339,7 @@ begin
   FPack.Add('</script>'+#13);
 end;
 
-function TTetherminJS.PackJS: String;
+function TTetherminJS.PackJS : String;
 begin
   TetherminJS_1;
   Result := FPack.Text;

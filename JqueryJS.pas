@@ -16,7 +16,8 @@ type
 	  procedure JqueryJS_2;
 	  procedure JqueryJS_3;
 	  procedure JqueryJS_4;
-      function PackJS : String;
+    function PackJS : String;
+    function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
@@ -25,6 +26,11 @@ uses
   SysUtils;
 
 { TJqueryJS }
+
+function TJqueryJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TJqueryJS.Create;
 begin

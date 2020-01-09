@@ -14,6 +14,7 @@ type
       class function New : iModelJS;
 	  procedure UtilsJS_1;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
@@ -22,6 +23,11 @@ uses
   SysUtils;
 
 { TUtilsJS }
+
+function TUtilsJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
+end;
 
 constructor TUtilsJS.Create;
 begin

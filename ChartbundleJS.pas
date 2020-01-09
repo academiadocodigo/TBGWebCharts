@@ -70,6 +70,7 @@ type
       procedure ChartbundleJS_56;
       procedure ChartbundleJS_57;
       function PackJS : String;
+      function CDN(Value : Boolean) : iModelJS;
   end;
 
 implementation
@@ -93,6 +94,11 @@ end;
 class function TChartbundleJS.New: iModelJS;
 begin
   Result := Self.Create;
+end;
+
+function TChartbundleJS.CDN(Value: Boolean): iModelJS;
+begin
+  Result := Self;
 end;
 
 procedure TChartbundleJS.ChartbundleJS_1;

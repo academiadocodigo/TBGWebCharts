@@ -2,27 +2,30 @@
 
 interface
 
-uses Interfaces, Classes, BootstrapCss;
+uses Interfaces, Classes, BootstrapCss, DataTableCss, Chart.Easy.PieCSS;
 
 type
   TPackCss = class(TInterfacedObject,iModelCSS)
     private
-      FPack : TStringList;
       FBackgroundColor : String;
       FFontColor : String;
+      FBorderColor : String;
+      FCDN : Boolean;
     public
       constructor Create;
       destructor Destroy; override;
       class function New : iModelCSS;
       function PackCSS : String;
+      function CDN(Value : Boolean) : iModelCSS;
       function BackgroundColor ( Value : String ) :  iModelCSS;
+      function BorderColor ( Value : String ) : iModelCSS;
       function FontColor ( Value : String ) : iModelCSS;
   end;
 
 implementation
 
 uses
-  SysUtils;
+  StyleCSS;
 
 { TPackCss }
 
@@ -32,14 +35,25 @@ begin
   FBackgroundColor := Value;
 end;
 
+function TPackCss.BorderColor(Value: String): iModelCSS;
+begin
+  Result := Self;
+  FBorderColor := Value;
+end;
+
+function TPackCss.CDN(Value: Boolean): iModelCSS;
+begin
+  Result := SElf;
+  FCDN := Value;
+end;
+
 constructor TPackCss.Create;
 begin
-  FPack := TStringList.Create;
+  FCDN := False;
 end;
 
 destructor TPackCss.Destroy;
 begin
-  FreeAndNil(FPack);
   inherited;
 end;
 
@@ -56,10 +70,27 @@ end;
 
 function TPackCss.PackCSS: String;
 begin
-  Result := TBootstrapCss.New
+  if FCDN then
+  begin
+    Result := Result + '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">';
+		Result := Result + '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/r-2.2.3/sl-1.3.1/datatables.min.css"/>';
+    Result := Result + TStyleCSS.New
+                        .BackgroundColor(FBackgroundColor)
+                        .FontColor(FFontColor)
+                        .BorderColor(FBorderColor)
+                        .PackCSS;
+  end
+  else
+    Result := TBootstrapCss.New
+              .PackCSS+
+            TDataTableCss.New
+              .PackCSS+
+            TStyleCSS.New
               .BackgroundColor(FBackgroundColor)
               .FontColor(FFontColor)
-              .PackCSS;
+              .BorderColor(FBorderColor)
+              .PackCSS+
+            TChartEasyPieCSS.New.PackCSS;
 end;
 
 end.

@@ -22,6 +22,7 @@ Type
     function Table(Parent : iModelHTML) : iModelTable;
     function Cards(Parent : iModelHTML) : iModelCards;
     function Image(Parent : iModelHTML) : iModelImage;
+    function ChartEasyPie(Parent : iModelHTML) : iModelChartEasyPie;
     {$ENDIF}
   end;
 
@@ -37,6 +38,7 @@ uses
   Table,
   Cards,
   Image,
+  Charts.Easy.Pie,
   {$ENDIF}
   Rows;
 
@@ -83,7 +85,6 @@ begin
   Result := TModelImage.New(Parent);
 end;
 
-
 function TModelHTMLFactory.Table(Parent: iModelHTML): iModelTable;
 begin
   Result := TModelTable.New(Parent);
@@ -93,6 +94,12 @@ function TModelHTMLFactory.Cards(Parent : iModelHTML) : iModelCards;
 begin
   Result := TModelCards.New(Parent);
 end;
+
+function TModelHTMLFactory.ChartEasyPie(Parent : iModelHTML) : iModelChartEasyPie;
+begin
+  Result := TModelChartsEasyPie.New(Parent);
+end;
+
 {$ENDIF}
 
 end.

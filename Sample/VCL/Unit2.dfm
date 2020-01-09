@@ -6,7 +6,7 @@ object Form2: TForm2
   ClientWidth = 1122
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWhite
+  Font.Color = clBlack
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
@@ -51,7 +51,7 @@ object Form2: TForm2
           Height = 661
           Align = alClient
           TabOrder = 0
-          ExplicitHeight = 773
+          ExplicitLeft = 2
           ControlData = {
             4C00000009480000514400000000000000000000000000000000000000000000
             000000004C000000000000000000000001000000E0D057007335CF11AE690800
@@ -63,10 +63,6 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Panel5: TPanel
           Left = -4
           Top = 320
@@ -105,7 +101,15 @@ object Form2: TForm2
           Width = 697
           Height = 566
           Align = alClient
+          Color = clBlack
           DataSource = DataSource1
+          GradientEndColor = clWhite
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 4
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWhite
@@ -135,7 +139,13 @@ object Form2: TForm2
             Top = 17
             Width = 145
             Height = 24
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBackground
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
             ItemIndex = 0
+            ParentFont = False
             TabOrder = 0
             Text = 'ClientDataSet1'
             Items.Strings = (
@@ -174,15 +184,11 @@ object Form2: TForm2
         Top = 74
         Width = 232
         Height = 618
-        ActivePage = TabSheet11
+        ActivePage = TabSheet5
         Align = alClient
         TabOrder = 0
         object TabSheet3: TTabSheet
           Caption = 'General'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor1: TValueListEditor
             Left = 0
             Top = 0
@@ -252,10 +258,6 @@ object Form2: TForm2
         object TabSheet4: TTabSheet
           Caption = 'Attributes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor2: TValueListEditor
             Left = 0
             Top = 0
@@ -288,10 +290,6 @@ object Form2: TForm2
         object TabSheet5: TTabSheet
           Caption = 'Scale xAxe'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ScrollBox2: TScrollBox
             Left = 0
             Top = 0
@@ -326,7 +324,7 @@ object Form2: TForm2
               TabOrder = 0
               ColWidths = (
                 96
-                92)
+                109)
             end
             object Panel10: TPanel
               Left = 0
@@ -374,7 +372,7 @@ object Form2: TForm2
               TabOrder = 2
               ColWidths = (
                 96
-                92)
+                109)
             end
             object Panel11: TPanel
               Left = 0
@@ -423,7 +421,7 @@ object Form2: TForm2
               TabOrder = 4
               ColWidths = (
                 96
-                92)
+                109)
             end
             object Panel12: TPanel
               Left = 0
@@ -470,17 +468,13 @@ object Form2: TForm2
               TabOrder = 6
               ColWidths = (
                 96
-                92)
+                109)
             end
           end
         end
         object TabSheet6: TTabSheet
           Caption = 'Scale yAxe'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ScrollBox1: TScrollBox
             Left = 0
             Top = 0
@@ -666,10 +660,6 @@ object Form2: TForm2
         object TabSheet7: TTabSheet
           Caption = 'Labelling'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor11: TValueListEditor
             Left = 0
             Top = 0
@@ -702,10 +692,6 @@ object Form2: TForm2
         object TabSheet8: TTabSheet
           Caption = 'Legend'
           ImageIndex = 5
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor12: TValueListEditor
             Left = 0
             Top = 0
@@ -779,10 +765,6 @@ object Form2: TForm2
         object TabSheet9: TTabSheet
           Caption = 'Title'
           ImageIndex = 6
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor14: TValueListEditor
             Left = 0
             Top = 0
@@ -817,10 +799,6 @@ object Form2: TForm2
         object TabSheet10: TTabSheet
           Caption = 'DataSet'
           ImageIndex = 7
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor16: TValueListEditor
             Left = 0
             Top = 0
@@ -876,6 +854,46 @@ object Form2: TForm2
               126)
           end
         end
+        object Table: TTabSheet
+          Caption = 'Table'
+          ImageIndex = 9
+          object ValueListEditor18: TValueListEditor
+            Left = 0
+            Top = 0
+            Width = 224
+            Height = 473
+            Align = alTop
+            BorderStyle = bsNone
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            Strings.Strings = (
+              'ScrollCollapse=false'
+              'Responsive=false'
+              'DisplayStart=0'
+              'LengthMenu=10, 25, 50, 100'
+              'Order=0, '#39'asc'#39
+              'OrderFixed=0,'#39'asc'#39
+              'OrderMulti=true'
+              'PageLength=10'
+              'PagingType=simple_numbers'
+              'Info=true'
+              'LengthChange=true'
+              'Ordering=true'
+              'Processing=false'
+              'ScrollX=false'
+              'ScrollY=400'
+              'Searching=true'
+              'Paging=true')
+            TabOrder = 0
+            ColWidths = (
+              100
+              122)
+          end
+        end
       end
       object Panel18: TPanel
         Left = 0
@@ -925,7 +943,8 @@ object Form2: TForm2
             'radar'
             'doughnut'
             'polarArea'
-            'horizontalBar')
+            'horizontalBar'
+            'table')
         end
       end
     end
@@ -941,9 +960,9 @@ object Form2: TForm2
       TabOrder = 2
       object SpeedButton14: TSpeedButton
         Left = 0
-        Top = 200
+        Top = 150
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         BiDiMode = bdLeftToRight
         Caption = 'Horizontal Bar'
@@ -960,9 +979,9 @@ object Form2: TForm2
       end
       object SpeedButton17: TSpeedButton
         Left = 0
-        Top = 240
+        Top = 180
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Lines'
         Flat = True
@@ -976,11 +995,11 @@ object Form2: TForm2
       end
       object SpeedButton19: TSpeedButton
         Left = 0
-        Top = 280
+        Top = 240
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
-        Caption = 'Pie'
+        Caption = 'EasyPie'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -988,13 +1007,13 @@ object Form2: TForm2
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        OnClick = SpeedButton7Click
+        OnClick = SpeedButton19Click
       end
       object SpeedButton20: TSpeedButton
         Left = 0
-        Top = 320
+        Top = 270
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Doughnut'
         Flat = True
@@ -1008,9 +1027,9 @@ object Form2: TForm2
       end
       object SpeedButton21: TSpeedButton
         Left = 0
-        Top = 400
+        Top = 330
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Dashboard'
         Flat = True
@@ -1024,9 +1043,9 @@ object Form2: TForm2
       end
       object SpeedButton22: TSpeedButton
         Left = 0
-        Top = 440
+        Top = 360
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Dashboard 2'
         Flat = True
@@ -1040,9 +1059,9 @@ object Form2: TForm2
       end
       object SpeedButton23: TSpeedButton
         Left = 0
-        Top = 632
+        Top = 657
         Width = 185
-        Height = 60
+        Height = 35
         Align = alBottom
         Caption = 'DataSet'
         Flat = True
@@ -1053,16 +1072,15 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton5Click
-        ExplicitTop = 496
-        ExplicitWidth = 200
+        ExplicitTop = 632
       end
       object SpeedButton24: TSpeedButton
         Left = 0
-        Top = 480
+        Top = 420
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
-        Caption = 'Table Callback'
+        Caption = 'Table com REST'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -1070,13 +1088,13 @@ object Form2: TForm2
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        OnClick = SpeedButton1Click
+        OnClick = SpeedButton24Click
       end
       object SpeedButton26: TSpeedButton
         Left = 0
-        Top = 560
+        Top = 480
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Images'
         Flat = True
@@ -1090,9 +1108,9 @@ object Form2: TForm2
       end
       object SpeedButton27: TSpeedButton
         Left = 0
-        Top = 600
+        Top = 510
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'CallBack/Table/Image'
         Flat = True
@@ -1106,9 +1124,9 @@ object Form2: TForm2
       end
       object SpeedButton28: TSpeedButton
         Left = 0
-        Top = 360
+        Top = 300
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'SemiCircule'
         Flat = True
@@ -1122,9 +1140,9 @@ object Form2: TForm2
       end
       object SpeedButton29: TSpeedButton
         Left = 0
-        Top = 40
+        Top = 30
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         BiDiMode = bdLeftToRight
         Caption = 'Bars/Lines'
@@ -1141,9 +1159,9 @@ object Form2: TForm2
       end
       object SpeedButton30: TSpeedButton
         Left = 0
-        Top = 640
+        Top = 540
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Buttons'
         Flat = True
@@ -1154,14 +1172,12 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton14Click
-        ExplicitLeft = -2
-        ExplicitTop = 526
       end
       object SpeedButton31: TSpeedButton
         Left = 0
-        Top = 80
+        Top = 60
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Bars/Stacked'
         Flat = True
@@ -1175,9 +1191,9 @@ object Form2: TForm2
       end
       object SpeedButton32: TSpeedButton
         Left = 0
-        Top = 160
+        Top = 120
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         BiDiMode = bdLeftToRight
         Caption = 'Bars/Label'
@@ -1194,9 +1210,9 @@ object Form2: TForm2
       end
       object SpeedButton33: TSpeedButton
         Left = 0
-        Top = 120
+        Top = 90
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Bar/CallBack'
         Flat = True
@@ -1212,7 +1228,7 @@ object Form2: TForm2
         Left = 0
         Top = 0
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         BiDiMode = bdLeftToRight
         Caption = 'Bars'
@@ -1229,9 +1245,9 @@ object Form2: TForm2
       end
       object SpeedButton25: TSpeedButton
         Left = 0
-        Top = 520
+        Top = 450
         Width = 185
-        Height = 40
+        Height = 30
         Align = alTop
         Caption = 'Cards'
         Flat = True
@@ -1242,6 +1258,38 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton11Click
+      end
+      object SpeedButton2: TSpeedButton
+        Left = 0
+        Top = 390
+        Width = 185
+        Height = 30
+        Align = alTop
+        Caption = 'Table Callback'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        OnClick = SpeedButton1Click
+      end
+      object SpeedButton3: TSpeedButton
+        Left = 0
+        Top = 210
+        Width = 185
+        Height = 30
+        Align = alTop
+        Caption = 'Pie'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        OnClick = SpeedButton7Click
       end
     end
   end
