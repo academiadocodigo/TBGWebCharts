@@ -18,6 +18,7 @@ Type
       function HTML(Value : String) : iModelHTMLRowsTitle; overload;
       function HTML : String; overload;
       function Configuracoes : IModelRowsTitleConfig;
+      function Config : IModelRowsTitleConfig;
       function &End : IModelHTMLRows;
   end;
 
@@ -27,6 +28,11 @@ uses
   Rows.Title.Config, StrUtils, Injection;
 
 { TModelHTMLRowsTitle }
+
+function TModelHTMLRowsTitle.Config: IModelRowsTitleConfig;
+begin
+  Result := Configuracoes;
+end;
 
 function TModelHTMLRowsTitle.Configuracoes: IModelRowsTitleConfig;
 begin

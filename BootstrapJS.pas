@@ -67,16 +67,16 @@ begin
   FPack.add(' */');
   FPack.add('');
   FPack.add('if (typeof jQuery === ''undefined'') {');
-  FPack.add('  throw new Error(''Bootstrap\''s JavaScript requires jQuery. jQuery must be ');
-  FPack.add('included before Bootstrap\''s JavaScript.'')');
+  FPack.add('  throw new Error(''Bootstrap\''s JavaScript requires jQuery. jQuery must be '
+  + 'included before Bootstrap\''s JavaScript.'')');
   FPack.add('}');
   FPack.add('');
   FPack.add('(function ($) {');
   FPack.add('  var version = $.fn.jquery.split('' '')[0].split(''.'')');
   FPack.add('  if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 ');
   FPack.add('&& version[2] < 1) || (version[0] >= 4)) {');
-  FPack.add('    throw new Error(''Bootstrap\''s JavaScript requires at least jQuery v1.9.1 ');
-  FPack.add('but less than v4.0.0'')');
+  FPack.add('    throw new Error(''Bootstrap\''s JavaScript requires at least jQuery v1.9.1 '
+  + 'but less than v4.0.0'')');
   FPack.add('  }');
   FPack.add('})(jQuery);');
   FPack.add('');
@@ -152,8 +152,8 @@ begin
   FPack.add('      delegateType: transition.end,');
   FPack.add('      handle: function handle(event) {');
   FPack.add('        if ($(event.target).is(this)) {');
-  FPack.add('          return event.handleObj.handler.apply(this, arguments); // eslint-');
-  FPack.add('disable-line prefer-rest-params');
+  FPack.add('          return event.handleObj.handler.apply(this, arguments); // eslint-'
+  + 'disable-line prefer-rest-params');
   FPack.add('        }');
   FPack.add('        return undefined;');
   FPack.add('      }');
@@ -219,8 +219,8 @@ begin
   FPack.add('    getUID: function getUID(prefix) {');
   FPack.add('      do {');
   FPack.add('        // eslint-disable-next-line no-bitwise');
-  FPack.add('        prefix += ~~(Math.random() * MAX_UID); // "~~" acts like a faster ');
-  FPack.add('Math.floor() here');
+  FPack.add('        prefix += ~~(Math.random() * MAX_UID); // "~~" acts like a faster '
+  + 'Math.floor() here');
   FPack.add('      } while (document.getElementById(prefix));');
   FPack.add('      return prefix;');
   FPack.add('    },');
@@ -654,8 +654,8 @@ begin
   FPack.add('  var TRANSITION_DURATION = 600;');
   FPack.add('  var ARROW_LEFT_KEYCODE = 37; // KeyboardEvent.which value for left arrow key');
   FPack.add('  var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key');
-  FPack.add('  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire ');
-  FPack.add('after touch');
+  FPack.add('  var TOUCHEVENT_COMPAT_WAIT = 500; // Time for mouse compat events to fire '
+  + 'after touch');
   FPack.add('');
   FPack.add('  var Default = {');
   FPack.add('    interval: 5000,');
@@ -1585,8 +1585,8 @@ begin
   FPack.add('  var TAB_KEYCODE = 9; // KeyboardEvent.which value for tab key');
   FPack.add('  var ARROW_UP_KEYCODE = 38; // KeyboardEvent.which value for up arrow key');
   FPack.add('  var ARROW_DOWN_KEYCODE = 40; // KeyboardEvent.which value for down arrow key');
-  FPack.add('  var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right ');
-  FPack.add('button (assuming a right-handed mouse)');
+  FPack.add('  var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right '
+  + 'button (assuming a right-handed mouse)');
   FPack.add('  var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + ''|'' + ARROW_DOWN_KEYCODE + ');
   FPack.add('''|'' + ESCAPE_KEYCODE);');
   FPack.add('');
@@ -2443,10 +2443,10 @@ begin
   FPack.add('      var _this18 = this;');
   FPack.add('');
   FPack.add('      if (this._isBodyOverflowing) {');
-  FPack.add('        // Note: DOMNode.style.paddingRight returns the actual value or '''' if ');
-  FPack.add('not set');
-  FPack.add('        //   while $(DOMNode).css(''padding-right'') returns the calculated value ');
-  FPack.add('or 0 if not set');
+  FPack.add('        // Note: DOMNode.style.paddingRight returns the actual value or '''' if '
+  + 'not set');
+  FPack.add('        //   while $(DOMNode).css(''padding-right'') returns the calculated value '
+  + 'or 0 if not set');
   FPack.add('');
   FPack.add('        // Adjust fixed content padding');
   FPack.add('        $(Selector.FIXED_CONTENT).each(function (index, element) {');
@@ -2853,8 +2853,8 @@ begin
   FPack.add('        // Set triggered link as active');
   FPack.add('        $link.addClass(ClassName.ACTIVE);');
   FPack.add('        // Set triggered links parents as active');
-  FPack.add('        // With both <ul> and <nav> markup a parent is the previous sibling of ');
-  FPack.add('any nav ancestor');
+  FPack.add('        // With both <ul> and <nav> markup a parent is the previous sibling of '
+  + 'any nav ancestor');
   FPack.add('        $link.parents(Selector.NAV_LIST_GROUP).prev(Selector.NAV_LINKS + '', '' + ');
   FPack.add('Selector.LIST_ITEMS).addClass(ClassName.ACTIVE);');
   FPack.add('      }');

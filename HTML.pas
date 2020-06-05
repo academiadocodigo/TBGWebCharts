@@ -89,6 +89,12 @@ Type
     function FontColor ( Value : String) : iModelHTML;
     function ContainerClass(Value : TTypeContainer) : iModelHTML;
     function CDN(Value : Boolean) : iModelHTML;
+    function Jumbotron : iModelJumbotron;
+    function Alerts : iModelAlerts;
+    function ListGroup : iModelListGroup;
+    function PivotTable : iModelPivotTable;
+    procedure ExecuteScript(Value : iModelJSCommand);
+    function ExecuteScriptResult(Value : iModelJSCommand) : string;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
@@ -115,9 +121,83 @@ uses
     Windows,
     ActiveX,
   {$ENDIF}
-  Injection, Charts.Easy.Pie;
+  Injection,
+  Charts.Easy.Pie,
+  Jumbotron,
+  Alerts,
+  ListGroup,
+  PivotTable,
+  MSHTML,
+  OleCtrls;
 
 { TModelHTML }
+procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
+var
+  Doc : IHTMLDocument2;
+  HTMLWindow: IHTMLWindow2;
+begin
+  Doc := FWebBrowser.Document as IHTMLDocument2;
+  if Assigned(Doc) then
+  begin
+    HTMLWindow := Doc.parentWindow;
+    if Assigned(HTMLWindow) then
+    begin
+      try
+        HTMLWindow.execScript(Value.ResultCommand , 'javascript');
+      except on E: Exception do
+       raise Exception.Create('Erro ao Executar Script');
+      end;
+    end;
+  end;
+end;
+
+function TModelHTML.ExecuteScriptResult(Value : iModelJSCommand) : string;
+var
+  Doc : IHTMLDocument2;
+  body : IHTMLElement2;
+  Tags : IHTMLElementCollection;
+  Tag : IHTMLElement;
+  I : Integer;
+begin
+  Result := '';
+  ExecuteScript(Value);
+
+  if not Supports(FWebBrowser.Document, IHTMLDocument2, Doc) then
+    raise Exception.Create('Documento HTML Inválido');
+  if not Supports(Doc.body, IHTMLElement2, Body) then
+    raise Exception.Create('Não Foi Possível Encontrar o Elemento <body>');
+  Tags := body.getElementsByTagName(UpperCase(Value.TagName));
+  for I := 0 to Pred(Tags.length) do
+  begin
+    Tag := Tags.item(I, EmptyParam) as IHTMLElement;
+    if Tag.id = Value.TagId then
+    begin
+      Result := Tag.getAttribute(Value.TagAttribute, 0);
+      break;
+    end;
+  end;
+end;
+
+function TModelHTML.PivotTable : iModelPivotTable;
+begin
+  Result := TModelPivotTable.New(Self);
+end;
+
+function TModelHTML.ListGroup : iModelListGroup;
+begin
+  Result := TModelListGroup.New(Self);
+end;
+
+function TModelHTML.Alerts : iModelAlerts;
+begin
+  Result := TModelAlerts.New(Self);
+end;
+
+function TModelHTML.Jumbotron : iModelJumbotron;
+begin
+  Result := TModelJumbotron.New(Self);
+end;
+
 function TModelHTML.BackgroundColor( Value : String) : iModelHTML;
 begin
   Result := Self;

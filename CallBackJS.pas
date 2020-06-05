@@ -64,18 +64,21 @@ var
   Params : TStringList;
 begin
   Target := URL;
-  Method := Copy(Target, Pos(':', Target) + 1, Length(Target));
-  Method := Copy(Method, 1, Pos('(', Method) - 1);
-  Params := TStringList.Create;
-  try
-    Aux := Copy(Target, Pos('(', Target) + 1, Length(Target));
-    Aux := Copy(Aux, 1, Pos(')', Aux)-1);
-    Params.CommaText := Aux;
-    if not Method.IsEmpty then
-      if TryGetValue(Method, Params) then
-        Cancel := True;
-  finally
-    Params.Free;
+  if UpperCase(Target).StartsWith(UpperCase(FActionMethod)) then
+  begin
+    Method := Copy(Target, Pos(':', Target) + 1, Length(Target));
+    Method := Copy(Method, 1, Pos('(', Method) - 1);
+    Params := TStringList.Create;
+    try
+      Aux := Copy(Target, Pos('(', Target) + 1, Length(Target));
+      Aux := Copy(Aux, 1, LastDelimiter(')', Aux)-1);
+      Params.CommaText := Aux;
+      if not Method.IsEmpty then
+        if TryGetValue(Method, Params) then
+          Cancel := True;
+    finally
+      Params.Free;
+    end;
   end;
 end;
 

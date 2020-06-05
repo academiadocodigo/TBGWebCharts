@@ -2,7 +2,9 @@
 
 interface
 
-uses Interfaces, Classes, BootstrapCss, DataTableCss, Chart.Easy.PieCSS;
+uses
+  Interfaces,
+  Classes;
 
 type
   TPackCss = class(TInterfacedObject,iModelCSS)
@@ -25,7 +27,11 @@ type
 implementation
 
 uses
-  StyleCSS;
+  StyleCSS,
+  BootstrapCss,
+  DataTableCss,
+  Chart.Easy.PieCSS,
+  PivotTableCSS;
 
 { TPackCss }
 
@@ -72,8 +78,9 @@ function TPackCss.PackCSS: String;
 begin
   if FCDN then
   begin
-    Result := Result + '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">';
+    Result := Result + '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">';
 		Result := Result + '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/r-2.2.3/sl-1.3.1/datatables.min.css"/>';
+    Result := Result + '<link rel="stylesheet" type="text/css" href="http://thuliobittencourt.com/pivotjs/dist/pivot.css">';
     Result := Result + TStyleCSS.New
                         .BackgroundColor(FBackgroundColor)
                         .FontColor(FFontColor)
@@ -81,7 +88,7 @@ begin
                         .PackCSS;
   end
   else
-    Result := TBootstrapCss.New
+    Result :=  TBootstrapCss.New
               .PackCSS+
             TDataTableCss.New
               .PackCSS+
@@ -90,7 +97,8 @@ begin
               .FontColor(FFontColor)
               .BorderColor(FBorderColor)
               .PackCSS+
-            TChartEasyPieCSS.New.PackCSS;
+            TChartEasyPieCSS.New.PackCSS+
+            TPivotTableCSS.New.PackCSS;
 end;
 
 end.

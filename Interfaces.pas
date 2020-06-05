@@ -22,7 +22,8 @@ uses
       SHDocVw,
     {$IFEND}
   {$ENDIF}
-   Classes, Charts.Types;
+   Classes,
+   Charts.Types;
 
 type
   iModelHTMLChartsBar = interface;
@@ -50,6 +51,18 @@ type
   iModelHTMLTooltip<T> = interface;
   iModelHTMLOptions = interface;
   iModelHTMLChartsGeneric = interface;
+  iModelJumbotron = interface;
+  iModelAlerts = interface;
+  iModelAlertsClass = interface;
+  iModelListGroup = interface;
+  iModelListGroupClass = interface;
+  iModelPivotTable = interface;
+  iModelGenericList<T> = interface;
+  iModelPivotTableConfig = interface;
+  iModelPivotTableClass = interface;
+  iModelGenericStyle<T> = interface;
+  iModelJSCommand = interface;
+
   {$IFDEF FULL}
   iModelTable = interface;
   iModelTableDataSet = interface;
@@ -95,6 +108,12 @@ type
     function FontColor ( Value : String) : iModelHTML;
     function ContainerClass(Value : TTypeContainer) : iModelHTML;
     function CDN(Value : Boolean) : iModelHTML;
+    function Jumbotron : iModelJumbotron;
+    function Alerts : iModelAlerts;
+    function ListGroup : iModelListGroup;
+    function PivotTable : iModelPivotTable;
+    procedure ExecuteScript(Value : iModelJSCommand);
+    function ExecuteScriptResult(Value : iModelJSCommand) : string;
     {$IFDEF FULL}
     function Table : iModelTable;
     function Cards : iModelCards;
@@ -144,6 +163,7 @@ type
     function HTML(Value : String) : iModelHTMLRowsTitle; overload;
     function HTML : String; overload;
     function Configuracoes : IModelRowsTitleConfig;
+    function Config : IModelRowsTitleConfig;
     function &End : IModelHTMLRows;
   end;
 
@@ -481,6 +501,153 @@ type
     function Light : iModelColors<T>;
     function Dark : iModelColors<T>;
     function Result : String;
+    function &End : T;
+  end;
+
+  iModelJumbotron = interface
+    ['{90EB606E-886D-4333-ADD4-3A723A4F989B}']
+    function Title(Value : String) : iModelJumbotron;
+    function Description(Value : String) : iModelJumbotron;
+    function &End : iModelHTML;
+  end;
+
+  iModelAlerts = interface
+    ['{F6967759-446A-42EF-9459-DE04C83BB65B}']
+    function Title(Value : String) : iModelAlerts;
+    function AlertsClass : iModelAlertsClass;
+    function &End : iModelHTML;
+  end;
+
+  iModelAlertsClass = interface
+    ['{B877835D-FABB-4E0E-A44D-72DEC61B098B}']
+    function primary : iModelAlertsClass;
+    function secondary : iModelAlertsClass;
+    function success : iModelAlertsClass;
+    function danger : iModelAlertsClass;
+    function warning : iModelAlertsClass;
+    function info : iModelAlertsClass;
+    function light : iModelAlertsClass;
+    function dark : iModelAlertsClass;
+    function ResultClass : String;
+    function &End : iModelAlerts;
+  end;
+
+  iModelGenericDataSet<T> = interface
+    ['{761961EF-0C2B-4B88-AC8F-B4806D530D07}']
+    function DataSet (Value : TDataSet) : iModelGenericDataSet<T>; overload;
+    function LabelName(Value : String) : iModelGenericDataSet<T>; overload;
+    function ValueName(Value : String) : iModelGenericDataSet<T>; overload;
+    function RGBName(Value : String)  : iModelGenericDataSet<T>; overload;
+//    function textLabel(Value : String) : iModelGenericDataSet<T>;
+//    function BackgroundColor (Value : String) : iModelGenericDataSet<T>;
+//    function BorderColor (Value : String) : iModelGenericDataSet<T>;
+//    function BorderWidth (Value : Integer) : iModelGenericDataSet<T>;
+//    function Data (Value : String) : iModelGenericDataSet<T>;
+//    function Fill (Value : Boolean) : iModelGenericDataSet<T>;
+//    function ResultLabels : String;
+//    function Types (Value : String) : iModelGenericDataSet<T>;
+    function CallbackLink(Field : String; MethodName : String) : iModelGenericDataSet<T>; overload;
+    function CallbackLink: TDictionary<String, String>; overload;
+    function &End : T;
+    function DataSet : TDataSet; overload;
+    function ValueName : String; overload;
+    function LabelName : String; overload;
+    function RGBName : String; overload;
+    function DataSetJstringify : string;
+ end;
+
+  iModelListGroup = interface
+    ['{4E7BC346-00A5-4B5C-92A2-348107CFEADA}']
+    function ListGroupType : iModelListGroupClass;
+    function DataSet : iModelGenericDataSet<iModelListGroup>;
+    function &End : iModelHTML;
+  end;
+
+  iModelListGroupClass = interface
+    ['{9DE42B06-A698-437D-B25D-2A6CB8A9B409}']
+    function Basic : iModelListGroupClass;
+    function Flush : iModelListGroupClass;
+    function Action : iModelListGroupClass;
+    function Horizontal : iModelListGroupClass;
+    function TagIn : String;
+    function ElementIn : String;
+    function ElementOut : String;
+    function ClassType : String;
+    function &End : iModelListGroup;
+  end;
+
+  iModelGenericList<T> = interface
+    ['{BCF34A04-11DC-437B-BACA-97FBB4F0C7AF}']
+    function Add(Value : string) : iModelGenericList<T>;
+    function List : TList<String>;
+    function &End : T;
+  end;
+
+  iModelPivotTableConfig = interface
+    ['{B5F32DE7-8BEA-40B3-92B6-5AD7EA2BB3FE}']
+    function ConfigBackgroundColor(Value : string) : iModelPivotTableConfig;
+    function ConfigHeadStyle : iModelGenericStyle<iModelPivotTableConfig>;
+    function ConfigBodyStyle : iModelGenericStyle<iModelPivotTableConfig>;
+    function PivotOptions(Value : string) : iModelPivotTableConfig; overload;
+    function DataSet : iModelGenericDataSet<iModelPivotTableConfig>;
+    function Rows : iModelGenericList<iModelPivotTableConfig>;
+    function Cols : iModelGenericList<iModelPivotTableConfig>;
+    function &End : iModelPivotTable;
+    function PivotType : iModelPivotTableClass;
+    function PivotOptions : string; overload;
+    function ResultStyle : string;
+    function ResultData : string;
+  end;
+
+  iModelJSCommand = interface
+    ['{60141CC4-A117-4500-B28E-C09B2339E6B8}']
+    function Command(Value : string) :iModelJSCommand; overload;
+    function Paramters : iModelGenericList<iModelJSCommand>; overload;
+    function TagName(Value : string) :iModelJSCommand; overload;
+    function TagID(Value : string) : iModelJSCommand; overload;
+    function TagAttribute(Value : string) : iModelJSCommand; overload;
+    function ResultCommand : string; overload;
+    function TagName : string; overload;
+    function TagID : string; overload;
+    function TagAttribute : string; overload;
+
+  end;
+
+  iModelPivotTable = interface
+    ['{D9C25BD4-9C5F-4F8C-AFA7-D251193609A9}']
+    function Attributes : iModelPivotTableConfig;
+    function SaveConfig : string;
+    function LoadConfig(Value : string) : iModelPivotTable;
+    function &End : iModelHTML;
+  end;
+
+  iModelPivotTableClass = interface
+    ['{B5695B31-A3C9-45A4-86D8-3542736EC848}']
+    function Tabela : iModelPivotTableClass;
+    function TabelaComBarras : iModelPivotTableClass;
+    function MapaDeCalor : iModelPivotTableClass;
+    function MapaDeCalorPorLinhas : iModelPivotTableClass;
+    function MapaDeCalorPorColunas : iModelPivotTableClass;
+    function BarrasHorizontais : iModelPivotTableClass;
+    function BarrasHorizontaisEmpilhadas : iModelPivotTableClass;
+    function GraficoDeBarras : iModelPivotTableClass;
+    function GraficoDeBarrasEmpilhadas : iModelPivotTableClass;
+    function GraficoDeLinhas : iModelPivotTableClass;
+    function GraficoDeArea : iModelPivotTableClass;
+    function GraficoDePizzaMultiplo : iModelPivotTableClass;
+    function ResultClass : string;
+    function &End : iModelPivotTableConfig;
+  end;
+
+  iModelGenericStyle<T> = interface
+  ['{C98A4A18-4BA5-45E1-B442-0D728E7138E3}']
+    function BackgroundColor(Value : string) : iModelGenericStyle<T>; overload;
+    function FontColor(Value : string) : iModelGenericStyle<T>; overload;
+    function FontSize(Value : Integer) : iModelGenericStyle<T>; overload;
+    function FontSize(Value : string) : iModelGenericStyle<T>; overload;
+    function BackgroundColor : string; overload;
+    function FontColor : string; overload;
+    function FontSize : string; overload;
     function &End : T;
   end;
 

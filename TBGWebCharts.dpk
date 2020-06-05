@@ -87,6 +87,25 @@ contains
   Chart.Easy.PieCSS in 'Chart.Easy.PieCSS.pas',
   Button in 'Button.pas',
   Buttons.Classes in 'Buttons.Classes.pas',
-  Factory in 'Factory.pas';
+  Factory in 'Factory.pas',
+  Jumbotron in 'Jumbotron.pas',
+  Alerts in 'Alerts.pas',
+  Alerts.Classes in 'Alerts.Classes.pas',
+  CallBackJS in 'CallBackJS.pas',
+  ListGroup in 'ListGroup.pas',
+  ListGroup.Classes in 'ListGroup.Classes.pas',
+  Generic.DataSet in 'Generic.DataSet.pas',
+  PivotTable in 'PivotTable.pas',
+  Generic.List in 'Generic.List.pas',
+  PivotTable.Config in 'PivotTable.Config.pas',
+  Generic.Style in 'Generic.Style.pas',
+  JSCommand in 'JSCommand.pas',
+  PivotTableJS in 'PivotTableJS.pas',
+  JQuery.UIJS in 'JQuery.UIJS.pas',
+  PivotTableCSS in 'PivotTableCSS.pas',
+  BootstrapJS in 'BootstrapJS.pas',
+  PivotTablePlotlyJS in 'PivotTablePlotlyJS.pas',
+  PivotTablePlotlyRendersJS in 'PivotTablePlotlyRendersJS.pas',
+  PivotTable.Classes in 'PivotTable.Classes.pas';
 
 end.

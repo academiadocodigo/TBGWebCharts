@@ -190,8 +190,8 @@ begin
   FPack.Add(' * @returns {Element} scroll parent');
   FPack.Add(' */');
   FPack.Add('function getScrollParent(element) {');
-  FPack.Add('  // Return body, `getScroll` will take care to get the correct `scrollTop` ');
-  FPack.Add('from it');
+  FPack.Add('  // Return body, `getScroll` will take care to get the correct `scrollTop` '
+  + 'from it');
   FPack.Add('  if (!element) {');
   FPack.Add('    return document.body;');
   FPack.Add('  }');
@@ -586,8 +586,8 @@ begin
   FPack.Add('    offsets.left -= borderLeftWidth - marginLeft;');
   FPack.Add('    offsets.right -= borderLeftWidth - marginLeft;');
   FPack.Add('');
-  FPack.Add('    // Attach marginTop and marginLeft because in some circumstances we may ');
-  FPack.Add('need them');
+  FPack.Add('    // Attach marginTop and marginLeft because in some circumstances we may '
+  + 'need them');
   FPack.Add('    offsets.marginTop = marginTop;');
   FPack.Add('    offsets.marginLeft = marginLeft;');
   FPack.Add('  }');
@@ -1631,8 +1631,8 @@ begin
   FPack.Add('    var popperOffsets = data.offsets.popper;');
   FPack.Add('    var refOffsets = data.offsets.reference;');
   FPack.Add('');
-  FPack.Add('    // using floor because the reference offsets may contain decimals we are ');
-  FPack.Add('not going to consider here');
+  FPack.Add('    // using floor because the reference offsets may contain decimals we are '
+  + 'not going to consider here');
   FPack.Add('    var floor = Math.floor;');
   FPack.Add('    var overlapsRef = placement === ''left'' && floor(popperOffsets.right) > ');
   FPack.Add('floor(refOffsets.left) || placement === ''right'' && floor(popperOffsets.left) < ');
@@ -1791,8 +1791,8 @@ begin
   FPack.Add('  var useHeight = [''right'', ''left''].indexOf(basePlacement) !== -1;');
   FPack.Add('');
   FPack.Add('  // Split the offset string to obtain a list of values and operands');
-  FPack.Add('  // The regex addresses values with the plus or minus sign in front (+10, -20, ');
-  FPack.Add('etc)');
+  FPack.Add('  // The regex addresses values with the plus or minus sign in front (+10, -20, '
+  + 'etc)');
   FPack.Add('  var fragments = offset.split(/(\+|\-)/).map(function (frag) {');
   FPack.Add('    return frag.trim();');
   FPack.Add('  });');
@@ -2603,8 +2603,8 @@ begin
   FPack.Add('');
   FPack.Add('    var eventsEnabled = this.options.eventsEnabled;');
   FPack.Add('    if (eventsEnabled) {');
-  FPack.Add('      // setup event listeners, they will take care of update the position in ');
-  FPack.Add('specific situations');
+  FPack.Add('      // setup event listeners, they will take care of update the position in '
+  + 'specific situations');
   FPack.Add('      this.enableEventListeners();');
   FPack.Add('    }');
   FPack.Add('');

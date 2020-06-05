@@ -2,9 +2,9 @@ unit PackJS;
 
 interface
 
-uses Interfaces, Classes, BootstrapJS, ChartbundleJS, FontawesomeallJS,
-	JqueryJS, PopperJS, TetherminJS, UtilsJS, NumberJS, DataTableJS;
-
+uses
+  Interfaces,
+  Classes;
 type
   TPackJS = class(TInterfacedObject,iModelJS)
     private
@@ -21,7 +21,21 @@ type
 implementation
 
 uses
-  SysUtils, Chart.Easy.PieJS, Chart.Easy.PieCSS;
+  SysUtils,
+  BootstrapJS,
+  ChartbundleJS,
+  FontawesomeallJS,
+	JqueryJS,
+  PopperJS,
+  TetherminJS,
+  UtilsJS,
+  NumberJS,
+  DataTableJS,
+  Chart.Easy.PieJS,
+  Chart.Easy.PieCSS,
+  PivotTableJS,
+  JQuery.UIJS,
+  PivotTablePlotlyJS, PivotTablePlotlyRendersJS;
 
 { TPackJS }
 
@@ -52,7 +66,7 @@ function TPackJS.PackJS : String;
 begin
   if FCDN then
   begin
-    Result := Result + '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>';
+    Result := Result + '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>';
     Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>';
     Result := Result + '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>';
     Result := Result + '<script src="https://kit.fontawesome.com/b9e0a0bfd1.js" crossorigin="anonymous"></script>';
@@ -60,6 +74,10 @@ begin
     Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>';
     Result := Result + '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>';
     Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>';
+    Result := Result + '<script type="text/javascript" src="https://pivottable.js.org/dist/pivot.js"></script>';
+    Result := Result + '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>';
+    Result := Result + '<script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>';
+    Result := Result + '<script type="text/javascript" src="https://pivottable.js.org/dist/plotly_renderers.js"></script>';
     Result := Result + '<script>';
     Result := Result + '(function (global, factory) {';
     Result := Result + '    if (typeof define === ''function'' && define.amd) {';
@@ -103,7 +121,11 @@ begin
         TUtilsJS.New.PackJS+
         TNumberJS.New.PackJS+
         TDataTableJS.New.PackJS+
-        TChartEasyPieJS.New.PackJS;
+        TChartEasyPieJS.New.PackJS+
+        TPivotTableJS.New.PackJS+
+        TJQueryUIJS.New.PackJS+
+        TPivotTablePlotlyJS.New.PackJS+
+        TPivotTablePlotlyRendersJs.New.PackJS;
 end;
 
 end.

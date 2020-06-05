@@ -26,7 +26,8 @@ Type
 implementation
 
 uses
-  Injection, Buttons.Classes;
+  Injection,
+  Buttons.Classes;
 
 { TModelButton }
 
