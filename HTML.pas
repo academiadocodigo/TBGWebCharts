@@ -120,17 +120,26 @@ uses
    {$ELSE}
     Windows,
     ActiveX,
+    MSHTML,
+    OleCtrls,
   {$ENDIF}
   Injection,
   Charts.Easy.Pie,
   Jumbotron,
   Alerts,
   ListGroup,
-  PivotTable,
-  MSHTML,
-  OleCtrls;
+  PivotTable;
 
 { TModelHTML }
+  {$IFDEF HAS_FMX}
+procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
+begin
+end;
+
+function TModelHTML.ExecuteScriptResult(Value : iModelJSCommand) : string;
+begin
+end;
+   {$ELSE}
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
 var
   Doc : IHTMLDocument2;
@@ -177,6 +186,7 @@ begin
     end;
   end;
 end;
+  {$ENDIF}
 
 function TModelHTML.PivotTable : iModelPivotTable;
 begin
