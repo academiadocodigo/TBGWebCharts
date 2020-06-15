@@ -134,10 +134,24 @@ uses
   {$IFDEF HAS_FMX}
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
 begin
+  FWebBrowser.EvaluateJavaScript(Value.ResultCommand);
 end;
 
 function TModelHTML.ExecuteScriptResult(Value : iModelJSCommand) : string;
+var
+  URL : string;
 begin
+  FWebBrowser.EvaluateJavaScript(
+    value.ResultCommand + ';' +
+    'try {'+
+      'var e = "#" + document.getElementById(''' + Value.TagID + ''').' + Value.TagAttribute + ';' +
+      'history.replaceState(null, null, e);'+
+    '} catch (n) {' +
+      'document.location.href = e'+
+    '}');
+  URL := FWebBrowser.URL;
+  URL := Copy(URL, Pos('#', URL) + 1, Length(URL));
+  Result := URL;
 end;
    {$ELSE}
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
@@ -359,6 +373,7 @@ var
   SL: TStringList;
   Arquivo: string;
 begin
+  Result := Self;
   GenerateFooter;
   {$IFDEF HAS_FMX}
     {$IF Defined(ANDROID) or Defined(IOS)}

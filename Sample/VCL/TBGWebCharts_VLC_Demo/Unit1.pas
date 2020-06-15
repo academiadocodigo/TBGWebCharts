@@ -633,7 +633,7 @@ begin
     .AddResource('<style> body { margin : 50px; } </style>')
     .Container(Fluid)
     .NewProject
-      .Jumpline
+ //     .Jumpline
       //Criando uma Linha com 6 Colunas e Adicionando conteudo HTML em cada uma
       //dessas colunas
       .Rows
@@ -700,7 +700,7 @@ begin
       .&End
 
       //Pulando Linha
-      .Jumpline
+//      .Jumpline
 
       //Adicionando uma nova linha com um gráfico LineStack e Barras Horizontal
       .Rows
@@ -2098,7 +2098,7 @@ end;
 
 procedure TForm1.SplitClosed(Sender: TObject);
 begin
-  if not TSplitView(Sender).Equals(FSplitExibir) then
+  if not TSplitView(Sender).Equals(FSplitExibir) and Assigned(FSplitExibir) then
     FSplitExibir.Open;
 end;
 

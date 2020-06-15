@@ -40,13 +40,17 @@ type
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     SpeedButton7: TSpeedButton;
     SpeedButton8: TSpeedButton;
     SpeedButton9: TSpeedButton;
     SpeedButton10: TSpeedButton;
     SpeedButton11: TSpeedButton;
+    SpeedButton12: TSpeedButton;
     SpeedButton13: TSpeedButton;
+    SpeedButton14: TSpeedButton;
+    SpeedButton15: TSpeedButton;
     ClientDataSet2: TClientDataSet;
     ClientDataSet3: TClientDataSet;
     ClientDataSet4: TClientDataSet;
@@ -54,7 +58,6 @@ type
     ClientDataSet6: TClientDataSet;
     ClientDataSet7: TClientDataSet;
     WebCharts1: TWebCharts;
-    SpeedButton14: TSpeedButton;
     ClientDataSet7LAST_NAME: TStringField;
     ClientDataSet7FIRST_NAME: TStringField;
     ClientDataSet7ACCT_NBR: TFloatField;
@@ -70,25 +73,29 @@ type
     ClientDataSet7OBJECTIVES: TStringField;
     btnSemiCircule: TSpeedButton;
     btnBarsLabel: TSpeedButton;
+    ClientDataSet8: TClientDataSet;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
     procedure SpeedButton8Click(Sender: TObject);
     procedure SpeedButton9Click(Sender: TObject);
     procedure SpeedButton10Click(Sender: TObject);
     procedure SpeedButton11Click(Sender: TObject);
+    procedure SpeedButton12Click(Sender: TObject);
     procedure SpeedButton13Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure SpeedButton14Click(Sender: TObject);
     procedure SpeedButton15Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure btnSemiCirculeClick(Sender: TObject);
     procedure btnBarsLabelClick(Sender: TObject);
   private
     { Private declarations }
+    FPivotConfig : string;
   public
     { Public declarations }
   end;
@@ -251,6 +258,14 @@ begin
     .Generated;
 end;
 
+procedure TForm2.SpeedButton12Click(Sender: TObject);
+begin
+  if not FPivotConfig.IsEmpty then
+  WebCharts1.ContinuosProject
+    .WebBrowser(WebBrowser1)
+    .PivotTable.LoadConfig(FPivotConfig);
+end;
+
 procedure TForm2.SpeedButton13Click(Sender: TObject);
 begin
   TabControl1.TabIndex := 1;
@@ -276,20 +291,10 @@ end;
 
 procedure TForm2.SpeedButton15Click(Sender: TObject);
 begin
-  TabControl1.TabIndex := 0;
-    WebCharts1
-    .NewProject
-    .Table
-      .TableClass
-        .tableSm
-        .tableHover
-      .EndTableClass
-      .DataSet
-        .DataSet(ClientDataSet7)
-      .&End
-    .&End
+  FPivotConfig := WebCharts1.ContinuosProject
     .WebBrowser(WebBrowser1)
-    .Generated;
+    .PivotTable.SaveConfig;
+  ShowMessage(FPivotConfig);
 end;
 
 procedure TForm2.SpeedButton1Click(Sender: TObject);
@@ -481,7 +486,81 @@ TabControl1.TabIndex := 0;
     .Generated;
 end;
 
+procedure TForm2.SpeedButton5Click(Sender: TObject);
+begin
+TabControl1.TabIndex := 0;
+  TWebCharts.New
+  .CDN(false)
+  .Container(fluid)
+  .NewProject
+    .Jumpline
+    .Rows
+      ._Div
+        .Add('<h1>Pivot Table</h1>')
+        .ColSpan(9)
+      .&End
+//      ._Div
+//        .ColSpan(3)
+//        .Add(
+//          WebCharts1
+//            .ContinuosProject
+//              .Buttons
+//                .Title('Save Config')
+//                .CallbackLink('','PivotConfigSave')
+//                .ButtonClass
+//                  .success
+//                  .small
+//                .&End
+//              .&End
+//            .HTML +
+//            '&nbsp;' +
+//            WebCharts1
+//            .ContinuosProject
+//              .Buttons
+//                .Title('Load Config')
+//                .CallbackLink('','PivotConfigLoad')
+//                .ButtonClass
+//                  .primary
+//                  .small
+//                .&End
+//              .&End
+//            .HTML
+//
+//        )
+//      .&End
+    .&End
+    .Jumpline
+    .PivotTable
+      .Attributes
+        .DataSet
+          .DataSet(ClientDataSet8)
+        .&End
+        .ConfigBackgroundColor('#b0ceeb')
+        .PivotType
+          .Tabela
+        .&End
+        .ConfigHeadStyle
+//          .BackgroundColor('#faee7f')
+//          .FontColor('#8d0101')
+//          .FontSize(20)
+        .&End
 
+        .ConfigBodyStyle
+//          .BackgroundColor('#bdbdbd')
+//          .FontColor('#ffffff')
+//          .FontSize(20)
+         .&End
+        .Rows
+          .Add('ShipVIA')
+        .&End
+        .Cols
+          .Add('PaymentMethod')
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
 
 procedure TForm2.SpeedButton6Click(Sender: TObject);
 begin

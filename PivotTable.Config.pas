@@ -159,11 +159,25 @@ begin
 end;
 
 function TModelPivotTableConfig.PivotOptions: string;
+var
+  PlotlyConfig : string;
 begin
   Result := FPivotOptions;
   if Result = '' then
   begin
-    Result := '{' + generatedRows + ',' + generatedCols + ',' + FPivotType.ResultClass + '}';
+    PlotlyConfig := PlotlyConfig + '"rendererOptions": {';
+    PlotlyConfig := PlotlyConfig + '"plotlyConfig": {';
+    PlotlyConfig := PlotlyConfig + '"toImageButtonOptions": {';
+    PlotlyConfig := PlotlyConfig + '"format": "svg",';
+    PlotlyConfig := PlotlyConfig + '"filename": "custom_image",';
+//    PlotlyConfig := PlotlyConfig + '"height": 500,';
+//    PlotlyConfig := PlotlyConfig + '"width": 700,';
+    PlotlyConfig := PlotlyConfig + '"scale": 1';
+    PlotlyConfig := PlotlyConfig + '}';
+    PlotlyConfig := PlotlyConfig + '}';
+    PlotlyConfig := PlotlyConfig + '}';
+
+    Result := '{' + generatedRows + ',' + generatedCols + ',' + FPivotType.ResultClass + ',' + PlotlyConfig + '}';
   end;
 end;
 

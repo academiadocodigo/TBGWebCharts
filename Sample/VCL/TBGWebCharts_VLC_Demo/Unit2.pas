@@ -148,6 +148,7 @@ begin
   else
   begin
   WebCharts1
+  .CDN(false)
   .BackgroundColor(ValueListEditor1.Values['BackgroundColor'])
   .FontColor(ValueListEditor1.Values['FontColor'])
   .NewProject
@@ -191,6 +192,7 @@ begin
                   .Stacked(ValueListEditor3.Values['Stacked'].ToBoolean)
                   .Ticks
                     .fontColor(ValueListEditor4.Values['fontColor'])
+                    .fontSize(ValueListEditor4.Values['fontSize'].ToInteger)
                     .autoSkip(ValueListEditor4.Values['autoSkip'].ToBoolean)
                     .autoSkipPadding(ValueListEditor4.Values['autoSkipPadding'].ToInteger)
                     .labelOffset(ValueListEditor4.Values['labelOffset'].ToInteger)
@@ -198,6 +200,7 @@ begin
                     .minRotation(ValueListEditor4.Values['minRotation'].ToInteger)
                     .mirror(ValueListEditor4.Values['mirror'].ToBoolean)
                     .padding(ValueListEditor4.Values['padding'].ToInteger)
+                    .format(ValueListEditor4.Values['format'])
                   .&End
                   .GridLines
                     .display(ValueListEditor5.Values['display'].ToBoolean)
@@ -227,6 +230,7 @@ begin
                   .Stacked(ValueListEditor7.Values['Stacked'].ToBoolean)
                   .Ticks
                     .fontColor(ValueListEditor8.Values['fontColor'])
+                    .fontSize(ValueListEditor8.Values['fontSize'].ToInteger)
                     .autoSkip(ValueListEditor8.Values['autoSkip'].ToBoolean)
                     .autoSkipPadding(ValueListEditor8.Values['autoSkipPadding'].ToInteger)
                     .labelOffset(ValueListEditor8.Values['labelOffset'].ToInteger)
@@ -234,6 +238,7 @@ begin
                     .minRotation(ValueListEditor8.Values['minRotation'].ToInteger)
                     .mirror(ValueListEditor8.Values['mirror'].ToBoolean)
                     .padding(ValueListEditor8.Values['padding'].ToInteger)
+                    .format(ValueListEditor8.Values['format'])
                   .&End
                   .GridLines
                     .display(ValueListEditor9.Values['display'].ToBoolean)

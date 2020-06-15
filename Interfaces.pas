@@ -601,7 +601,7 @@ type
 
   iModelJSCommand = interface
     ['{60141CC4-A117-4500-B28E-C09B2339E6B8}']
-    function Command(Value : string) :iModelJSCommand; overload;
+    function Command(Value : string) :iModelJSCommand;
     function Paramters : iModelGenericList<iModelJSCommand>; overload;
     function TagName(Value : string) :iModelJSCommand; overload;
     function TagID(Value : string) : iModelJSCommand; overload;

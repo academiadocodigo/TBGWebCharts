@@ -175,15 +175,16 @@ FData := FData + '$.extend($.pivotUtilities.locales.pt.renderers, $.pivotUtiliti
 
   FData := FData + 'var config = JSON.parse(' + #39 + FConfig.PivotOptions + #39 + ');';
   FData := FData + 'var dataset;';
+
   FData := FData + 'function Save() {';
   FData := FData + 'config = $("#output").data("pivotUIOptions");';
   FData := FData + 'var config_copy = JSON.parse(JSON.stringify(config));';
   FData := FData + 'delete config_copy["aggregators"];';
   FData := FData + 'delete config_copy["renderers"];';
   FData := FData + 'var result = JSON.stringify(config_copy);';
-
   FData := FData + 'document.getElementById(''configResult'').value = result;';
   FData := FData +  '}';
+
   FData := FData + 'function Load(stringConfig) {';
   FData := FData + 'config = JSON.parse(stringConfig);';
   FData := FData + '$("#output").pivotUI(dataset, config, true, "pt");';

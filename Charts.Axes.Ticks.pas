@@ -212,7 +212,7 @@ begin
   Result := '';
   FResult := FResult + 'ticks: { ';
   if Fformat <> '' then
-    fResult := fResult + 'callback: function(value, index, values) {return numeral(value).format('+Fformat.QuotedString+');},';
+    fResult := fResult + 'callback: function(value, index, values) {numeral.locale(''pt-br'');return numeral(value).format('+Fformat.QuotedString+');},';
   if FFontSize > 0 then
     FResult := FResult + 'fontSize : '+FontSize.ToString+', ';
   FResult := FResult + 'fontColor : "'+FontColor+'", ';

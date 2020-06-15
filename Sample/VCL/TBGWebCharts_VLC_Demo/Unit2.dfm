@@ -212,7 +212,7 @@ object Form2: TForm2
       Top = 114
       Width = 209
       Height = 478
-      ActivePage = TabSheet7
+      ActivePage = TabSheet6
       Align = alClient
       MultiLine = True
       TabOrder = 1
@@ -353,7 +353,7 @@ object Form2: TForm2
             TabOrder = 0
             ColWidths = (
               96
-              94)
+              86)
           end
           object Panel10: TPanel
             Left = 0
@@ -377,7 +377,7 @@ object Form2: TForm2
             Left = 0
             Top = 128
             Width = 184
-            Height = 177
+            Height = 211
             Align = alTop
             BorderStyle = bsNone
             Color = clWhite
@@ -391,21 +391,23 @@ object Form2: TForm2
             ParentFont = False
             Strings.Strings = (
               'fontColor=#666'
+              'fontSize=12'
               'autoSkip=False'
               'autoSkipPadding=100'
               'labelOffset=0'
               'maxRotation=50'
               'minRotation=0'
               'mirror=False'
-              'padding=0')
+              'padding=0'
+              'format=')
             TabOrder = 2
             ColWidths = (
               96
-              94)
+              86)
           end
           object Panel11: TPanel
             Left = 0
-            Top = 305
+            Top = 339
             Width = 184
             Height = 23
             Align = alTop
@@ -420,10 +422,11 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 3
+            ExplicitTop = 305
           end
           object ValueListEditor5: TValueListEditor
             Left = 0
-            Top = 328
+            Top = 362
             Width = 184
             Height = 194
             Align = alTop
@@ -448,13 +451,14 @@ object Form2: TForm2
               'zeroLineWidth=50'
               'zeroLineColorRGBA=102,102,102,100')
             TabOrder = 4
+            ExplicitTop = 328
             ColWidths = (
               96
-              94)
+              69)
           end
           object Panel12: TPanel
             Left = 0
-            Top = 522
+            Top = 556
             Width = 184
             Height = 23
             Align = alTop
@@ -469,10 +473,11 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 5
+            ExplicitTop = 522
           end
           object ValueListEditor6: TValueListEditor
             Left = 0
-            Top = 545
+            Top = 579
             Width = 184
             Height = 155
             Align = alTop
@@ -495,9 +500,10 @@ object Form2: TForm2
               'fontStyle=normal'
               'padding=10')
             TabOrder = 6
+            ExplicitTop = 545
             ColWidths = (
               96
-              94)
+              69)
           end
         end
       end
@@ -509,7 +515,7 @@ object Form2: TForm2
           Top = 0
           Width = 201
           Height = 414
-          VertScrollBar.Position = 246
+          VertScrollBar.Position = 44
           Align = alClient
           BorderStyle = bsNone
           Color = clWhite
@@ -517,7 +523,7 @@ object Form2: TForm2
           TabOrder = 0
           object ValueListEditor7: TValueListEditor
             Left = 0
-            Top = -246
+            Top = -44
             Width = 184
             Height = 105
             Align = alTop
@@ -543,7 +549,7 @@ object Form2: TForm2
           end
           object Panel13: TPanel
             Left = 0
-            Top = -141
+            Top = 61
             Width = 184
             Height = 23
             Align = alTop
@@ -561,9 +567,9 @@ object Form2: TForm2
           end
           object ValueListEditor8: TValueListEditor
             Left = 0
-            Top = -118
+            Top = 84
             Width = 184
-            Height = 177
+            Height = 213
             Align = alTop
             BorderStyle = bsNone
             Color = clWhite
@@ -577,13 +583,15 @@ object Form2: TForm2
             ParentFont = False
             Strings.Strings = (
               'fontColor=#666'
+              'fontSize=12'
               'autoSkip=False'
               'autoSkipPadding=100'
               'labelOffset=0'
               'maxRotation=50'
               'minRotation=0'
               'mirror=False'
-              'padding=0')
+              'padding=0'
+              'format=')
             TabOrder = 2
             ColWidths = (
               96
@@ -591,7 +599,7 @@ object Form2: TForm2
           end
           object Panel14: TPanel
             Left = 0
-            Top = 59
+            Top = 297
             Width = 184
             Height = 23
             Align = alTop
@@ -606,10 +614,11 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 3
+            ExplicitTop = 261
           end
           object ValueListEditor9: TValueListEditor
             Left = 0
-            Top = 82
+            Top = 320
             Width = 184
             Height = 191
             Align = alTop
@@ -634,13 +643,14 @@ object Form2: TForm2
               'zeroLineWidth=50'
               'zeroLineColorRGBA=102,102,102,0.2')
             TabOrder = 4
+            ExplicitTop = 284
             ColWidths = (
               96
               86)
           end
           object Panel15: TPanel
             Left = 0
-            Top = 273
+            Top = 511
             Width = 184
             Height = 23
             Align = alTop
@@ -655,10 +665,11 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 5
+            ExplicitTop = 475
           end
           object ValueListEditor10: TValueListEditor
             Left = 0
-            Top = 296
+            Top = 534
             Width = 184
             Height = 155
             Align = alTop
@@ -681,6 +692,7 @@ object Form2: TForm2
               'fontStyle=normal'
               'padding=10')
             TabOrder = 6
+            ExplicitTop = 498
             ColWidths = (
               96
               86)

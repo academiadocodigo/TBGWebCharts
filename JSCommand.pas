@@ -16,7 +16,7 @@ type
       constructor Create;
       destructor Destroy; override;
       class function New() : iModelJSCommand;
-      function Command(Value : string) :iModelJSCommand; overload;
+      function Command(Value : string) :iModelJSCommand;
       function Paramters : iModelGenericList<iModelJSCommand>; overload;
       function TagName(Value : string) :iModelJSCommand; overload;
       function TagID(Value : string) : iModelJSCommand; overload;
