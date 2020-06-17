@@ -684,7 +684,8 @@ type
   iModelTableDataSet = interface
     ['{061B2938-6100-42AF-8EE4-D5895E5A38B8}']
     function DataSet (Value : TDataSet) : iModelTableDataSet;
-    function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet;
+    function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet; overload;
+    function CallbackLink(Field : String; MethodName : String; AValue : String) : iModelTableDataSet; overload;
     function ResultScript : String;
     function &End : iModelTable;
   end;

@@ -6,18 +6,25 @@ uses
   Interfaces, DB, Classes, Generics.Collections;
 
 Type
+  TCallBackContent = Record
+    FField : string;
+    FValue : String;
+    FMethod : string;
+  end;
+
   TModelTableDataSet = class(TInterfacedObject, iModelTableDataSet)
     private
       [weak]
       FParent : iModelTable;
       FDataSet : TDataSet;
-      FCallbackLink  : TDictionary<string, string>;
+      FCallbackLink  : TDictionary<string, TCallBackContent>;
     public
       constructor Create(Parent : iModelTable);
       destructor Destroy; override;
       class function New(Parent : iModelTable) : iModelTableDataSet;
       function DataSet (Value : TDataSet) : iModelTableDataSet;
-      function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet;
+      function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet; overload;
+      function CallbackLink(Field : String; MethodName : String; AValue : String) : iModelTableDataSet; overload;
       function ResultScript : String;
       function &End : iModelTable;
   end;
@@ -25,7 +32,10 @@ Type
 implementation
 
 uses
-  SysUtils, Injection,StrUtils;
+  SysUtils,
+  Injection,
+  StrUtils,
+  IdCoderMIME;
 
 { TModelTableDataSet }
 
@@ -35,9 +45,27 @@ begin
 end;
 
 function TModelTableDataSet.CallbackLink(Field : String; MethodName : String) : iModelTableDataSet;
+var
+  content : TCallBackContent;
 begin
   Result := Self;
-  FCallbackLink.Add(Field, MethodName);
+  content.FField := Field;
+  content.FValue := Field;
+  content.FMethod := MethodName;
+  FCallbackLink.Add(Field, content);
+end;
+
+function TModelTableDataSet.CallbackLink(Field, MethodName,
+  AValue: String): iModelTableDataSet;
+var
+  content : TCallBackContent;
+begin
+  Result := Self;
+  content.FField := Field;
+  content.FValue := AValue;
+  content.FMethod := MethodName;
+  FCallbackLink.Add(Field, content);
+
 end;
 
 constructor TModelTableDataSet.Create(Parent : iModelTable);
@@ -47,7 +75,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
-  FCallbackLink := TDictionary<string, string>.Create;
+  FCallbackLink := TDictionary<string, TCallBackContent>.Create;
 end;
 
 function TModelTableDataSet.DataSet(Value: TDataSet): iModelTableDataSet;
@@ -71,7 +99,7 @@ function TModelTableDataSet.ResultScript: String;
 var
   I: Integer;
   X: Integer;
-  _MethodName : string;
+  _MethodName : TCallBackContent;
   _tdClass : String;
 
   _value : String;
@@ -110,7 +138,7 @@ begin
           end;
 
           if FCallbackLink.TryGetValue(FDataSet.Fields[X].FieldName,_MethodName) then
-              Result := Result + '<td class="'+_tdClass+'"><a href="ActionCallBackJS:'+_MethodName+'('+FDataSet.FieldByName(FDataSet.Fields[X].FieldName).AsString+')">' + FDataSet.FieldByName(FDataSet.Fields[X].FieldName).AsString + '</a></td>'
+              Result := Result + '<td class="' + _tdClass + '"><a href="ActionCallBackJS:' + _MethodName.FMethod + '(' + TIdEncoderMIME.EncodeString(FDataSet.FieldByName(_MethodName.FValue).AsString) + ')">' + FDataSet.FieldByName(_MethodName.FField).AsString + '</a></td>'
           else
               Result := Result + '<td class="'+_tdClass+'">'+ _value + '</td>'
         end;

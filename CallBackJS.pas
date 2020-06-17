@@ -43,9 +43,8 @@ uses
   {$ELSE}
   Vcl.Forms,
   {$IFEND}
-  Injection;
-
-
+  Injection,
+  IdCoderMIME;
 
 { TCallBackJS }
 
@@ -119,9 +118,9 @@ begin
       SetLength(P, (i+1));
       case Param.ParamType.TypeKind of
         tkString,
-        tkUString : P[i] := TValue.From<string>(stringreplace(Params[i], '%20', ' ',[rfReplaceAll, rfIgnoreCase]));
-        tkFloat   : P[i] := TValue.From<Currency>(StrToCurr(Params[i]));
-        tkInteger : P[i] := TValue.From<Integer>(StrToInt(Params[i]));
+        tkUString : P[i] := TValue.From<string>(stringreplace(TIdDecoderMIME.DecodeString(Params[i]), '%20', ' ',[rfReplaceAll, rfIgnoreCase]));
+        tkFloat   : P[i] := TValue.From<Currency>(StrToCurr(TIdDecoderMIME.DecodeString(Params[i])));
+        tkInteger : P[i] := TValue.From<Integer>(StrToInt(TIdDecoderMIME.DecodeString(Params[i])));
       end;
       Inc(i);
     end;

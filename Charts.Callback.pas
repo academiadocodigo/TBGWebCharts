@@ -55,7 +55,7 @@ begin
   FParent := FParent + 'var label = chartData.labels[idx]; ';
   FParent := FParent + 'var value = chartData.datasets[0].data[idx]; ';
   FParent := FParent + ' ';
-  FParent := FParent + 'var url = "ActionCallBackJS:'+Value+'("+label+")"; ';
+  FParent := FParent + 'var url = "ActionCallBackJS:'+Value+'("+window.btoa(label)+")"; ';
   FParent := FParent + 'window.navigate(url); ';
   FParent := FParent + '} ';
   FParent := FParent + '} ;';

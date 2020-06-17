@@ -27,7 +27,8 @@ implementation
 
 uses
   Injection,
-  Buttons.Classes;
+  Buttons.Classes,
+  IdCoderMIME;
 
 { TModelButton }
 
@@ -39,7 +40,7 @@ end;
 function TModelButton.&End: iModelHTML;
 begin
   Result := FParent;
-  FParent.HTML('<a class="'+ FClass.ResultClass +'" href="ActionCallBackJS:'+FMethod+'('+FParam+')">' + FTitle + '</a>')
+  FParent.HTML('<a class="'+ FClass.ResultClass +'" href="ActionCallBackJS:' + FMethod+'(' + TIdEncoderMIME.EncodeString(FParam) + ')">' + FTitle + '</a>')
 end;
 
 function TModelButton.CallbackLink(Param, Method: String): iModelButton;

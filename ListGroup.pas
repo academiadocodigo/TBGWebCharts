@@ -3,7 +3,8 @@ unit ListGroup;
 interface
 
 uses
-  Interfaces;
+  Interfaces,
+  IdCoderMIME;
 
 type
   TModelListGroup = class(TInterfacedObject, iModelListGroup)
@@ -78,7 +79,7 @@ begin
     if FDataSet.CallbackLink.TryGetValue(FDataSet.LabelName, _MethodName) then
       FData := FData + '<a class="' + FListGroupClass.ClassType + ClassTypeComplement
       + '" href="ActionCallBackJS:'+_MethodName+'('
-      + FDataSet.DataSet.FieldByName(FDataSet.LabelName).AsString + ')">'
+      + TIdEncoderMIME.EncodeString(FDataSet.DataSet.FieldByName(FDataSet.LabelName).AsString) + ')">'
       + FDataSet.DataSet.FieldByName(FDataSet.LabelName).AsString + Badge + '</a>'
     else
       FData := FData + '<' + FListGroupClass.TagIn + ' class="' + FListGroupClass.ClassType
