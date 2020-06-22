@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/06/19 22:29:44.000.044,=rtl.dcp</Transaction>
+    <Transaction>2020/06/19 22:30:22.000.822,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Package1.dproj=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\WebRel.dproj</Transaction>
+    <Transaction>2020/06/19 22:30:57.000.285,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorio.Load.pas</Transaction>
+    <Transaction>2020/06/19 22:30:57.000.200,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorio.Helpers.pas</Transaction>
+    <Transaction>2020/06/19 22:30:57.000.235,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorio.Interfaces.pas</Transaction>
+    <Transaction>2020/06/19 22:30:57.000.180,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorio.Generated.pas</Transaction>
+    <Transaction>2020/06/19 22:30:59.000.690,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorio.Save.pas</Transaction>
+    <Transaction>2020/06/19 22:30:59.000.655,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorio.pas</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.844,=FireDACCommonDriver.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.380,=vclie.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.312,=vcl.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.587,=bindengine.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.787,=FireDAC.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.646,=bindcomp.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.506,=dbrtl.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.987,=TBGWebCharts.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.915,=FireDACCommon.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.709,=RESTComponents.dcp</Transaction>
+    <Transaction>2020/06/19 22:32:25.000.445,=vcledge.dcp</Transaction>
+    <Transaction>2020/06/20 09:37:28.000.213,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Unit4.pas</Transaction>
+    <Transaction>2020/06/20 09:37:42.000.394,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Package\Editor.Controller.Relatorios.Consts.pas</Transaction>
+  </Transactions>
+</BorlandProject>

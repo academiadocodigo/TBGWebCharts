@@ -1,0 +1,53 @@
+package WebRel;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  vclie,
+  vcledge,
+  dbrtl,
+  bindengine,
+  bindcomp,
+  RESTComponents,
+  FireDAC,
+  FireDACCommonDriver,
+  FireDACCommon,
+  TBGWebCharts;
+
+contains
+  Editor.Controller.Relatorio.Generated in 'Editor.Controller.Relatorio.Generated.pas',
+  Editor.Controller.Relatorio.Helpers in 'Editor.Controller.Relatorio.Helpers.pas',
+  Editor.Controller.Relatorio.Interfaces in 'Editor.Controller.Relatorio.Interfaces.pas',
+  Editor.Controller.Relatorio.Load in 'Editor.Controller.Relatorio.Load.pas',
+  Editor.Controller.Relatorio in 'Editor.Controller.Relatorio.pas',
+  Editor.Controller.Relatorio.Save in 'Editor.Controller.Relatorio.Save.pas',
+  Editor.Controller.Relatorios.Consts in 'Editor.Controller.Relatorios.Consts.pas';
+
+end.

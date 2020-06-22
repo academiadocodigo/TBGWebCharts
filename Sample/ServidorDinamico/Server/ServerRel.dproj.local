@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/06/18 15:44:42.000.982,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\ServerRel.dproj</Transaction>
+    <Transaction>2020/06/18 15:49:45.000.843,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\Unit4.pas</Transaction>
+    <Transaction>2020/06/18 15:49:58.000.398,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\src\Conexao.pas</Transaction>
+    <Transaction>2020/06/18 15:49:58.000.398,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\Unit4.dfm=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\src\Conexao.dfm</Transaction>
+    <Transaction>2020/06/18 16:00:35.000.714,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\Unit4.pas</Transaction>
+    <Transaction>2020/06/18 16:00:51.000.113,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Server\src\Entity.Relatorio.pas</Transaction>
+  </Transactions>
+</BorlandProject>

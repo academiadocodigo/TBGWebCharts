@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/06/19 10:49:03.000.980,=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 10:49:28.000.059,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit4.dfm=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.View.Principal.dfm</Transaction>
+    <Transaction>2020/06/19 10:49:28.000.059,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.View.Principal.pas</Transaction>
+    <Transaction>2020/06/19 10:49:37.000.751,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\EditorRelatorio.dproj</Transaction>
+    <Transaction>2020/06/19 11:07:52.000.443,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 11:08:06.000.270,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.pas</Transaction>
+    <Transaction>2020/06/19 15:27:37.000.394,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 15:27:44.000.457,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Load.pas</Transaction>
+    <Transaction>2020/06/19 15:44:20.000.549,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 15:44:30.000.690,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio. Save.pas</Transaction>
+    <Transaction>2020/06/19 15:58:47.000.138,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 15:58:54.000.898,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Interfaces.pas</Transaction>
+    <Transaction>2020/06/19 20:48:23.000.501,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 20:48:34.000.441,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Generated.pas</Transaction>
+    <Transaction>2020/06/19 21:03:10.000.615,=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas</Transaction>
+    <Transaction>2020/06/19 21:03:19.000.969,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Unit4.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Helpers.pas</Transaction>
+    <Transaction>2020/06/19 22:32:54.000.817,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.pas=</Transaction>
+    <Transaction>2020/06/19 22:32:54.000.718,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Interfaces.pas=</Transaction>
+    <Transaction>2020/06/19 22:32:54.000.665,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Helpers.pas=</Transaction>
+    <Transaction>2020/06/19 22:32:54.000.731,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Load.pas=</Transaction>
+    <Transaction>2020/06/19 22:32:54.000.872,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Save.pas=</Transaction>
+    <Transaction>2020/06/19 22:32:54.000.596,D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Editor\Editor.Controller.Relatorio.Generated.pas=</Transaction>
+  </Transactions>
+</BorlandProject>
