@@ -716,6 +716,9 @@ object Form1: TForm1
             item
               Action = btn_dashboards_4
               Caption = ' Dashboard 4'
+            end
+            item
+              Action = btn_dashboard_5
             end>
           TextColor = clNone
         end>
@@ -23322,6 +23325,10 @@ object Form1: TForm1
     object btn_dashboards_4: TAction
       Caption = 'btn_dashboards_3'
       OnExecute = btn_dashboards_4Execute
+    end
+    object btn_dashboard_5: TAction
+      Caption = 'Dashboard 5'
+      OnExecute = btn_dashboard_5Execute
     end
   end
   object ClientDataSet8: TClientDataSet

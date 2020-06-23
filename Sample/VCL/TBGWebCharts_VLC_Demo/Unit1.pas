@@ -125,6 +125,7 @@ type
     btn_chartjs_polar_area: TAction;
     btn_chartjs_radar: TAction;
     ClientDataSet12: TClientDataSet;
+    btn_dashboard_5: TAction;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -162,11 +163,13 @@ type
     procedure btn_dashboards_3Execute(Sender: TObject);
     procedure btn_chartjs_radarExecute(Sender: TObject);
     procedure btn_chartjs_polar_areaExecute(Sender: TObject);
+    procedure btn_dashboard_5Execute(Sender: TObject);
   private
     { Private declarations }
     FSplitExibir : TSplitView;
     FSplitAtual : TSplitView;
     FPivotConfig : string;
+    function CSSPersonalizado: String;
   public
     { Public declarations }
     procedure ShowButtons(Value : String);
@@ -1197,6 +1200,266 @@ begin
 
     .WebBrowser(WebBrowser1)
   .Generated;
+end;
+
+function TForm1.CSSPersonalizado: String;
+begin
+  Result := Result + '<style>';
+  Result := Result + '.box {';
+  Result := Result + 'background-color: #FFFFFF;';
+  Result := Result + 'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.1);';
+  Result := Result + 'border-radius: 2px;';
+  Result := Result + 'width: 100%;';
+  Result := Result + 'margin: auto;';
+  Result := Result + 'padding: 0.75rem;';
+  Result := Result + 'text-align: center;';
+  Result := Result + '}';
+  Result := Result + '.primary {';
+  Result := Result + 'background-color: #5273E9;';
+  Result := Result + 'color: #FFFFFF;';
+  Result := Result + '}';
+  Result := Result + '.secundary {';
+  Result := Result + 'background-color: #36C2CF;';
+  Result := Result + 'color: #FFFFFF;';
+  Result := Result + '}';
+  Result := Result + '.count {';
+  Result := Result + 'font-size: 20px;';
+  Result := Result + '}';
+  Result := Result + '.boxoffpadding {';
+  Result := Result + 'padding: 0rem;';
+  Result := Result + 'height: 100%;';
+  Result := Result + '}';
+  Result := Result + '.list-group {';
+  Result := Result + 'background-color: #FFFFFF;';
+  Result := Result + 'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.1);';
+  Result := Result + 'border-radius: 2px;';
+  Result := Result + 'width: 100%;';
+  Result := Result + 'margin: auto;';
+  Result := Result + 'padding: 0.75rem;';
+  Result := Result + 'text-align: center;';
+  Result := Result + 'height: 100%;';
+  Result := Result + '}';
+  Result := Result + '.list-group-item {';
+  Result := Result + 'padding: 5%;';
+  Result := Result + '}';
+  Result := Result + '</style>';
+end;
+
+procedure TForm1.btn_dashboard_5Execute(Sender: TObject);
+begin
+   WebCharts1
+    .BackgroundColor('#F8F8FA')
+    .FontColor('#585858')
+    .Container(Fluid)
+    .AddResource(Self.CSSPersonalizado)
+    .NewProject
+      .Jumpline
+      .Rows
+        ._Div
+          .ColSpan(2)
+          .Add('<div class="box primary"> ' +
+               '<span class="count_top">' +
+               '  <i class="fas fa-hand-holding-usd"></i> Horas Vendidas ' +
+               '</span>' +
+               '<div class="count" > 121.223,44</div>' +
+               '<span class="count_bottom"> ' +
+               '  <i class="green"><i class="fa fa-angle-up"></i></i> Mês Atual' +
+               '</span> ' +
+               '</div>' )
+        .&End
+        ._Div
+          .ColSpan(2)
+          .Add('<div class="box secundary" style=" ' +
+               '<span class="count_top">' +
+               '  <i class="fa fa-id-card"></i> Horas Vendidas ' +
+               '</span>' +
+               '<div class="count">138.000,00</div>' +
+               '<span class="count_bottom"> ' +
+               '  <i class="green"><i class="fa fa-angle-down"></i></i> Mês Anterior' +
+               '</span> ' +
+               '</div>' )
+        .&End
+        ._Div
+          .ColSpan(2)
+          .Add('<div class="box""> ' +
+               '<span class="count_top">' +
+               '  <i class="fas fa-money-bill-wave"></i> Valor Peças ' +
+               '</span>' +
+               '<div class="count">45.123,45</div>' +
+               '<span class="count_bottom"> ' +
+               '  <i class="green"><i class="fa fa-angle-up"></i></i> Mês Atual' +
+               '</span> ' +
+               '</div>' )
+        .&End
+        ._Div
+          .ColSpan(2)
+          .Add('<div class="box" > ' +
+               '<span class="count_top">' +
+               '  <i class="fas fa-clock fa-1x"></i> Valor Serviços ' +
+               '</span>' +
+               '<div class="count">125.345,56</div>' +
+               '<span class="count_bottom"> ' +
+               '  <i class="green"><i class="fa fa-angle-up"></i></i> Mês Atual' +
+               '</span> ' +
+               '</div>' )
+        .&End
+        ._Div
+          .ColSpan(2)
+          .Add('<div class="box"> ' +
+               '<span class="count_top">' +
+               '  <i class="fa fa-clock-o"></i> Serviço Terceiro ' +
+               '</span>' +
+               '<div class="count">5.445,24</div>' +
+               '<span class="count_bottom"> ' +
+               '  <i class="green"><i class="fa fa-angle-up"></i></i> Mês Atual' +
+               '</span> ' +
+               '</div>' )
+        .&End
+        ._Div
+          .ColSpan(2)
+          .Add('<div class="box" > ' +
+               '<span class="count_top">' +
+               '  <i class="fa fa-clock-o"></i> Total Vendido ' +
+               '</span>' +
+               '<div class="count">198.345,22</div>' +
+               '<span class="count_bottom"> ' +
+               '  <i class="green"><i class="fa fa-angle-up"></i></i> Mês Atual' +
+               '</span> ' +
+               '</div>' )
+        .&End
+      .&End
+      .Jumpline
+    .Rows
+    ._Div
+        .ColSpan(4)
+        .Add(
+          WebCharts1
+          .ContinuosProject
+          .ListGroup
+            .ListGroupType
+              .Flush
+            .&End
+            .DataSet
+              .DataSet(ClientDataSet11)
+              .LabelName('Label')
+              .ValueName('Value')
+            .&End
+          .&End
+          .HTML)
+      .&End
+
+     ._Div
+      .Add('<div class="box graphic" ">')
+      .ColSpan(8)
+      .Add(
+        WebCharts1
+          .ContinuosProject
+            .Charts
+              ._ChartType(line)
+                .Attributes
+                  .Name('linestacked1')
+                  .Heigth(120)
+                  .DataSet
+                    .textLabel('OS - 2020')
+                    .DataSet(ClientDataSet1)
+                    .BackgroundColor('82,115,233')
+                    .BorderColor('82,115,233')
+                  .&End
+                  .DataSet
+                    .textLabel('OS - 2019')
+                    .DataSet(ClientDataSet2)
+                    .BackgroundColor('54,194,207')
+                    .BorderColor('54,194,207')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+          )
+       .Add('</div>')
+    .&End
+    .&End
+
+    .Jumpline
+
+    .Rows
+     ._Div
+      .Add('<div class="box" >')
+      .ColSpan(4)
+      .Add(
+        WebCharts1
+          .ContinuosProject
+            .Charts
+              ._ChartType(pie)
+                .Attributes
+                  .Name('valorvendido')
+                    .BackgroundColor('#111111')
+                  .DataSet
+                    .textLabel('OS - 2020')
+                    .DataSet(ClientDataSet4)
+                    .BackgroundColor('82,115,233')
+                    .BorderColor('255,255,255')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+          )
+      .Add('</div>')
+    .&End
+
+     ._Div
+      .Add('<div class="box" >')
+      .ColSpan(4)
+      .Add(
+        WebCharts1
+          .ContinuosProject
+            .Charts
+              ._ChartType(bar)
+                .Attributes
+                  .Name('porseguradora')
+                    .BackgroundColor('#111111')
+                  .DataSet
+                    .textLabel('OS - 2020')
+                    .DataSet(ClientDataSet2)
+                    .BackgroundColor('82,115,233')
+                    .BorderColor('255,255,255')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+          )
+    .Add('</div>')
+    .&End
+
+     ._Div
+     .Add('<div class="box" >')
+      .ColSpan(4)
+      .Add(
+        WebCharts1
+          .ContinuosProject
+            .Charts
+              ._ChartType(horizontalBar)
+                .Attributes
+                  .BackgroundColor('#111111')
+                  .Name('qtdeprodutivo')
+                  .DataSet
+                    .textLabel('OS - 2020')
+                    .DataSet(ClientDataSet1)
+                    .BackgroundColor('82,115,233')
+                    .BorderColor('255,255,255')
+                  .&End
+                .&End
+              .&End
+            .&End
+            .HTML
+          )
+    .Add('</div>')
+    .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .Generated;
 end;
 
 procedure TForm1.btn_main_dashboardsExecute(Sender: TObject);
