@@ -63,10 +63,6 @@ object Form2: TForm2
       object TabSheet2: TTabSheet
         Caption = 'TabSheet2'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Panel5: TPanel
           Left = -4
           Top = 320
@@ -193,10 +189,6 @@ object Form2: TForm2
         TabOrder = 0
         object TabSheet3: TTabSheet
           Caption = 'General'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor1: TValueListEditor
             Left = 0
             Top = 0
@@ -266,10 +258,6 @@ object Form2: TForm2
         object TabSheet4: TTabSheet
           Caption = 'Attributes'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor2: TValueListEditor
             Left = 0
             Top = 0
@@ -487,10 +475,6 @@ object Form2: TForm2
         object TabSheet6: TTabSheet
           Caption = 'Scale yAxe'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ScrollBox1: TScrollBox
             Left = 0
             Top = 0
@@ -676,10 +660,6 @@ object Form2: TForm2
         object TabSheet7: TTabSheet
           Caption = 'Labelling'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor11: TValueListEditor
             Left = 0
             Top = 0
@@ -712,10 +692,6 @@ object Form2: TForm2
         object TabSheet8: TTabSheet
           Caption = 'Legend'
           ImageIndex = 5
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor12: TValueListEditor
             Left = 0
             Top = 0
@@ -789,10 +765,6 @@ object Form2: TForm2
         object TabSheet9: TTabSheet
           Caption = 'Title'
           ImageIndex = 6
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor14: TValueListEditor
             Left = 0
             Top = 0
@@ -827,10 +799,6 @@ object Form2: TForm2
         object TabSheet10: TTabSheet
           Caption = 'DataSet'
           ImageIndex = 7
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor16: TValueListEditor
             Left = 0
             Top = 0
@@ -862,10 +830,6 @@ object Form2: TForm2
         object TabSheet11: TTabSheet
           Caption = 'Tooltip'
           ImageIndex = 8
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor17: TValueListEditor
             Left = 0
             Top = 0
@@ -893,10 +857,6 @@ object Form2: TForm2
         object Table: TTabSheet
           Caption = 'Table'
           ImageIndex = 9
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object ValueListEditor18: TValueListEditor
             Left = 0
             Top = 0
@@ -1199,11 +1159,11 @@ object Form2: TForm2
       end
       object SpeedButton30: TSpeedButton
         Left = 0
-        Top = 540
+        Top = 570
         Width = 185
         Height = 30
         Align = alTop
-        Caption = 'Buttons'
+        Caption = 'SocketIO'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -1211,7 +1171,9 @@ object Form2: TForm2
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        OnClick = SpeedButton14Click
+        OnClick = SpeedButton30Click
+        ExplicitLeft = -6
+        ExplicitTop = 532
       end
       object SpeedButton31: TSpeedButton
         Left = 0
@@ -1330,6 +1292,24 @@ object Form2: TForm2
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton7Click
+      end
+      object SpeedButton4: TSpeedButton
+        Left = 0
+        Top = 540
+        Width = 185
+        Height = 30
+        Align = alTop
+        Caption = 'Buttons'
+        Flat = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        OnClick = SpeedButton14Click
+        ExplicitLeft = -6
+        ExplicitTop = 532
       end
     end
   end

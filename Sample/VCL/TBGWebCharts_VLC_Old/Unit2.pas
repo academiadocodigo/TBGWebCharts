@@ -140,6 +140,7 @@ type
     Table: TTabSheet;
     ValueListEditor18: TValueListEditor;
     SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -169,6 +170,7 @@ type
     procedure btnBarLabelClick(Sender: TObject);
     procedure SpeedButton24Click(Sender: TObject);
     procedure SpeedButton19Click(Sender: TObject);
+    procedure SpeedButton30Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -1228,6 +1230,21 @@ begin
     .&End
   .WebBrowser(WebBrowser1)
   .Generated;
+end;
+
+procedure TForm2.SpeedButton30Click(Sender: TObject);
+begin
+  PageControl1.ActivePageIndex := 0;
+//
+  TWebCharts.New
+  .NewProject
+  .SocketIO
+    .BaseURL('ws://localhost:8080')
+    .Port(8080)
+  .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+
 end;
 
 procedure TForm2.SpeedButton3Click(Sender: TObject);
