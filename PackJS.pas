@@ -35,7 +35,7 @@ uses
   Chart.Easy.PieCSS,
   PivotTableJS,
   JQuery.UIJS,
-  PivotTablePlotlyJS, PivotTablePlotlyRendersJS;
+  PivotTablePlotlyJS, PivotTablePlotlyRendersJS, MomentJS, ChartStreamJS;
 
 { TPackJS }
 
@@ -72,12 +72,16 @@ begin
     Result := Result + '<script src="https://kit.fontawesome.com/b9e0a0bfd1.js" crossorigin="anonymous"></script>';
     Result := Result + '<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/r-2.2.3/sl-1.3.1/datatables.min.js"></script>';
     Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>';
+    Result := Result + '<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>';
     Result := Result + '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>';
+    Result := Result + '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.8.0"></script>';
     Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>';
     Result := Result + '<script type="text/javascript" src="https://pivottable.js.org/dist/pivot.js"></script>';
     Result := Result + '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>';
     Result := Result + '<script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>';
     Result := Result + '<script type="text/javascript" src="https://pivottable.js.org/dist/plotly_renderers.js"></script>';
+
+
     Result := Result + '<script>';
     Result := Result + '(function (global, factory) {';
     Result := Result + '    if (typeof define === ''function'' && define.amd) {';
@@ -113,7 +117,6 @@ begin
   else
     Result := FPack.Text+
         TBootstrapJS.New.PackJS+
-        TChartbundleJS.New.PackJS+
         TFontawesomeallJS.New.PackJS+
         TJqueryJS.New.PackJS+
         TPopperJS.New.PackJS+
@@ -122,6 +125,9 @@ begin
         TNumberJS.New.PackJS+
         TDataTableJS.New.PackJS+
         TChartEasyPieJS.New.PackJS+
+        TMomentJs.New.PackJS+
+        TChartbundleJS.New.PackJS+
+        TChartStreamJS.New.PackJS+
         TPivotTableJS.New.PackJS+
         TJQueryUIJS.New.PackJS+
         TPivotTablePlotlyJS.New.PackJS+

@@ -125,7 +125,11 @@ type
     btn_chartjs_polar_area: TAction;
     btn_chartjs_radar: TAction;
     ClientDataSet12: TClientDataSet;
-    btn_dashboard_5: TAction;
+    Timer1: TTimer;
+    ClientDataSetReal2: TClientDataSet;
+    ClientDataSetReal1: TClientDataSet;
+    btn_dashboards_5: TAction;
+    btn_chartjs_real_time: TAction;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -162,8 +166,10 @@ type
     procedure btn_main_customExecute(Sender: TObject);
     procedure btn_dashboards_3Execute(Sender: TObject);
     procedure btn_chartjs_radarExecute(Sender: TObject);
+    procedure btn_chartjs_real_timeExecute(Sender: TObject);
     procedure btn_chartjs_polar_areaExecute(Sender: TObject);
-    procedure btn_dashboard_5Execute(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure btn_dashboards_5Execute(Sender: TObject);
   private
     { Private declarations }
     FSplitExibir : TSplitView;
@@ -457,7 +463,6 @@ begin
       .&End
 
       .Jumpline
-      .Jumpline
 
       .Rows
         .Title
@@ -467,14 +472,13 @@ begin
         .&End
       .&End
 
-      .Jumpline
-
       .Charts
         ._ChartType(bar)
           .Attributes
             .Name('analiseMensal')
             .Heigth(80)
             .DataSet
+              .textLabel('Saídas')
               .DataSet(ClientDataSet1)
             .&End
           .&End
@@ -629,6 +633,7 @@ end;
 procedure TForm1.btn_dashboards_2Execute(Sender: TObject);
 begin
   TWebCharts.New
+//  .CDN(True)
     //.AddResource('<link href="green.css" rel="stylesheet">')
     //.AddResource('<link href="style.css" rel="stylesheet">')
     .BackgroundColor('#23272b')
@@ -653,7 +658,7 @@ begin
         ._Div
           .ColSpan(2)
           .Add('<span class="count_top">' +
-               '  <i class="fa fa-clock-o"></i> Average Time ' +
+               '  <i class="far fa-clock"></i> Average Time ' +
                '</span>' +
                '<div class="count" style="font-size:  40px;">123</div>' +
                '<span class="count_bottom"> ' +
@@ -663,41 +668,41 @@ begin
         ._Div
           .ColSpan(2)
           .Add('<span class="count_top">' +
-               '  <i class="fa fa-user"></i> Total Males ' +
+               '  <i class="fas fa-male"></i> Total Males ' +
                '</span>' +
                '<div class="count" style="font-size: 40px; color: #1ABB9C;">2,500</div>' +
                '<span class="count_bottom"> ' +
-               '  <i class="green"><i class="fa fa-angle-up"></i>34% </i> From last Week ' +
+               '  <i class="green"><i class="fas fa-angle-up"></i>34% </i> From last Week ' +
                '</span> ')
         .&End
         ._Div
           .ColSpan(2)
           .Add('<span class="count_top">' +
-               '  <i class="fa fa-user"></i> Total Females ' +
+               '  <i class="fas fa-female"></i> Total Females ' +
                '</span>' +
                '<div class="count" style="font-size:  40px;">4,567</div>' +
                '<span class="count_bottom"> ' +
-               '  <i class="red"><i class="fa fa-angle-down"></i>12% </i> From last Week ' +
+               '  <i class="red"><i class="fas fa-angle-down"></i>12% </i> From last Week ' +
                '</span> ')
         .&End
         ._Div
           .ColSpan(2)
           .Add('<span class="count_top">' +
-               '  <i class="fa fa-user"></i> Total Collections ' +
+               '  <i class="fas fa-user"></i> Total Collections ' +
                '</span>' +
                '<div class="count" style="font-size:  40px;">2,315</div>' +
                '<span class="count_bottom"> ' +
-               '  <i class="green"><i class="fa fa-angle-up"></i>34% </i> From last Week ' +
+               '  <i class="green"><i class="fas fa-angle-up"></i>34% </i> From last Week ' +
                '</span> ')
         .&End
         ._Div
           .ColSpan(2)
           .Add('<span class="count_top">' +
-               '  <i class="fa fa-user"></i> Total Connections ' +
+               '  <i class="fas fa-user"></i> Total Connections ' +
                '</span>' +
                '<div class="count" style="font-size:  40px;">7,325</div>' +
                '<span class="count_bottom"> ' +
-               '  <i class="green"><i class="fa fa-angle-up"></i>54% </i> From last Week ' +
+               '  <i class="green"><i class="fas fa-angle-up"></i>54% </i> From last Week ' +
                '</span> ')
         .&End
       .&End
@@ -719,19 +724,37 @@ begin
                       .Name('linestacked1')
                       .ColSpan(8)
                       .Heigth(140)
-                      //.Title('Network Activities Graph title sub-title')
                       .DataSet
                         .textLabel('Meu DataSet 1')
-                        .DataSet(ClientDataSet1)
+                        .RealTimeDataSet(ClientDataSetReal1)
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
+                        .Fill(False)
                       .&End
                       .DataSet
                         .textLabel('Meu DataSet 2')
-                        .DataSet(ClientDataSet2)
+                        .RealTimeDataSet(ClientDataSetReal2)
                         .BackgroundColor('26,187,156')
+                        .Fill(False)
                         .BorderColor('26,187,156')
+                        .LineTension(0)
+                        .BorderDash(8, 4)
                       .&End
+                      .Options
+                        .Scales
+                          .Axes
+                            .xAxe
+                              .RealTime
+                              .&End
+                            .&End
+                          .&End
+                        .&End
+                        .Tooltip
+                          .Intersect(false)
+//                          .Format('$0,0.00')
+                        .&End
+                      .&End
+
                     .&End
                   .&End
                 .&End
@@ -760,7 +783,7 @@ begin
                     .&End
                   .&End
                 .&End
-                .HTML
+              .HTML
           )
         .&End
       .&End
@@ -1245,7 +1268,7 @@ begin
   Result := Result + '</style>';
 end;
 
-procedure TForm1.btn_dashboard_5Execute(Sender: TObject);
+procedure TForm1.btn_dashboards_5Execute(Sender: TObject);
 begin
    WebCharts1
     .BackgroundColor('#F8F8FA')
@@ -1259,7 +1282,7 @@ begin
           .ColSpan(2)
           .Add('<div class="box primary"> ' +
                '<span class="count_top">' +
-               '  <i class="fas fa-hand-holding-usd"></i> Horas Vendidas ' +
+               '  <i class="fas fa-id-card"></i> Horas Vendidas ' +
                '</span>' +
                '<div class="count" > 121.223,44</div>' +
                '<span class="count_bottom"> ' +
@@ -1283,7 +1306,7 @@ begin
           .ColSpan(2)
           .Add('<div class="box""> ' +
                '<span class="count_top">' +
-               '  <i class="fas fa-money-bill-wave"></i> Valor Peças ' +
+               '  <i class="far fa-money-bill-alt"></i> Valor Peças ' +
                '</span>' +
                '<div class="count">45.123,45</div>' +
                '<span class="count_bottom"> ' +
@@ -1307,7 +1330,7 @@ begin
           .ColSpan(2)
           .Add('<div class="box"> ' +
                '<span class="count_top">' +
-               '  <i class="fa fa-clock-o"></i> Serviço Terceiro ' +
+               '  <i class="fas fa-wrench"></i> Serviço Terceiro ' +
                '</span>' +
                '<div class="count">5.445,24</div>' +
                '<span class="count_bottom"> ' +
@@ -1319,7 +1342,7 @@ begin
           .ColSpan(2)
           .Add('<div class="box" > ' +
                '<span class="count_top">' +
-               '  <i class="fa fa-clock-o"></i> Total Vendido ' +
+               '  <i class="fab fa-algolia"></i> Total Vendido ' +
                '</span>' +
                '<div class="count">198.345,22</div>' +
                '<span class="count_bottom"> ' +
@@ -1403,8 +1426,8 @@ begin
                 .&End
               .&End
             .&End
-            .HTML
-          )
+          .HTML
+        )
       .Add('</div>')
     .&End
 
@@ -1446,7 +1469,7 @@ begin
                   .Name('qtdeprodutivo')
                   .DataSet
                     .textLabel('OS - 2020')
-                    .DataSet(ClientDataSet1)
+                    .DataSet(ClientDataSet4)
                     .BackgroundColor('82,115,233')
                     .BorderColor('255,255,255')
                   .&End
@@ -1848,6 +1871,63 @@ begin
     .&End
   .WebBrowser(WebBrowser1)
   .Generated;
+end;
+
+procedure TForm1.btn_chartjs_real_timeExecute(Sender: TObject);
+begin
+  TWebCharts.New
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Real Time')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(line)
+        .Attributes
+          .Name('linestacked1')
+          .ColSpan(8)
+          .Heigth(140)
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .RealTimeDataSet(ClientDataSetReal1)
+            .BackgroundColor('242,112,91')
+            .BorderColor('242,112,91')
+            .Fill(False)
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 2')
+            .RealTimeDataSet(ClientDataSetReal2)
+            .BackgroundColor('26,187,156')
+            .Fill(False)
+            .BorderColor('26,187,156')
+            .LineTension(0)
+            .BorderDash(8, 4)
+          .&End
+          .Options
+            .Scales
+              .Axes
+                .xAxe
+                  .RealTime
+                  .&End
+                .&End
+              .&End
+            .&End
+            .Tooltip
+              .Intersect(false)
+//              .Format('$0,0.00')
+            .&End
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+
 end;
 
 procedure TForm1.btn_tables_pivotExecute(Sender: TObject);
@@ -2363,6 +2443,32 @@ procedure TForm1.SplitClosed(Sender: TObject);
 begin
   if not TSplitView(Sender).Equals(FSplitExibir) and Assigned(FSplitExibir) then
     FSplitExibir.Open;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), '']);
+  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), '']);
+
+  WebCharts1
+    .ContinuosProject
+    .WebBrowser(WebBrowser1)
+    .Charts
+      ._ChartType(line)
+        .Attributes
+          .Name('linestacked1')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .RealTimeDataSet(ClientDataSetReal1)
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 2')
+            .RealTimeDataSet(ClientDataSetReal2)
+          .&End
+        .&End
+        .UpdateRealTime
+      .&End
+    .&End
 end;
 
 procedure TForm1.ViewSplit(Sender: TSplitView);

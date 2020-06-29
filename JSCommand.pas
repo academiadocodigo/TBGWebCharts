@@ -11,7 +11,9 @@ type
       FTagName : string;
       FTagId : string;
       FTagAttribute : string;
+      FTestBefore : Boolean;
       function ResultParamters : string; overload;
+
     public
       constructor Create;
       destructor Destroy; override;
@@ -25,6 +27,7 @@ type
       function TagName : string; overload;
       function TagID : string; overload;
       function TagAttribute : string; overload;
+      function TestBeforeExecute(Value : Boolean) : iModelJSCommand;
 
   End;
 
@@ -66,6 +69,8 @@ end;
 function TModelJSCommand.ResultCommand: string;
 begin
   Result :=  FCommand + '(' + ResultParamters + ')';
+  if FTestBefore then
+    Result := 'if (typeof ' + FCommand + ' === ''function'') {' + Result + ';}';
 end;
 
 function TModelJSCommand.ResultParamters: string;
@@ -76,11 +81,12 @@ begin
   Result := '';
   if Assigned(FParamters) then
   begin
+    Aux := ',';
     for I := 0 to Pred(FParamters.List.Count) do
     begin
       if I = Pred(FParamters.List.Count) then
         Aux := '';
-      Result := Result + '''' + FParamters.List[I] + '''' + aux;
+      Result := Result + FParamters.List[I] + aux;
     end;
   end;
 end;
@@ -116,6 +122,12 @@ end;
 function TModelJSCommand.TagName: string;
 begin
   Result := FTagName;
+end;
+
+function TModelJSCommand.TestBeforeExecute(Value: Boolean): iModelJSCommand;
+begin
+  Result := Self;
+  FTestBefore := Value;
 end;
 
 end.

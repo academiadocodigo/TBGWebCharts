@@ -20,6 +20,7 @@ type
       Fmirror : Boolean;
       Fpadding : Integer;
       Fformat : string;
+      FBeginAtZero : Boolean;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -45,6 +46,7 @@ type
       function padding ( Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
       function padding : Integer; overload;
       function Result : String;
+      function BeginAtZero (Value : Boolean) : iModelHTMLChartsAxesTicks<T>;
       function &End : T;
   end;
 
@@ -68,6 +70,13 @@ end;
 function TModelHTMLAxesTicks<T>.autoSkipPadding: Integer;
 begin
   Result := FautoSkipPadding;
+end;
+
+function TModelHTMLAxesTicks<T>.BeginAtZero(
+  Value: Boolean): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FBeginAtZero := Value;
 end;
 
 function TModelHTMLAxesTicks<T>.autoSkipPadding(
@@ -100,6 +109,7 @@ begin
   Fpadding := 0;
   FFontSize := 0;
   Fformat := '';
+  FBeginAtZero := True;
 end;
 
 destructor TModelHTMLAxesTicks<T>.Destroy;
@@ -223,7 +233,7 @@ begin
   FResult := FResult + 'minRotation : ' + IntToStr(FminRotation) + ',';
   if Fmirror then FResult := FResult + 'mirror : true, ' else FResult := FResult + 'mirror : false, ';
   FResult := FResult + 'padding : ' + IntToStr(Fpadding) + ',';
-  FResult := FResult + 'beginAtZero: true ';
+  if FBeginAtZero then FResult := FResult + 'beginAtZero: true ' else FResult := FResult + 'beginAtZero: false ';
   FResult := FResult + '}';
   Result := FResult;
 end;

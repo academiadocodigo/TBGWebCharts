@@ -1,4 +1,4 @@
-unit Charts.Generic;
+﻿unit Charts.Generic;
 
 interface
 
@@ -12,7 +12,6 @@ type
       FParent : iModelHTMLCharts;
       FHTML : String;
       FConfig : iModelHTMLChartsConfig;
-      function RemoveAccents(Value: String): String;
     public
       constructor Create(Parent : iModelHTMLCharts);
       destructor Destroy; override;
@@ -20,13 +19,15 @@ type
       function HTML(Value : String) : iModelHTMLChartsGeneric; overload;
       function HTML : String; overload;
       function Attributes : iModelHTMLChartsConfig;
+      function UpdateRealTime : iModelHTMLChartsGeneric;
       function &End : iModelHTMLCharts;
   end;
 
 implementation
 
 uses
-  Charts.Config, System.SysUtils, Charts.Callback, Injection, Charts.Types;
+  Charts.Config, System.SysUtils, Charts.Callback, Injection, Charts.Types,
+  JSCommand;
 
 { TModelChartsGeneric }
 
@@ -36,11 +37,8 @@ begin
 end;
 
 function TModelChartsGeneric.&End: iModelHTMLCharts;
-var
-  vIdChart : String;
 begin
   Result := FParent;
-  vIdChart :=  RemoveAccents(StringReplace(FConfig.Name, ' ', '',[rfReplaceAll, rfIgnoreCase]));
   FParent.HTML('<div class="col-'+IntToStr(FConfig.ColSpan)+'">  ');
   FParent.HTML('<canvas id="'+FConfig.Name+'" ');
   if FConfig.Width > 0 then
@@ -50,9 +48,15 @@ begin
   FParent.HTML('></canvas>  ');
   FParent.HTML('<script>  ');
 
+  FParent.HTML('function updateRealTime' + FConfig.IDChart + '(data) {');
+  FParent.HTML('RealTime' + FConfig.IDChart + ' = data;');
+  Fparent.HTML('window.myChart_'+FConfig.IDChart+'.update();');
+  FParent.HTML('}');
+  FParent.HTML('var RealTime' + FConfig.IDChart + ' = [' + FConfig.ResultRealTimeInitialValue + '];');
+
   FParent.HTML('var myCallBack = document.getElementById('''+FConfig.Name+''');');
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
-  FParent.HTML('var myChart_'+vIdChart+' = new Chart(ctx, { ');
+  FParent.HTML('var myChart_'+FConfig.IDChart+' = new Chart(ctx, { ');
   FParent.HTML('type: '''+ TTypeChart(FParent._ChartType).ToString+''', ');
   FParent.HTML('data: { ');
   FParent.HTML('labels: '+FConfig.ResultLabels+',  ');
@@ -63,7 +67,7 @@ begin
   FParent.HTML(FConfig.Options.Result);
   FParent.HTML(FConfig.Labelling.Result);
   FParent.HTML('}); ');
-  if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+vIdChart).Result(FConfig.CallBackLink));
+  if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+FConfig.IDChart).Result(FConfig.CallBackLink));
   FParent.HTML('</script>  ');
   FParent.HTML('</div>  ');
 end;
@@ -100,19 +104,19 @@ begin
     Result := Self.Create(Parent);
 end;
 
-function TModelChartsGeneric.RemoveAccents(Value: String): String;
-const
-  WinAccents = 'àâêôûãõáéíóúçüÀÂÊÔÛÃÕÁÉÍÓÚÇÜ';
-  WoutAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCU';
+function TModelChartsGeneric.UpdateRealTime: iModelHTMLChartsGeneric;
 var
-  i : Integer;
+  CommandJS : iModelJSCommand;
 begin
-   for i := 1 to Length(Value) do begin
-      if Pos(Value[i],WinAccents) <> 0 then begin
-         Value[i] := WoutAcento[Pos(Value[i],WinAccents)];
-      end;
-   end;
-   Result := Value;
+  Result := Self;
+  CommandJS := TModelJSCommand.New
+    .Command('updateRealTime' + FConfig.IDChart)
+    .Paramters
+      .Add('[' + FConfig.ResultRealTimeInitialValue +']')
+    .&End
+    .TestBeforeExecute(true);
+
+    FParent.&End.ExecuteScript(CommandJS);
 end;
 
 end.

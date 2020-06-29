@@ -15,6 +15,7 @@ Type
       FData : String;
       FBackgroundColor : String;
       FName : String;
+      FIDChart : String;
       FLabels : String;
       FStacked : Boolean;
       FMethod : String;
@@ -23,6 +24,7 @@ Type
       FDataSet : TList<iModelHTMLDataSet>;
       FOptions : iModelHTMLOptions;
       function Numeral: String;
+      function RemoveAccents(Value: String): String;
     public
       constructor Create(Parent : iModelHTMLChartsGeneric);
       destructor Destroy; override;
@@ -39,10 +41,12 @@ Type
       function BackgroundColor : String; overload;
       function Name(Value : String) : iModelHTMLChartsConfig; overload;
       function Name : String; overload;
+      function IDChart : String;
       function Labels(Value : String) : iModelHTMLChartsConfig; overload;
       function Labels : String; overload;
       function DataSet : iModelHTMLDataSet;
       function ResultDataSet : String;
+      function ResultRealTimeInitialValue : String;
       function ResultLabels : String;
       function Stacked(Value : Boolean) : iModelHTMLChartsConfig; overload;
       function Stacked : Boolean; overload;
@@ -133,6 +137,11 @@ begin
   Result := FHeigth;
 end;
 
+function TModelHTMLChartsConfig.IDChart: String;
+begin
+  Result := FIDChart;
+end;
+
 function TModelHTMLChartsConfig.Labelling : iModelLabellingConfig<iModelHTMLChartsConfig>;
 begin
   Result := FLabelling;
@@ -160,6 +169,7 @@ function TModelHTMLChartsConfig.Name(
 begin
   Result := Self;
   FName := Value;
+  FIDChart := RemoveAccents(StringReplace(FName, ' ', '',[rfReplaceAll, rfIgnoreCase]));
 end;
 
 class function TModelHTMLChartsConfig.New(Parent : iModelHTMLChartsGeneric): iModelHTMLChartsConfig;
@@ -194,6 +204,21 @@ begin
   Result := FParent;
 end;
 
+function TModelHTMLChartsConfig.RemoveAccents(Value: String): String;
+const
+  WinAccents = '‡‚ÍÙ˚„ı·ÈÌÛ˙Á¸¿¬ ‘€√’¡…Õ”⁄«‹';
+  WoutAcento = 'aaeouaoaeioucuAAEOUAOAEIOUCU';
+var
+  i : Integer;
+begin
+   for i := 1 to Length(Value) do begin
+      if Pos(Value[i],WinAccents) <> 0 then begin
+         Value[i] := WoutAcento[Pos(Value[i],WinAccents)];
+      end;
+   end;
+   Result := Value;
+end;
+
 function TModelHTMLChartsConfig.ResultDataSet: String;
 var
   I: Integer;
@@ -216,13 +241,26 @@ begin
   Result := FLabels;
 end;
 
+function TModelHTMLChartsConfig.ResultRealTimeInitialValue: String;
+var
+  I: Integer;
+  aux: String;
+begin
+  Result := '';
+  aux := ',';
+  for I := 0 to Pred(FDataSet.Count) do
+  begin
+    if I = Pred(FDataSet.Count) then aux := '';
+    Result := Result + FDataSet[I].RealTimeInitialValue + aux;
+  end;
+end;
+
 function TModelHTMLChartsConfig.Stacked: Boolean;
 begin
   Result := FStacked;
 end;
 
-function TModelHTMLChartsConfig.Stacked(
-  Value: Boolean): iModelHTMLChartsConfig;
+function TModelHTMLChartsConfig.Stacked(Value: Boolean): iModelHTMLChartsConfig;
 begin
   Result := Self;
   FStacked := Value;

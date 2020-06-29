@@ -79,7 +79,20 @@ begin
     polarArea:
     begin
       FChartGeneric := TModelChartsGeneric.New(Self);
-      FChartGeneric.Attributes.Options.Scales.GeneratedAxes(False).&End.&End.&End;
+      FChartGeneric
+        .Attributes
+          .Options
+            .Scales
+              .GeneratedAxes(False)
+            .&End
+            .Plugins
+              .Streaming(False)
+            .&End
+            .Tooltip
+              .ToolTipNoScales
+            .&End
+          .&End
+        .&End
     end;
     line,
     bar,

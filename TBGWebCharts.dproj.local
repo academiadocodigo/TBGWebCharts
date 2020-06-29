@@ -1,41 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/05/08 10:13:41.000.329,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/08 10:14:10.000.549,C:\Componentes\TBGWebCharts\trunk\Unit1.pas=C:\Componentes\TBGWebCharts\trunk\Jumbotron.pas</Transaction>
-    <Transaction>2020/05/08 11:23:08.000.176,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/08 11:23:58.000.830,C:\Componentes\TBGWebCharts\trunk\Unit1.pas=C:\Componentes\TBGWebCharts\trunk\Alerts.pas</Transaction>
-    <Transaction>2020/05/08 14:53:33.000.580,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/08 14:55:25.000.611,C:\Componentes\TBGWebCharts\trunk\Unit1.pas=C:\Componentes\TBGWebCharts\trunk\Alerts.Classes.pas</Transaction>
-    <Transaction>2020/05/08 16:36:47.000.478,=C:\Componentes\TBGWebCharts\trunk\CallBackJS.pas</Transaction>
-    <Transaction>2020/05/11 13:10:18.000.929,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/11 15:34:48.000.228,C:\Componentes\TBGWebCharts\trunk\ListGroup.pas=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/11 15:35:05.000.317,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/11 15:35:18.000.549,C:\Componentes\TBGWebCharts\trunk\ListGroup.Classes.pas=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/12 10:34:48.000.105,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/12 12:10:21.000.887,C:\Componentes\TBGWebCharts\trunk\Generic.DataSet.pas=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/18 10:48:27.000.062,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/18 10:49:35.000.524,C:\Componentes\TBGWebCharts\trunk\Unit1.pas=C:\Componentes\TBGWebCharts\trunk\PivotTable.pas</Transaction>
-    <Transaction>2020/05/18 12:39:23.000.343,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/18 12:39:35.000.123,=C:\Componentes\TBGWebCharts\trunk\Unit3.pas</Transaction>
-    <Transaction>2020/05/18 12:40:13.000.976,C:\Componentes\TBGWebCharts\trunk\Unit1.pas=C:\Componentes\TBGWebCharts\trunk\Generic.List.pas</Transaction>
-    <Transaction>2020/05/19 14:42:47.000.164,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/19 14:46:50.000.346,C:\Componentes\TBGWebCharts\trunk\Unit1.pas=C:\Componentes\TBGWebCharts\trunk\PivotTable.Config.pas</Transaction>
-    <Transaction>2020/05/25 12:01:15.000.684,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/25 12:45:49.000.058,C:\Componentes\TBGWebCharts\trunk\Generic.Style.pas=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/25 16:45:57.000.912,=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/25 16:46:27.000.062,C:\Componentes\TBGWebCharts\trunk\JSCommand.pas=C:\Componentes\TBGWebCharts\trunk\Unit1.pas</Transaction>
-    <Transaction>2020/05/27 14:40:35.000.226,=C:\Componentes\TBGWebCharts\trunk\PivotTableJS.pas</Transaction>
-    <Transaction>2020/05/27 14:53:54.000.549,=C:\Componentes\TBGWebCharts\trunk\Jquery.UIJS.pas</Transaction>
-    <Transaction>2020/05/27 14:59:27.000.123,C:\Componentes\TBGWebCharts\trunk\Jquery.UIJS.pas=C:\Componentes\TBGWebCharts\trunk\Jqquery.UIJS.pas</Transaction>
-    <Transaction>2020/05/27 14:59:36.000.496,C:\Componentes\TBGWebCharts\trunk\Jqquery.UIJS.pas=C:\Componentes\TBGWebCharts\trunk\JQuery.UIJS.pas</Transaction>
-    <Transaction>2020/05/27 15:15:12.000.594,=C:\Componentes\TBGWebCharts\trunk\Unit3.pas</Transaction>
-    <Transaction>2020/05/27 15:15:39.000.740,C:\Componentes\TBGWebCharts\trunk\Unit3.pas=C:\Componentes\TBGWebCharts\trunk\PivotTableCSS.pas</Transaction>
-    <Transaction>2020/05/27 17:24:56.000.508,=C:\Componentes\TBGWebCharts\trunk\BootstrapJS.pas</Transaction>
-    <Transaction>2020/06/01 09:31:45.000.707,=C:\Componentes\TBGWebCharts\trunk\PivotTablePlotlyJS.pas</Transaction>
-    <Transaction>2020/06/01 09:37:55.000.248,=C:\Componentes\TBGWebCharts\trunk\PivotTablePlotlyRendersJS.pas</Transaction>
-    <Transaction>2020/06/01 10:24:24.000.991,=C:\Componentes\TBGWebCharts\trunk\Unit3.pas</Transaction>
-    <Transaction>2020/06/01 10:25:09.000.689,C:\Componentes\TBGWebCharts\trunk\Unit3.pas=C:\Componentes\TBGWebCharts\trunk\PivotTable.Classes.pas</Transaction>
+    <Transaction>2020/06/22 10:28:44.000.159,C:\Componentes\TBGWebCharts\trunk\Unit5.pas=C:\Componentes\TBGWebCharts\trunk\Charts.UpdateRealTime.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Alerts.Classes.pas"/>
@@ -51,6 +17,7 @@
     <File Path="Chart.Easy.PieJS.pas"/>
     <File Path="Charts.Axes.GridLines.pas"/>
     <File Path="Charts.Axes.Params.pas"/>
+    <File Path="Charts.Axes.Params.RealTime.pas"/>
     <File Path="Charts.Axes.pas"/>
     <File Path="Charts.Axes.ScaleLabel.pas"/>
     <File Path="Charts.Axes.Ticks.pas"/>
@@ -64,9 +31,11 @@
     <File Path="Charts.Legends.pas"/>
     <File Path="Charts.Options.pas"/>
     <File Path="Charts.pas"/>
+    <File Path="Charts.Plugins.pas"/>
     <File Path="Charts.Scales.pas"/>
     <File Path="Charts.Title.pas"/>
     <File Path="Charts.Types.pas"/>
+    <File Path="ChartStreamJS.pas"/>
     <File Path="Color.pas"/>
     <File Path="DataTableCss.pas"/>
     <File Path="DataTableJS.pas"/>
@@ -85,6 +54,7 @@
     <File Path="Jumbotron.pas"/>
     <File Path="ListGroup.Classes.pas"/>
     <File Path="ListGroup.pas"/>
+    <File Path="MomentJS.pas"/>
     <File Path="NumberJS.pas"/>
     <File Path="PackCss.pas"/>
     <File Path="PackJS.pas"/>

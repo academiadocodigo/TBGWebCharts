@@ -12,6 +12,7 @@ type
       FPosition : String;
       FOffSet : Boolean;
       FType : String;
+      FRealTime : iModelHTMLChartsAxesParamRealTime;
       FResult : String;
       FStacked : Boolean;
       FTicks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam>;
@@ -30,6 +31,7 @@ type
       function OffSet : Boolean; overload;
       function _Type (Value : String) : iModelHTMLChartsAxesParam; overload;
       function _Type : String; overload;
+      function RealTime : iModelHTMLChartsAxesParamRealTime;
       function Stacked ( Value : Boolean ) : iModelHTMLChartsAxesParam; overload;
       function Stacked : Boolean; overload;
       function Result : String;
@@ -40,7 +42,7 @@ implementation
 
 uses
   System.SysUtils, Charts.Axes.Ticks, Charts.Axes.GridLines,
-  Charts.Axes.ScaleLabel, Injection;
+  Charts.Axes.ScaleLabel, Injection, Charts.Axes.Params.RealTime;
 
 { TModelHTMLAxesParams<T> }
 
@@ -104,9 +106,21 @@ begin
   FPosition := Value;
 end;
 
+function TModelHTMLAxesParams.RealTime: iModelHTMLChartsAxesParamRealTime;
+begin
+  FRealTime := TModelHTMLAxesParamsRealTime.New(Self);
+  Result := FRealTime;
+end;
+
 function TModelHTMLAxesParams.Result: String;
 begin
   FResult := '';
+  if Assigned(FRealTime) then
+  begin
+    FResult := FResult + 'type: ''realtime'',';
+    FResult := FResult + FRealTime.Result + ',';
+  end;
+
   if FPosition <> '' then FResult := FResult + 'position : ' + QuotedStr(FPosition) + ',';
   if FStacked then FResult := FResult + 'stacked : true,' else FResult := FResult + 'stacked : false,';
   if FOffSet then FResult := FResult + 'offset : true,' else FResult := FResult + 'offset : false,';

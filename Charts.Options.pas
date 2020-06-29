@@ -14,6 +14,7 @@ type
       FTitle  : iModelHTMLTitle<iModelHTMLOptions>;
       FTooltip : iModelHTMLTooltip<iModelHTMLOptions>;
       FSemiCircule : Boolean;
+      FPlugins : iModelHTMLPlugins;
     public
       constructor Create(Parent : iModelHTMLChartsConfig);
       destructor Destroy; override;
@@ -23,6 +24,7 @@ type
       function Title : iModelHTMLTitle<iModelHTMLOptions>;
       function Tooltip : iModelHTMLTooltip<iModelHTMLOptions>;
       function SemiCircule ( Value : Boolean ) : iModelHTMLOptions;
+      function Plugins : iModelHTMLPlugins;
       function Result : String;
       function &End : iModelHTMLChartsConfig;
   end;
@@ -34,7 +36,7 @@ uses
   Charts.Legends,
   Charts.Title,
   Charts.Tooltip,
-  Injection;
+  Injection, Charts.Plugins;
 
 { TModelHTMLChartsOptions<T> }
 
@@ -59,6 +61,7 @@ begin
   FLegend := TModelHTMLChartsLegends.New(Self);
   FTitle := TModelHTMLChartsTitle<iModelHTMLOptions>.New(Self);
   FTooltip := TModelHTMLChartsTooltip<iModelHTMLOptions>.New(Self);
+  FPlugins := TModelHtmlChartsPlugins.New(Self);
 end;
 
 destructor TModelHTMLChartsOptions.Destroy;
@@ -70,6 +73,11 @@ end;
 class function TModelHTMLChartsOptions.New(Parent : iModelHTMLChartsConfig): iModelHTMLOptions;
 begin
     Result := Self.Create(Parent);
+end;
+
+function TModelHTMLChartsOptions.Plugins: iModelHTMLPlugins;
+begin
+  Result := FPlugins;
 end;
 
 function TModelHTMLChartsOptions.Result: String;
@@ -85,7 +93,8 @@ begin
   Result := Result + FLegend.Result;
   Result := Result + FTitle.Result;
   Result := Result + FTooltip.Result;
-  Result := Result + ' responsive: true ';
+  Result := Result + ' responsive: true, ';
+  Result := Result + FPlugins.Result;
   Result := Result + '}';
 end;
 

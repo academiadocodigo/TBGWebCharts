@@ -74,6 +74,9 @@ type
     btnSemiCircule: TSpeedButton;
     btnBarsLabel: TSpeedButton;
     ClientDataSet8: TClientDataSet;
+    ClientDataSetReal1: TClientDataSet;
+    ClientDataSetReal2: TClientDataSet;
+    Timer1: TTimer;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
@@ -93,6 +96,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure btnSemiCirculeClick(Sender: TObject);
     procedure btnBarsLabelClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
     FPivotConfig : string;
@@ -916,15 +920,33 @@ TabControl1.TabIndex := 0;
                       .&End
                       .DataSet
                         .textLabel('Meu DataSet 1')
-                        .DataSet(ClientDataSet1)
+                        .RealTimeDataSet(ClientDataSetReal1)
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
+                        .Fill(False)
                       .&End
                       .DataSet
                         .textLabel('Meu DataSet 2')
-                        .DataSet(ClientDataSet2)
+                        .RealTimeDataSet(ClientDataSetReal2)
                         .BackgroundColor('26,187,156')
+                        .Fill(False)
                         .BorderColor('26,187,156')
+                        .LineTension(0)
+                        .BorderDash(8, 4)
+                      .&End
+                      .Options
+                        .Scales
+                          .Axes
+                            .xAxe
+                              .RealTime
+                              .&End
+                            .&End
+                          .&End
+                        .&End
+                        .Tooltip
+                          .Intersect(false)
+//                          .Format('$0,0.00')
+                        .&End
                       .&End
                     .&End
                   .&End
@@ -1054,6 +1076,32 @@ TabControl1.TabIndex := 0;
 
     .WebBrowser(WebBrowser1)
     .Generated;
+end;
+
+procedure TForm2.Timer1Timer(Sender: TObject);
+begin
+  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), '']);
+  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), '']);
+
+  WebCharts1
+    .ContinuosProject
+    .WebBrowser(WebBrowser1)
+    .Charts
+      ._ChartType(line)
+        .Attributes
+          .Name('linestacked1')
+          .DataSet
+            .textLabel('Meu DataSet 1')
+            .RealTimeDataSet(ClientDataSetReal1)
+          .&End
+          .DataSet
+            .textLabel('Meu DataSet 2')
+            .RealTimeDataSet(ClientDataSetReal2)
+          .&End
+        .&End
+        .UpdateRealTime
+      .&End
+    .&End
 end;
 
 end.

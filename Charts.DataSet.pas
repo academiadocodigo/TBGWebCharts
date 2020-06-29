@@ -19,9 +19,12 @@ Type
       FBorderWidth : Integer;
       FData : String;
       FFill : Boolean;
+      FLineTension : String;
+      FBorderDash : String;
       FScript : String;
       FLabels : String;
       FTypes : String;
+      FRealTime : Boolean;
       procedure generatedLabel;
       procedure generatedBackgroundColor;
       procedure generatedBorderColor;
@@ -34,6 +37,7 @@ Type
       destructor Destroy; override;
       class function New(Parent : iModelHTMLChartsConfig) : iModelHTMLDataSet;
       function DataSet (Value : TDataSet) : iModelHTMLDataSet;
+      function RealTimeDataSet (Value : TDataSet) : iModelHTMLDataSet;
       function LabelName(Value : String) : iModelHTMLDataSet;
       function ValueName(Value : String) : iModelHTMLDataSet;
       function RGBName(Value : String)  : iModelHTMLDataSet;
@@ -43,8 +47,11 @@ Type
       function BorderWidth (Value : Integer) : iModelHTMLDataSet;
       function Data (Value : String) : iModelHTMLDataSet;
       function Fill (Value : Boolean) : iModelHTMLDataSet;
+      function LineTension (Value : Integer) : iModelHTMLDataSet;
+      function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
       function ResultScript : String;
       function ResultLabels : String;
+      function RealTimeInitialValue : String;
       function Types (Value : String) : iModelHTMLDataSet;
       function &End : iModelHTMLChartsConfig;
   end;
@@ -69,6 +76,13 @@ function TModelHTMLChartsDataSet.BorderColor(
 begin
   Result := Self;
   FBorderColor := Value;
+end;
+
+function TModelHTMLChartsDataSet.BorderDash(Lenght,
+  Space: Integer): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FBorderDash := '[' + IntToStr(Lenght) + ',' + IntToStr(Space) + ']';
 end;
 
 function TModelHTMLChartsDataSet.BorderWidth(
@@ -159,13 +173,16 @@ var
 begin
   FData := '[';
   Aux := ', ';
-  FDataSet.First;
-  for I := 0 to Pred(FDataSet.RecordCount) do
+  if Not FRealTime then
   begin
-    if I = Pred(FDataSet.RecordCount) then
-      Aux := '';
-    FData := FData + replaceValue(FDataSet.FieldByName(FValueName).AsString) + Aux;
-    FDataSet.Next;
+    FDataSet.First;
+    for I := 0 to Pred(FDataSet.RecordCount) do
+    begin
+      if I = Pred(FDataSet.RecordCount) then
+        Aux := '';
+      FData := FData + replaceValue(FDataSet.FieldByName(FValueName).AsString) + Aux;
+      FDataSet.Next;
+    end;
   end;
   FData := FData + ']';
 end;
@@ -186,9 +203,23 @@ begin
   FLabelName := Value;
 end;
 
+function TModelHTMLChartsDataSet.LineTension(Value: Integer): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FLineTension := IntToStr(Value);
+end;
+
 class function TModelHTMLChartsDataSet.New(Parent : iModelHTMLChartsConfig): iModelHTMLDataSet;
 begin
   Result := Self.Create(Parent);
+end;
+
+function TModelHTMLChartsDataSet.RealTimeDataSet(
+  Value: TDataSet): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FDataSet := Value;
+  FRealTime := True;
 end;
 
 function TModelHTMLChartsDataSet.replaceValue(Value: String): String;
@@ -229,18 +260,30 @@ var
   I: Integer;
   X: Integer;
 begin
-  FLabels := '["';
+  FLabels := '[';
   Aux := '", "';
-  FDataSet.First;
-  for Local_I := 0 to Pred(FDataSet.RecordCount) do
+  if Not FRealTime then
   begin
-    if Local_I = Pred(FDataSet.RecordCount) then
-      Aux := '"';
-    FLabels := FLabels + FDataSet.FieldByName(FLabelName).AsString + Aux;
-    FDataSet.Next;
+    FLabels := FLabels + '"';
+    FDataSet.First;
+    for Local_I := 0 to Pred(FDataSet.RecordCount) do
+    begin
+      if Local_I = Pred(FDataSet.RecordCount) then
+        Aux := '"';
+      FLabels := FLabels + FDataSet.FieldByName(FLabelName).AsString + Aux;
+      FDataSet.Next;
+    end;
   end;
   FLabels := FLabels + ']';
   Result := FLabels;
+end;
+
+function TModelHTMLChartsDataSet.RealTimeInitialValue: String;
+begin
+  FDataSet.Last;
+  Result := '{label: ' + QuotedStr(FtextLabel);
+  Result := Result + ', value: ' + replaceValue(FDataSet.FieldByName(FValueName).AsString);
+  Result := Result + '}';
 end;
 
 function TModelHTMLChartsDataSet.ResultScript: String;
@@ -260,6 +303,8 @@ begin
     FScript := FScript + 'borderColor: "rgba('+FBorderColor+', 100)", ' + #13;
   FScript := FScript + 'borderWidth: 1, ' + #13;
   if FFill then FScript := FScript + 'fill: true,' else FScript := FScript + 'fill: false,';
+  if FLineTension <> ''  then FScript := FScript + 'lineTension: ' + FLineTension + ',';
+  if FBorderDash <> '' then FScript := FScript + 'borderDash: ' + FBorderDash + ',';
   FScript := FScript + 'data: ' + FData + #13;
   FScript := FScript + '} ' + #13;
   Result := FScript;

@@ -106,6 +106,10 @@ contains
   BootstrapJS in 'BootstrapJS.pas',
   PivotTablePlotlyJS in 'PivotTablePlotlyJS.pas',
   PivotTablePlotlyRendersJS in 'PivotTablePlotlyRendersJS.pas',
-  PivotTable.Classes in 'PivotTable.Classes.pas';
+  PivotTable.Classes in 'PivotTable.Classes.pas',
+  Charts.Axes.Params.RealTime in 'Charts.Axes.Params.RealTime.pas',
+  MomentJS in 'MomentJS.pas',
+  ChartStreamJS in 'ChartStreamJS.pas',
+  Charts.Plugins in 'Charts.Plugins.pas';
 
 end.

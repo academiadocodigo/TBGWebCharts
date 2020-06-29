@@ -42,6 +42,7 @@ type
   iModelHTMLChartsAxes = interface;
   iModelHTMLChartsAxesTicks<T> = interface;
   iModelHTMLChartsAxesParam = interface;
+  iModelHTMLChartsAxesParamRealTime = interface;
   iModelHTMLChartsAxesGridLines<T> = interface;
   iModelHTMLChatsAxesScaleLabel<T> = interface;
   iModelHTMLLegendLabels<T> = interface;
@@ -61,7 +62,9 @@ type
   iModelPivotTableConfig = interface;
   iModelPivotTableClass = interface;
   iModelGenericStyle<T> = interface;
+  iModelGenericDataSet<T> = interface;
   iModelJSCommand = interface;
+  iModelHTMLPlugins = interface;
 
   {$IFDEF FULL}
   iModelTable = interface;
@@ -197,6 +200,7 @@ type
     function HTML : String; overload;
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
+    function UpdateRealTime : iModelHTMLChartsGeneric;
   end;
 
   iModelHTMLChartsDoughnut = interface
@@ -244,6 +248,7 @@ type
     ['{B140654A-10FE-48A2-93B8-3D90743E3F1E}']
     function Name(Value : String) : iModelHTMLChartsConfig; overload;
     function Name : String; overload;
+    function IDChart : String;
     function Labels(Value : String) : iModelHTMLChartsConfig; overload;
     function Labels : String; overload;
     function ColSpan(Value : Integer) : iModelHTMLChartsConfig; overload;
@@ -258,6 +263,7 @@ type
     function BackgroundColor : String; overload;
     function DataSet : iModelHTMLDataSet;
     function ResultDataSet : String;
+    function ResultRealTimeInitialValue : String;
     function ResultLabels : String;
     function Stacked(Value : Boolean) : iModelHTMLChartsConfig; overload;
     function Stacked : Boolean; overload;
@@ -275,8 +281,16 @@ type
     function Legend : iModelHTMLLegend;
     function Title : iModelHTMLTitle<iModelHTMLOptions>;
     function Tooltip : iModelHTMLTooltip<iModelHTMLOptions>;
+    function Plugins : iModelHtmlplugins;
     function Result : String;
     function &End : iModelHTMLChartsConfig;
+  end;
+
+  iModelHTMLPlugins = interface
+    ['{55083212-FCFF-4AEC-A1ED-AEFC2C39BB5E}']
+    function Streaming(Value : Boolean) : iModelHTMLPlugins;
+    function Result : String;
+    function &End : iModelHTMLOptions;
   end;
 
   iModelHTMLScales = interface
@@ -290,6 +304,14 @@ type
   iModelHTMLTooltip<T> = interface
     ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
     function Format(Value : String) : iModelHTMLTooltip<T>;
+    function ToolTipNoScales : iModelHTMLTooltip<T>;
+    function InteractionModeNearest : iModelHTMLTooltip<T>;
+    function InteractionModePoint : iModelHTMLTooltip<T>;
+    function InteractionModeIndex : iModelHTMLTooltip<T>;
+    function InteractionModeDataset : iModelHTMLTooltip<T>;
+    function InteractionModeX : iModelHTMLTooltip<T>;
+    function InteractionModeY : iModelHTMLTooltip<T>;
+    function Intersect(Value : Boolean) : iModelHTMLTooltip<T>;
     function Result : String;
     function &End : T;
   end;
@@ -382,10 +404,21 @@ type
     function OffSet : Boolean; overload;
     function _Type (Value : String) : iModelHTMLChartsAxesParam; overload;
     function _Type : String; overload;
+    function RealTime : iModelHTMLChartsAxesParamRealTime;
     function Stacked ( Value : Boolean ) : iModelHTMLChartsAxesParam; overload;
     function Stacked : Boolean; overload;
     function Result : String;
     function &End : iModelHTMLChartsAxes;
+  end;
+
+  iModelHTMLChartsAxesParamRealTime = interface
+    ['{448ECDC3-69C1-44F3-B5C5-6C2336F60321}']
+    function Duration (Value : Integer) : iModelHTMLChartsAxesParamRealTime;
+    function Ttl (Value : Integer) : iModelHTMLChartsAxesParamRealTime;
+    function Delay (Value : Integer) : iModelHTMLChartsAxesParamRealTime;
+    function Refresh (Value : Integer) : iModelHTMLChartsAxesParamRealTime;
+    function Result : String;
+    function &End : iModelHTMLChartsAxesParam;
   end;
 
   iModelHTMLChatsAxesScaleLabel<T> = interface
@@ -454,6 +487,7 @@ type
     function padding : Integer; overload;
     function format ( Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
     function format : String; overload;
+    function BeginAtZero (Value : Boolean) : iModelHTMLChartsAxesTicks<T>;
     function Result : String;
     function &End : T;
   end;
@@ -461,6 +495,7 @@ type
   iModelHTMLDataSet = interface
     ['{761961EF-0C2B-4B88-AC8F-B4806D530D07}']
     function DataSet (Value : TDataSet) : iModelHTMLDataSet;
+    function RealTimeDataSet (Value : TDataSet) : iModelHTMLDataSet;
     function LabelName(Value : String) : iModelHTMLDataSet;
     function ValueName(Value : String) : iModelHTMLDataSet;
     function RGBName(Value : String)  : iModelHTMLDataSet;
@@ -470,8 +505,11 @@ type
     function BorderWidth (Value : Integer) : iModelHTMLDataSet;
     function Data (Value : String) : iModelHTMLDataSet;
     function Fill (Value : Boolean) : iModelHTMLDataSet;
+    function LineTension (Value : Integer) : iModelHTMLDataSet;
+    function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
     function ResultScript : String;
     function ResultLabels : String;
+    function RealTimeInitialValue : String;
     function Types (Value : String) : iModelHTMLDataSet;
     function &End : iModelHTMLChartsConfig;
   end;
@@ -606,11 +644,11 @@ type
     function TagName(Value : string) :iModelJSCommand; overload;
     function TagID(Value : string) : iModelJSCommand; overload;
     function TagAttribute(Value : string) : iModelJSCommand; overload;
+    function TestBeforeExecute(Value : Boolean) : iModelJSCommand;
     function ResultCommand : string; overload;
     function TagName : string; overload;
     function TagID : string; overload;
     function TagAttribute : string; overload;
-
   end;
 
   iModelPivotTable = interface

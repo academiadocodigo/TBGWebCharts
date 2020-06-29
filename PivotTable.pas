@@ -30,7 +30,8 @@ uses
   Generic.List,
   Injection,
   PivotTable.Config,
-  MSHTML, JSCommand;
+  JSCommand,
+  System.SysUtils;
 
 { TModelPivotTable }
 
@@ -210,7 +211,7 @@ begin
   CommandJS := TModelJSCommand.New
     .Command('Load')
     .Paramters
-      .Add(Value)
+      .Add(QuotedStr(Value))
     .&End;
     FParent.ExecuteScript(CommandJS);
 end;

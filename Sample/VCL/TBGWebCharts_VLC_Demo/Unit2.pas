@@ -201,6 +201,7 @@ begin
                     .mirror(ValueListEditor4.Values['mirror'].ToBoolean)
                     .padding(ValueListEditor4.Values['padding'].ToInteger)
                     .format(ValueListEditor4.Values['format'])
+                    .BeginAtZero(ValueListEditor4.Values['BeginAtZero'].ToBoolean)
                   .&End
                   .GridLines
                     .display(ValueListEditor5.Values['display'].ToBoolean)
@@ -239,6 +240,7 @@ begin
                     .mirror(ValueListEditor8.Values['mirror'].ToBoolean)
                     .padding(ValueListEditor8.Values['padding'].ToInteger)
                     .format(ValueListEditor8.Values['format'])
+                    .BeginAtZero(ValueListEditor8.Values['BeginAtZero'].ToBoolean)
                   .&End
                   .GridLines
                     .display(ValueListEditor9.Values['display'].ToBoolean)
@@ -265,6 +267,7 @@ begin
             .&End
             .Tooltip
               .Format(ValueListEditor17.Values['Format'])
+              .Intersect(ValueListEditor17.Values['Intersect'].ToBoolean)
             .&End
           .&End
           .Labelling
@@ -274,6 +277,7 @@ begin
             .FontStyle(ValueListEditor11.Values['FontStyle']) //normal, bold, italic
             .FontFamily(ValueListEditor11.Values['FontFamily']) //Open Sans, Arial, Helvetica e etc..
             .Padding(ValueListEditor11.Values['Padding'].ToInteger) //Numeros negativos e positivos
+            .PaddingX(ValueListEditor11.Values['PaddingX'].ToInteger)
           .&End
           .DataSet
             .DataSet(ClientDataSet1)
@@ -282,6 +286,8 @@ begin
             .BorderColor(ValueListEditor16.Values['BorderColor'])
             .BorderWidth(ValueListEditor16.Values['BorderWidth'].ToInteger)
             .Fill(ValueListEditor16.Values['Fill'].ToBoolean)
+            .LineTension(ValueListEditor16.Values['LineTension'].ToInteger)
+            .BorderDash(ValueListEditor16.Values['BorderDash(Lenght)'].ToInteger, ValueListEditor16.Values['BorderDash(Space)'].ToInteger)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
