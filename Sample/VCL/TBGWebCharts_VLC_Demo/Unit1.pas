@@ -1876,6 +1876,8 @@ end;
 procedure TForm1.btn_chartjs_real_timeExecute(Sender: TObject);
 begin
   TWebCharts.New
+  .Container(fluid)
+  .AddResource('<style> body { margin : 50px; } </style>')
   .NewProject
     .Rows
       .Title
@@ -1890,8 +1892,8 @@ begin
       ._ChartType(line)
         .Attributes
           .Name('linestacked1')
-          .ColSpan(8)
-          .Heigth(140)
+          .ColSpan(12)
+          //.Heigth(140)
           .DataSet
             .textLabel('Meu DataSet 1')
             .RealTimeDataSet(ClientDataSetReal1)
