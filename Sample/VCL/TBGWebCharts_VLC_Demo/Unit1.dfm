@@ -456,10 +456,6 @@ object Form1: TForm1
       Height = 800
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = -184
-      ExplicitTop = -208
-      ExplicitWidth = 978
-      ExplicitHeight = 601
       ControlData = {
         4C000000BC660000AF5200000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
@@ -485,7 +481,7 @@ object Form1: TForm1
       Left = 0
       Top = 25
       Width = 200
-      Height = 760
+      Height = 860
       BevelInner = bvNone
       BevelOuter = bvNone
       BorderStyle = bsNone
