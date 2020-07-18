@@ -138,7 +138,6 @@ procedure TModelHTMLChartsDataSet.generatedBackgroundColor;
 var
   Local_I: Integer;
   Aux : String;
-  I, X: Integer;
 begin
   if FBackgroundColor = '' then
   begin
@@ -168,8 +167,7 @@ end;
 procedure TModelHTMLChartsDataSet.generatedData;
 var
   Aux: string;
-  I, X : Integer;
-  vField : TField;
+  I : Integer;
 begin
   FData := '[';
   Aux := ', ';
@@ -235,7 +233,7 @@ begin
   for I := Length(Value) downto 1 do
   {$ENDIF}
   begin
-      if ((value[i] in ['0'..'9']) or (value[i]='-')) then
+      if (CharInSet(value[i], ['0'..'9']) or (value[i]='-')) then
         caracter := value[i] + caracter
       else
       begin
@@ -257,8 +255,6 @@ function TModelHTMLChartsDataSet.ResultLabels: String;
 var
   Local_I: Integer;
   Aux : String;
-  I: Integer;
-  X: Integer;
 begin
   FLabels := '[';
   Aux := '", "';

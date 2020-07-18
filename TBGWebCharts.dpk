@@ -32,7 +32,10 @@ requires
   vcl,
   vclie,
   dbrtl,
-  fmx;
+  fmx,
+  IndySystem,
+  IndyProtocols,
+  IndyCore;
 
 contains
   Charts.Config in 'Charts.Config.pas',
@@ -110,6 +113,14 @@ contains
   Charts.Axes.Params.RealTime in 'Charts.Axes.Params.RealTime.pas',
   MomentJS in 'MomentJS.pas',
   ChartStreamJS in 'ChartStreamJS.pas',
-  Charts.Plugins in 'Charts.Plugins.pas';
+  Charts.Plugins in 'Charts.Plugins.pas',
+  UtilsJS in 'UtilsJS.pas',
+  FontawesomeallJS in 'FontawesomeallJS.pas',
+  JqueryJS in 'JqueryJS.pas',
+  PopperJS in 'PopperJS.pas',
+  TetherminJS in 'TetherminJS.pas',
+  ChartbundleJS in 'ChartbundleJS.pas',
+  Charts.Tooltip in 'Charts.Tooltip.pas';
 
 end.
+

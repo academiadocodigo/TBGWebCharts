@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/06/22 10:28:44.000.159,C:\Componentes\TBGWebCharts\trunk\Unit5.pas=C:\Componentes\TBGWebCharts\trunk\Charts.UpdateRealTime.pas</Transaction>
+    <Transaction>2020/06/22 10:28:44.000.159,C:\Componentes\TBGWebCharts\trunk\Charts.UpdateRealTime.pas=C:\Componentes\TBGWebCharts\trunk\Unit5.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Alerts.Classes.pas"/>
@@ -80,8 +80,18 @@
     <File Path="Table.pas"/>
     <File Path="View.Reg.pas"/>
     <File Path="View.WebCharts.pas"/>
+    <File Path="UtilsJS.pas"/>
+    <File Path="FontawesomeallJS.pas"/>
+    <File Path="JqueryJS.pas"/>
+    <File Path="PopperJS.pas"/>
+    <File Path="TetherminJS.pas"/>
+    <File Path="ChartbundleJS.pas"/>
+    <File Path="Charts.Tooltip.pas"/>
     <File Path="dbrtl.dcp"/>
     <File Path="fmx.dcp"/>
+    <File Path="IndyCore.dcp"/>
+    <File Path="IndyProtocols.dcp"/>
+    <File Path="IndySystem.dcp"/>
     <File Path="rtl.dcp"/>
     <File Path="vcl.dcp"/>
     <File Path="vclie.dcp"/>

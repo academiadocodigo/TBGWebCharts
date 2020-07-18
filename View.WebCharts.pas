@@ -18,7 +18,7 @@ Type
     function CDN(Value : Boolean) : iWebCharts;
   end;
 
-  {$IF RTLVERSION > 27  }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
+  {$IF RTLVERSION > 27  }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid32Arm)]{$IFEND}
   TWebCharts = class(TComponent, iWebCharts)
     private
       FModelHTML : iModelHTML;
@@ -26,12 +26,11 @@ Type
       FFolderDefaultRWC: String;
       FBackgroundColor : String;
       FFontColor : String;
-      FContainer : String;
       FContainerClass : TTypeContainer;
       FCDN : Boolean;
     procedure SetFolderDefaultRWC(const Value: String);
     public
-      constructor Create;
+      constructor Create; reintroduce;
       destructor Destroy; override;
       class function New : iWebCharts;
       function AddResource(Value : String) : iWebCharts;

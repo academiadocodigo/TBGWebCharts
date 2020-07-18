@@ -104,7 +104,6 @@ var
   i: Integer;
   Param : TRttiParameter;
   P : array of TValue;
-  _a : String;
 begin
   try
     if not Assigned(FParent) then

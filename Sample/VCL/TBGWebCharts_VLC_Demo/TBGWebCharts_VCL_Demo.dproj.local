@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/05/26 16:58:24.000.799,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\thuli\Desktop\TBGWebCharts_VLC_Demo\Unit1.pas</Transaction>
-    <Transaction>2020/05/26 16:58:24.000.799,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\thuli\Desktop\TBGWebCharts_VLC_Demo\Unit1.dfm</Transaction>
-    <Transaction>2020/05/26 16:58:33.000.207,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\thuli\Desktop\TBGWebCharts_VLC_Demo\TBGWebCharts_VCL_Demo.dproj</Transaction>
-    <Transaction>2020/06/04 10:01:41.000.204,C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit3.pas=C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit2.pas</Transaction>
-    <Transaction>2020/06/04 10:01:41.000.204,C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit3.dfm=C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit2.dfm</Transaction>
+    <Transaction>2020/05/26 16:58:24.000.799,C:\Users\thuli\Desktop\TBGWebCharts_VLC_Demo\Unit1.dfm=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/05/26 16:58:24.000.799,C:\Users\thuli\Desktop\TBGWebCharts_VLC_Demo\Unit1.pas=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/05/26 16:58:33.000.207,C:\Users\thuli\Desktop\TBGWebCharts_VLC_Demo\TBGWebCharts_VCL_Demo.dproj=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2020/06/04 10:01:41.000.204,C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit2.dfm=C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit3.dfm</Transaction>
+    <Transaction>2020/06/04 10:01:41.000.204,C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit2.pas=C:\Componentes\TBGWebCharts\trunk\Sample\TBGWebCharts_VLC_Demo\Unit3.pas</Transaction>
   </Transactions>
 </BorlandProject>

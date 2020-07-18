@@ -81,9 +81,6 @@ end;
 function TModelImageDataSet.ResultScript: String;
 var
   I: Integer;
-  X: Integer;
-  _MethodName : string;
-  _tdClass : String;
 begin
   Result := '';
   FDataSet.First;

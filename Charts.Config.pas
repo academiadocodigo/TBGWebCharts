@@ -23,7 +23,7 @@ Type
       FNumeral : String;
       FDataSet : TList<iModelHTMLDataSet>;
       FOptions : iModelHTMLOptions;
-      function Numeral: String;
+
       function RemoveAccents(Value: String): String;
     public
       constructor Create(Parent : iModelHTMLChartsGeneric);
@@ -55,6 +55,7 @@ Type
       function Labelling : iModelLabellingConfig<iModelHTMLChartsConfig>; overload;
       function Options : iModelHTMLOptions;
       function &End : iModelHTMLChartsGeneric;
+      function Numeral: String;
   end;
 
 implementation

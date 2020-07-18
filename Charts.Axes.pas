@@ -9,7 +9,6 @@ type
   TModelHTMLChartsAxes = class(TInterfacedObject, iModelHTMLChartsAxes)
     private
       FParent : iModelHTMLScales;
-      FFontColor : String;
       FResult : String;
       FxAxe : iModelHTMLChartsAxesParam;
       FyAxe : iModelHTMLChartsAxesParam;
