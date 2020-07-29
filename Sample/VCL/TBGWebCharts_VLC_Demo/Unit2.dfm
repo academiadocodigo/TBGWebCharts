@@ -212,7 +212,7 @@ object Form2: TForm2
       Top = 114
       Width = 209
       Height = 478
-      ActivePage = TabSheet3
+      ActivePage = TabSheet11
       Align = alClient
       MultiLine = True
       TabOrder = 1
@@ -612,7 +612,6 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 3
-            ExplicitTop = 297
           end
           object ValueListEditor9: TValueListEditor
             Left = 0
@@ -641,7 +640,6 @@ object Form2: TForm2
               'zeroLineWidth=50'
               'zeroLineColorRGBA=102,102,102,0.2')
             TabOrder = 4
-            ExplicitTop = 320
             ColWidths = (
               96
               86)
@@ -663,7 +661,6 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 5
-            ExplicitTop = 511
           end
           object ValueListEditor10: TValueListEditor
             Left = 0
@@ -690,7 +687,6 @@ object Form2: TForm2
               'fontStyle=normal'
               'padding=10')
             TabOrder = 6
-            ExplicitTop = 534
             ColWidths = (
               96
               86)
@@ -892,7 +888,8 @@ object Form2: TForm2
           ParentFont = False
           Strings.Strings = (
             'Format=$0,0.00'
-            'Intersect=False')
+            'Intersect=False'
+            'DisplayTitle=False')
           TabOrder = 0
           ColWidths = (
             96

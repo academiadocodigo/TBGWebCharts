@@ -268,6 +268,7 @@ begin
             .Tooltip
               .Format(ValueListEditor17.Values['Format'])
               .Intersect(ValueListEditor17.Values['Intersect'].ToBoolean)
+              .DisplayTitle(ValueListEditor17.Values['DisplayTitle'].ToBoolean)
             .&End
           .&End
           .Labelling

@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, Vcl.CategoryButtons, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.OleCtrls, SHDocVw,
-  View.WebCharts, Data.DB, Datasnap.DBClient;
+  View.WebCharts, Data.DB, Datasnap.DBClient, midaslib;
 
 type
   TForm1 = class(TForm)

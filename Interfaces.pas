@@ -312,6 +312,7 @@ type
     function InteractionModeX : iModelHTMLTooltip<T>;
     function InteractionModeY : iModelHTMLTooltip<T>;
     function Intersect(Value : Boolean) : iModelHTMLTooltip<T>;
+    function DisplayTitle(Value : Boolean) : iModelHTMLTooltip<T>;
     function Result : String;
     function &End : T;
   end;

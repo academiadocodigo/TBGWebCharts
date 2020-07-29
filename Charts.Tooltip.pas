@@ -13,6 +13,7 @@ type
       FToolTipValue : String;
       FInteractionMode : String;
       FIntersect : String;
+      FTitle : string;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -26,6 +27,7 @@ type
       function InteractionModeX : iModelHTMLTooltip<T>;
       function InteractionModeY : iModelHTMLTooltip<T>;
       function Intersect(Value : Boolean) : iModelHTMLTooltip<T>;
+      function DisplayTitle(Value : Boolean) : iModelHTMLTooltip<T>;
       function Result : String;
       function &End : T;
   end;
@@ -106,6 +108,20 @@ begin
   inherited;
 end;
 
+function TModelHTMLChartsTooltip<T>.DisplayTitle(
+  Value: Boolean): iModelHTMLTooltip<T>;
+begin
+  Result := Self;
+  if Value then
+  begin
+    FTitle := 'title: function (tooltipItem, data) {';
+    FTitle := FTitle + 'return data["labels"][tooltipItem[0]["index"]];';
+    FTitle := FTitle + '},';
+  end
+  else
+    FTitle := '';
+end;
+
 class function TModelHTMLChartsTooltip<T>.New(Parent : T): iModelHTMLTooltip<T>;
 begin
   Result := Self.Create(Parent);
@@ -113,12 +129,12 @@ end;
 
 function TModelHTMLChartsTooltip<T>.Result: String;
 begin
-
   Result := '';
   Result := Result + 'tooltips: {';
   Result := Result + FInteractionMode;
   Result := Result + FIntersect;
   Result := Result + 'callbacks: {';
+  Result := Result + FTitle;
   Result := Result + 'label: function(tooltipItem, data) {';
   Result := Result + 'numeral.locale(''pt-br'');';
   //Result := Result + '  	return numeral(data['+QuotedStr('datasets')+'][0]['+QuotedStr('data')+'][tooltipItem['+QuotedStr('index')+']]).format('+QuotedStr(FFormat)+');';
