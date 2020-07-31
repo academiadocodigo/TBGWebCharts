@@ -18,7 +18,7 @@ Type
     function CDN(Value : Boolean) : iWebCharts;
   end;
 
-  {$IF RTLVERSION > 27  }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid32Arm)]{$IFEND}
+  {$IF RTLVERSION > 27  }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
   TWebCharts = class(TComponent, iWebCharts)
     private
       FModelHTML : iModelHTML;
