@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/06/22 10:28:44.000.159,C:\Componentes\TBGWebCharts\trunk\Charts.UpdateRealTime.pas=C:\Componentes\TBGWebCharts\trunk\Unit5.pas</Transaction>
+    <Transaction>2020/06/22 10:28:44.000.159,C:\Componentes\TBGWebCharts\trunk\Unit5.pas=C:\Componentes\TBGWebCharts\trunk\Charts.UpdateRealTime.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="Alerts.Classes.pas"/>
