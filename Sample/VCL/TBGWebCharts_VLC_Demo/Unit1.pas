@@ -2196,7 +2196,7 @@ begin
       .&End
       .TableData
         .Server('http://viacep.com.br/ws/RS/Porto Alegre/Domingos/json/')
-        .Columns(['cep','logradouro','complemento','bairro','localidade','uf','unidade','ibge','gia'])
+        .Columns(['cep','logradouro','complemento','bairro','localidade','uf','ibge','gia'])
       .&End
     .&End
     .WebBrowser(WebBrowser1)
