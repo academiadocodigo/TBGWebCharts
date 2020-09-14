@@ -1343,6 +1343,18 @@ object Form2: TForm2
     Params = <>
     Left = 288
     Top = 65
+    object ClientDataSet1Label: TStringField
+      FieldName = 'Label'
+      Size = 60
+    end
+    object ClientDataSet1Value: TStringField
+      FieldName = 'Value'
+      Size = 60
+    end
+    object ClientDataSet1RGB: TStringField
+      FieldName = 'RGB'
+      Size = 60
+    end
   end
   object ClientDataSet2: TClientDataSet
     PersistDataPacket.Data = {

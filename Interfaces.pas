@@ -65,6 +65,8 @@ type
   iModelGenericDataSet<T> = interface;
   iModelJSCommand = interface;
   iModelHTMLPlugins = interface;
+  iModelTableActionImage = Interface;
+  iModelTableAction = interface;
 
   {$IFDEF FULL}
   iModelTable = interface;
@@ -201,6 +203,7 @@ type
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
     function UpdateRealTime : iModelHTMLChartsGeneric;
+    function UpdateChart : iModelHTMLChartsGeneric;
   end;
 
   iModelHTMLChartsDoughnut = interface
@@ -633,7 +636,9 @@ type
     function Cols : iModelGenericList<iModelPivotTableConfig>;
     function &End : iModelPivotTable;
     function PivotType : iModelPivotTableClass;
+    function ShowPivotUI(Value : Boolean) : iModelPivotTableConfig; overload;
     function PivotOptions : string; overload;
+    function ShowPivotUI : string; overload;
     function ResultStyle : string;
     function ResultData : string;
   end;
@@ -657,6 +662,8 @@ type
     function Attributes : iModelPivotTableConfig;
     function SaveConfig : string;
     function LoadConfig(Value : string) : iModelPivotTable;
+    function ShowUI : iModelPivotTable;
+    function HideUI : iModelPivotTable;
     function &End : iModelHTML;
   end;
 
@@ -725,8 +732,41 @@ type
     function DataSet (Value : TDataSet) : iModelTableDataSet;
     function CallbackLink(Field : String; MethodName : String) : iModelTableDataSet; overload;
     function CallbackLink(Field : String; MethodName : String; AValue : String) : iModelTableDataSet; overload;
+    function Action : iModelTableAction;
+    function ActionEdit : iModelTableAction;
+    function ActionDelete : iModelTableAction;
     function ResultScript : String;
+    function ResultStyle : String;
     function &End : iModelTable;
+  end;
+
+  iModelTableActionImage = Interface
+    ['{60D2D1F0-B0F7-404D-8681-B9EBE36FFEB2}']
+    function Image (Value : TCustomMemoryStream) : iModelTableActionImage; overload;
+    function Image (Value : String) : iModelTableActionImage; overload;
+    function Width (Value : Integer) : iModelTableActionImage; overload;
+    function Height (Value : Integer) : iModelTableActionImage; overload;
+    function Tooltip (Value : String) : iModelTableActionImage; overload;
+    function Image : String; overload;
+    function Width : String; overload;
+    function Height : String; overload;
+    function Tooltip : String overload;
+    function StyleClass : String;
+    function &End : iModelTableAction;
+
+  end;
+
+  iModelTableAction = interface
+    ['{D9476DEA-F074-4A7B-9472-B7A9872F7023}']
+    function ActionHeader (Value : String) : iModelTableAction; overload;
+    function Image : iModelTableActionImage;
+    function CallbackLink(Field : String; MethodName : String) : iModelTableAction;
+    function ActionHeader : String; overload;
+    function ImageTag : String;
+    function MethodName : String;
+    function FieldName : String;
+    function ResultStyle : String;
+    function &End : iModelTableDataSet;
   end;
 
   iModelTableOption = interface

@@ -130,6 +130,30 @@ type
     ClientDataSetReal1: TClientDataSet;
     btn_dashboards_5: TAction;
     btn_chartjs_real_time: TAction;
+    ClientDataSet8OrderNo: TFloatField;
+    ClientDataSet8CustNo: TFloatField;
+    ClientDataSet8SaleDate: TDateTimeField;
+    ClientDataSet8ShipDate: TDateTimeField;
+    ClientDataSet8EmpNo: TIntegerField;
+    ClientDataSet8ShipToContact: TStringField;
+    ClientDataSet8ShipToAddr1: TStringField;
+    ClientDataSet8ShipToAddr2: TStringField;
+    ClientDataSet8ShipToCity: TStringField;
+    ClientDataSet8ShipToState: TStringField;
+    ClientDataSet8ShipToZip: TStringField;
+    ClientDataSet8ShipToCountry: TStringField;
+    ClientDataSet8ShipToPhone: TStringField;
+    ClientDataSet8ShipVIA: TStringField;
+    ClientDataSet8PO: TStringField;
+    ClientDataSet8Terms: TStringField;
+    ClientDataSet8PaymentMethod: TStringField;
+    ClientDataSet8ItemsTotal: TCurrencyField;
+    ClientDataSet8TaxRate: TFloatField;
+    ClientDataSet8Freight: TCurrencyField;
+    ClientDataSet8AmountPaid: TCurrencyField;
+    ClientDataSet4Label: TStringField;
+    ClientDataSet4Value: TStringField;
+    ClientDataSet4RGB: TStringField;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -185,6 +209,8 @@ type
     procedure RelContato(Value : String);
     procedure PivotConfigSave;
     procedure PivotConfigLoad;
+    procedure PivotShowUI;
+    procedure PivotHideUI;
   end;
 
 var
@@ -1941,10 +1967,10 @@ begin
     .Rows
       ._Div
         .Add('<h1>Pivot Table</h1>')
-        .ColSpan(9)
+        .ColSpan(7)
       .&End
       ._Div
-        .ColSpan(3)
+        .ColSpan(5)
         .Add(
           WebCharts1
             .ContinuosProject
@@ -1965,6 +1991,30 @@ begin
                 .CallbackLink('','PivotConfigLoad')
                 .ButtonClass
                   .primary
+                  .small
+                .&End
+              .&End
+            .HTML +
+            '&nbsp;' +
+            WebCharts1
+            .ContinuosProject
+              .Buttons
+                .Title('Show UI')
+                .CallbackLink('','PivotShowUI')
+                .ButtonClass
+                  .secondary
+                  .small
+                .&End
+              .&End
+            .HTML +
+            '&nbsp;' +
+            WebCharts1
+            .ContinuosProject
+              .Buttons
+                .Title('Hide UI')
+                .CallbackLink('','PivotHideUI')
+                .ButtonClass
+                  .info
                   .small
                 .&End
               .&End
@@ -2000,10 +2050,10 @@ begin
 //          .FontSize(20)
          .&End
         .Rows
-          .Add('ShipVIA')
+          .Add('Transportadora')
         .&End
         .Cols
-          .Add('PaymentMethod')
+          .Add('Forma de Pagamento')
         .&End
       .&End
     .&End
@@ -2178,6 +2228,20 @@ begin
     .WebBrowser(WebBrowser1)
     .PivotTable.SaveConfig;
   ShowMessage(FPivotConfig);
+end;
+
+procedure TForm1.PivotHideUI;
+begin
+  WebCharts1.ContinuosProject
+    .WebBrowser(WebBrowser1)
+    .PivotTable.HideUI;
+end;
+
+procedure TForm1.PivotShowUI;
+begin
+  WebCharts1.ContinuosProject
+    .WebBrowser(WebBrowser1)
+    .PivotTable.ShowUI;
 end;
 
 procedure TForm1.RelAvatar(Value: Currency);

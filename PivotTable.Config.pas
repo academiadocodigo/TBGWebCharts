@@ -17,6 +17,7 @@ type
       FHeadStyle : iModelGenericStyle<iModelPivotTableConfig>;
       FBodyStyle : iModelGenericStyle<iModelPivotTableConfig>;
       FPivotOptions : string;
+      FShowPivotUI : string;
       FPivotType : iModelPivotTableClass;
 
       function GeneratedRows : string;
@@ -38,7 +39,9 @@ type
       function Cols : iModelGenericList<iModelPivotTableConfig>;
       function ResultStyle : string;
       function PivotOptions(Value : string) : iModelPivotTableConfig; overload;
+      function ShowPivotUI(Value : Boolean) : iModelPivotTableConfig; overload;
       function PivotOptions : string; overload;
+      function ShowPivotUI : string; overload;
       function PivotType : iModelPivotTableClass;
       function DataSet : iModelGenericDataSet<iModelPivotTableConfig>;
       function ResultData : string;
@@ -264,6 +267,22 @@ function TModelPivotTableConfig.Rows: iModelGenericList<iModelPivotTableConfig>;
 begin
   FRows := TModelGenericList<iModelPivotTableConfig>.New(Self);
   Result := FRows;
+end;
+
+function TModelPivotTableConfig.ShowPivotUI: string;
+begin
+  Result := FShowPivotUI;
+end;
+
+function TModelPivotTableConfig.ShowPivotUI(
+  Value: Boolean): iModelPivotTableConfig;
+var
+  stringValue : string;
+begin
+  Result := Self;
+  stringValue := 'false';
+  if Value then stringValue := 'true';
+  FShowPivotUI := 'config.showUI = ' + stringValue + ';';
 end;
 
 end.

@@ -68,6 +68,9 @@ type
     ClientDataSet5Contact: TStringField;
     ClientDataSet1: TClientDataSet;
     ClientDataSet2: TClientDataSet;
+    ClientDataSet1Label: TStringField;
+    ClientDataSet1Value: TStringField;
+    ClientDataSet1RGB: TStringField;
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);

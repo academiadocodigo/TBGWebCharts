@@ -20,6 +20,7 @@ type
       function HTML : String; overload;
       function Attributes : iModelHTMLChartsConfig;
       function UpdateRealTime : iModelHTMLChartsGeneric;
+      function UpdateChart : iModelHTMLChartsGeneric;
       function &End : iModelHTMLCharts;
   end;
 
@@ -53,6 +54,16 @@ begin
   Fparent.HTML('window.myChart_'+FConfig.IDChart+'.update();');
   FParent.HTML('}');
   FParent.HTML('var RealTime' + FConfig.IDChart + ' = [' + FConfig.ResultRealTimeInitialValue + '];');
+
+  FParent.HTML('function updateChart' + FConfig.IDChart + '(data) {');
+  FParent.HTML('myChart_' + FConfig.IDChart + '.data.labels = data.labels;');
+  FParent.HTML('var x;');
+  FParent.HTML('for (x in data.datasets) {');
+  FParent.HTML('myChart_' + FConfig.IDChart + '.data.datasets[x].data =');
+  FParent.HTML('data.datasets[x].data;');
+  FParent.HTML('}');
+  FParent.HTML('window.myChart_'+FConfig.IDChart+'.update();');
+  FParent.HTML('}');
 
   FParent.HTML('var myCallBack = document.getElementById('''+FConfig.Name+''');');
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
@@ -102,6 +113,24 @@ end;
 class function TModelChartsGeneric.New(Parent : iModelHTMLCharts): iModelHTMLChartsGeneric;
 begin
     Result := Self.Create(Parent);
+end;
+
+function TModelChartsGeneric.UpdateChart: iModelHTMLChartsGeneric;
+var
+  CommandJS : iModelJSCommand;
+  param : String;
+begin
+  Result := Self;
+  param := '{labels: '+FConfig.ResultLabels+', datasets: [' + FConfig.ResultDataSet + ']}';
+  param := StringReplace(param, #13, '', [rfReplaceAll, rfIgnoreCase]);
+  CommandJS := TModelJSCommand.New
+    .Command('updateChart' + FConfig.IDChart)
+    .Paramters
+      .Add(param)
+    .&End
+    .TestBeforeExecute(true);
+
+    FParent.&End.ExecuteScript(CommandJS);
 end;
 
 function TModelChartsGeneric.UpdateRealTime: iModelHTMLChartsGeneric;

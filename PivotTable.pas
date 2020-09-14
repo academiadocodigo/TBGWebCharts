@@ -13,14 +13,17 @@ type
       FData : string;
       FConfig : iModelPivotTableConfig;
       procedure GeneratedData;
+      procedure ShowPivotUI(Value : string);
     public
       constructor Create(Parent : IModelHTML);
       destructor Destroy; override;
       class function New(Parent : IModelHTML) : iModelPivotTable;
-      function &End : iModelHTML;
       function Attributes : iModelPivotTableConfig;
       function SaveConfig : string;
       function LoadConfig(Value : string) : iModelPivotTable;
+      function ShowUI : iModelPivotTable;
+      function HideUI : iModelPivotTable;
+      function &End : iModelHTML;
 
   end;
 implementation
@@ -57,6 +60,11 @@ begin
   Result := FParent;
   generatedData;
   FParent.HTML(FData);
+end;
+
+class function TModelPivotTable.New(Parent: IModelHTML): iModelPivotTable;
+begin
+  Result := Self.Create(Parent);
 end;
 
 procedure TModelPivotTable.generatedData;
@@ -175,6 +183,9 @@ FData := FData + '$.extend($.pivotUtilities.locales.pt.renderers, $.pivotUtiliti
 
 
   FData := FData + 'var config = JSON.parse(' + #39 + FConfig.PivotOptions + #39 + ');';
+
+  FData := FData + FConfig.ShowPivotUI;
+
   FData := FData + 'var dataset;';
 
   FData := FData + 'function Save() {';
@@ -191,6 +202,14 @@ FData := FData + '$.extend($.pivotUtilities.locales.pt.renderers, $.pivotUtiliti
   FData := FData + '$("#output").pivotUI(dataset, config, true, "pt");';
   FData := FData + '}';
 
+  FData := FData + 'function ShowUI(value) {';
+  FData := FData + 'Save();';
+  FData := FData + 'config = JSON.parse(document.getElementById("configResult").value);';
+  FData := FData + 'config.showUI = value;';
+  FData := FData + '$("#output").pivotUI(dataset, config, true, "pt");';
+  FData := FData + '}';
+
+
   FData := FData + '$(function () {';
   FData := FData + 'dataset = ' + FConfig.ResultData + ';' + #13;
   FData := FData + '$("#output").pivotUI(dataset,config, false, "pt");';
@@ -202,6 +221,13 @@ FData := FData + '$.extend($.pivotUtilities.locales.pt.renderers, $.pivotUtiliti
   FData := FData + '<div class="aguarde">Carregando...</div>';
   FData := FData + '</div>';
 
+end;
+    {$IFNDEF CONSOLE}
+
+function TModelPivotTable.HideUI: iModelPivotTable;
+begin
+  Result := Self;
+  ShowPivotUI('false');
 end;
 
 function TModelPivotTable.LoadConfig(Value: string) : iModelPivotTable;
@@ -216,11 +242,6 @@ begin
     FParent.ExecuteScript(CommandJS);
 end;
 
-class function TModelPivotTable.New(Parent: IModelHTML): iModelPivotTable;
-begin
-  Result := Self.Create(Parent);
-end;
-
 function TModelPivotTable.SaveConfig: string;
 var
   CommandJS : iModelJSCommand;
@@ -233,4 +254,22 @@ begin
   Result := FParent.ExecuteScriptResult(CommandJS);
 end;
 
+procedure TModelPivotTable.ShowPivotUI(Value: string);
+var
+  CommandJS : iModelJSCommand;
+begin
+  CommandJS := TModelJSCommand.New
+    .Command('ShowUI')
+    .Paramters
+      .Add(Value)
+    .&End;
+    FParent.ExecuteScript(CommandJS);
+end;
+
+function TModelPivotTable.ShowUI: iModelPivotTable;
+begin
+  Result := Self;
+  ShowPivotUI('true');
+end;
+{$ENDIF}
 end.

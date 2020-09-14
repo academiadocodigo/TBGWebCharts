@@ -23012,6 +23012,18 @@ object Form1: TForm1
     Params = <>
     Left = 497
     Top = 66
+    object ClientDataSet4Label: TStringField
+      FieldName = 'Label'
+      Size = 60
+    end
+    object ClientDataSet4Value: TStringField
+      FieldName = 'Value'
+      Size = 60
+    end
+    object ClientDataSet4RGB: TStringField
+      FieldName = 'RGB'
+      Size = 60
+    end
   end
   object ClientDataSet3: TClientDataSet
     PersistDataPacket.Data = {
@@ -23537,6 +23549,90 @@ object Form1: TForm1
     Params = <>
     Left = 504
     Top = 161
+    object ClientDataSet8OrderNo: TFloatField
+      DisplayLabel = 'N'#186' Pedido'
+      FieldName = 'OrderNo'
+    end
+    object ClientDataSet8CustNo: TFloatField
+      FieldName = 'CustNo'
+      Required = True
+    end
+    object ClientDataSet8SaleDate: TDateTimeField
+      DisplayLabel = 'Data da Venda'
+      FieldName = 'SaleDate'
+    end
+    object ClientDataSet8ShipDate: TDateTimeField
+      DisplayLabel = 'Data do Envio'
+      FieldName = 'ShipDate'
+    end
+    object ClientDataSet8EmpNo: TIntegerField
+      FieldName = 'EmpNo'
+      Required = True
+    end
+    object ClientDataSet8ShipToContact: TStringField
+      DisplayLabel = 'Contato Transp.'
+      FieldName = 'ShipToContact'
+    end
+    object ClientDataSet8ShipToAddr1: TStringField
+      DisplayLabel = 'Endere'#231'o Transp'
+      FieldName = 'ShipToAddr1'
+      Size = 30
+    end
+    object ClientDataSet8ShipToAddr2: TStringField
+      FieldName = 'ShipToAddr2'
+      Size = 30
+    end
+    object ClientDataSet8ShipToCity: TStringField
+      FieldName = 'ShipToCity'
+      Size = 15
+    end
+    object ClientDataSet8ShipToState: TStringField
+      FieldName = 'ShipToState'
+    end
+    object ClientDataSet8ShipToZip: TStringField
+      FieldName = 'ShipToZip'
+      Size = 10
+    end
+    object ClientDataSet8ShipToCountry: TStringField
+      FieldName = 'ShipToCountry'
+    end
+    object ClientDataSet8ShipToPhone: TStringField
+      FieldName = 'ShipToPhone'
+      Size = 15
+    end
+    object ClientDataSet8ShipVIA: TStringField
+      DisplayLabel = 'Transportadora'
+      FieldName = 'ShipVIA'
+      Size = 7
+    end
+    object ClientDataSet8PO: TStringField
+      FieldName = 'PO'
+      Size = 15
+    end
+    object ClientDataSet8Terms: TStringField
+      FieldName = 'Terms'
+      Size = 6
+    end
+    object ClientDataSet8PaymentMethod: TStringField
+      DisplayLabel = 'Forma de Pagamento'
+      FieldName = 'PaymentMethod'
+      Size = 7
+    end
+    object ClientDataSet8ItemsTotal: TCurrencyField
+      DisplayLabel = 'Total de Itens'
+      FieldName = 'ItemsTotal'
+    end
+    object ClientDataSet8TaxRate: TFloatField
+      DisplayLabel = 'Taxa'
+      FieldName = 'TaxRate'
+    end
+    object ClientDataSet8Freight: TCurrencyField
+      FieldName = 'Freight'
+    end
+    object ClientDataSet8AmountPaid: TCurrencyField
+      DisplayLabel = 'Valor Pago'
+      FieldName = 'AmountPaid'
+    end
   end
   object ClientDataSet9: TClientDataSet
     PersistDataPacket.Data = {

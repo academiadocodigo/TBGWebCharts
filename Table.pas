@@ -95,7 +95,11 @@ begin
     FParent.HTML(FTableData.ResultTable);
   end
   else
+  begin
+    for I := 0 to Pred(FDataSet.Count) do
+      FParent.HTML(FDataSet[I].ResultStyle);
     FParent.HTML('<table class="' + FClass + '">');
+  end;
 
   for I := 0 to Pred(FDataSet.Count) do
     FParent.HTML(FDataSet[I].ResultScript);

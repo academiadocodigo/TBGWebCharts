@@ -88,8 +88,14 @@ begin
       if J = Pred(FDataSet.Fields.Count) then
         Aux := '';
       if FDataSet.Fields[J].Visible then
-        Result := Result + FDataSet.Fields[J].FieldName + ':'
-        + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux;
+      begin
+        if FDataSet.Fields[J].DisplayName <> '' then
+          Result := Result + QuotedStr(FDataSet.Fields[J].DisplayName) + ':'
+          + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux
+        else
+          Result := Result + QuotedStr(FDataSet.Fields[J].FieldName) + ':'
+          + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux;
+      end;
     end;
     Result := Result + '}' + aux_ ;
     FDataSet.Next;
