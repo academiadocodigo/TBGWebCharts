@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/09/07 15:14:24.000.583,=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit13.pas</Transaction>
+    <Transaction>2020/09/07 20:09:43.000.647,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit13.pas=C:\Componentes\TBGWebCharts\trunk\Sample\VCL\Update_Charts\Unit1.pas</Transaction>
+    <Transaction>2020/09/07 20:09:43.000.647,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit13.dfm=C:\Componentes\TBGWebCharts\trunk\Sample\VCL\Update_Charts\Unit1.dfm</Transaction>
+    <Transaction>2020/09/07 20:10:24.000.787,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Project3.dproj=C:\Componentes\TBGWebCharts\trunk\Sample\VCL\Update_Charts\Update_Charts.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
