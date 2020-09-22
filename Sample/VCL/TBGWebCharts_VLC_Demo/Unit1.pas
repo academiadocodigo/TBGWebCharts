@@ -2131,6 +2131,20 @@ begin
         .CallbackLink('CustNo', 'RelCust')
         .CallbackLink('Contact', 'RelContato')
         .DataSet(ClientDataSet5)
+        .ActionEdit
+          .CallbackLink('CustNo', 'RelCust')
+        .&End
+        .ActionDelete
+          .CallbackLink('CustNo', 'RelCust')
+        .&End
+        .Action
+          .ActionHeader('Filtrar')
+          .Image
+            .Image(TResourceStream.Create(HInstance, 'PngFilter', RT_RCDATA))
+            .Tooltip('Filtrar')
+          .&End
+          .CallbackLink('CustNo', 'RelCust')
+        .&End
       .&End
     .&End
     .WebBrowser(WebBrowser1)
