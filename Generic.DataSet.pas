@@ -17,6 +17,7 @@ type
       FLabelName : String;
       FRGBName : String;
       FCallbackLink  : TDictionary<string, string>;
+      function replaceValue(Value : String) : String;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -73,6 +74,8 @@ var
   J: Integer;
   Aux : string;
   Aux_ : string;
+  _Field : String;
+  _Value : String;
 begin
   Result := '[';
   FDataSet.First;
@@ -90,11 +93,26 @@ begin
       if FDataSet.Fields[J].Visible then
       begin
         if FDataSet.Fields[J].DisplayName <> '' then
-          Result := Result + QuotedStr(FDataSet.Fields[J].DisplayName) + ':'
-          + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux
+          _Field := FDataSet.Fields[J].DisplayName
         else
-          Result := Result + QuotedStr(FDataSet.Fields[J].FieldName) + ':'
-          + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux;
+          _Field := FDataSet.Fields[J].FieldName;
+
+        case FDataSet.Fields[J].DataType of
+          ftFloat,ftCurrency :
+            Begin
+              _value := replaceValue(FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString);
+            End else
+            _Value := FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString;
+        end;
+
+        Result := Result + QuotedStr(_Field) + ':"' + _Value + '"' + Aux;
+
+//        if FDataSet.Fields[J].DisplayName <> '' then
+//          Result := Result + QuotedStr(FDataSet.Fields[J].DisplayName) + ':'
+//          + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux
+//        else
+//          Result := Result + QuotedStr(FDataSet.Fields[J].FieldName) + ':'
+//          + '"' + FDataSet.FieldByName(FDataSet.Fields[J].FieldName).AsString + '"' +  Aux;
       end;
     end;
     Result := Result + '}' + aux_ ;
@@ -135,6 +153,37 @@ end;
 class function TModelGenericDataset<T>.New(Parent: T): iModelGenericDataset<T>;
 begin
   Result := Self.Create(Parent)
+end;
+
+function TModelGenericDataset<T>.replaceValue(Value: String): String;
+var
+  I,cont : Integer;
+  caracter : string;
+begin
+  caracter := '';
+  cont := 0;
+   {$IF Defined(ANDROID) or Defined(IOS)}
+  for I := Length(Value) downto 0 do
+  {$ELSE}
+  for I := Length(Value) downto 1 do
+  {$ENDIF}
+  begin
+      if (CharInSet(value[i], ['0'..'9']) or (value[i]='-')) then
+        caracter := value[i] + caracter
+      else
+      begin
+        if cont=0 then
+        begin
+          if ((value[i]='.') or (value[i]=',')) then
+          begin
+            value[i]:='.';
+            caracter := value[i] + caracter;
+            inc(cont);
+          end;
+        end;
+      end;
+  end;
+  result:=caracter;
 end;
 
 function TModelGenericDataset<T>.RGBName: String;
