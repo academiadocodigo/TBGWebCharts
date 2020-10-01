@@ -785,6 +785,8 @@ type
     function PageLength(Value : Integer) : iModelTableOption; //Alterar o comprimento da página inicial (número de linhas por página)
     function PagingType(Value : String) : iModelTableOption; //Opções de exibição do botão de paginação
     function Retrieve(Value : Boolean) : iModelTableOption; //Recuperar uma instância existente do DataTables
+    function Name(Value : String) : iModelTableOption; overload;//DOM Id
+    function Name: String; overload;//DOM Id
     function Result : String;
     function &End : iModelTable;
   end;

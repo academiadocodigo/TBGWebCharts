@@ -54,7 +54,7 @@ begin
   begin
     FParent.HTML('<script>');
     FParent.HTML('$(document).ready(function() {');
-    FParent.HTML('	$('+QuotedStr('#tbgwebchart')+').DataTable({');
+    FParent.HTML('	$('+QuotedStr('#' + FTableOptions.Name)+').DataTable({');
     FParent.HTML(FTableOptions.Result);
     FParent.HTML(FFeatures.Result);
     FParent.HTML('language : {');
@@ -91,7 +91,7 @@ begin
     FParent.HTML('});');
     FParent.HTML('} );');
     FParent.HTML('</script>');
-    FParent.HTML('<table id="tbgwebchart" class="' + FClass + '" style="width:100%">');
+    FParent.HTML('<table id="' + FTableOptions.Name + '" class="' + FClass + '" style="width:100%">');
     FParent.HTML(FTableData.ResultTable);
   end
   else

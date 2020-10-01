@@ -24,6 +24,7 @@ type
       FPageLength : String;
       FPagingType : String;
       FRetrieve : String;
+      FName : String;
     public
       constructor Create(Parent : iModelTable);
       destructor Destroy; override;
@@ -43,6 +44,8 @@ type
       function PagingType(Value : String) : iModelTableOption;
       function Retrieve(Value : Boolean) : iModelTableOption;
       function Result : String;
+      function Name (Value : String) : iModelTableOption; overload;
+      function Name : String; overload;
       function &End : iModelTable;
   end;
 
@@ -71,6 +74,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
+  FName := 'tbgwebchart';
 end;
 
 function TModelTableOptions.deferLoading(Value: Integer): iModelTableOption;
@@ -89,6 +93,17 @@ function TModelTableOptions.displayStart(Value: Integer): iModelTableOption;
 begin
   Result := Self;
   FDisplayStart := 'displayStart: ' + InttoStr(Value) + ',';
+end;
+
+function TModelTableOptions.Name: String;
+begin
+  Result := FName;
+end;
+
+function TModelTableOptions.Name(Value: String): iModelTableOption;
+begin
+  Result := Self;
+  FName := Value;
 end;
 
 class function TModelTableOptions.New(Parent : iModelTable) : iModelTableOption;
