@@ -222,7 +222,7 @@ FData := FData + '$.extend($.pivotUtilities.locales.pt.renderers, $.pivotUtiliti
   FData := FData + '</div>';
 
 end;
-    {$IFNDEF CONSOLE}
+//    {$IFNDEF CONSOLE}
 
 function TModelPivotTable.HideUI: iModelPivotTable;
 begin
@@ -271,5 +271,4 @@ begin
   Result := Self;
   ShowPivotUI('true');
 end;
-{$ENDIF}
 end.

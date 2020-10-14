@@ -121,7 +121,7 @@ uses
     Windows,
     ActiveX,
     MSHTML,
-    OleCtrls,
+    System.Variants,
   {$ENDIF}
   Injection,
   Charts.Easy.Pie,
