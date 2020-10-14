@@ -176,12 +176,10 @@ begin
         Begin
          _tdClass := '';
           case FDataSet.Fields[X].DataType of
-            ftFloat,ftCurrency :
+            ftFloat,ftCurrency, ftBCD, ftFMTBcd, ftExtended:
             Begin
                _tdClass := 'text-right';
-               _value := FormatFloat((FDataSet.Fields[X] as TFloatField).DisplayFormat,
-                                                        FDataSet.FieldByName(FDataSet.Fields[x].FieldName).AsFloat) ;
-
+               _value := FormatFloat(TFloatField(FDataSet.Fields[X]).DisplayFormat, FDataSet.FieldByName(FDataSet.Fields[x].FieldName).AsFloat) ;
             end else
                _value := FDataSet.FieldByName(FDataSet.Fields[X].FieldName).AsString;
           end;
