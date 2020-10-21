@@ -162,6 +162,8 @@ begin
     FResult := FResult + 'var meta = chart.getDatasetMeta(i); ';
     FResult := FResult + 'if (!meta.hidden) { ';
     FResult := FResult + 'meta.data.forEach(function(element, index) { ';
+    FResult := FResult + 'if (!element.hidden) {';
+
     FResult := FResult + 'ctx.fillStyle = ''rgb('+FRGBColor+')''; ';
     FResult := FResult + '';
     FResult := FResult + 'var fontSize = '+IntToStr(FFontSize)+'; ';
@@ -181,6 +183,7 @@ begin
     FResult := FResult + 'var paddingX = '+IntToStr(FPaddingX)+'; ';
     FResult := FResult + 'var position = element.tooltipPosition(); ';
     FResult := FResult + 'ctx.fillText(dataString, position.x + paddingX, position.y - (fontSize / 2) - padding); ';
+    FResult := FResult + '}';
     FResult := FResult + '});';
     FResult := FResult + '}';
     FResult := FResult + '});';
