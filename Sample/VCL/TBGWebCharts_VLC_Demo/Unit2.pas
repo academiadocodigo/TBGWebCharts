@@ -92,8 +92,8 @@ uses
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
-    PageControl2.ActivePageIndex := 0;
-    SpeedButton2Click(Self);
+//    PageControl2.ActivePageIndex := 0;
+//    SpeedButton2Click(Self);
 end;
 
 procedure TForm2.SpeedButton1Click(Sender: TObject);
