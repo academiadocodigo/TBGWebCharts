@@ -2224,23 +2224,8 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  ClientDataSet1.Active := True;
-  ClientDataSet2.Active := True;
-  ClientDataSet3.Active := True;
-  ClientDataSet4.Active := True;
-  ClientDataSet5.Active := True;
-  ClientDataSet6.Active := True;
-  ClientDataSet7.Active := True;
-  ClientDataSet8.Active := True;
-  ClientDataSet9.Active := True;
-  ClientDataSet10.Active := True;
-  ClientDataSet11.Active := True;
-  ClientDataSet12.Active := True;
-  ClientDataSetReal1.Active := True;
-  ClientDataSetReal2.Active := True;
-
-//  btn_Dashboards_2Execute(self);
-//  FSplitAtual := SplitBootStrap;
+  btn_Dashboards_2Execute(self);
+  FSplitAtual := SplitBootStrap;
 end;
 
 procedure TForm1.PivotConfigLoad;
