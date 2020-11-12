@@ -107,6 +107,7 @@ begin
   FLabelName := 'Label';
   FValueName := 'Value';
   FRGBName := 'RGB';
+  FBorderWidth := 1;
 end;
 
 function TModelHTMLChartsDataSet.Data(Value: String): iModelHTMLDataSet;
@@ -297,7 +298,7 @@ begin
     FScript := FScript + 'backgroundColor: '+FBackgroundColor+', ' + #13;
   if FBorderColor <> '' then
     FScript := FScript + 'borderColor: "rgba('+FBorderColor+', 100)", ' + #13;
-  FScript := FScript + 'borderWidth: 1, ' + #13;
+  FScript := FScript + 'borderWidth: '+ IntToStr(FBorderWidth) + ', ' + #13;
   if FFill then FScript := FScript + 'fill: true,' else FScript := FScript + 'fill: false,';
   if FLineTension <> ''  then FScript := FScript + 'lineTension: ' + FLineTension + ',';
   if FBorderDash <> '' then FScript := FScript + 'borderDash: ' + FBorderDash + ',';
