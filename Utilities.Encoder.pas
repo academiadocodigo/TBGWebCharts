@@ -34,7 +34,7 @@ var
 begin
   Result := '';
   try
-    input.Seek(0, soFromBeginning);
+    input.Seek(0, soBeginning);
     try
       base64 := TIdEncoderMIME.Create(nil);
       Result := base64.Encode(input);
