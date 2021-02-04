@@ -7,7 +7,10 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, Vcl.CategoryButtons, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.OleCtrls, SHDocVw,
-  View.WebCharts, Data.DB, Datasnap.DBClient, midaslib;
+  View.WebCharts, Data.DB, Datasnap.DBClient, midaslib, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
+  FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client, INIFiles;
 
 type
   TForm1 = class(TForm)
@@ -154,6 +157,7 @@ type
     ClientDataSet4Label: TStringField;
     ClientDataSet4Value: TStringField;
     ClientDataSet4RGB: TStringField;
+    LOJAPRO2020: TFDConnection;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -199,6 +203,8 @@ type
     FSplitExibir : TSplitView;
     FSplitAtual : TSplitView;
     FPivotConfig : string;
+    WorkDirectory1,WorkDirectory2,WorkDirectory3,WorkDirectory4,WorkDirectory5,WorkDirectory6,WorkDirectory7: string;
+
     function CSSPersonalizado: String;
   public
     { Public declarations }
@@ -222,6 +228,69 @@ uses
   Charts.Types, Unit2;
 
 {$R *.dfm}
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+
+   WorkDiretorio: string;
+   WorkDirectory: TINIFile;
+
+   TAux: TStringList;
+   I: integer;
+
+begin
+
+   WorkDiretorio := ExtractFilePath(Application.ExeName) + 'WorkDir.ini';
+
+   WorkDirectory := TINIFile.Create(WorkDiretorio);
+
+   try
+      // diretório utilizado somente por todos os terminais
+      WorkDirectory1 := WorkDirectory.ReadString('Diretorios', 'Diretorio1', '\Loja Pró 2000\Dados');
+
+      // diretório do local do banco de dados
+      WorkDirectory2 := WorkDirectory.ReadString('Diretorios', 'Diretorio2', '\Loja Pró 2000\DadosI');
+
+      // diretório onde ficam todos os arquivos utilizados somente por este terminal
+      WorkDirectory3 := WorkDirectory.ReadString('Diretorios', 'Diretorio3', '\Loja Pró 2000\Install');
+
+      // diretório onde ficam as fotos dos cadastros
+      WorkDirectory4 := WorkDirectory.ReadString('Diretorios', 'Diretorio4', '\Loja Pró 2000\Fotos');
+
+      // diretório onde ficam todos os arquivos utilizados por todos os terminais
+      WorkDirectory5 := WorkDirectory.ReadString('Diretorios', 'Diretorio5', '\Loja Pró 2000\Dados');
+
+      try
+
+         LOJAPRO2020.Connected := False;
+         LOJAPRO2020.Params.DriverID := 'FB';
+         LOJAPRO2020.Params.UserName := 'SYSDBA';
+         LOJAPRO2020.Params.Password := 'masterkey';
+
+         LOJAPRO2020.Params.Database := WorkDirectory2;
+
+         LOJAPRO2020.Connected := True;
+
+      except
+
+         ShowMessage('ERRO NA CONEXÃO DO BANCO DE DADOS!');
+
+         Application.Terminate;
+
+      end;
+
+   finally
+
+      WorkDirectory.Free;
+      TAux.Free;
+
+      btn_Dashboards_2Execute(self);
+      FSplitAtual := SplitBootStrap;
+
+   end;
+
+
+end;
 
 procedure TForm1.btn_bootstrap_alertsExecute(Sender: TObject);
 begin
@@ -657,13 +726,49 @@ begin
 end;
 
 procedure TForm1.btn_dashboards_2Execute(Sender: TObject);
+var
+   Filiais : array[1..12] of string;
+   I: integer;
+
+   FDAux: TFDQuery;
 begin
+
+   FDAux := TFDQuery.Create(self);
+
+   FDAux.Connection := LOJAPRO2020;
+
+
+  for I := 0 to 12 do
+    Filiais[I] := '';
+
+  with FDAux do
+  begin
+
+       close;
+       SQL.Clear;
+       SQL.Add('select codigo, nome, coalesce(metadiaria,0) as metadiaria from filais');
+       SQL.Add('where coalesce(metadiaria,0) > 0');
+       SQL.Add('  and not (trim(nome) = '''') ');
+       SQL.Add('  and codigo > 0 ');
+       SQL.Add('order by codigo');
+       first;
+
+       while not eof do
+       begin
+            Filiais[FieldByName('codigo').AsInteger] := FieldByName('nome').AsString;
+            next;
+       end;
+
+  end;
+
+
+
   TWebCharts.New
 //  .CDN(True)
     //.AddResource('<link href="green.css" rel="stylesheet">')
     //.AddResource('<link href="style.css" rel="stylesheet">')
     .BackgroundColor('#23272b')
-    .FontColor('#8f9894')
+    .FontColor('#FFFF00') //  ('#8f9894')
     .AddResource('<style> body { margin : 50px; } </style>')
     .Container(Fluid)
     .NewProject
@@ -751,14 +856,15 @@ begin
                       .ColSpan(8)
                       .Heigth(140)
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .textLabel('Margem da Matriz')
                         .RealTimeDataSet(ClientDataSetReal1)
-                        .BackgroundColor('227,233,235')
+                        //.BackgroundColor('227,233,235')
+                        .BackgroundColor('127,133,135')
                         .BorderColor('227,233,235')
                         .Fill(False)
                       .&End
                       .DataSet
-                        .textLabel('Meu DataSet 2')
+                        .textLabel('Margem individual')
                         .RealTimeDataSet(ClientDataSetReal2)
                         .BackgroundColor('26,187,156')
                         .Fill(False)
@@ -801,7 +907,7 @@ begin
                       .Heigth(285)
                       //.Title('Top Campaign Performance')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .textLabel('Margem da loja')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('26,187,156')
                         .BorderColor('26,187,156')
@@ -827,7 +933,7 @@ begin
                       //.Heigth(295)
                       //.Title('App Usage across versions')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .textLabel('Margem da loja')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('26,187,156')
                         .BorderColor('26,187,156')
@@ -851,7 +957,7 @@ begin
                       //.Heigth(295)
                       //.Title('Device Usage')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .textLabel('Margem da loja')
                         .DataSet(ClientDataSet4)
                         .BackgroundColor('26,187,156')
                         .BorderColor('227,233,235')
@@ -875,7 +981,7 @@ begin
                       //.Heigth(250)
                       //.Title('Device Usage')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .textLabel('Margem da loja')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('227,233,235')
                         .BorderColor('26,187,156')
@@ -1153,13 +1259,13 @@ begin
                     .DataSet
                       .BackgroundColor('26,187,156')
                       .BorderColor('26,187,156')
-                      .textLabel('Meu DataSet 1')
+                      .textLabel('Margem da loja')
                       .DataSet(ClientDataSet1)
                     .&End
                     .DataSet
                       .BackgroundColor('242,112,91')
                       .BorderColor('242,112,91')
-                      .textLabel('Meu DataSet 2')
+                      .textLabel('Margem individual')
                       .DataSet(ClientDataSet2)
                     .&End
                   .&End
@@ -1547,7 +1653,7 @@ begin
             .DataSet(ClientDataSet4)
           .&End
           .DataSet
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -1626,14 +1732,14 @@ begin
           .ColSpan(12)
           //.Title('Meu Grafico de Barras')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
             .BackgroundColor('227,233,235')
             .BorderColor('227,233,235')
             .Fill(False)
           .&End
           .DataSet
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
             .BackgroundColor('30,182,203')
             .BorderColor('30,182,203')
@@ -1650,14 +1756,14 @@ begin
           .ColSpan(12)
           //.Title('Meu Grafico de Barras')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
             .BackgroundColor('227,233,235')
             .BorderColor('227,233,235')
             .Fill(False)
           .&End
           .DataSet
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
             .BackgroundColor('30,182,203')
             .BorderColor('30,182,203')
@@ -1781,7 +1887,7 @@ begin
           .ColSpan(12)
           //.Title('Meu Grafico Pie')
           .DataSet
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -1839,14 +1945,14 @@ begin
 //            .BackgroundColor('26,187,156')
             .RGBName('RGB')
 //            .BorderColor('26,187,156')
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet12)
             .Fill(False)
           .&End
 //          .DataSet
 //            .BackgroundColor('30,182,203')
 ////            .BorderColor('30,182,203')
-//            .textLabel('Meu DataSet 2')
+//            .textLabel('Margem individual')
 //            .DataSet(ClientDataSet2)
 ////            .Fill(False)
 //          .&End
@@ -1883,13 +1989,13 @@ begin
           .DataSet
             .BackgroundColor('26,187,156')
             .BorderColor('26,187,156')
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('242,112,91')
             .BorderColor('242,112,91')
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
           .&End
         .&End
@@ -1921,14 +2027,14 @@ begin
           .ColSpan(12)
           //.Heigth(140)
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .RealTimeDataSet(ClientDataSetReal1)
             .BackgroundColor('242,112,91')
             .BorderColor('242,112,91')
             .Fill(False)
           .&End
           .DataSet
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .RealTimeDataSet(ClientDataSetReal2)
             .BackgroundColor('26,187,156')
             .Fill(False)
@@ -2220,12 +2326,6 @@ end;
 procedure TForm1.CallBack(Value: string);
 begin
   ShowMessage(value);
-end;
-
-procedure TForm1.FormCreate(Sender: TObject);
-begin
-  btn_Dashboards_2Execute(self);
-  FSplitAtual := SplitBootStrap;
 end;
 
 procedure TForm1.PivotConfigLoad;
@@ -2526,9 +2626,19 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+var
+   sCor: string;
+   iCorR, iCorG, iCorB: integer;
 begin
-  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), '']);
-  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), '']);
+
+  iCorR := Random(255);
+  iCorG := Random(255);
+  iCorB := Random(255);
+
+  sCor := IntToStr(iCorR)+','+IntToStr(iCorG)+','+IntToStr(iCorB);
+
+  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), sCor]);
+  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), sCor]);
 
   WebCharts1
     .ContinuosProject
@@ -2537,12 +2647,16 @@ begin
       ._ChartType(line)
         .Attributes
           .Name('linestacked1')
+          .Labelling
+            .Format('0%') //Consultar em http://numeraljs.com/#format
+            .RGBColor('255,255,255') //Cor RGB separado por Virgula
+          .&End
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .RealTimeDataSet(ClientDataSetReal1)
           .&End
           .DataSet
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .RealTimeDataSet(ClientDataSetReal2)
           .&End
         .&End
@@ -2587,17 +2701,17 @@ begin
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -2628,17 +2742,17 @@ begin
           .ColSpan(12)
           //.Title('Meu Gráfico de Barras')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -2670,12 +2784,12 @@ begin
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
           .&End
           .Options
@@ -2731,12 +2845,12 @@ begin
           .ColSpan(12)
           //.Title('Meu Gráfico de Barras')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -2766,7 +2880,7 @@ begin
           .ColSpan(12)
           //.Title('Meu Gráfico de Barras')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da loja')
             .DataSet(ClientDataSet1)
             .Types('line')
             .Fill(false)
@@ -2774,12 +2888,12 @@ begin
             .BorderColor('30,182,203')
           .&End
           .DataSet
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem individual')
             .DataSet(ClientDataSet2)
             .Types('bar')
           .&End
           .DataSet
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet2)
             .Types('bar')
           .&End
@@ -2821,17 +2935,17 @@ begin
             .&End
           .&End
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .textLabel('Margem da Loja')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
+            .textLabel('Margem Individual')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
+            .textLabel('Meta da margem')
             .DataSet(ClientDataSet3)
           .&End
         .&End
