@@ -23,6 +23,7 @@ type
       FOnStop : String;
       FOnStep : String;
       FDataPercent : String;
+      FName : string;
       function ResultHTML : String;
       function ResultScript : String;
     public
@@ -76,6 +77,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
+    FName := 'chart' + IntToStr(Random(100));
     FBarColor := '#ef1e25';
     FTrackColor := '#f2f2f2';
     FScaleColor := '#dfe0e0';
@@ -137,7 +139,7 @@ end;
 
 function TModelChartsEasyPie.ResultHTML: String;
 begin
-  Result := Result + '<div class="chart" data-percent="'+FDataPercent+'">';
+  Result := Result + '<div class="' + FName + '" data-percent="'+FDataPercent+'">';
   Result := Result + '<span>'+FDAtaPercent+'</span>%</div>';
 end;
 
@@ -145,7 +147,7 @@ function TModelChartsEasyPie.ResultScript: String;
 begin
   Result := Result + '<script>'+#13;
   Result := Result + '$(function() { ';
-  Result := Result + '  $('+QuotedStr('.chart')+').easyPieChart({ ';
+  Result := Result + '  $('+QuotedStr('.' + FName)+').easyPieChart({ ';
   Result := Result + ' barColor: '+QuotedStr(FBarColor)+',';
   Result := Result + ' trackColor: '+QuotedStr(FTrackColor)+',';
   Result := Result + ' scaleColor: '+QuotedStr(FScaleColor)+',';
