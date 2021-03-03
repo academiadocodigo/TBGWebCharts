@@ -15,6 +15,7 @@ type
 	  procedure TetherminJS_1;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
@@ -32,6 +33,11 @@ end;
 constructor TTetherminJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TTetherminJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TTetherminJS.Destroy;

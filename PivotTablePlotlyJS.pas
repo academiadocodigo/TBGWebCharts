@@ -8,6 +8,7 @@ type
   TPivotTablePlotlyJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN : boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -34,24 +35,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TPivotTablePlotlyJS }
 
 function TPivotTablePlotlyJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := value;
 end;
 
 constructor TPivotTablePlotlyJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TPivotTablePlotlyJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TPivotTablePlotlyJS.Destroy;
@@ -12270,30 +12278,34 @@ function TPivotTablePlotlyJS.PackJS: String;
 var
   I: Integer;
 begin
-  PivotTablePlotlyJS_1;
-  PivotTablePlotlyJS_2;
-  PivotTablePlotlyJS_3;
-  PivotTablePlotlyJS_4;
-  PivotTablePlotlyJS_5;
-  PivotTablePlotlyJS_6;
-  PivotTablePlotlyJS_7;
-  PivotTablePlotlyJS_8;
-  PivotTablePlotlyJS_9;
-  PivotTablePlotlyJS_10;
-  PivotTablePlotlyJS_11;
-  PivotTablePlotlyJS_12;
-  PivotTablePlotlyJS_13;
-  PivotTablePlotlyJS_14;
-  PivotTablePlotlyJS_15;
-  PivotTablePlotlyJS_16;
-  PivotTablePlotlyJS_17;
-  PivotTablePlotlyJS_18;
-  PivotTablePlotlyJS_19;
+  if FCDN then
+    Result := '<script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>'
+  else
+  begin
+    PivotTablePlotlyJS_1;
+    PivotTablePlotlyJS_2;
+    PivotTablePlotlyJS_3;
+    PivotTablePlotlyJS_4;
+    PivotTablePlotlyJS_5;
+    PivotTablePlotlyJS_6;
+    PivotTablePlotlyJS_7;
+    PivotTablePlotlyJS_8;
+    PivotTablePlotlyJS_9;
+    PivotTablePlotlyJS_10;
+    PivotTablePlotlyJS_11;
+    PivotTablePlotlyJS_12;
+    PivotTablePlotlyJS_13;
+    PivotTablePlotlyJS_14;
+    PivotTablePlotlyJS_15;
+    PivotTablePlotlyJS_16;
+    PivotTablePlotlyJS_17;
+    PivotTablePlotlyJS_18;
+    PivotTablePlotlyJS_19;
 
-  Result := '';
-  // Result := TNetEncoding.Base64.Decode(FPack.Text);
-  for I := 0 to Pred(FPack.Count) do
-    Result := Result + TIdDecoderMIME.DecodeString(FPack[I]);
+    Result := '';
+    for I := 0 to Pred(FPack.Count) do
+      Result := Result + TUtilitiesEncoder.Base64Decode(FPack[I]);
+  end;
 end;
 
 end.

@@ -11,6 +11,7 @@ type
       FParent : T;
       FFontColor : String;
       FFontSize : integer;
+      FFontFamily : string;
       FAutoSkip : Boolean;
       FlabelOffset : Integer;
       FResult : String;
@@ -31,6 +32,8 @@ type
       function fontColor : String; overload;
       function fontSize (Value : integer) : iModelHTMLChartsAxesTicks<T>; overload;
       function fontSize : integer; overload;
+      function fontFamily (Value : string) : iModelHTMLChartsAxesTicks<T>; overload;
+      function fontFamily : string; overload;
       function autoSkip (Value : Boolean) : iModelHTMLChartsAxesTicks<T>; overload;
       function autoSkip : Boolean; overload;
       function autoSkipPadding (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
@@ -130,6 +133,18 @@ begin
   Result := FFontColor;
 end;
 
+function TModelHTMLAxesTicks<T>.fontFamily: string;
+begin
+  Result := FFontFamily;
+end;
+
+function TModelHTMLAxesTicks<T>.fontFamily(
+  Value: string): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FFontFamily := Value;
+end;
+
 function TModelHTMLAxesTicks<T>.fontSize: integer;
 begin
   result := FFontSize;
@@ -226,6 +241,8 @@ begin
   if FFontSize > 0 then
     FResult := FResult + 'fontSize : '+FontSize.ToString+', ';
   FResult := FResult + 'fontColor : "'+FontColor+'", ';
+  if FFontFamily <> '' then
+    FResult := FResult + 'fontFamily : "' + FFontFamily + '", ';
   if FAutoSkip then FResult := FResult + 'autoSkip : true, ' else FResult := FResult + 'autoSkip : false, ';
   FResult := FResult + 'autoSkipPadding : ' + IntToStr(FautoSkipPadding) + ',';
   FResult := FResult + 'labelOffset : ' + IntToStr(FlabelOffset) + ',';

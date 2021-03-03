@@ -8,6 +8,7 @@ type
   TBootstrapJS = class(TInterfacedObject,iModelJS)
     private
       FPack : TStringList;
+      FCDN: Boolean;
     public
       constructor Create;
       destructor Destroy; override;
@@ -26,6 +27,7 @@ type
       procedure BootstrapJS_12;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
@@ -38,11 +40,17 @@ uses
 function TBootstrapJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TBootstrapJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TBootstrapJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TBootstrapJS.Destroy;
@@ -4119,19 +4127,24 @@ end;
 
 function TBootstrapJS.PackJS : String;
 begin
-  BootstrapJS_1;
-  BootstrapJS_2;
-  BootstrapJS_3;
-  BootstrapJS_4;
-  BootstrapJS_5;
-  BootstrapJS_6;
-  BootstrapJS_7;
-  BootstrapJS_8;
-  BootstrapJS_9;
-  BootstrapJS_10;
-  BootstrapJS_11;
-  BootstrapJS_12;
-  Result := FPack.Text;
+  if FCDN then
+    Result := '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>'
+  else
+  begin
+    BootstrapJS_1;
+    BootstrapJS_2;
+    BootstrapJS_3;
+    BootstrapJS_4;
+    BootstrapJS_5;
+    BootstrapJS_6;
+    BootstrapJS_7;
+    BootstrapJS_8;
+    BootstrapJS_9;
+    BootstrapJS_10;
+    BootstrapJS_11;
+    BootstrapJS_12;
+    Result := FPack.Text;
+  end;
 end;
 
 end.

@@ -32,6 +32,7 @@ Type
       procedure generatedData;
       procedure generatedFill;
       function replaceValue(Value : String) : String;
+      function RandomColor : string;
     public
       constructor Create(Parent : iModelHTMLChartsConfig);
       destructor Destroy; override;
@@ -108,6 +109,7 @@ begin
   FValueName := 'Value';
   FRGBName := 'RGB';
   FBorderWidth := 1;
+
 end;
 
 function TModelHTMLChartsDataSet.Data(Value: String): iModelHTMLDataSet;
@@ -139,16 +141,21 @@ procedure TModelHTMLChartsDataSet.generatedBackgroundColor;
 var
   Local_I: Integer;
   Aux : String;
+  HasRGBField : Boolean;
 begin
   if FBackgroundColor = '' then
   begin
+    HasRGBField := FDataSet.Fields.FindField(FRGBName) <> nil;
     FBackgroundColor := '["';
     Aux := ', 100)", "';
     FDataSet.First;
     for Local_I := 0 to Pred(FDataSet.RecordCount) do
     begin
       if Local_I = Pred(FDataSet.RecordCount) then Aux := ', 100)';
-      FBackgroundColor := FBackgroundColor + 'rgba(' + FDataSet.FieldByName(FRGBName).AsString + Aux;
+      if HasRGBField then
+        FBackgroundColor := FBackgroundColor + 'rgba(' + FDataSet.FieldByName(FRGBName).AsString + Aux
+      else
+        FBackgroundColor := FBackgroundColor + 'rgba(' + RandomColor + Aux;
       FDataSet.Next;
     end;
     FBackgroundColor := FBackgroundColor + '"]';
@@ -211,6 +218,30 @@ end;
 class function TModelHTMLChartsDataSet.New(Parent : iModelHTMLChartsConfig): iModelHTMLDataSet;
 begin
   Result := Self.Create(Parent);
+end;
+
+function TModelHTMLChartsDataSet.RandomColor: string;
+var
+  _r,_g,_b, cont: Integer;
+  rgb : string;
+
+begin
+  cont := 0;
+  while cont < 3 do
+  begin
+    cont := cont + 1;
+    _r := Random(255);
+
+    _g := Random(255);
+
+    _b := Random(255);
+
+    rgb := format('%d,%d,%d', [_r,_g,_b]);
+    if Pos( rgb, FBackgroundColor) = 0 then
+      cont := 3;
+  end;
+
+  Result := rgb;
 end;
 
 function TModelHTMLChartsDataSet.RealTimeDataSet(

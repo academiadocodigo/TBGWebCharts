@@ -8,6 +8,7 @@ type
   TChartbundleJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -19,24 +20,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TChartbundleJS }
 
 function TChartbundleJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TChartbundleJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TChartbundleJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TChartbundleJS.Destroy;
@@ -2158,13 +2166,18 @@ end;
 
 function TChartbundleJS.PackJS: String;
 begin
-  ChartbundleJS_1;
-  ChartbundleJS_2;
-  ChartbundleJS_3;
-  ChartbundleJS_4;
+  if FCDN then
+    Result := '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>'
+  else
+  begin
+    ChartbundleJS_1;
+    ChartbundleJS_2;
+    ChartbundleJS_3;
+    ChartbundleJS_4;
 
-  Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
-  Result := TIdDecoderMIME.DecodeString(Result);
+    Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
+    Result := TUtilitiesEncoder.Base64Decode(Result);
+  end;
 end;
 
 end.

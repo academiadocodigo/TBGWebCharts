@@ -8,6 +8,7 @@ type
   TJqueryJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN: boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -17,24 +18,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TJqueryJS }
 
 function TJqueryJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TJqueryJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TJqueryJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TJqueryJS.Destroy;
@@ -1220,13 +1228,17 @@ function TJqueryJS.PackJS: String;
 var
   I: Integer;
 begin
-  JqueryJS_1;
-  JqueryJS_2;
+  if FCDN then
+    Result := '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>'
+  else
+  begin
+    JqueryJS_1;
+    JqueryJS_2;
 
-  Result := '';
-  // Result := TNetEncoding.Base64.Decode(FPack.Text);
-  for I := 0 to Pred(FPack.Count) do
-    Result := Result + TIdDecoderMIME.DecodeString(FPack[I]);
+    Result := '';
+    for I := 0 to Pred(FPack.Count) do
+      Result := Result + TUtilitiesEncoder.Base64Decode(FPack[I]);
+  end;
 end;
 
 end.

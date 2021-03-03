@@ -5,9 +5,19 @@ unit Interfaces;
 interface
 
 uses
-   DB,
-   Generics.Collections,
-   {$IFDEF HAS_FMX}
+  {$IF RTLVERSION > 22 }
+    {$IFDEF HAS_FMX}
+      {$IFDEF HAS_CHROMIUM}
+        {$DEFINE HAS_CALLBACK}
+      {$ENDIF}
+    {$ELSE}
+      {$DEFINE HAS_CALLBACK}
+    {$ENDIF}
+  {$ENDIF}
+
+  DB,
+  Generics.Collections,
+  {$IFDEF HAS_FMX}
     FMX.StdCtrls,
     FMX.WebBrowser,
   {$ELSE}
@@ -22,10 +32,23 @@ uses
       SHDocVw,
     {$IFEND}
   {$ENDIF}
+  {$IFDEF HAS_CHROMIUM}
+    uCEFInterfaces,
+    {$IFDEF HAS_FMX}
+      uCEFFMXChromium,
+      uCEFFMXWindowParent,
+    {$ELSE}
+      uCEFChromium,
+      uCEFWindowParent,
+    {$ENDIF}
+  {$ENDIF}
+   System.SysUtils,
    Classes,
    Charts.Types;
 
 type
+  iWebCharts = interface;
+  iModelHTML = interface;
   iModelHTMLChartsBar = interface;
   iModelHTMLCharts = interface;
   iModelHTMLChartsConfig = interface;
@@ -67,32 +90,62 @@ type
   iModelHTMLPlugins = interface;
   iModelTableActionImage = Interface;
   iModelTableAction = interface;
+  iModelBrowser = interface;
+  iModelGenericCoordinates<T> = interface;
+  iModelCredenciais = interface;
+
+  iModelMaps = interface;
+  iModelGenericTitle<T> = interface;
+  iModelMapsGeneric = interface;
+  iModelMapsOptions = interface;
+  iModelMapsDraw = interface;
+  iModelMapsDrawCircle = interface;
+  iModelMapsDrawMarker = interface;
+  iModelMapsLayer = interface;
+  iModelMapsLayerHeatMap = interface;
+  iModelMapsDataSet<T> = interface;
+  {$IFDEF HAS_CHROMIUM}
+    iModelChromiumResources = interface;
+    iModelChromiumResourcesPages = interface;
+    iModelChromiumResourcesJSCallback = interface;
+
+  {$ENDIF}
 
   {$IFDEF FULL}
-  iModelTable = interface;
-  iModelTableDataSet = interface;
-  iModelTableOption = interface;
-  iModelTableData = interface;
-  iModelTableFeatures = interface;
-  iModelTableClass = interface;
-  IModelHTMLRowsDiv = interface;
-  iModelCardsDataSet = interface;
-  iModelCards = interface;
-  iModelChartEasyPie = interface;
-  iModelButtonClass = interface;
-  iModelButton = interface;
-  {$IFDEF HAS_FMX}
-    {$ELSE}
-    {$IF RTLVERSION > 22 }
-    iCallbackJS = interface;
-    {$IFEND}
+    iModelTable = interface;
+    iModelTableDataSet = interface;
+    iModelTableOption = interface;
+    iModelTableData = interface;
+    iModelTableFeatures = interface;
+    iModelTableClass = interface;
+    IModelHTMLRowsDiv = interface;
+    iModelCardsDataSet = interface;
+    iModelCards = interface;
+    iModelChartEasyPie = interface;
+    iModelButtonClass = interface;
+    iModelButton = interface;
+    {$IFDEF HAS_CALLBACK}
+      iCallbackJS = interface;
     {$ENDIF}
-  iModelImageDataSet = interface;
-  iModelImage = interface;
-  iModelImageClass = interface;
-  IModelHTMLRowsP = interface;
-  //iCacheControl = interface;
+    iModelImageDataSet = interface;
+    iModelImage = interface;
+    iModelImageClass = interface;
+    IModelHTMLRowsP = interface;
+    //iCacheControl = interface;
   {$ENDIF}
+
+  iWebCharts = interface
+    ['{D98D23CE-5E37-4941-89E3-92AF922ACE60}']
+    function NewProject : iModelHTML; overload;
+    function NewProject(Container : Boolean) : iModelHTML; overload;
+    function ContinuosProject : iModelHTML;
+    function AddResource(Value : String) : iWebCharts;
+    function BackgroundColor(Value : String) : iWebCharts;
+    function Container(Value : TTypeContainer) : iWebCharts;
+    function FontColor(Value : String) : iWebCharts;
+    function CDN(Value : Boolean) : iWebCharts;
+    function Credenciais : iModelCredenciais;
+  end;
 
   iModelHTML = interface
     ['{6D5210CC-D750-4643-8685-48037F21E6AA}']
@@ -105,7 +158,17 @@ type
     function HTML(Value : String) : iModelHTML; overload;
     function HTML : String; overload;
     function ClearHTML : iModelHTML;
-    function WebBrowser(Value : TWebBrowser) : iModelHTML;
+    function WebBrowser(Value : TWebBrowser) : iModelHTML; overload;
+    {$IFDEF HAS_CHROMIUM}
+      {$IFDEF HAS_FMX}
+        function WebBrowser(Value : TFMXChromium) : iModelHTML; overload;
+        function WindowParent(Value: TFMXWindowParent) : iModelHTML; overload;
+      {$ELSE}
+        function WebBrowser(Value : TChromium) : iModelHTML; overload;
+        function WindowParent(Value: TCEFWindowParent) : iModelHTML; overload;
+      {$ENDIF}
+      function Maps : iModelMaps;
+    {$ENDIF}
     function Generated : iModelHTML;
     function Container(Value : Boolean) : iModelHTML;
     function FolderDefaultRWC(Value : String) : iModelHTML;
@@ -119,30 +182,181 @@ type
     function PivotTable : iModelPivotTable;
     procedure ExecuteScript(Value : iModelJSCommand);
     function ExecuteScriptResult(Value : iModelJSCommand) : string;
+    procedure ExecuteScriptCallback(Value: iModelJSCommand);
+    function Credenciais(Value : iModelCredenciais) : iModelHTML;
     {$IFDEF FULL}
-    function Table : iModelTable;
-    function Cards : iModelCards;
-    function ChartEasyPie : iModelChartEasyPie;
-    {$IFDEF HAS_FMX}
-    {$ELSE}
-    {$IF RTLVERSION > 22 }
-    function CallbackJS : iCallbackJS;
-    function Buttons : iModelButton;
-    {$IFEND}
-    {$ENDIF}
-    function Image : iModelImage;
-    //function CacheControl : iCacheControl;
+      function Table : iModelTable;
+      function Cards : iModelCards;
+      function ChartEasyPie : iModelChartEasyPie;
+      {$IFDEF HAS_CALLBACK}
+        function CallbackJS : iCallbackJS;
+        function Buttons : iModelButton;
+      {$ENDIF}
+      function Image : iModelImage;
+      //function CacheControl : iCacheControl;
     {$ENDIF}
   end;
 
-  iLabelLing = interface
-    function Numeral(Value : String) : iLabelLing;
-    function Result : String;
+  iModelCredenciais = interface
+    ['{FCE8B965-DB1B-42E6-B831-588BB955A88A}']
+    function APIGoogle(Value : string) : iModelCredenciais; overload;
+    function APIGoogle : string; overload;
+    function &End : iWebCharts;
   end;
 
-  iNumeral = interface
-    function Result(Value : String) : String;
+  iModelBrowser = interface
+  ['{90CE8FFC-31D4-423B-A585-5A6B5E01A3F8}']
+    procedure ExecuteScript(Value : iModelJSCommand);
+    function ExecuteScriptResult(Value : iModelJSCommand) : string;
+    procedure ExecuteScriptCallback(Value: iModelJSCommand);
+    function Generated(FHTML : string) : iModelBrowser;
   end;
+
+  iModelMaps = interface
+    ['{6FB8BE17-5803-418D-B9A6-2448DFE5B6F9}']
+    function MapType(Value : TTypeMaps) : iModelMapsGeneric;
+    function MapTitle : iModelGenericTitle<iModelMaps>;
+    function &End : iModelHTML;
+  end;
+
+  iModelGenericTitle<T> = interface
+    ['{BBADD905-F041-4B05-8729-5F6ED7C3F286}']
+    function Text(Value : string) : iModelGenericTitle<T>; overload;
+    function FontSize(Value : Integer) : iModelGenericTitle<T>; overload;
+    function TextAlignment(Value : string) : iModelGenericTitle<T>; overload;
+    function FontColorHEX(Value : string) : iModelGenericTitle<T>; overload;
+    function FontFamily(Value : string) : iModelGenericTitle<T>; overload;
+    function Text : string; overload;
+    function FontSize : Integer; overload;
+    function TextAlignment : string; overload;
+    function FontColorHEX : string; overload;
+    function FontFamily : string; overload;
+    function Result : string;
+    function &End : T;
+  end;
+
+  iModelMapsGeneric = interface
+    ['{9831E9BF-E318-4D65-9722-B1A8E9562AC3}']
+    function Name(Value : String) : iModelMapsGeneric; overload;
+    function Options : iModelMapsOptions;
+    function Height(Value : String) : iModelMapsGeneric;
+    function Width(Value : String) : iModelMapsGeneric;
+    function Draw : iModelMapsDraw;
+    function Layer : iModelMapsLayer;
+    function Name : String; overload;
+    function &End : iModelMaps;
+    function ResultClass : string;
+  end;
+
+  iModelMapsOptions = interface
+    ['{ADAAA471-ED18-411D-9855-04ABFCCBB9B6}']
+    function Center : iModelGenericCoordinates<iModelMapsOptions>;
+    function Zoom(Value : Integer) : iModelMapsOptions;
+    function FullScreenControl : iModelMapsOptions;
+    function MapTypeControl : iModelMapsOptions;
+    function StreetViewControl : iModelMapsOptions;
+    function ZoomControl : iModelMapsOptions;
+    function MapStyle(Value: TTypeMapStyle) : iModelMapsOptions;
+    function ResultScript : String;
+    function &End : iModelMapsGeneric;
+  end;
+
+  iModelMapsDraw = interface
+    ['{00620760-9D3F-48FE-9FB4-91CB43C64F53}']
+    function Marker : iModelMapsDrawMarker;
+    function Circle : iModelMapsDrawCircle;
+    function ResultScript : String;
+    function &End : iModelMapsGeneric;
+  end;
+
+  iModelMapsDrawMarker = interface
+    ['{03FDD2B8-7C64-41C1-A9B6-4284EBE6B997}']
+    function DataSet : iModelMapsDataSet<iModelMapsDrawMarker>;
+    function ResultScript(Value: string) : String;
+    function &End : iModelMapsDraw;
+
+  end;
+
+  iModelMapsDrawCircle = interface
+    ['{14E21290-71DA-4BE7-919B-DA81B6E765E7}']
+    function DataSet : iModelMapsDataSet<iModelMapsDrawCircle>;
+    function StrokeColor(Value: string): iModelMapsDrawCircle;
+    function StrokeOpacity(Value : string) : iModelMapsDrawCircle;
+    function StrokeWeight(Value : Integer) : iModelMapsDrawCircle;
+    function FillColor(Value : string) : iModelMapsDrawCircle;
+    function FillOpacity(Value : string) : iModelMapsDrawCircle;
+    function Fator(Value : integer) : iModelMapsDrawCircle;
+    function ResultScript(Value: string) : String;
+    function &End : iModelMapsDraw;
+
+  end;
+
+  iModelMapsLayer = interface
+    ['{ACABBD56-A9D9-4D0B-85B1-6D115C218FAD}']
+    function HeatMap : iModelMapsLayerHeatMap;
+    function &End : iModelMapsGeneric;
+    function ResultScript : String;
+  end;
+
+  iModelMapsLayerHeatMap = interface
+    ['{A46B4845-FF76-48D5-AB8A-C7F39D0FE34C}']
+    function DataSet : iModelMapsDataSet<iModelMapsLayerHeatMap>;
+    function Radius(Value : string) : iModelMapsLayerHeatMap; overload;
+    function Opacity(Value : string) :iModelMapsLayerHeatMap; overload;
+    function Radius : string; overload;
+    function Opacity : string; overload;
+    function &End : iModelMapsLayer;
+    function ResultScript : String;
+  end;
+
+  iModelMapsDataSet<T> = interface
+    ['{F58E5C44-D904-4347-BC57-CF7889DB4DD1}']
+    function DataSet (Value : TDataSet) : iModelMapsDataSet<T>; overload;
+    function LatName(Value : String) : iModelMapsDataSet<T>; overload;
+    function LngName(Value : String) : iModelMapsDataSet<T>; overload;
+    function LabelName(Value : String) : iModelMapsDataSet<T>; overload;
+    function ValueName(Value : String) : iModelMapsDataSet<T>; overload;
+    function DataSet : TDataSet; overload;
+    function LatName : String; overload;
+    function LngName : String; overload;
+    function LabelName : String; overload;
+    function ValueName : String; overload;
+    function &End : T;
+  end;
+
+  {$IFDEF HAS_CHROMIUM}
+    iModelChromiumResourcesPages = interface
+      ['{30782EC6-B430-4FC1-9B23-D06693BE23D4}']
+        function Add(HTML : String) : string;
+        function Get(Key : String) : ICefResourceHandler;
+        function Extract(Key : String) :ICefResourceHandler;
+        procedure Remove(Key : String);
+    end;
+
+    iModelChromiumResourcesJSCallback = interface
+      ['{384A33CB-A7E7-40C3-88EA-F656605C0964}']
+        function Add(Proc : TProc<string>) : string;
+        function Get(Key : String) : TProc<string>;
+        function Extract(Key : String) :TProc<string>;
+        procedure Remove(Key : String);
+    end;
+
+    iModelChromiumResources = interface
+      ['{16F507A0-D848-4491-AF0A-8AE73782FBB2}']
+      function Pages : iModelChromiumResourcesPages;
+      function JSCallback : iModelChromiumResourcesJSCallback;
+    end;
+
+  {$ENDIF}
+
+//  iLabelLing = interface
+//    function Numeral(Value : String) : iLabelLing;
+//    function Result : String;
+//  end;
+//
+//  iNumeral = interface
+//    function Result(Value : String) : String;
+//  end;
 
   IModelHTMLRows = interface
     ['{684C6EA3-4C2D-4AA9-9A94-BF0A07B14A8B}']
@@ -307,6 +521,7 @@ type
   iModelHTMLTooltip<T> = interface
     ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
     function Format(Value : String) : iModelHTMLTooltip<T>;
+    function Enabled(Value : Boolean) : iModelHTMLTooltip<T>;
     function ToolTipNoScales : iModelHTMLTooltip<T>;
     function InteractionModeNearest : iModelHTMLTooltip<T>;
     function InteractionModePoint : iModelHTMLTooltip<T>;
@@ -475,6 +690,8 @@ type
     function fontColor : String; overload;
     function fontSize (Value : integer) : iModelHTMLChartsAxesTicks<T>; overload;
     function fontSize : integer; overload;
+    function fontFamily (Value : string) : iModelHTMLChartsAxesTicks<T>; overload;
+    function fontFamily : string; overload;
     function autoSkip (Value : Boolean) : iModelHTMLChartsAxesTicks<T>; overload;
     function autoSkip : Boolean; overload;
     function autoSkipPadding (Value : Integer) : iModelHTMLChartsAxesTicks<T>; overload;
@@ -650,17 +867,20 @@ type
     function TagName(Value : string) :iModelJSCommand; overload;
     function TagID(Value : string) : iModelJSCommand; overload;
     function TagAttribute(Value : string) : iModelJSCommand; overload;
+    function Callback(Value : TProc<String>) : iModelJSCommand; overload;
     function TestBeforeExecute(Value : Boolean) : iModelJSCommand;
     function ResultCommand : string; overload;
     function TagName : string; overload;
     function TagID : string; overload;
     function TagAttribute : string; overload;
+    function Callback : TProc<String>; overload;
   end;
 
   iModelPivotTable = interface
     ['{D9C25BD4-9C5F-4F8C-AFA7-D251193609A9}']
     function Attributes : iModelPivotTableConfig;
-    function SaveConfig : string;
+    function SaveConfig : string; overload;
+    function SaveConfig(Value : TProc<String>) : iModelPivotTable; overload;
     function LoadConfig(Value : string) : iModelPivotTable;
     function ShowUI : iModelPivotTable;
     function HideUI : iModelPivotTable;
@@ -694,6 +914,15 @@ type
     function BackgroundColor : string; overload;
     function FontColor : string; overload;
     function FontSize : string; overload;
+    function &End : T;
+  end;
+
+  iModelGenericCoordinates<T> = interface
+    ['{AE9131DA-6C0D-4A8F-876F-9D86EA6794E7}']
+    function Latitude(Value : string) : iModelGenericCoordinates<T>; overload;
+    function Longitude(Value : string) : iModelGenericCoordinates<T>; overload;
+    function Latitude : string; overload;
+    function Longitude : string; overload;
     function &End : T;
   end;
 
@@ -937,6 +1166,7 @@ type
     ['{CB37AC61-A8D6-4CEB-BFD1-FDC26CDEB2AA}']
     function PackJS : String;
     function CDN(Value : Boolean) : iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
   iModelChartEasyPie = interface

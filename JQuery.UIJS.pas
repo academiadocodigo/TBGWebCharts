@@ -8,36 +8,45 @@ type
   TJQueryUIJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    class function New: iModelJS;
+    FCDN: Boolean;
+
     procedure JQueryUIJS_1;
     procedure JQueryUIJS_2;
     procedure JQueryUIJS_3;
     procedure JQueryUIJS_4;
     procedure JQueryUIJS_5;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iModelJS;
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TJqueryUIJS }
 
 function TJQueryUIJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TJQueryUIJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TJQueryUIJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TJQueryUIJS.Destroy;
@@ -3282,16 +3291,20 @@ function TJQueryUIJS.PackJS: String;
 var
   I: Integer;
 begin
-  JQueryUIJS_1;
-  JQueryUIJS_2;
-  JQueryUIJS_3;
-  JQueryUIJS_4;
-  JQueryUIJS_5;
+  if FCDN then
+    Result := '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>'
+  else
+  begin
+    JQueryUIJS_1;
+    JQueryUIJS_2;
+    JQueryUIJS_3;
+    JQueryUIJS_4;
+    JQueryUIJS_5;
 
-  Result := '';
-  // Result := TNetEncoding.Base64.Decode(FPack.Text);
-  for I := 0 to Pred(FPack.Count) do
-    Result := Result + TIdDecoderMIME.DecodeString(FPack[I]);
+    Result := '';
+    for I := 0 to Pred(FPack.Count) do
+      Result := Result + TUtilitiesEncoder.Base64Decode(FPack[I]);
+  end;
 end;
 
 end.

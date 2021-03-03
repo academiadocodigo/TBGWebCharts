@@ -8,6 +8,7 @@ type
   TFontawesomeallJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN: boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -29,24 +30,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
-  end;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
+end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TFontawesomeallJS }
 
 function TFontawesomeallJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TFontawesomeallJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TFontawesomeallJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TFontawesomeallJS.Destroy;
@@ -9194,25 +9202,29 @@ function TFontawesomeallJS.PackJS: String;
 var
   I: Integer;
 begin
-  FontawesomeallJS_1;
-  FontawesomeallJS_2;
-  FontawesomeallJS_3;
-  FontawesomeallJS_4;
-  FontawesomeallJS_5;
-  FontawesomeallJS_6;
-  FontawesomeallJS_7;
-  FontawesomeallJS_8;
-  FontawesomeallJS_9;
-  FontawesomeallJS_10;
-  FontawesomeallJS_11;
-  FontawesomeallJS_12;
-  FontawesomeallJS_13;
-  FontawesomeallJS_14;
+  if FCDN then
+    Result := '<script src="https://kit.fontawesome.com/b9e0a0bfd1.js" crossorigin="anonymous"></script>'
+  else
+  begin
+    FontawesomeallJS_1;
+    FontawesomeallJS_2;
+    FontawesomeallJS_3;
+    FontawesomeallJS_4;
+    FontawesomeallJS_5;
+    FontawesomeallJS_6;
+    FontawesomeallJS_7;
+    FontawesomeallJS_8;
+    FontawesomeallJS_9;
+    FontawesomeallJS_10;
+    FontawesomeallJS_11;
+    FontawesomeallJS_12;
+    FontawesomeallJS_13;
+    FontawesomeallJS_14;
 
-  Result := '';
-  // Result := TNetEncoding.Base64.Decode(FPack.Text);
-  for I := 0 to Pred(FPack.Count) do
-    Result := Result + TIdDecoderMIME.DecodeString(FPack[I]);
+    Result := '';
+    for I := 0 to Pred(FPack.Count) do
+      Result := Result + TUtilitiesEncoder.Base64Decode(FPack[I]);
+  end;
 end;
 
 end.

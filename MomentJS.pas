@@ -8,6 +8,7 @@ type
   TMomentJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN: boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -17,24 +18,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TMomentJS }
 
 function TMomentJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TMomentJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TMomentJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TMomentJS.Destroy;
@@ -770,11 +778,16 @@ end;
 
 function TMomentJS.PackJS: String;
 begin
-  MomentJS_1;
-  MomentJS_2;
+  if FCDN then
+    Result := '<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>'
+  else
+  begin
+    MomentJS_1;
+    MomentJS_2;
 
-  Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
-  Result := TIdDecoderMIME.DecodeString(Result);
+    Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
+    Result := TUtilitiesEncoder.Base64Decode(Result);
+  end;
 end;
 
 end.

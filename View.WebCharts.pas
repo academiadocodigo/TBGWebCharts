@@ -3,32 +3,26 @@ unit View.WebCharts;
 interface
 
 uses
-  Interfaces, Classes, Generics.Collections, SysUtils, Charts.Types;
+  Interfaces,
+  Classes,
+  Generics.Collections,
+  SysUtils, Charts.Types,
+  Credenciais;
 
 Type
-  iWebCharts = interface
-    ['{D98D23CE-5E37-4941-89E3-92AF922ACE60}']
-    function NewProject : iModelHTML; overload;
-    function NewProject(Container : Boolean) : iModelHTML; overload;
-    function ContinuosProject : iModelHTML;
-    function AddResource(Value : String) : iWebCharts;
-    function BackgroundColor(Value : String) : iWebCharts;
-    function Container(Value : TTypeContainer) : iWebCharts;
-    function FontColor(Value : String) : iWebCharts;
-    function CDN(Value : Boolean) : iWebCharts;
-  end;
 
   {$IF (RTLVERSION > 27) AND (RTLVERSION < 32) }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
   {$IF RTLVERSION > 32 }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid32Arm)]{$IFEND}
   TWebCharts = class(TComponent, iWebCharts)
     private
-      FModelHTML : iModelHTML;
+//      FModelHTML : iModelHTML;
       FCss : TList<String>;
       FFolderDefaultRWC: String;
       FBackgroundColor : String;
       FFontColor : String;
       FContainerClass : TTypeContainer;
       FCDN : Boolean;
+      FCredenciais : iModelCredenciais;
     procedure SetFolderDefaultRWC(const Value: String);
     public
       constructor Create; reintroduce;
@@ -42,6 +36,7 @@ Type
       function FontColor(Value : String) : iWebCharts;
       function Container(Value : TTypeContainer) : iWebCharts;
       function CDN(Value : Boolean) : iWebCharts;
+      function Credenciais : iModelCredenciais;
     published
       property FolderDefaultRWC : String read FFolderDefaultRWC write SetFolderDefaultRWC;
   end;
@@ -55,8 +50,14 @@ uses
 
 constructor TWebCharts.Create;
 begin
-  FModelHTML := TModelHTML.New;
+//  FModelHTML := TModelHTML.New;
   FCDN := False;
+end;
+
+function TWebCharts.Credenciais: iModelCredenciais;
+begin
+  FCredenciais := TModelCredenciais.New(Self);
+  Result := FCredenciais;
 end;
 
 destructor TWebCharts.Destroy;
@@ -113,9 +114,10 @@ function TWebCharts.NewProject(Container: Boolean): iModelHTML;
 begin
   Result := TModelHTML.New;
   Result.ClearHTML;
-  Result.Container(Container);
-  Result.FolderDefaultRWC(FFolderDefaultRWC);
+  Result.Credenciais(FCredenciais);
   Result
+    .Container(Container)
+    .FolderDefaultRWC(FFolderDefaultRWC)
     .BackgroundColor(FBackgroundColor)
     .FontColor(FFontColor)
     .GenerateHead(FCss);
@@ -132,6 +134,7 @@ begin
   Result := TModelHTML.New;
   Result.ClearHTML;
   Result.CDN(FCDN);
+  Result.Credenciais(FCredenciais);
   Result
     .BackgroundColor(FBackgroundColor)
     .FontColor(FFontColor)

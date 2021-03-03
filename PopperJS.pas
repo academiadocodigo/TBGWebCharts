@@ -8,20 +8,22 @@ type
   TPopperJS = class(TInterfacedObject,iModelJS)
     private
       FPack : TStringList;
+      FCDN: boolean;
     public
       constructor Create;
       destructor Destroy; override;
       class function New : iModelJS;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
-	  procedure PopperJS_1;
-	  procedure PopperJS_2;
-	  procedure PopperJS_3;
-	  procedure PopperJS_4;
-	  procedure PopperJS_5;
-	  procedure PopperJS_6;
-	  procedure PopperJS_7;
-	  procedure PopperJS_8;	  
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
+      procedure PopperJS_1;
+      procedure PopperJS_2;
+      procedure PopperJS_3;
+      procedure PopperJS_4;
+      procedure PopperJS_5;
+      procedure PopperJS_6;
+      procedure PopperJS_7;
+      procedure PopperJS_8;
   end;
 
 implementation
@@ -34,11 +36,17 @@ uses
 function TPopperJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TPopperJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TPopperJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TPopperJS.Destroy;
@@ -2701,15 +2709,20 @@ end;
 
 function TPopperJS.PackJS: String;
 begin
-  PopperJS_1;
-  PopperJS_2;
-  PopperJS_3;
-  PopperJS_4;
-  PopperJS_5;
-  PopperJS_6;
-  PopperJS_7;
-  PopperJS_8;
-  Result := FPack.Text;
+  if FCDN then
+    Result := '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>'
+  else
+  begin
+    PopperJS_1;
+    PopperJS_2;
+    PopperJS_3;
+    PopperJS_4;
+    PopperJS_5;
+    PopperJS_6;
+    PopperJS_7;
+    PopperJS_8;
+    Result := FPack.Text;
+  end;
 end;
 
 end.

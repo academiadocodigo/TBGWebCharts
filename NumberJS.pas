@@ -16,6 +16,7 @@ type
       class function New : iModelJS;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
@@ -30,6 +31,11 @@ end;
 constructor TNumberJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TNumberJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TNumberJS.Destroy;

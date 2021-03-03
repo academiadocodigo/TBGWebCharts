@@ -56,9 +56,9 @@ begin
   FParent := FParent + 'var value = chartData.datasets[0].data[idx]; ';
   FParent := FParent + ' ';
   FParent := FParent + 'var url = "ActionCallBackJS:'+Value+'("+window.btoa(label)+")"; ';
-  FParent := FParent + 'window.navigate(url); ';
-  FParent := FParent + '} ';
-  FParent := FParent + '} ;';
+  FParent := FParent + 'location.assign(url); ';
+  FParent := FParent + '}';
+  FParent := FParent + '}';
   Result := FParent;
 end;
 

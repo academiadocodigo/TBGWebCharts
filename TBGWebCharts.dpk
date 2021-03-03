@@ -120,7 +120,28 @@ contains
   PopperJS in 'PopperJS.pas',
   TetherminJS in 'TetherminJS.pas',
   ChartbundleJS in 'ChartbundleJS.pas',
-  Charts.Tooltip in 'Charts.Tooltip.pas';
+  Charts.Tooltip in 'Charts.Tooltip.pas',
+  Table.Action.Image in 'Table.Action.Image.pas',
+  Utilities.Encoder in 'Utilities.Encoder.pas',
+  Table.Action in 'Table.Action.pas',
+  GMapsJS in 'GMapsJS.pas',
+  Maps in 'Maps.pas',
+  Maps.GMaps in 'Maps.GMaps.pas',
+  Generic.Coordinates in 'Generic.Coordinates.pas',
+  Maps.GMaps.Options in 'Maps.GMaps.Options.pas',
+  Maps.Dataset in 'Maps.Dataset.pas',
+  Maps.GMaps.Draw in 'Maps.GMaps.Draw.pas',
+  Maps.GMaps.Draw.Marker in 'Maps.GMaps.Draw.Marker.pas',
+  Maps.GMaps.Draw.Circle in 'Maps.GMaps.Draw.Circle.pas',
+  Utilities.Str in 'Utilities.Str.pas',
+  Maps.GMaps.Layer in 'Maps.GMaps.Layer.pas',
+  Maps.GMaps.Layer.HeatMap in 'Maps.GMaps.Layer.HeatMap.pas',
+  Credenciais in 'Credenciais.pas',
+  Generic.Title in 'Generic.Title.pas';
 
 end.
+
+
+
+
 

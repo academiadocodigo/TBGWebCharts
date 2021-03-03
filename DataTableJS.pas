@@ -9,6 +9,7 @@ type
     private
       FPack : TStringList;
       FCode : String;
+      FCDN: boolean;
     public
       constructor Create;
       destructor Destroy; override;
@@ -16,6 +17,7 @@ type
       procedure dataTableMin;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
@@ -26,11 +28,17 @@ implementation
 function TDataTableJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TDataTableJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TDataTableJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 procedure TDataTableJS.dataTableMin;
@@ -1200,8 +1208,13 @@ end;
 
 function TDataTableJS.PackJS: String;
 begin
-  dataTableMin;
-  Result := FPack.Text;
+  if FCDN then
+    Result := '<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/r-2.2.3/sl-1.3.1/datatables.min.js"></script>'
+  else
+  begin
+    dataTableMin;
+    Result := FPack.Text;
+  end;
 end;
 
 end.

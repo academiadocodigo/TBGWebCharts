@@ -8,6 +8,7 @@ type
   TPivotTableJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN : boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -17,24 +18,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TPivotTableJS }
 
 function TPivotTableJS.CDN(Value: Boolean): iModelJS;
 begin
+  FCDN := (Value);
   Result := Self;
 end;
 
 constructor TPivotTableJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TPivotTableJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TPivotTableJS.Destroy;
@@ -961,13 +969,17 @@ function TPivotTableJS.PackJS: String;
 var
   I: Integer;
 begin
-  PivotTableJS_1;
-  PivotTableJS_2;
+  if FCDN then
+    Result := '<script type="text/javascript" src="https://pivottable.js.org/dist/pivot.js"></script>'
+  else
+  begin
+    PivotTableJS_1;
+    PivotTableJS_2;
 
-  Result := '';
-  // Result := TNetEncoding.Base64.Decode(FPack.Text);
-  for I := 0 to Pred(FPack.Count) do
-    Result := Result + TIdDecoderMIME.DecodeString(FPack[I]);
+    Result := '';
+    for I := 0 to Pred(FPack.Count) do
+      Result := Result + TUtilitiesEncoder.Base64Decode(FPack[I]);
+  end;
 end;
 
 end.

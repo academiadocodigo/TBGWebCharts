@@ -6,8 +6,18 @@ unit HTML;
 interface
 
 uses
-  Interfaces,
+  {$IF RTLVERSION > 22 }
+    {$IFDEF HAS_FMX}
+      {$IFDEF HAS_CHROMIUM}
+        {$DEFINE HAS_CALLBACK}
+      {$ENDIF}
+    {$ELSE}
+      {$DEFINE HAS_CALLBACK}
+    {$ENDIF}
+  {$ENDIF}
 
+
+  Interfaces,
   Generics.Collections,
   {$IFDEF HAS_FMX}
     {$IF Defined(ANDROID) or Defined(IOS)}
@@ -39,36 +49,44 @@ uses
       Registry,
     {$IFEND}
   {$ENDIF}
-  {$IF RTLVERSION > 22 }
-    {$IFDEF FULL}
-      CallBackJS,
-      Button,
+  {$IFDEF HAS_CALLBACK}
+    CallBackJS,
+    Button,
+  {$ENDIF}
+  {$IFDEF HAS_CHROMIUM}
+    {$IFDEF HAS_FMX}
+      uCEFFMXChromium,
+      uCEFFMXWindowParent,
+    {$ELSE}
+      uCEFChromium,
+      uCEFWindowParent,
     {$ENDIF}
-  {$IFEND}
-  Classes, PackJS, PackCss, Charts.Types;
+  {$ENDIF}
+  Classes,
+  PackJS,
+  PackCss,
+  Charts.Types;
 
 Type
-  {$IFDEF HAS_FMX}
-    TModelHTML = class(TInterfacedObject, iModelHTML)
-  {$ELSE}
-    TModelHTML = class(TInterfacedObject, iModelHTML {$IF RTLVERSION > 22} , iCallbackJS {$IFEND})
-  {$ENDIF}
+    TModelHTML = class(TInterfacedObject, iModelHTML {$IFDEF HAS_CALLBACK} , iCallbackJS {$ENDIF})
   private
     FHTML: String;
-    FWebBrowser: TWebBrowser;
+    FWebBrowser : iModelBrowser;
+    {$IFDEF HAS_CHROMIUM}
+      {$IFDEF HAS_FMX}
+        FWindowParent: TFMXWindowParent;
+      {$ELSE}
+        FWindowParent: TCEFWindowParent;
+      {$ENDIF}
+    {$ENDIF}
     FContainer : Boolean;
     FFolderDefaultRWC : String;
     FBackgroundColor : String;
     FFontColor : String;
     FCDN : Boolean;
+    FCredenciais : IModelCredenciais;
     function Container(Value : Boolean) : iModelHTML;
-   {$IFDEF HAS_FMX}
-   {$ELSE}
-    procedure DefineIEVersion(Versao: Integer);
-    {$ENDIF}
     function FolderDefaultRWC(Value : String) : iModelHTML;
-    procedure HtmlBrowserGenerated(CONST HTMLCode: string);
-    function ConvertString(aValue : String) : String;
     procedure _DivContainer(Value : String);
   public
     constructor Create;
@@ -83,7 +101,17 @@ Type
     function Charts: iModelHTMLCharts;
     function Rows: IModelHTMLRows;
     function ClearHTML : iModelHTML;
-    function WebBrowser(Value: TWebBrowser): iModelHTML;
+    function WebBrowser(Value: TWebBrowser): iModelHTML; overload;
+    {$IFDEF HAS_CHROMIUM}
+      {$IFDEF HAS_FMX}
+        function WebBrowser(Value : TFMXChromium) : iModelHTML; overload;
+        function WindowParent(Value: TFMXWindowParent) : iModelHTML; overload;
+      {$ELSE}
+        function WebBrowser(Value : TChromium) : iModelHTML; overload;
+        function WindowParent(Value: TCEFWindowParent) : iModelHTML; overload;
+      {$ENDIF}
+      function Maps : iModelMaps;
+    {$ENDIF}
     function Generated: iModelHTML;
     function BackgroundColor( Value : String) : iModelHTML;
     function FontColor ( Value : String) : iModelHTML;
@@ -95,20 +123,19 @@ Type
     function PivotTable : iModelPivotTable;
     procedure ExecuteScript(Value : iModelJSCommand);
     function ExecuteScriptResult(Value : iModelJSCommand) : string;
+    procedure ExecuteScriptCallback(Value: iModelJSCommand);
+    function Credenciais(Value : iModelCredenciais) : iModelHTML;
     {$IFDEF FULL}
-    function Table : iModelTable;
-    function Cards : iModelCards;
-    function ChartEasyPie : iModelChartEasyPie;
-    {$IFDEF HAS_FMX}
-    {$ELSE}
-    {$IF RTLVERSION > 22 }
-    function CallbackJS : iCallbackJS;
-    function Buttons : iModelButton;
-    function ClassProvider(Value : TObject) : iCallbackJS;
-    function &End : iModelHTML;
-    {$IFEND}
-    {$ENDIF}
-    function Image : iModelImage;
+      function Table : iModelTable;
+      function Cards : iModelCards;
+      function ChartEasyPie : iModelChartEasyPie;
+      {$IFDEF HAS_CALLBACK}
+        function CallbackJS : iCallbackJS;
+        function Buttons : iModelButton;
+        function ClassProvider(Value : TObject) : iCallbackJS;
+        function &End : iModelHTML;
+      {$ENDIF}
+      function Image : iModelImage;
     {$ENDIF}
   end;
 
@@ -117,10 +144,12 @@ implementation
 uses
   Factory, SysUtils,
   {$IFDEF HAS_FMX}
-   {$ELSE}
+    Browser.FMX.WebBrowser,
+  {$ELSE}
     Windows,
     ActiveX,
     MSHTML,
+    Browser.VCL.WebBrowser,
     System.Variants,
   {$ENDIF}
   Injection,
@@ -128,79 +157,37 @@ uses
   Jumbotron,
   Alerts,
   ListGroup,
+  {$IFDEF HAS_CHROMIUM}
+    {$IFDEF HAS_FMX}
+      Browser.FMX.Chromium,
+    {$ELSE}
+      Browser.VCL.Chromium,
+    {$ENDIF}
+    Maps,
+  {$ENDIF}
   PivotTable;
 
 { TModelHTML }
-  {$IFDEF HAS_FMX}
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
 begin
-  FWebBrowser.EvaluateJavaScript(Value.ResultCommand);
+  FWebBrowser.ExecuteScript(Value);
 end;
 
 function TModelHTML.ExecuteScriptResult(Value : iModelJSCommand) : string;
-var
-  URL : string;
 begin
-  FWebBrowser.EvaluateJavaScript(
-    value.ResultCommand + ';' +
-    'try {'+
-      'var e = "#" + document.getElementById(''' + Value.TagID + ''').' + Value.TagAttribute + ';' +
-      'history.replaceState(null, null, e);'+
-    '} catch (n) {' +
-      'document.location.href = e'+
-    '}');
-  URL := FWebBrowser.URL;
-  URL := Copy(URL, Pos('#', URL) + 1, Length(URL));
-  Result := URL;
-end;
-   {$ELSE}
-procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
-var
-  Doc : IHTMLDocument2;
-  HTMLWindow: IHTMLWindow2;
-begin
-  Doc := FWebBrowser.Document as IHTMLDocument2;
-  if Assigned(Doc) then
-  begin
-    HTMLWindow := Doc.parentWindow;
-    if Assigned(HTMLWindow) then
-    begin
-      try
-        HTMLWindow.execScript(Value.ResultCommand , 'javascript');
-      except on E: Exception do
-       raise Exception.Create('Erro ao Executar Script');
-      end;
-    end;
-  end;
+  Result := FWebBrowser.ExecuteScriptResult(Value);
 end;
 
-function TModelHTML.ExecuteScriptResult(Value : iModelJSCommand) : string;
-var
-  Doc : IHTMLDocument2;
-  body : IHTMLElement2;
-  Tags : IHTMLElementCollection;
-  Tag : IHTMLElement;
-  I : Integer;
+procedure TModelHTML.ExecuteScriptCallback(Value: iModelJSCommand);
 begin
-  Result := '';
-  ExecuteScript(Value);
-
-  if not Supports(FWebBrowser.Document, IHTMLDocument2, Doc) then
-    raise Exception.Create('Documento HTML Inválido');
-  if not Supports(Doc.body, IHTMLElement2, Body) then
-    raise Exception.Create('Não Foi Possível Encontrar o Elemento <body>');
-  Tags := body.getElementsByTagName(UpperCase(Value.TagName));
-  for I := 0 to Pred(Tags.length) do
-  begin
-    Tag := Tags.item(I, EmptyParam) as IHTMLElement;
-    if Tag.id = Value.TagId then
-    begin
-      Result := Tag.getAttribute(Value.TagAttribute, 0);
-      break;
-    end;
-  end;
+  FWebBrowser.ExecuteScriptCallback(Value);
 end;
-  {$ENDIF}
+
+function TModelHTML.Credenciais(Value : iModelCredenciais) : iModelHTML;
+begin
+  Result := Self;
+  FCredenciais := Value;
+end;
 
 function TModelHTML.PivotTable : iModelPivotTable;
 begin
@@ -259,43 +246,6 @@ begin
   FCDN := Value;
 end;
 
-function TModelHTML.ConvertString(aValue : String) : String;
-var
-  rbs : RawByteString;
-begin
-  rbs := UTF8Encode(aValue);
-  SetCodePage(rbs,0,false);
-  Result := UnicodeString(rbs);
-end;
-
-procedure TModelHTML.HtmlBrowserGenerated(CONST HTMLCode: string);
-var
-  sl : TStringList;
-  ms : TMemoryStream;
-begin
-  {$IFDEF HAS_FMX}
-   {$ELSE}
-
-   if NOT Assigned(FWebBrowser.Document) then
-    FWebBrowser.Navigate('about:blank');
-
-   sl := TStringList.Create;
-   try
-     ms := TMemoryStream.Create;
-     try
-       sl.Text := HTMLCode;
-       sl.SaveToStream(ms) ;
-       ms.Seek(0, 0);
-       (FWebBrowser.Document as IPersistStreamInit).Load(TStreamAdapter.Create(ms)) ;
-     finally
-       ms.Free;
-     end;
-   finally
-     sl.Free;
-   end;
-  {$ENDIF}
-end;
-
 function TModelHTML.ChartEasyPie : iModelChartEasyPie;
 begin
   Result := TModelHTMLFactory.New.ChartEasyPie(Self);
@@ -322,42 +272,8 @@ end;
 constructor TModelHTML.Create;
 begin
   FContainer := True;
-  {$IFDEF HAS_FMX}
-  {$ELSE}
-  DefineIEVersion(11000);
-  {$ENDIF}
 end;
 
-{$IFDEF HAS_FMX}
-{$ELSE}
-procedure TModelHTML.DefineIEVersion(Versao: Integer);
-const
-  REG_KEY = 'Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION';
-var
-  Reg: TRegistry;
-  AppName: String;
-begin
-  AppName := ExtractFileName(ExtractFileName(ParamStr(0)));
-  Reg := nil;
-  try
-    Reg := TRegistry.Create();
-    Reg.RootKey := HKEY_CURRENT_USER;
-    if Reg.OpenKey(REG_KEY, True) then
-    begin
-      if Versao = 0 then
-        Reg.DeleteValue(AppName)
-      else
-        Reg.WriteInteger(AppName, Versao);
-      Reg.CloseKey;
-    end;
-  except
-
-  end;
-
-  if (Assigned(Reg)) then
-    FreeAndNil(Reg);
-end;
-{$ENDIF}
 destructor TModelHTML.Destroy;
 begin
   inherited;
@@ -369,22 +285,10 @@ begin
 end;
 
 function TModelHTML.Generated: iModelHTML;
-var
-  SL: TStringList;
-  Arquivo: string;
 begin
   Result := Self;
   GenerateFooter;
-  {$IFDEF HAS_FMX}
-    {$IF Defined(ANDROID) or Defined(IOS)}
-      FWebBrowser.LoadFromStrings(FHTML,'TBG');
-    {$ELSE}
-      FWebBrowser.LoadFromStrings(ConvertString(FHTML),'TBG');
-    {$ENDIF}
-  {$ELSE}
-    FWebBrowser.Silent := True;
-    HtmlBrowserGenerated(ConvertString(FHTML));
-  {$ENDIF}
+  FWebBrowser.Generated(FHTML);
 end;
 
 function TModelHTML.GenerateFooter: iModelHTML;
@@ -416,7 +320,10 @@ begin
                     .FontColor(FFontColor)
                     .CDN(FCDN)
                     .PackCSS;
-  FHTML := FHTML + TPackJS.New.CDN(FCDN).PackJS;
+  FHTML := FHTML + TPackJS.New
+                    .CDN(FCDN)
+                    .Credenciais(FCredenciais)
+                    .PackJS;
   if Assigned(Value) then
   begin
     for I := 0 to Pred(Value.Count) do
@@ -446,6 +353,7 @@ begin
                       .PackCSS;
   FHTML := FHTML + TPackJS.New
                       .CDN(FCDN)
+                      .Credenciais(FCredenciais)
                       .PackJS;
   FHTML := FHTML + '</head> ';
   FHTML := FHTML + '<body> ';
@@ -479,13 +387,12 @@ begin
 end;
 
 {$IFDEF FULL}
-function TModelHTML.Table: iModelTable;
-begin
-  Result := TModelHTMLFactory.New.Table(Self);
-end;
-{$IFDEF HAS_FMX}
-{$ELSE}
-{$IF RTLVERSION > 22 }
+  function TModelHTML.Table: iModelTable;
+  begin
+    Result := TModelHTMLFactory.New.Table(Self);
+  end;
+
+{$IFDEF HAS_CALLBACK}
 function TModelHTML.&End : iModelHTML;
 begin
   Result := Self;
@@ -504,15 +411,12 @@ begin
   Result := Self;
   vCallBackJS
     .ClassProvider(Value)
-    .WebBrowser(FWebBrowser)
-    .ActionMethod('ActionCallBackJS');
 end;
 
 function TModelHTML.Buttons : iModelButton;
 begin
   Result := TModelButton.New(Self);
 end;
-{$IFEND}
 {$ENDIF}
 
 function TModelHTML.Cards : iModelCards;
@@ -530,7 +434,51 @@ end;
 function TModelHTML.WebBrowser(Value: TWebBrowser): iModelHTML;
 begin
   Result := Self;
-  FWebBrowser := Value;
+  {$IFDEF HAS_FMX}
+    FWebBrowser := TModelBrowserFMXWebBrowser.New(Value);
+  {$ELSE}
+    FWebBrowser := TModelBrowserVCLWebBrowser.New(Value);
+  {$ENDIF}
+
 end;
+
+{$IFDEF HAS_CHROMIUM}
+  {$IFDEF HAS_FMX}
+function TModelHTML.WebBrowser(Value : TFMXChromium) : iModelHTML;
+begin
+  Result := Self;
+
+  if not Assigned(FWindowParent) then
+    raise Exception.Create('Para usar Chromium, primeiro é preciso setar o FFMXWindowParent');
+
+  FWebBrowser := TModelBrowserFMXChromium.New(Value, FWindowParent);
+end;
+
+function TModelHTML.WindowParent(Value: TFMXWindowParent) : iModelHTML;
+begin
+  Result := Self;
+  FWindowParent := Value;
+end;
+  {$ELSE}
+function TModelHTML.WebBrowser(Value: TChromium): iModelHTML;
+begin
+  Result := Self;
+  if not Assigned(FWindowParent) then
+    raise Exception.Create('Para usar Chromium, primeiro é preciso setar o FCEFWindowParent');
+
+  FWebBrowser := TModelBrowserVCLChromium.New(Value, FWindowParent);
+end;
+
+function TModelHTML.WindowParent(Value: TCEFWindowParent) : iModelHTML;
+begin
+   Result := Self;
+   FWindowParent := Value;
+end;
+  {$ENDIF}
+function TModelHTML.Maps : iModelMaps;
+begin
+  Result := TModelMaps.New(Self);
+end;
+{$ENDIF}
 
 end.

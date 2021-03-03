@@ -14,11 +14,13 @@ type
       FInteractionMode : String;
       FIntersect : String;
       FTitle : string;
+      FEnabled : string;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
       class function New(Parent : T) : iModelHTMLTooltip<T>;
       function Format (Value : String) : iModelHTMLTooltip<T>;
+      function Enabled(Value : Boolean) : iModelHTMLTooltip<T>;
       function ToolTipNoScales : iModelHTMLTooltip<T>;
       function InteractionModeNearest : iModelHTMLTooltip<T>;
       function InteractionModePoint : iModelHTMLTooltip<T>;
@@ -38,6 +40,13 @@ uses
   Injection,
   System.SysUtils;
 { TModelHTMLChartsTooltip<T> }
+
+function TModelHTMLChartsTooltip<T>.Enabled(
+  Value: Boolean): iModelHTMLTooltip<T>;
+begin
+  Result := Self;
+  if Value then FEnabled := 'enabled: true,' else FEnabled := 'enabled: false,';
+end;
 
 function TModelHTMLChartsTooltip<T>.&End: T;
 begin
@@ -131,6 +140,7 @@ function TModelHTMLChartsTooltip<T>.Result: String;
 begin
   Result := '';
   Result := Result + 'tooltips: {';
+  Result := Result + FEnabled;
   Result := Result + FInteractionMode;
   Result := Result + FIntersect;
   Result := Result + 'callbacks: {';

@@ -5,11 +5,6 @@ unit CallBackJS;
 interface
 
 uses
-  {$IFDEF HAS_FMX}
-    FMX.WebBrowser,
-  {$ELSE}
-    SHDocVw,
-  {$ENDIF}
   SysUtils,
   RTTI,
   Generics.Collections,
@@ -19,16 +14,11 @@ Type
   TCallBackJS = class
     private
       FParent : TObject;
-      FWebBrowser : TWebBrowser;
-      FActionMethod : String;
     public
       constructor Create;
       destructor Destroy; override;
       function TryGetValue(Value : String; Params : TStringList) : Boolean;
       function ClassProvider(Value : TObject) : TCallBackJS;
-      function WebBrowser(Value : TWebBrowser) : TCallBackJS;
-      function ActionMethod(Value : String) : TCallBackJS;
-      procedure BeforeNavigate(ASender: TObject; const pDisp: IDispatch; const URL, Flags, TargetFrameName, PostData, Headers: OleVariant; var Cancel: WordBool);
 
     end;
 
@@ -47,39 +37,6 @@ uses
   IdCoderMIME;
 
 { TCallBackJS }
-
-function TCallBackJS.ActionMethod(Value: String): TCallBackJS;
-begin
-  Result := Self;
-  FActionMethod := Value;
-end;
-
-procedure TCallBackJS.BeforeNavigate(ASender: TObject; const pDisp: IDispatch;
-  const URL, Flags, TargetFrameName, PostData, Headers: OleVariant;
-  var Cancel: WordBool);
-var
-  Target : String;
-  Aux, Method: string;
-  Params : TStringList;
-begin
-  Target := URL;
-  if UpperCase(Target).StartsWith(UpperCase(FActionMethod)) then
-  begin
-    Method := Copy(Target, Pos(':', Target) + 1, Length(Target));
-    Method := Copy(Method, 1, Pos('(', Method) - 1);
-    Params := TStringList.Create;
-    try
-      Aux := Copy(Target, Pos('(', Target) + 1, Length(Target));
-      Aux := Copy(Aux, 1, LastDelimiter(')', Aux)-1);
-      Params.CommaText := Aux;
-      if not Method.IsEmpty then
-        if TryGetValue(Method, Params) then
-          Cancel := True;
-    finally
-      Params.Free;
-    end;
-  end;
-end;
 
 function TCallBackJS.ClassProvider(Value: TObject): TCallBackJS;
 begin
@@ -128,16 +85,6 @@ begin
   except
     Result := False;
   end;
-end;
-
-function TCallBackJS.WebBrowser(Value: TWebBrowser): TCallBackJS;
-begin
-  Result := Self;
-  FWebBrowser := Value;
-  {$IFDEF HAS_FMX}
-  {$ELSE}
-    FWebBrowser.OnBeforeNavigate2 := BeforeNavigate;
-  {$ENDIF}
 end;
 
 initialization

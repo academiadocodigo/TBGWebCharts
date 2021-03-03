@@ -8,6 +8,7 @@ type
   TPivotTablePlotlyRendersJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN: boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -16,24 +17,32 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TPivotTablePlotlyRendersJS }
 
 function TPivotTablePlotlyRendersJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TPivotTablePlotlyRendersJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TPivotTablePlotlyRendersJS.Credenciais(
+  Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TPivotTablePlotlyRendersJS.Destroy;
@@ -158,12 +167,16 @@ function TPivotTablePlotlyRendersJS.PackJS: String;
 var
   I: Integer;
 begin
-  PivotTablePlotlyRendersJS_1;
+  if FCDN then
+    Result := '<script type="text/javascript" src="https://pivottable.js.org/dist/plotly_renderers.js"></script>'
+  else
+  begin
+    PivotTablePlotlyRendersJS_1;
 
-  Result := '';
-  // Result := TNetEncoding.Base64.Decode(FPack.Text);
-  for I := 0 to Pred(FPack.Count) do
-    Result := Result + TIdDecoderMIME.DecodeString(FPack[I]);
+    Result := '';
+    for I := 0 to Pred(FPack.Count) do
+      Result := Result + TUtilitiesEncoder.Base64Decode(FPack[I]);
+  end;
 end;
 
 end.

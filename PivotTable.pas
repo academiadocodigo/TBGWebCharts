@@ -3,7 +3,8 @@ unit PivotTable;
 interface
 
 uses
-  Interfaces;
+  Interfaces,
+  System.SysUtils;
 
 type
   TModelPivotTable = class(TInterfacedObject, iModelPivotTable)
@@ -19,7 +20,8 @@ type
       destructor Destroy; override;
       class function New(Parent : IModelHTML) : iModelPivotTable;
       function Attributes : iModelPivotTableConfig;
-      function SaveConfig : string;
+      function SaveConfig : string; overload;
+      function SaveConfig(Value : TProc<String>) : iModelPivotTable; overload;
       function LoadConfig(Value : string) : iModelPivotTable;
       function ShowUI : iModelPivotTable;
       function HideUI : iModelPivotTable;
@@ -33,8 +35,7 @@ uses
   Generic.List,
   Injection,
   PivotTable.Config,
-  JSCommand,
-  System.SysUtils;
+  JSCommand;
 
 { TModelPivotTable }
 
@@ -234,6 +235,7 @@ function TModelPivotTable.LoadConfig(Value: string) : iModelPivotTable;
 var
   CommandJS : iModelJSCommand;
 begin
+  Result := Self;
   CommandJS := TModelJSCommand.New
     .Command('Load')
     .Paramters
@@ -252,6 +254,20 @@ begin
     .TagID('configResult')
     .TagAttribute('value');
   Result := FParent.ExecuteScriptResult(CommandJS);
+end;
+
+function TModelPivotTable.SaveConfig(Value: TProc<String>): iModelPivotTable;
+var
+  CommandJS : iModelJSCommand;
+begin
+  Result := Self;
+  CommandJS := TModelJSCommand.New
+    .Command('Save')
+    .TagName('input')
+    .TagID('configResult')
+    .TagAttribute('value')
+    .CallBack(Value);
+  FParent.ExecuteScriptCallback(CommandJS);
 end;
 
 procedure TModelPivotTable.ShowPivotUI(Value: string);

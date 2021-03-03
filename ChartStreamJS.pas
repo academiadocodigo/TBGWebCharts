@@ -8,6 +8,7 @@ type
   TChartStreamJS = class(TInterfacedObject, iModelJS)
   private
     FPack: TStringList;
+    FCDN: boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -16,24 +17,31 @@ type
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
+    function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
 
 uses
   SysUtils,
-  IdCoderMIME;
+  Utilities.Encoder;
 
 { TChartStreamJS }
 
 function TChartStreamJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
+  FCDN := Value;
 end;
 
 constructor TChartStreamJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TChartStreamJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TChartStreamJS.Destroy;
@@ -198,10 +206,15 @@ end;
 
 function TChartStreamJS.PackJS: String;
 begin
-  ChartStreamJS_1;
+  if FCDN then
+    Result := '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.8.0"></script>'
+  else
+  begin
+    ChartStreamJS_1;
 
-  Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
-  Result := TIdDecoderMIME.DecodeString(Result);
+    Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
+    Result := TUtilitiesEncoder.Base64Decode(Result);
+  end;
 end;
 
 end.

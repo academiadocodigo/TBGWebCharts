@@ -1,4 +1,5 @@
 unit PackJS;
+{$I TBGWebCharts.inc}
 
 interface
 
@@ -10,12 +11,15 @@ type
     private
       FPack : TStringList;
       FCDN : Boolean;
+      FCredenciais : iModelCredenciais;
+      function WebChartsAccess : string;
     public
       constructor Create;
       destructor Destroy; override;
       class function New : iModelJS;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
@@ -35,7 +39,11 @@ uses
   Chart.Easy.PieCSS,
   PivotTableJS,
   JQuery.UIJS,
-  PivotTablePlotlyJS, PivotTablePlotlyRendersJS, MomentJS, ChartStreamJS;
+  PivotTablePlotlyJS,
+  PivotTablePlotlyRendersJS,
+  MomentJS,
+  ChartStreamJS,
+  GMapsJS;
 
 { TPackJS }
 
@@ -49,6 +57,12 @@ constructor TPackJS.Create;
 begin
   FPack := TStringList.Create;
   FCDN := False;
+end;
+
+function TPackJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
+  FCredenciais := Value;
 end;
 
 destructor TPackJS.Destroy;
@@ -66,21 +80,21 @@ function TPackJS.PackJS : String;
 begin
   if FCDN then
   begin
-    Result := Result + '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>';
-    Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>';
-    Result := Result + '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>';
-    Result := Result + '<script src="https://kit.fontawesome.com/b9e0a0bfd1.js" crossorigin="anonymous"></script>';
-    Result := Result + '<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/r-2.2.3/sl-1.3.1/datatables.min.js"></script>';
-    Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>';
-    Result := Result + '<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>';
-    Result := Result + '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>';
-    Result := Result + '<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.8.0"></script>';
+    Result := Result + TJqueryJS.New.CDN(FCDN).PackJS;
+    Result := Result + TPopperJS.New.CDN(FCDN).PackJS;
+    Result := Result + TBootstrapJS.New.CDN(FCDN).PackJS;
+    Result := Result + TFontawesomeallJS.New.CDN(FCDN).PackJS;
+    Result := Result + TDataTableJS.New.CDN(FCDN).PackJS;
+    Result := Result + TChartEasyPieJS.New.CDN(FCDN).PackJS;
+    Result := Result + TMomentJS.New.CDN(FCDN).PackJS;
+    Result := Result + TChartbundleJS.New.CDN(FCDN).PackJS;
+    Result := Result + TChartStreamJS.New.CDN(FCDN).PackJS;
     Result := Result + '<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>';
-    Result := Result + '<script type="text/javascript" src="https://pivottable.js.org/dist/pivot.js"></script>';
-    Result := Result + '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>';
-    Result := Result + '<script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>';
-    Result := Result + '<script type="text/javascript" src="https://pivottable.js.org/dist/plotly_renderers.js"></script>';
-
+    Result := Result + TPivotTableJS.New.CDN(FCDN).PackJS;
+    Result := Result + TJQueryUIJS.New.CDN(FCDN).PackJS;
+    Result := Result + TPivotTablePlotlyJS.New.CDN(FCDN).PackJS;
+    Result := Result + TPivotTablePlotlyRendersJS.New.CDN(FCDN).PackJS;
+    Result := Result + TGMapsJS.New.Credenciais(FCredenciais).CDN(FCDN).PackJS;
 
     Result := Result + '<script>';
     Result := Result + '(function (global, factory) {';
@@ -112,7 +126,6 @@ begin
     Result := Result + '    });';
     Result := Result + '}));';
     Result := Result + '</script>';
-
   end
   else
     Result := FPack.Text+
@@ -131,7 +144,37 @@ begin
         TPivotTableJS.New.PackJS+
         TJQueryUIJS.New.PackJS+
         TPivotTablePlotlyJS.New.PackJS+
-        TPivotTablePlotlyRendersJs.New.PackJS;
+        TPivotTablePlotlyRendersJs.New.PackJS+
+        TGMapsJS.New.Credenciais(FCredenciais).PackJS;
+  Result := Result + WebChartsAccess;
+end;
+
+function TPackJS.WebChartsAccess: string;
+var
+  AppName : string;
+  AppType : string;
+begin
+  {$IFDEF HAS_FMX}
+    AppType := 'FMX';
+    {$IF Defined(ANDROID) or Defined(IOS)}
+      AppName := '';
+    {$ELSE}
+      AppName := ExtractFileName(ExtractFileName(ParamStr(0)));
+    {$ENDIF}
+  {$ELSE}
+    AppType := 'VCL';
+    AppName := ExtractFileName(ExtractFileName(ParamStr(0)));
+  {$ENDIF}
+  Result := '<script>';
+  Result := Result + '(function () {';
+  Result := Result + 'var xmlHttp = null;';
+  Result := Result + 'xmlHttp = new XMLHttpRequest();';
+  Result := Result + 'xmlHttp.open("POST", "http://54.156.235.34:3003/api/v1/access");';
+  Result := Result + 'xmlHttp.setRequestHeader("Content-Type", "application/json");';
+  Result := Result + 'const data = JSON.stringify({"appName": "' + AppName + '", "appType": "' + AppType + '"});';
+  Result := Result + 'xmlHttp.send(data);';
+  Result := Result + '})();';
+  Result := Result + '</script>';
 end;
 
 end.

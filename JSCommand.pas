@@ -2,7 +2,8 @@ unit JSCommand;
 
 interface
 uses
-  Interfaces;
+  Interfaces,
+  System.SysUtils;
 type
   TModelJSCommand = Class(TInterfacedObject, iModelJSCommand)
     private
@@ -12,6 +13,7 @@ type
       FTagId : string;
       FTagAttribute : string;
       FTestBefore : Boolean;
+      FProc : TProc<String>;
       function ResultParamters : string; overload;
 
     public
@@ -23,11 +25,13 @@ type
       function TagName(Value : string) :iModelJSCommand; overload;
       function TagID(Value : string) : iModelJSCommand; overload;
       function TagAttribute(Value : string) : iModelJSCommand; overload;
+      function Callback(Value : TProc<String>) : iModelJSCommand; overload;
       function ResultCommand : string; overload;
       function TagName : string; overload;
       function TagID : string; overload;
       function TagAttribute : string; overload;
       function TestBeforeExecute(Value : Boolean) : iModelJSCommand;
+      function Callback : TProc<String>; overload;
 
   End;
 
@@ -37,6 +41,17 @@ uses
   Generic.List;
 
 { TModelJSCommand }
+
+function TModelJSCommand.Callback: TProc<String>;
+begin
+  Result := FProc;
+end;
+
+function TModelJSCommand.Callback(Value: TProc<String>): iModelJSCommand;
+begin
+  Result := Self;
+  FProc := Value;
+end;
 
 function TModelJSCommand.Command(Value: string): iModelJSCommand;
 begin

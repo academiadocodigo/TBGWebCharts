@@ -15,6 +15,7 @@ type
 	  procedure UtilsJS_1;
       function PackJS : String;
       function CDN(Value : Boolean) : iModelJS;
+      function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
 
 implementation
@@ -32,6 +33,11 @@ end;
 constructor TUtilsJS.Create;
 begin
   FPack := TStringList.Create;
+end;
+
+function TUtilsJS.Credenciais(Value: iModelCredenciais): iModelJS;
+begin
+  Result := Self;
 end;
 
 destructor TUtilsJS.Destroy;

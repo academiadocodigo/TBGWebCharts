@@ -19,8 +19,20 @@ type
     function ToString : String;
   end;
 
+type
+  TTypeMaps = (GMaps);
+
+type
+  TTypeMapStyle = (Hybrid, RoadMap, Satellite, Terrain);
+
+  TTypeMapsStyleHelper = record helper for TTypeMapStyle
+    function ToString : string;
+  end;
+
 implementation
 
+uses
+  System.SysUtils;
 { TTypeChartHelper }
 
 function TTypeChartHelper.ToString: String;
@@ -33,6 +45,13 @@ end;
 function TTyperContainerHelper.ToString: String;
 begin
   Result := GetEnumName(TypeInfo(TTypeContainer), Integer(Self));
+end;
+
+{ TTypeMapsStyleHelper }
+
+function TTypeMapsStyleHelper.ToString: string;
+begin
+  Result := lowerCase(GetEnumName(TypeInfo(TTypeMapStyle), Integer(Self)));
 end;
 
 end.
