@@ -30,7 +30,6 @@ type
     ClientDataSet2PERCPOPVACINADAS: TFloatField;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -167,57 +166,6 @@ begin
     .WebBrowser(Chromium1)
     .Generated;
 
-end;
-
-procedure TForm1.Button2Click(Sender: TObject);
-begin
-        Webcharts1
-        .Credenciais
-          .APIGoogle('AIzaSyAtJcToz0tMUrM_bQxlULzTYBWi7pmhw4g')
-        .&End
-        .NewProject
-        .Maps
-          .MapTitle
-            .Text('% da população vacinada')
-          .&End
-          .MapType(GMaps)
-            .Name('map')
-            .Height('300px')
-            .Options
-              .Center
-                .Latitude('-23.5504')
-                .Longitude('-46.6339')
-              .&End
-              .Zoom(8)
-    //          .MapStyle(Hybrid)
-            .&End
-            .Draw
-              .Marker
-                .DataSet
-                  .DataSet(ClientDataSet2)
-                  .LabelName('UF')
-                  .ValueName('NUMVACINAS')
-                .&End
-              .&End
-//              .Circle
-//                .DataSet
-//                  .DataSet(ClientDataSet2)
-//                  .LabelName('UF')
-//                  .ValueName('NUMVACINAS')
-//                .&End
-//                .StrokeColor('#FF0000')
-//                .StrokeOpacity('0.8')
-//                .StrokeWeight(2)
-//                .Fillcolor('#FF0000')
-//                .FillOpacity('0.35')
-//                .Fator(100)
-//              .&End
-            .&End
-          .&End
-        .&End
-    .WindowParent(CEFWindowParent1)
-    .WebBrowser(Chromium1)
-    .Generated;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
