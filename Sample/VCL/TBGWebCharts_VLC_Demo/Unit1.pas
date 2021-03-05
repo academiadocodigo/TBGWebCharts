@@ -7,10 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.Actions, Vcl.ActnList,
   System.ImageList, Vcl.ImgList, Vcl.CategoryButtons, Vcl.WinXCtrls,
   Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.OleCtrls, SHDocVw,
-  View.WebCharts, Data.DB, Datasnap.DBClient, midaslib, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
-  FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait,
-  FireDAC.Comp.Client, INIFiles;
+  View.WebCharts, Data.DB, Datasnap.DBClient, midaslib;
 
 type
   TForm1 = class(TForm)
@@ -80,7 +77,6 @@ type
     ClientDataSet2: TClientDataSet;
     DataSource1: TDataSource;
     ClientDataSet1: TClientDataSet;
-    WebCharts1: TWebCharts;
     WebBrowser1: TWebBrowser;
     btn_bootstrap_alerts: TAction;
     btn_bootstrap_jumbotron: TAction;
@@ -157,7 +153,8 @@ type
     ClientDataSet4Label: TStringField;
     ClientDataSet4Value: TStringField;
     ClientDataSet4RGB: TStringField;
-    LOJAPRO2020: TFDConnection;
+    WebCharts1: TWebCharts;
+    WebCharts2: TWebCharts;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -203,8 +200,6 @@ type
     FSplitExibir : TSplitView;
     FSplitAtual : TSplitView;
     FPivotConfig : string;
-    WorkDirectory1,WorkDirectory2,WorkDirectory3,WorkDirectory4,WorkDirectory5,WorkDirectory6,WorkDirectory7: string;
-
     function CSSPersonalizado: String;
   public
     { Public declarations }
@@ -228,69 +223,6 @@ uses
   Charts.Types, Unit2;
 
 {$R *.dfm}
-
-procedure TForm1.FormCreate(Sender: TObject);
-var
-
-   WorkDiretorio: string;
-   WorkDirectory: TINIFile;
-
-   TAux: TStringList;
-   I: integer;
-
-begin
-
-   WorkDiretorio := ExtractFilePath(Application.ExeName) + 'WorkDir.ini';
-
-   WorkDirectory := TINIFile.Create(WorkDiretorio);
-
-   try
-      // diretório utilizado somente por todos os terminais
-      WorkDirectory1 := WorkDirectory.ReadString('Diretorios', 'Diretorio1', '\Loja Pró 2000\Dados');
-
-      // diretório do local do banco de dados
-      WorkDirectory2 := WorkDirectory.ReadString('Diretorios', 'Diretorio2', '\Loja Pró 2000\DadosI');
-
-      // diretório onde ficam todos os arquivos utilizados somente por este terminal
-      WorkDirectory3 := WorkDirectory.ReadString('Diretorios', 'Diretorio3', '\Loja Pró 2000\Install');
-
-      // diretório onde ficam as fotos dos cadastros
-      WorkDirectory4 := WorkDirectory.ReadString('Diretorios', 'Diretorio4', '\Loja Pró 2000\Fotos');
-
-      // diretório onde ficam todos os arquivos utilizados por todos os terminais
-      WorkDirectory5 := WorkDirectory.ReadString('Diretorios', 'Diretorio5', '\Loja Pró 2000\Dados');
-
-      try
-
-         LOJAPRO2020.Connected := False;
-         LOJAPRO2020.Params.DriverID := 'FB';
-         LOJAPRO2020.Params.UserName := 'SYSDBA';
-         LOJAPRO2020.Params.Password := 'masterkey';
-
-         LOJAPRO2020.Params.Database := WorkDirectory2;
-
-         LOJAPRO2020.Connected := True;
-
-      except
-
-         ShowMessage('ERRO NA CONEXÃO DO BANCO DE DADOS!');
-
-         Application.Terminate;
-
-      end;
-
-   finally
-
-      WorkDirectory.Free;
-      TAux.Free;
-
-      btn_Dashboards_2Execute(self);
-      FSplitAtual := SplitBootStrap;
-
-   end;
-
-
-end;
 
 procedure TForm1.btn_bootstrap_alertsExecute(Sender: TObject);
 begin
@@ -726,53 +658,14 @@ begin
 end;
 
 procedure TForm1.btn_dashboards_2Execute(Sender: TObject);
-var
-   Filiais : array[1..12] of string;
-   I: integer;
-
-   FDAux: TFDQuery;
 begin
-
-   FDAux := TFDQuery.Create(self);
-
-   FDAux.Connection := LOJAPRO2020;
-
-
-  for I := 0 to 12 do
-    Filiais[I] := '';
-
-  with FDAux do
-  begin
-
-       close;
-       SQL.Clear;
-       SQL.Add('select codigo, nome, coalesce(metadiaria,0) as metadiaria from filais');
-       SQL.Add('where coalesce(metadiaria,0) > 0');
-       SQL.Add('  and not (trim(nome) = '''') ');
-       SQL.Add('  and codigo > 0 ');
-       SQL.Add('order by codigo');
-       first;
-
-       while not eof do
-       begin
-            Filiais[FieldByName('codigo').AsInteger] := FieldByName('nome').AsString;
-            next;
-       end;
-
-  end;
-
-
-
-  TWebCharts.New
+  WebCharts2
 //  .CDN(True)
-    //.AddResource('<link href="green.css" rel="stylesheet">')
-    //.AddResource('<link href="style.css" rel="stylesheet">')
     .BackgroundColor('#23272b')
-    .FontColor('#FFFF00') //  ('#8f9894')
+    .FontColor('#8f9894')
     .AddResource('<style> body { margin : 50px; } </style>')
     .Container(Fluid)
     .NewProject
- //     .Jumpline
       //Criando uma Linha com 6 Colunas e Adicionando conteudo HTML em cada uma
       //dessas colunas
       .Rows
@@ -837,17 +730,14 @@ begin
                '</span> ')
         .&End
       .&End
-
-      //Pulando Linha
-//      .Jumpline
-
+//
       //Adicionando uma nova linha com um gráfico LineStack e Barras Horizontal
       .Rows
 
         //Adicionando Grafico LineStacked
         .Tag
           .Add(
-            WebCharts1
+            WebCharts2
               .ContinuosProject
                 .Charts
                   ._ChartType(line)
@@ -856,15 +746,14 @@ begin
                       .ColSpan(8)
                       .Heigth(140)
                       .DataSet
-                        .textLabel('Margem da Matriz')
+                        .textLabel('Meu DataSet 1')
                         .RealTimeDataSet(ClientDataSetReal1)
-                        //.BackgroundColor('227,233,235')
-                        .BackgroundColor('127,133,135')
+                        .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
                         .Fill(False)
                       .&End
                       .DataSet
-                        .textLabel('Margem individual')
+                        .textLabel('Meu DataSet 2')
                         .RealTimeDataSet(ClientDataSetReal2)
                         .BackgroundColor('26,187,156')
                         .Fill(False)
@@ -897,7 +786,7 @@ begin
         //Adicionando Grafico Barras Horizontal
         .Tag
           .Add(
-            WebCharts1
+            WebCharts2
               .ContinuosProject
                 .Charts
                   ._ChartType(bar)
@@ -907,7 +796,7 @@ begin
                       .Heigth(285)
                       //.Title('Top Campaign Performance')
                       .DataSet
-                        .textLabel('Margem da loja')
+                        .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('26,187,156')
                         .BorderColor('26,187,156')
@@ -923,7 +812,7 @@ begin
       .Rows
         .Tag
           .Add(
-            WebCharts1
+            WebCharts2
               .ContinuosProject
                 .Charts
                   ._ChartType(bar)
@@ -933,7 +822,7 @@ begin
                       //.Heigth(295)
                       //.Title('App Usage across versions')
                       .DataSet
-                        .textLabel('Margem da loja')
+                        .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('26,187,156')
                         .BorderColor('26,187,156')
@@ -947,7 +836,7 @@ begin
 
         .Tag
           .Add(
-            WebCharts1
+            WebCharts2
               .ContinuosProject
                 .Charts
                   ._ChartType(doughnut)
@@ -957,7 +846,7 @@ begin
                       //.Heigth(295)
                       //.Title('Device Usage')
                       .DataSet
-                        .textLabel('Margem da loja')
+                        .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet4)
                         .BackgroundColor('26,187,156')
                         .BorderColor('227,233,235')
@@ -971,7 +860,7 @@ begin
 
         .Tag
           .Add(
-            WebCharts1
+            WebCharts2
               .ContinuosProject
                 .Charts
                   ._ChartType(doughnut)
@@ -981,7 +870,7 @@ begin
                       //.Heigth(250)
                       //.Title('Device Usage')
                       .DataSet
-                        .textLabel('Margem da loja')
+                        .textLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('227,233,235')
                         .BorderColor('26,187,156')
@@ -993,13 +882,14 @@ begin
           )
         .&End
       .&End
+//
     .WebBrowser(WebBrowser1)
     .Generated;
 end;
 
 procedure TForm1.btn_dashboards_3Execute(Sender: TObject);
 begin
-  WebCharts1.New
+  WebCharts1
   .Container(fluid)
   .BackgroundColor('#1f2327')
   .FontColor('#FFF')
@@ -1259,13 +1149,13 @@ begin
                     .DataSet
                       .BackgroundColor('26,187,156')
                       .BorderColor('26,187,156')
-                      .textLabel('Margem da loja')
+                      .textLabel('Meu DataSet 1')
                       .DataSet(ClientDataSet1)
                     .&End
                     .DataSet
                       .BackgroundColor('242,112,91')
                       .BorderColor('242,112,91')
-                      .textLabel('Margem individual')
+                      .textLabel('Meu DataSet 2')
                       .DataSet(ClientDataSet2)
                     .&End
                   .&End
@@ -1653,7 +1543,7 @@ begin
             .DataSet(ClientDataSet4)
           .&End
           .DataSet
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -1732,14 +1622,14 @@ begin
           .ColSpan(12)
           //.Title('Meu Grafico de Barras')
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
             .BackgroundColor('227,233,235')
             .BorderColor('227,233,235')
             .Fill(False)
           .&End
           .DataSet
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
             .BackgroundColor('30,182,203')
             .BorderColor('30,182,203')
@@ -1756,14 +1646,14 @@ begin
           .ColSpan(12)
           //.Title('Meu Grafico de Barras')
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
             .BackgroundColor('227,233,235')
             .BorderColor('227,233,235')
             .Fill(False)
           .&End
           .DataSet
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
             .BackgroundColor('30,182,203')
             .BorderColor('30,182,203')
@@ -1887,7 +1777,7 @@ begin
           .ColSpan(12)
           //.Title('Meu Grafico Pie')
           .DataSet
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -1945,14 +1835,14 @@ begin
 //            .BackgroundColor('26,187,156')
             .RGBName('RGB')
 //            .BorderColor('26,187,156')
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet12)
             .Fill(False)
           .&End
 //          .DataSet
 //            .BackgroundColor('30,182,203')
 ////            .BorderColor('30,182,203')
-//            .textLabel('Margem individual')
+//            .textLabel('Meu DataSet 2')
 //            .DataSet(ClientDataSet2)
 ////            .Fill(False)
 //          .&End
@@ -1989,13 +1879,13 @@ begin
           .DataSet
             .BackgroundColor('26,187,156')
             .BorderColor('26,187,156')
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('242,112,91')
             .BorderColor('242,112,91')
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
         .&End
@@ -2007,7 +1897,7 @@ end;
 
 procedure TForm1.btn_chartjs_real_timeExecute(Sender: TObject);
 begin
-  TWebCharts.New
+  WebCharts1
   .Container(fluid)
   .AddResource('<style> body { margin : 50px; } </style>')
   .NewProject
@@ -2025,16 +1915,15 @@ begin
         .Attributes
           .Name('linestacked1')
           .ColSpan(12)
-          //.Heigth(140)
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .RealTimeDataSet(ClientDataSetReal1)
             .BackgroundColor('242,112,91')
             .BorderColor('242,112,91')
             .Fill(False)
           .&End
           .DataSet
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .RealTimeDataSet(ClientDataSetReal2)
             .BackgroundColor('26,187,156')
             .Fill(False)
@@ -2053,7 +1942,6 @@ begin
             .&End
             .Tooltip
               .Intersect(false)
-//              .Format('$0,0.00')
             .&End
           .&End
         .&End
@@ -2066,7 +1954,7 @@ end;
 
 procedure TForm1.btn_tables_pivotExecute(Sender: TObject);
 begin
-  TWebCharts.New
+  WebCharts1
   .Container(fluid)
   .NewProject
     .Jumpline
@@ -2128,11 +2016,6 @@ begin
 
         )
       .&End
-//      ._Div
-//        .ColSpan(2)
-//        .Add(
-//        )
-//      .&End
     .&End
     .Jumpline
     .PivotTable
@@ -2213,51 +2096,59 @@ begin
 end;
 
 procedure TForm1.btn_tables_callbackExecute(Sender: TObject);
+var
+  imagem : TResourceStream;
 begin
- TWebCharts.New
-    .Container(Fluid)
-     .AddResource('<style> body { margin : 50px; } </style>')
-    .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Table - CallBack')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Table
-      .TableClass
-        .tableSm
-        .tableHover
-        .tableResponsive
-      .EndTableClass
-      .DataSet
-        .CallbackLink('CustNo', 'RelCust')
-        .CallbackLink('Contact', 'RelContato')
-        .DataSet(ClientDataSet5)
-        .ActionEdit
-          .CallbackLink('CustNo', 'RelCust')
-        .&End
-        .ActionDelete
-          .CallbackLink('CustNo', 'RelCust')
-        .&End
-        .Action
-          .ActionHeader('Filtrar')
-          .Image
-            .Image(TResourceStream.Create(HInstance, 'PngFilter', RT_RCDATA))
-            .Tooltip('Filtrar')
+  imagem := nil;
+  try
+    imagem := TResourceStream.Create(HInstance, 'PngFilter', RT_RCDATA);
+    WebCharts1
+      .Container(Fluid)
+      .AddResource('<style> body { margin : 50px; } </style>')
+      .NewProject
+      .Rows
+        .Title
+          .Config
+            .H1('Table - CallBack')
           .&End
-          .CallbackLink('CustNo', 'RelCust')
         .&End
       .&End
-    .&End
-    .WebBrowser(WebBrowser1)
-    .CallbackJS
-      .ClassProvider(Self)
-    .&End
-    .Generated;
+      .Jumpline
+      .Jumpline
+      .Table
+        .TableClass
+          .tableSm
+          .tableHover
+          .tableResponsive
+        .EndTableClass
+        .DataSet
+          .CallbackLink('CustNo', 'RelCust')
+          .CallbackLink('Contact', 'RelContato')
+          .DataSet(ClientDataSet5)
+          .ActionEdit
+            .CallbackLink('CustNo', 'RelCust')
+          .&End
+          .ActionDelete
+            .CallbackLink('CustNo', 'RelCust')
+          .&End
+          .Action
+            .ActionHeader('Filtrar')
+            .Image
+              .Image(imagem)
+              .Tooltip('Filtrar')
+            .&End
+            .CallbackLink('CustNo', 'RelCust')
+          .&End
+        .&End
+      .&End
+      .WebBrowser(WebBrowser1)
+      .CallbackJS
+        .ClassProvider(Self)
+      .&End
+      .Generated;
+  finally
+    imagem.free;
+  end;
 end;
 
 procedure TForm1.btn_tables_callback_imagesExecute(Sender: TObject);
@@ -2292,7 +2183,7 @@ end;
 
 procedure TForm1.btn_tables_restExecute(Sender: TObject);
 begin
-  TWebCharts.New
+  WebCharts1
     .Container(Fluid)
     .AddResource('<style> body { margin : 50px; } </style>')
     .NewProject
@@ -2326,6 +2217,13 @@ end;
 procedure TForm1.CallBack(Value: string);
 begin
   ShowMessage(value);
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  btn_Dashboards_2Execute(self);
+  FSplitAtual := SplitBootStrap;
+  ReportMemoryLeaksOnShutdown := true;
 end;
 
 procedure TForm1.PivotConfigLoad;
@@ -2626,19 +2524,9 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
-var
-   sCor: string;
-   iCorR, iCorG, iCorB: integer;
 begin
-
-  iCorR := Random(255);
-  iCorG := Random(255);
-  iCorB := Random(255);
-
-  sCor := IntToStr(iCorR)+','+IntToStr(iCorG)+','+IntToStr(iCorB);
-
-  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), sCor]);
-  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), sCor]);
+  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), '']);
+  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), '']);
 
   WebCharts1
     .ContinuosProject
@@ -2647,16 +2535,12 @@ begin
       ._ChartType(line)
         .Attributes
           .Name('linestacked1')
-          .Labelling
-            .Format('0%') //Consultar em http://numeraljs.com/#format
-            .RGBColor('255,255,255') //Cor RGB separado por Virgula
-          .&End
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .RealTimeDataSet(ClientDataSetReal1)
           .&End
           .DataSet
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .RealTimeDataSet(ClientDataSetReal2)
           .&End
         .&End
@@ -2701,17 +2585,17 @@ begin
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -2742,17 +2626,17 @@ begin
           .ColSpan(12)
           //.Title('Meu Gráfico de Barras')
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -2784,12 +2668,12 @@ begin
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
           .Options
@@ -2845,12 +2729,12 @@ begin
           .ColSpan(12)
           //.Title('Meu Gráfico de Barras')
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -2880,7 +2764,7 @@ begin
           .ColSpan(12)
           //.Title('Meu Gráfico de Barras')
           .DataSet
-            .textLabel('Margem da loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
             .Types('line')
             .Fill(false)
@@ -2888,12 +2772,12 @@ begin
             .BorderColor('30,182,203')
           .&End
           .DataSet
-            .textLabel('Margem individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
             .Types('bar')
           .&End
           .DataSet
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet2)
             .Types('bar')
           .&End
@@ -2935,17 +2819,17 @@ begin
             .&End
           .&End
           .DataSet
-            .textLabel('Margem da Loja')
+            .textLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Margem Individual')
+            .textLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meta da margem')
+            .textLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End

@@ -4,7 +4,7 @@ object Form1: TForm1
   BorderStyle = bsNone
   Caption = 'TBGWebCharts Demo'
   ClientHeight = 800
-  ClientWidth = 1044
+  ClientWidth = 1045
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -444,7 +444,7 @@ object Form1: TForm1
   object Panel3: TPanel
     Left = 50
     Top = 0
-    Width = 994
+    Width = 995
     Height = 800
     Align = alClient
     BevelOuter = bvNone
@@ -452,13 +452,13 @@ object Form1: TForm1
     object WebBrowser1: TWebBrowser
       Left = 0
       Top = 0
-      Width = 994
+      Width = 995
       Height = 800
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 6
+      ExplicitWidth = 994
       ControlData = {
-        4C000000BC660000AF5200000000000000000000000000000000000000000000
+        4C000000D6660000AF5200000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
         2B2E126208000000000000004C0000000114020000000000C000000000000046
         8000000000000000000000000000000000000000000000000000000000000000
@@ -796,7 +796,7 @@ object Form1: TForm1
     Left = 184
     Top = 64
     Bitmap = {
-      494C010106000800100020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106000800040020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -23252,10 +23252,6 @@ object Form1: TForm1
       Size = 60
     end
   end
-  object WebCharts1: TWebCharts
-    Left = 184
-    Top = 17
-  end
   object ActionCharts: TActionList
     Left = 264
     Top = 112
@@ -23976,8 +23972,8 @@ object Form1: TForm1
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    Left = 274
-    Top = 288
+    Left = 978
+    Top = 688
   end
   object ClientDataSetReal2: TClientDataSet
     PersistDataPacket.Data = {
@@ -24017,8 +24013,8 @@ object Form1: TForm1
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 841
-    Top = 106
+    Left = 497
+    Top = 314
   end
   object ClientDataSetReal1: TClientDataSet
     PersistDataPacket.Data = {
@@ -24125,18 +24121,15 @@ object Form1: TForm1
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 840
-    Top = 25
+    Left = 416
+    Top = 313
   end
-  object LOJAPRO2020: TFDConnection
-    Params.Strings = (
-      'Database=C:\Loja Pr'#243' NG 30\DadosI\LOJAPRO2000.GDX'
-      'DriverID=FB'
-      'Password=masterkey'
-      'RoleName=SYSDBA'
-      'User_Name=SYSDBA')
-    LoginPrompt = False
-    Left = 272
-    Top = 368
+  object WebCharts1: TWebCharts
+    Left = 674
+    Top = 536
+  end
+  object WebCharts2: TWebCharts
+    Left = 738
+    Top = 536
   end
 end

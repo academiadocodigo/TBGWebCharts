@@ -106,203 +106,210 @@ var
   WebCharts1 : TWebCharts;
 begin
   WebCharts1 := TWebCharts.Create;
-  if cbTypeChart.Text='table' then
-  begin
-  WebCharts1
+  try
+    if cbTypeChart.Text='table' then
+    begin
+    WebCharts1
+      .NewProject
+      .Table
+        .TableClass
+          .tableSm
+          .tableHover
+        .EndTableClass
+        .TableOptions
+          .Responsive(ValueListEditor18.Values['Responsive'].ToBoolean)
+          .ScrollCollapse(ValueListEditor18.Values['ScrollCollapse'].ToBoolean)
+          .DisplayStart(ValueListEditor18.Values['DisplayStart'].ToInteger)
+          .LengthMenu(ValueListEditor18.Values['LengthMenu'])
+          .Order(ValueListEditor18.Values['Order'])
+          .OrderFixed(ValueListEditor18.Values['OrderFixed'])
+          .OrderMulti(ValueListEditor18.Values['OrderMulti'].ToBoolean)
+          .PageLength(ValueListEditor18.Values['PageLength'].ToInteger)
+          .PagingType(ValueListEditor18.Values['PagingType'])
+        .&End
+        .TableFeatures
+          .Info(ValueListEditor18.Values['Info'].ToBoolean)
+          .LengthChange(ValueListEditor18.Values['LengthChange'].ToBoolean)
+          .Ordering(ValueListEditor18.Values['Ordering'].ToBoolean)
+          .Paging(ValueListEditor18.Values['Paging'].ToBoolean)
+          .Processing(ValueListEditor18.Values['Processing'].ToBoolean)
+          .ScrollX(ValueListEditor18.Values['ScrollX'].ToBoolean)
+          .ScrollY(ValueListEditor18.Values['ScrollY'].ToInteger)
+          .Searching(ValueListEditor18.Values['Searching'].ToBoolean)
+        .&End
+        .DataSet
+          .CallbackLink('CustNo', 'RelCust')
+          .CallbackLink('Contact', 'RelContato')
+          .DataSet(ClientDataSet5)
+        .&End
+      .&End
+      .WebBrowser(WebBrowser1)
+      .CallbackJS
+        .ClassProvider(Self)
+      .&End
+      .Generated;
+    end
+    else
+    begin
+    WebCharts1
+    .CDN(false)
+    .BackgroundColor(ValueListEditor1.Values['BackgroundColor'])
+    .FontColor(ValueListEditor1.Values['FontColor'])
     .NewProject
-    .Table
-      .TableClass
-        .tableSm
-        .tableHover
-      .EndTableClass
-      .TableOptions
-        .Responsive(ValueListEditor18.Values['Responsive'].ToBoolean)
-        .ScrollCollapse(ValueListEditor18.Values['ScrollCollapse'].ToBoolean)
-        .DisplayStart(ValueListEditor18.Values['DisplayStart'].ToInteger)
-        .LengthMenu(ValueListEditor18.Values['LengthMenu'])
-        .Order(ValueListEditor18.Values['Order'])
-        .OrderFixed(ValueListEditor18.Values['OrderFixed'])
-        .OrderMulti(ValueListEditor18.Values['OrderMulti'].ToBoolean)
-        .PageLength(ValueListEditor18.Values['PageLength'].ToInteger)
-        .PagingType(ValueListEditor18.Values['PagingType'])
-      .&End
-      .TableFeatures
-        .Info(ValueListEditor18.Values['Info'].ToBoolean)
-        .LengthChange(ValueListEditor18.Values['LengthChange'].ToBoolean)
-        .Ordering(ValueListEditor18.Values['Ordering'].ToBoolean)
-        .Paging(ValueListEditor18.Values['Paging'].ToBoolean)
-        .Processing(ValueListEditor18.Values['Processing'].ToBoolean)
-        .ScrollX(ValueListEditor18.Values['ScrollX'].ToBoolean)
-        .ScrollY(ValueListEditor18.Values['ScrollY'].ToInteger)
-        .Searching(ValueListEditor18.Values['Searching'].ToBoolean)
-      .&End
-      .DataSet
-        .CallbackLink('CustNo', 'RelCust')
-        .CallbackLink('Contact', 'RelContato')
-        .DataSet(ClientDataSet5)
-      .&End
-    .&End
-    .WebBrowser(WebBrowser1)
-    .CallbackJS
-      .ClassProvider(Self)
-    .&End
-    .Generated;
-  end
-  else
-  begin
-  WebCharts1
-  .CDN(false)
-  .BackgroundColor(ValueListEditor1.Values['BackgroundColor'])
-  .FontColor(ValueListEditor1.Values['FontColor'])
-  .NewProject
-    .Charts
-      ._ChartType(TTypeChart(GetEnumValue(TypeInfo(TTypeChart), cbTypeChart.Text)))
-        .Attributes
-          .Name(ValueListEditor2.Values['Name'])
-          .ColSpan(ValueListEditor2.Values['ColSpan'].ToInteger)
-          .Width(ValueListEditor2.Values['Width'].ToInteger)
-          .Heigth(ValueListEditor2.Values['Heigth'].ToInteger)
-          .BackgroundColor(ValueListEditor2.Values['BackgroundColor'])
-          .Options
-            .SemiCircule(ValueListEditor15.Values['SemiCircule'].ToBoolean)
-            .Legend
-              .display(ValueListEditor12.Values['display'].ToBoolean)
-              .position(ValueListEditor12.Values['position'])
-              .Labels
-                .fontSize(ValueListEditor13.Values['fontSize'].ToInteger)
-                .fontStyle(ValueListEditor13.Values['fontStyle'])
-                .fontColorHEX(ValueListEditor13.Values['fontColorHEX'])
-                .fontFamily(ValueListEditor13.Values['fontFamily'])
-                .padding(ValueListEditor13.Values['padding'].ToInteger)
-              .&End
-            .&End
-            .Title
-              .text(ValueListEditor14.Values['text'])
-              .display(ValueListEditor14.Values['display'].ToBoolean)
-              .position(ValueListEditor14.Values['position'])
-              .fontSize(ValueListEditor14.Values['fontSize'].ToInteger)
-              .fontFamily(ValueListEditor14.Values['fontFamily'])
-              .fontColorHEX(ValueListEditor14.Values['fontColorHEX'])
-              .fontStyle(ValueListEditor14.Values['fontStyle'])
-              .padding(ValueListEditor14.Values['padding'].ToInteger)
-            .&End
-            .Scales
-              .Axes
-                .xAxe
-                  .Position(ValueListEditor3.Values['Position']) //top', 'left', 'bottom','right'
-                  .OffSet(ValueListEditor3.Values['OffSet'].ToBoolean)
-                  ._Type(ValueListEditor3.Values['type'])
-                  .Stacked(ValueListEditor3.Values['Stacked'].ToBoolean)
-                  .Ticks
-                    .fontColor(ValueListEditor4.Values['fontColor'])
-                    .fontSize(ValueListEditor4.Values['fontSize'].ToInteger)
-                    .autoSkip(ValueListEditor4.Values['autoSkip'].ToBoolean)
-                    .autoSkipPadding(ValueListEditor4.Values['autoSkipPadding'].ToInteger)
-                    .labelOffset(ValueListEditor4.Values['labelOffset'].ToInteger)
-                    .maxRotation(ValueListEditor4.Values['maxRotation'].ToInteger)
-                    .minRotation(ValueListEditor4.Values['minRotation'].ToInteger)
-                    .mirror(ValueListEditor4.Values['mirror'].ToBoolean)
-                    .padding(ValueListEditor4.Values['padding'].ToInteger)
-                    .format(ValueListEditor4.Values['format'])
-                    .BeginAtZero(ValueListEditor4.Values['BeginAtZero'].ToBoolean)
-                  .&End
-                  .GridLines
-                    .display(ValueListEditor5.Values['display'].ToBoolean)
-                    .circular(ValueListEditor5.Values['circular'].ToBoolean)
-                    .colorRGBA(ValueListEditor5.Values['colorRGBA'])
-                    .drawBorder(ValueListEditor5.Values['drawBorder'].ToBoolean)
-                    .drawOnChartArea(ValueListEditor5.Values['drawOnChartArea'].ToBoolean)
-                    .drawTicks(ValueListEditor5.Values['drawTicks'].ToBoolean)
-                    .tickMarkLength(ValueListEditor5.Values['tickMarkLength'].ToInteger)
-                    .zeroLineWidth(ValueListEditor5.Values['zeroLineWidth'].ToInteger)
-                    .zeroLineColorRGBA(ValueListEditor5.Values['zeroLineColorRGBA'])
-                  .&End
-                  .ScaleLabel
-                    .display(ValueListEditor6.Values['display'].ToBoolean)
-                    .labelString(ValueListEditor6.Values['labelString'])
-                    .fontColorHEX(ValueListEditor6.Values['fontColorHEX'])
-                    .fontFamily(ValueListEditor6.Values['fontFamily'])
-                    .fontSize(ValueListEditor6.Values['fontSize'].ToInteger)
-                    .fontStyle(ValueListEditor6.Values['fontStyle']) //i.e. normal, bold, italic, oblique, initial, inherit
-                    .padding(ValueListEditor6.Values['padding'].ToInteger)
-                  .&End
+      .Charts
+        ._ChartType(TTypeChart(GetEnumValue(TypeInfo(TTypeChart), cbTypeChart.Text)))
+          .Attributes
+            .Name(ValueListEditor2.Values['Name'])
+            .ColSpan(ValueListEditor2.Values['ColSpan'].ToInteger)
+            .Width(ValueListEditor2.Values['Width'].ToInteger)
+            .Heigth(ValueListEditor2.Values['Heigth'].ToInteger)
+            .BackgroundColor(ValueListEditor2.Values['BackgroundColor'])
+            .Options
+              .SemiCircule(ValueListEditor15.Values['SemiCircule'].ToBoolean)
+              .Legend
+                .display(ValueListEditor12.Values['display'].ToBoolean)
+                .position(ValueListEditor12.Values['position'])
+                .Labels
+                  .fontSize(ValueListEditor13.Values['fontSize'].ToInteger)
+                  .fontStyle(ValueListEditor13.Values['fontStyle'])
+                  .fontColorHEX(ValueListEditor13.Values['fontColorHEX'])
+                  .fontFamily(ValueListEditor13.Values['fontFamily'])
+                  .padding(ValueListEditor13.Values['padding'].ToInteger)
                 .&End
-                .yAxe
-                  .Position(ValueListEditor7.Values['Position']) //top', 'left', 'bottom','right'
-                  .OffSet(ValueListEditor7.Values['OffSet'].ToBoolean)
-                  ._type(ValueListEditor7.Values['type'])
-                  .Stacked(ValueListEditor7.Values['Stacked'].ToBoolean)
-                  .Ticks
-                    .fontColor(ValueListEditor8.Values['fontColor'])
-                    .fontSize(ValueListEditor8.Values['fontSize'].ToInteger)
-                    .autoSkip(ValueListEditor8.Values['autoSkip'].ToBoolean)
-                    .autoSkipPadding(ValueListEditor8.Values['autoSkipPadding'].ToInteger)
-                    .labelOffset(ValueListEditor8.Values['labelOffset'].ToInteger)
-                    .maxRotation(ValueListEditor8.Values['maxRotation'].ToInteger)
-                    .minRotation(ValueListEditor8.Values['minRotation'].ToInteger)
-                    .mirror(ValueListEditor8.Values['mirror'].ToBoolean)
-                    .padding(ValueListEditor8.Values['padding'].ToInteger)
-                    .format(ValueListEditor8.Values['format'])
-                    .BeginAtZero(ValueListEditor8.Values['BeginAtZero'].ToBoolean)
+              .&End
+              .Title
+                .text(ValueListEditor14.Values['text'])
+                .display(ValueListEditor14.Values['display'].ToBoolean)
+                .position(ValueListEditor14.Values['position'])
+                .fontSize(ValueListEditor14.Values['fontSize'].ToInteger)
+                .fontFamily(ValueListEditor14.Values['fontFamily'])
+                .fontColorHEX(ValueListEditor14.Values['fontColorHEX'])
+                .fontStyle(ValueListEditor14.Values['fontStyle'])
+                .padding(ValueListEditor14.Values['padding'].ToInteger)
+              .&End
+              .Scales
+                .Axes
+                  .xAxe
+                    .Position(ValueListEditor3.Values['Position']) //top', 'left', 'bottom','right'
+                    .OffSet(ValueListEditor3.Values['OffSet'].ToBoolean)
+                    ._Type(ValueListEditor3.Values['type'])
+                    .Stacked(ValueListEditor3.Values['Stacked'].ToBoolean)
+                    .Ticks
+                      .fontColor(ValueListEditor4.Values['fontColor'])
+                      .fontFamily(ValueListEditor4.Values['fontFamily'])
+                      .fontSize(ValueListEditor4.Values['fontSize'].ToInteger)
+                      .autoSkip(ValueListEditor4.Values['autoSkip'].ToBoolean)
+                      .autoSkipPadding(ValueListEditor4.Values['autoSkipPadding'].ToInteger)
+                      .labelOffset(ValueListEditor4.Values['labelOffset'].ToInteger)
+                      .maxRotation(ValueListEditor4.Values['maxRotation'].ToInteger)
+                      .minRotation(ValueListEditor4.Values['minRotation'].ToInteger)
+                      .mirror(ValueListEditor4.Values['mirror'].ToBoolean)
+                      .padding(ValueListEditor4.Values['padding'].ToInteger)
+                      .format(ValueListEditor4.Values['format'])
+                      .BeginAtZero(ValueListEditor4.Values['BeginAtZero'].ToBoolean)
+                    .&End
+                    .GridLines
+                      .display(ValueListEditor5.Values['display'].ToBoolean)
+                      .circular(ValueListEditor5.Values['circular'].ToBoolean)
+                      .colorRGBA(ValueListEditor5.Values['colorRGBA'])
+                      .drawBorder(ValueListEditor5.Values['drawBorder'].ToBoolean)
+                      .drawOnChartArea(ValueListEditor5.Values['drawOnChartArea'].ToBoolean)
+                      .drawTicks(ValueListEditor5.Values['drawTicks'].ToBoolean)
+                      .tickMarkLength(ValueListEditor5.Values['tickMarkLength'].ToInteger)
+                      .zeroLineWidth(ValueListEditor5.Values['zeroLineWidth'].ToInteger)
+                      .zeroLineColorRGBA(ValueListEditor5.Values['zeroLineColorRGBA'])
+                    .&End
+                    .ScaleLabel
+                      .display(ValueListEditor6.Values['display'].ToBoolean)
+                      .labelString(ValueListEditor6.Values['labelString'])
+                      .fontColorHEX(ValueListEditor6.Values['fontColorHEX'])
+                      .fontFamily(ValueListEditor6.Values['fontFamily'])
+                      .fontSize(ValueListEditor6.Values['fontSize'].ToInteger)
+                      .fontStyle(ValueListEditor6.Values['fontStyle']) //i.e. normal, bold, italic, oblique, initial, inherit
+                      .padding(ValueListEditor6.Values['padding'].ToInteger)
+                    .&End
                   .&End
-                  .GridLines
-                    .display(ValueListEditor9.Values['display'].ToBoolean)
-                    .circular(ValueListEditor9.Values['circular'].ToBoolean)
-                    .colorRGBA(ValueListEditor9.Values['colorRGBA'])
-                    .drawBorder(ValueListEditor9.Values['drawBorder'].ToBoolean)
-                    .drawOnChartArea(ValueListEditor9.Values['drawOnChartArea'].ToBoolean)
-                    .drawTicks(ValueListEditor9.Values['drawTicks'].ToBoolean)
-                    .tickMarkLength(ValueListEditor9.Values['tickMarkLength'].ToInteger)
-                    .zeroLineWidth(ValueListEditor9.Values['zeroLineWidth'].ToInteger)
-                    .zeroLineColorRGBA(ValueListEditor9.Values['zeroLineColorRGBA'])
-                  .&End
-                  .ScaleLabel
-                    .display(ValueListEditor10.Values['display'].ToBoolean)
-                    .labelString(ValueListEditor10.Values['labelString'])
-                    .fontColorHEX(ValueListEditor10.Values['fontColorHEX'])
-                    .fontFamily(ValueListEditor10.Values['fontFamily'])
-                    .fontSize(ValueListEditor10.Values['fontSize'].ToInteger)
-                    .fontStyle(ValueListEditor10.Values['fontStyle']) //i.e. normal, bold, italic, oblique, initial, inherit
-                    .padding(ValueListEditor10.Values['padding'].ToInteger)
+                  .yAxe
+                    .Position(ValueListEditor7.Values['Position']) //top', 'left', 'bottom','right'
+                    .OffSet(ValueListEditor7.Values['OffSet'].ToBoolean)
+                    ._type(ValueListEditor7.Values['type'])
+                    .Stacked(ValueListEditor7.Values['Stacked'].ToBoolean)
+                    .Ticks
+                      .fontColor(ValueListEditor8.Values['fontColor'])
+                      .fontFamily(ValueListEditor8.Values['fontFamily'])
+                      .fontSize(ValueListEditor8.Values['fontSize'].ToInteger)
+                      .autoSkip(ValueListEditor8.Values['autoSkip'].ToBoolean)
+                      .autoSkipPadding(ValueListEditor8.Values['autoSkipPadding'].ToInteger)
+                      .labelOffset(ValueListEditor8.Values['labelOffset'].ToInteger)
+                      .maxRotation(ValueListEditor8.Values['maxRotation'].ToInteger)
+                      .minRotation(ValueListEditor8.Values['minRotation'].ToInteger)
+                      .mirror(ValueListEditor8.Values['mirror'].ToBoolean)
+                      .padding(ValueListEditor8.Values['padding'].ToInteger)
+                      .format(ValueListEditor8.Values['format'])
+                      .BeginAtZero(ValueListEditor8.Values['BeginAtZero'].ToBoolean)
+                    .&End
+                    .GridLines
+                      .display(ValueListEditor9.Values['display'].ToBoolean)
+                      .circular(ValueListEditor9.Values['circular'].ToBoolean)
+                      .colorRGBA(ValueListEditor9.Values['colorRGBA'])
+                      .drawBorder(ValueListEditor9.Values['drawBorder'].ToBoolean)
+                      .drawOnChartArea(ValueListEditor9.Values['drawOnChartArea'].ToBoolean)
+                      .drawTicks(ValueListEditor9.Values['drawTicks'].ToBoolean)
+                      .tickMarkLength(ValueListEditor9.Values['tickMarkLength'].ToInteger)
+                      .zeroLineWidth(ValueListEditor9.Values['zeroLineWidth'].ToInteger)
+                      .zeroLineColorRGBA(ValueListEditor9.Values['zeroLineColorRGBA'])
+                    .&End
+                    .ScaleLabel
+                      .display(ValueListEditor10.Values['display'].ToBoolean)
+                      .labelString(ValueListEditor10.Values['labelString'])
+                      .fontColorHEX(ValueListEditor10.Values['fontColorHEX'])
+                      .fontFamily(ValueListEditor10.Values['fontFamily'])
+                      .fontSize(ValueListEditor10.Values['fontSize'].ToInteger)
+                      .fontStyle(ValueListEditor10.Values['fontStyle']) //i.e. normal, bold, italic, oblique, initial, inherit
+                      .padding(ValueListEditor10.Values['padding'].ToInteger)
+                    .&End
                   .&End
                 .&End
               .&End
+              .Tooltip
+                .Enabled(ValueListEditor17.Values['Enabled'].ToBoolean)
+                .Format(ValueListEditor17.Values['Format'])
+                .Intersect(ValueListEditor17.Values['Intersect'].ToBoolean)
+                .DisplayTitle(ValueListEditor17.Values['DisplayTitle'].ToBoolean)
+              .&End
             .&End
-            .Tooltip
-              .Format(ValueListEditor17.Values['Format'])
-              .Intersect(ValueListEditor17.Values['Intersect'].ToBoolean)
-              .DisplayTitle(ValueListEditor17.Values['DisplayTitle'].ToBoolean)
+            .Labelling
+              .Format(ValueListEditor11.Values['Format']) //Consultar em http://numeraljs.com/#format
+              .RGBColor(ValueListEditor11.Values['RGBColor']) //Cor RGB separado por Virgula
+              .FontSize(ValueListEditor11.Values['FontSize'].ToInteger)
+              .FontStyle(ValueListEditor11.Values['FontStyle']) //normal, bold, italic
+              .FontFamily(ValueListEditor11.Values['FontFamily']) //Open Sans, Arial, Helvetica e etc..
+              .Padding(ValueListEditor11.Values['Padding'].ToInteger) //Numeros negativos e positivos
+              .PaddingX(ValueListEditor11.Values['PaddingX'].ToInteger)
             .&End
-          .&End
-          .Labelling
-            .Format(ValueListEditor11.Values['Format']) //Consultar em http://numeraljs.com/#format
-            .RGBColor(ValueListEditor11.Values['RGBColor']) //Cor RGB separado por Virgula
-            .FontSize(ValueListEditor11.Values['FontSize'].ToInteger)
-            .FontStyle(ValueListEditor11.Values['FontStyle']) //normal, bold, italic
-            .FontFamily(ValueListEditor11.Values['FontFamily']) //Open Sans, Arial, Helvetica e etc..
-            .Padding(ValueListEditor11.Values['Padding'].ToInteger) //Numeros negativos e positivos
-            .PaddingX(ValueListEditor11.Values['PaddingX'].ToInteger)
-          .&End
-          .DataSet
-            .DataSet(ClientDataSet1)
-            .textLabel(ValueListEditor16.Values['textLabel'])
-            .BackgroundColor(ValueListEditor16.Values['BackgroundColor'])
-            .BorderColor(ValueListEditor16.Values['BorderColor'])
-            .BorderWidth(ValueListEditor16.Values['BorderWidth'].ToInteger)
-            .Fill(ValueListEditor16.Values['Fill'].ToBoolean)
-            .LineTension(ValueListEditor16.Values['LineTension'].ToInteger)
-            .BorderDash(ValueListEditor16.Values['BorderDash(Lenght)'].ToInteger, ValueListEditor16.Values['BorderDash(Space)'].ToInteger)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
+            .DataSet
+              .DataSet(ClientDataSet1)
+              .textLabel(ValueListEditor16.Values['textLabel'])
+              .BackgroundColor(ValueListEditor16.Values['BackgroundColor'])
+              .BorderColor(ValueListEditor16.Values['BorderColor'])
+              .BorderWidth(ValueListEditor16.Values['BorderWidth'].ToInteger)
+              .Fill(ValueListEditor16.Values['Fill'].ToBoolean)
+              .LineTension(ValueListEditor16.Values['LineTension'].ToInteger)
+              .BorderDash(ValueListEditor16.Values['BorderDash(Lenght)'].ToInteger, ValueListEditor16.Values['BorderDash(Space)'].ToInteger)
+            .&End
+            .DataSet
+              .BackgroundColor('30,182,203')
+              .textLabel('Meu DataSet 2')
+              .DataSet(ClientDataSet2)
+            .&End
           .&End
         .&End
       .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
+    .WebBrowser(WebBrowser1)
+    .Generated;
+    end;
+  finally
+    webcharts1.free;
   end;
 end;
 

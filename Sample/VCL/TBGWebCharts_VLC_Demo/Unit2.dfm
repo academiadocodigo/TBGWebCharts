@@ -212,12 +212,16 @@ object Form2: TForm2
       Top = 114
       Width = 209
       Height = 478
-      ActivePage = TabSheet11
+      ActivePage = TabSheet10
       Align = alClient
       MultiLine = True
       TabOrder = 1
       object TabSheet3: TTabSheet
         Caption = 'General'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor1: TValueListEditor
           Left = 0
           Top = 0
@@ -287,6 +291,10 @@ object Form2: TForm2
       object TabSheet4: TTabSheet
         Caption = 'Attributes'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor2: TValueListEditor
           Left = 0
           Top = 0
@@ -319,6 +327,10 @@ object Form2: TForm2
       object TabSheet5: TTabSheet
         Caption = 'Scale xAxe'
         ImageIndex = 2
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ScrollBox2: TScrollBox
           Left = 0
           Top = 0
@@ -377,7 +389,7 @@ object Form2: TForm2
             Left = 0
             Top = 128
             Width = 184
-            Height = 211
+            Height = 257
             Align = alTop
             BorderStyle = bsNone
             Color = clWhite
@@ -391,6 +403,7 @@ object Form2: TForm2
             ParentFont = False
             Strings.Strings = (
               'fontColor=#666'
+              'fontFamily='
               'fontSize=12'
               'autoSkip=False'
               'autoSkipPadding=100'
@@ -404,11 +417,11 @@ object Form2: TForm2
             TabOrder = 2
             ColWidths = (
               96
-              69)
+              86)
           end
           object Panel11: TPanel
             Left = 0
-            Top = 339
+            Top = 385
             Width = 184
             Height = 23
             Align = alTop
@@ -423,10 +436,11 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 3
+            ExplicitTop = 339
           end
           object ValueListEditor5: TValueListEditor
             Left = 0
-            Top = 362
+            Top = 408
             Width = 184
             Height = 194
             Align = alTop
@@ -451,13 +465,14 @@ object Form2: TForm2
               'zeroLineWidth=50'
               'zeroLineColorRGBA=102,102,102,100')
             TabOrder = 4
+            ExplicitTop = 362
             ColWidths = (
               96
               86)
           end
           object Panel12: TPanel
             Left = 0
-            Top = 556
+            Top = 602
             Width = 184
             Height = 23
             Align = alTop
@@ -472,10 +487,11 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 5
+            ExplicitTop = 556
           end
           object ValueListEditor6: TValueListEditor
             Left = 0
-            Top = 579
+            Top = 625
             Width = 184
             Height = 155
             Align = alTop
@@ -498,6 +514,7 @@ object Form2: TForm2
               'fontStyle=normal'
               'padding=10')
             TabOrder = 6
+            ExplicitTop = 579
             ColWidths = (
               96
               86)
@@ -507,12 +524,15 @@ object Form2: TForm2
       object TabSheet6: TTabSheet
         Caption = 'Scale yAxe'
         ImageIndex = 3
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ScrollBox1: TScrollBox
           Left = 0
           Top = 0
           Width = 201
           Height = 414
-          VertScrollBar.Position = 44
           Align = alClient
           BorderStyle = bsNone
           Color = clWhite
@@ -520,7 +540,7 @@ object Form2: TForm2
           TabOrder = 0
           object ValueListEditor7: TValueListEditor
             Left = 0
-            Top = -44
+            Top = 0
             Width = 184
             Height = 105
             Align = alTop
@@ -546,7 +566,7 @@ object Form2: TForm2
           end
           object Panel13: TPanel
             Left = 0
-            Top = 61
+            Top = 105
             Width = 184
             Height = 23
             Align = alTop
@@ -564,9 +584,9 @@ object Form2: TForm2
           end
           object ValueListEditor8: TValueListEditor
             Left = 0
-            Top = 84
+            Top = 128
             Width = 184
-            Height = 230
+            Height = 247
             Align = alTop
             BorderStyle = bsNone
             Color = clWhite
@@ -580,6 +600,7 @@ object Form2: TForm2
             ParentFont = False
             Strings.Strings = (
               'fontColor=#666'
+              'fontFamily='
               'fontSize=12'
               'autoSkip=False'
               'autoSkipPadding=100'
@@ -597,7 +618,7 @@ object Form2: TForm2
           end
           object Panel14: TPanel
             Left = 0
-            Top = 314
+            Top = 375
             Width = 184
             Height = 23
             Align = alTop
@@ -615,7 +636,7 @@ object Form2: TForm2
           end
           object ValueListEditor9: TValueListEditor
             Left = 0
-            Top = 337
+            Top = 398
             Width = 184
             Height = 191
             Align = alTop
@@ -646,7 +667,7 @@ object Form2: TForm2
           end
           object Panel15: TPanel
             Left = 0
-            Top = 528
+            Top = 589
             Width = 184
             Height = 23
             Align = alTop
@@ -664,7 +685,7 @@ object Form2: TForm2
           end
           object ValueListEditor10: TValueListEditor
             Left = 0
-            Top = 551
+            Top = 612
             Width = 184
             Height = 155
             Align = alTop
@@ -696,6 +717,10 @@ object Form2: TForm2
       object TabSheet7: TTabSheet
         Caption = 'Labelling'
         ImageIndex = 4
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor11: TValueListEditor
           Left = 0
           Top = 0
@@ -729,6 +754,10 @@ object Form2: TForm2
       object TabSheet8: TTabSheet
         Caption = 'Legend'
         ImageIndex = 5
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor12: TValueListEditor
           Left = 0
           Top = 0
@@ -802,6 +831,10 @@ object Form2: TForm2
       object TabSheet9: TTabSheet
         Caption = 'Title'
         ImageIndex = 6
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor14: TValueListEditor
           Left = 0
           Top = 0
@@ -870,6 +903,10 @@ object Form2: TForm2
       object TabSheet11: TTabSheet
         Caption = 'Tooltip'
         ImageIndex = 8
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor17: TValueListEditor
           Left = 0
           Top = 0
@@ -887,6 +924,7 @@ object Form2: TForm2
           Font.Style = []
           ParentFont = False
           Strings.Strings = (
+            'Enabled=True'
             'Format=$0,0.00'
             'Intersect=False'
             'DisplayTitle=False')
@@ -899,6 +937,10 @@ object Form2: TForm2
       object Table: TTabSheet
         Caption = 'Table'
         ImageIndex = 9
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object ValueListEditor18: TValueListEditor
           Left = 0
           Top = 0
@@ -953,7 +995,7 @@ object Form2: TForm2
       Height = 640
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = -56
+      ExplicitLeft = 6
       ControlData = {
         4C0000004D560000254200000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
