@@ -111,7 +111,8 @@ uses
 
 procedure TForm9.btnPivotConfigSave;
 begin
-  WebCharts1.ContinuosProject
+  WebCharts1
+    .ContinuosProject
     .WindowParent(FMXWindowParent)
     .WebBrowser(FMXChromium1)
     .PivotTable.SaveConfig(PivotConfigSave);

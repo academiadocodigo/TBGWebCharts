@@ -16,8 +16,8 @@ begin
   GlobalCEFApp.ResourcesDirPath := 'C:\Componentes\CEF4Delphi\Dlls_32';
   GlobalCEFApp.LocalesDirPath := 'C:\Componentes\CEF4Delphi\Dlls_32\locales';
   GlobalCEFApp.AllowRunningInsecureContent := true;
-  GlobalCEFApp.LogFile := '\debug.log';
-  GlobalCEFApp.LogSeverity := LOGSEVERITY_DEBUG;
+//  GlobalCEFApp.LogFile := '\debug.log';
+//  GlobalCEFApp.LogSeverity := LOGSEVERITY_DEBUG;
 
   if GlobalCEFApp.StartMainProcess then
   begin

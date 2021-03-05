@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2021/01/27 09:32:04.000.223,=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit9.pas</Transaction>
-    <Transaction>2021/01/27 09:32:52.000.270,C:\Componentes\TBGWebCharts\trunk\Sample\Chromium_FMX\Unit9.pas=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit9.pas</Transaction>
     <Transaction>2021/01/27 09:32:52.000.270,C:\Componentes\TBGWebCharts\trunk\Sample\Chromium_FMX\Unit9.fmx=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit9.fmx</Transaction>
     <Transaction>2021/01/27 09:33:08.000.013,C:\Componentes\TBGWebCharts\trunk\Sample\Chromium_FMX\Chromium_FMX.dproj=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
-  </Transactions>  <ActiveMobileDevice>   <NoProfile Android64="RQ8N6025CKZ"/>
-  </ActiveMobileDevice>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile Android64=""/>
+	</ActiveMobileDevice>
 </BorlandProject>
