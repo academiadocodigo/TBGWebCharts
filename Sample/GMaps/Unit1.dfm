@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   Caption = 'Form1'
   ClientHeight = 370
-  ClientWidth = 679
+  ClientWidth = 740
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,44 +18,104 @@ object Form1: TForm1
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 679
-    Height = 329
+    Width = 740
+    Height = 300
     Align = alClient
     TabOrder = 0
-    object CEFWindowParent1: TCEFWindowParent
+    ExplicitWidth = 679
+    object Label2: TLabel
       Left = 1
       Top = 1
-      Width = 677
-      Height = 327
+      Width = 738
+      Height = 69
+      Align = alTop
+      Alignment = taCenter
+      Caption = 
+        'Para gerar esse gr'#225'fico, '#233' necess'#225'rio ter uma chave de API Googl' +
+        'e. Para obter informama'#231#227'o de como  gerar a chave, assista a aul' +
+        'a espec'#237'fica no Portal do o Aluno'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -19
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Layout = tlCenter
+      WordWrap = True
+      ExplicitWidth = 665
+    end
+    object CEFWindowParent1: TCEFWindowParent
+      Left = 1
+      Top = 70
+      Width = 738
+      Height = 229
       Align = alClient
       TabOrder = 0
+      ExplicitTop = 47
+      ExplicitWidth = 677
+      ExplicitHeight = 252
     end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 329
-    Width = 679
-    Height = 41
+    Top = 300
+    Width = 740
+    Height = 70
     Align = alBottom
     TabOrder = 1
+    ExplicitWidth = 679
     object Button1: TButton
       Left = 1
-      Top = 1
+      Top = 33
       Width = 88
-      Height = 39
+      Height = 36
       Align = alLeft
       Caption = 'Gerar'
       TabOrder = 0
       OnClick = Button1Click
     end
+    object Panel3: TPanel
+      Left = 1
+      Top = 1
+      Width = 738
+      Height = 32
+      Align = alTop
+      Padding.Left = 5
+      Padding.Top = 2
+      Padding.Right = 2
+      Padding.Bottom = 2
+      TabOrder = 1
+      ExplicitWidth = 677
+      object Label1: TLabel
+        AlignWithMargins = True
+        Left = 9
+        Top = 6
+        Width = 74
+        Height = 20
+        Align = alLeft
+        Caption = 'Google API Key'
+        Layout = tlCenter
+        ExplicitHeight = 13
+      end
+      object Edit1: TEdit
+        AlignWithMargins = True
+        Left = 89
+        Top = 6
+        Width = 337
+        Height = 20
+        Align = alLeft
+        TabOrder = 0
+        ExplicitHeight = 21
+      end
+    end
   end
   object Chromium1: TChromium
-    Left = 608
-    Top = 280
+    Left = 624
+    Top = 248
   end
   object WebCharts1: TWebCharts
-    Left = 528
-    Top = 280
+    Left = 560
+    Top = 248
   end
   object ClientDataSet1: TClientDataSet
     PersistDataPacket.Data = {
@@ -88,7 +148,7 @@ object Form1: TForm1
     Aggregates = <>
     Params = <>
     Left = 608
-    Top = 200
+    Top = 152
     object ClientDataSet1LAT: TStringField
       DisplayWidth = 14
       FieldName = 'LAT'
@@ -109,11 +169,6 @@ object Form1: TForm1
       FieldName = 'VALUE'
       Size = 60
     end
-  end
-  object DataSource1: TDataSource
-    DataSet = ClientDataSet2
-    Left = 528
-    Top = 200
   end
   object ClientDataSet2: TClientDataSet
     PersistDataPacket.Data = {
@@ -173,7 +228,7 @@ object Form1: TForm1
     Params = <>
     StoreDefs = True
     Left = 608
-    Top = 144
+    Top = 104
     object ClientDataSet2LAT: TStringField
       DisplayLabel = 'Latitude'
       DisplayWidth = 11

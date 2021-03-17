@@ -21,13 +21,16 @@ type
     ClientDataSet1LNG: TStringField;
     ClientDataSet1LABEL: TStringField;
     ClientDataSet1VALUE: TStringField;
-    DataSource1: TDataSource;
     ClientDataSet2: TClientDataSet;
     ClientDataSet2LAT: TStringField;
     ClientDataSet2LNG: TStringField;
     ClientDataSet2UF: TStringField;
     ClientDataSet2NUMVACINAS: TFloatField;
     ClientDataSet2PERCPOPVACINADAS: TFloatField;
+    Panel3: TPanel;
+    Edit1: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -50,7 +53,7 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
   Webcharts1
   .Credenciais
-    .APIGoogle('YOUR_API_KEY')
+    .APIGoogle(Trim(Edit1.Text))
   .&End
   .NewProject
     .Rows
