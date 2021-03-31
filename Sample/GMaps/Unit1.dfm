@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 370
-  ClientWidth = 740
+  ClientHeight = 572
+  ClientWidth = 1089
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,104 +18,112 @@ object Form1: TForm1
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 740
-    Height = 300
+    Width = 1089
+    Height = 502
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 679
-    object Label2: TLabel
+    ExplicitWidth = 740
+    ExplicitHeight = 300
+    object PageControl1: TPageControl
       Left = 1
       Top = 1
-      Width = 738
-      Height = 69
-      Align = alTop
-      Alignment = taCenter
-      Caption = 
-        'Para gerar esse gr'#225'fico, '#233' necess'#225'rio ter uma chave de API Googl' +
-        'e. Para obter informama'#231#227'o de como  gerar a chave, assista a aul' +
-        'a espec'#237'fica no Portal do o Aluno'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -19
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Layout = tlCenter
-      WordWrap = True
-      ExplicitWidth = 665
-    end
-    object CEFWindowParent1: TCEFWindowParent
-      Left = 1
-      Top = 70
-      Width = 738
-      Height = 229
+      Width = 1087
+      Height = 500
+      ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
-      ExplicitTop = 47
-      ExplicitWidth = 677
-      ExplicitHeight = 252
+      object TabSheet1: TTabSheet
+        Caption = 'Maps'
+        object CEFWindowParent1: TCEFWindowParent
+          Left = 0
+          Top = 0
+          Width = 1079
+          Height = 472
+          Align = alClient
+          TabOrder = 0
+          ExplicitLeft = 1
+          ExplicitTop = 47
+          ExplicitWidth = 1087
+          ExplicitHeight = 454
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Configurations'
+        ImageIndex = 1
+        object DBGrid2: TDBGrid
+          Left = 11
+          Top = 16
+          Width = 454
+          Height = 120
+          DataSource = DataSource2
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+        end
+        object DBNavigator2: TDBNavigator
+          Left = 11
+          Top = 142
+          Width = 240
+          Height = 25
+          DataSource = DataSource2
+          TabOrder = 1
+        end
+        object RadioGroup1: TRadioGroup
+          Left = 11
+          Top = 184
+          Width = 185
+          Height = 105
+          Caption = 'Tipo de Mapa '
+          ItemIndex = 0
+          Items.Strings = (
+            'Hybrid'
+            'RoadMap'
+            'Satellite'
+            'Terrain')
+          TabOrder = 2
+        end
+      end
     end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 300
-    Width = 740
+    Top = 502
+    Width = 1089
     Height = 70
     Align = alBottom
     TabOrder = 1
-    ExplicitWidth = 679
+    ExplicitTop = 300
+    ExplicitWidth = 740
+    DesignSize = (
+      1089
+      70)
     object Button1: TButton
-      Left = 1
-      Top = 33
-      Width = 88
-      Height = 36
-      Align = alLeft
+      Left = 329
+      Top = 1
+      Width = 440
+      Height = 68
+      Anchors = [akTop, akBottom]
       Caption = 'Gerar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -20
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
       OnClick = Button1Click
     end
-    object Panel3: TPanel
-      Left = 1
-      Top = 1
-      Width = 738
-      Height = 32
-      Align = alTop
-      Padding.Left = 5
-      Padding.Top = 2
-      Padding.Right = 2
-      Padding.Bottom = 2
-      TabOrder = 1
-      ExplicitWidth = 677
-      object Label1: TLabel
-        AlignWithMargins = True
-        Left = 9
-        Top = 6
-        Width = 74
-        Height = 20
-        Align = alLeft
-        Caption = 'Google API Key'
-        Layout = tlCenter
-        ExplicitHeight = 13
-      end
-      object Edit1: TEdit
-        AlignWithMargins = True
-        Left = 89
-        Top = 6
-        Width = 337
-        Height = 20
-        Align = alLeft
-        TabOrder = 0
-        ExplicitHeight = 21
-      end
-    end
   end
   object Chromium1: TChromium
-    Left = 624
-    Top = 248
+    Left = 1040
+    Top = 80
   end
   object WebCharts1: TWebCharts
-    Left = 560
-    Top = 248
+    Left = 1008
+    Top = 80
   end
   object ClientDataSet1: TClientDataSet
     PersistDataPacket.Data = {
@@ -147,8 +155,8 @@ object Form1: TForm1
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 608
-    Top = 152
+    Left = 1040
+    Top = 32
     object ClientDataSet1LAT: TStringField
       DisplayWidth = 14
       FieldName = 'LAT'
@@ -227,8 +235,8 @@ object Form1: TForm1
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 608
-    Top = 104
+    Left = 1008
+    Top = 32
     object ClientDataSet2LAT: TStringField
       DisplayLabel = 'Latitude'
       DisplayWidth = 11
@@ -256,5 +264,15 @@ object Form1: TForm1
       DisplayWidth = 17
       FieldName = 'PERCPOPVACINADAS'
     end
+  end
+  object DataSource1: TDataSource
+    DataSet = ClientDataSet1
+    Left = 1005
+    Top = 137
+  end
+  object DataSource2: TDataSource
+    DataSet = ClientDataSet2
+    Left = 1045
+    Top = 137
   end
 end
