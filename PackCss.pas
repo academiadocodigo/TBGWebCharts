@@ -86,6 +86,7 @@ begin
                         .FontColor(FFontColor)
                         .BorderColor(FBorderColor)
                         .PackCSS;
+    Result := Result + TChartEasyPieCSS.New.PackCSS;
   end
   else
     Result :=  TBootstrapCss.New
