@@ -11,7 +11,7 @@ type
       [weak]
       FParent : T;
       FText : string;
-      FFontSize : Integer;
+      FFontSize : string;
       FTextAlignment : string;
       FFontColor : string;
       FFontFamily : string;
@@ -23,11 +23,12 @@ type
 
       function Text(Value : string) : iModelGenericTitle<T>; overload;
       function FontSize(Value : Integer) : iModelGenericTitle<T>; overload;
+      function FontSize(Value : String) : iModelGenericTitle<T>; overload;
       function TextAlignment(Value : string) : iModelGenericTitle<T>; overload;
       function FontColorHEX(Value : string) : iModelGenericTitle<T>; overload;
       function FontFamily(Value : string) : iModelGenericTitle<T>; overload;
       function Text : string; overload;
-      function FontSize : Integer; overload;
+      function FontSize : string; overload;
       function TextAlignment : string; overload;
       function FontColorHEX : string; overload;
       function FontFamily : string; overload;
@@ -45,7 +46,7 @@ uses
 constructor TModelGenericTitle<T>.Create(Parent: T);
 begin
   TInjection.Weak(@FParent, Parent);
-  FFontSize := 2;
+  FFontSize := '30px';
   FTextAlignment := 'left';
   FFontColor := '#000000';
 end;
@@ -78,6 +79,12 @@ begin
   Result := FFontFamily;
 end;
 
+function TModelGenericTitle<T>.FontSize(Value: String): iModelGenericTitle<T>;
+begin
+  Result := Self;
+  FFontSize := Value;
+end;
+
 function TModelGenericTitle<T>.FontFamily(Value: string): iModelGenericTitle<T>;
 begin
   Result := Self;
@@ -87,10 +94,10 @@ end;
 function TModelGenericTitle<T>.FontSize(Value: Integer): iModelGenericTitle<T>;
 begin
   Result := Self;
-  FFontSize := Value;
+  FFontSize := IntToStr(Value) + 'px';
 end;
 
-function TModelGenericTitle<T>.FontSize: Integer;
+function TModelGenericTitle<T>.FontSize: String;
 begin
   Result := FFontSize;
 end;
@@ -102,11 +109,17 @@ begin
 end;
 
 function TModelGenericTitle<T>.Result: string;
+var
+  fontFamily : string;
 begin
+  if FFontFamily <> '' then
+    FontFamily := 'font-family:' + FFontFamily + ';';
+
+
   Result := '<h1 style="' +
     'color:' + FFontColor + ';' +
-    'font-family:' + FFontFamily + ';' +
-    'font-size:' + IntToStr(FFontSize) + 'vw;' +
+    FontFamily +
+    'font-size:' + FFontSize + ';' +
     'text-align:' + FTextAlignment + ';' +
     '">' + FText + '</h1>';
 end;

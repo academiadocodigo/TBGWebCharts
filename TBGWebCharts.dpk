@@ -137,7 +137,12 @@ contains
   Maps.GMaps.Layer in 'Maps.GMaps.Layer.pas',
   Maps.GMaps.Layer.HeatMap in 'Maps.GMaps.Layer.HeatMap.pas',
   Credenciais in 'Credenciais.pas',
-  Generic.Title in 'Generic.Title.pas';
+  Generic.Title in 'Generic.Title.pas',
+  Maps.Gmaps.Routes in 'Maps.Gmaps.Routes.pas',
+  Maps.Gmaps.Routes.Directions in 'Maps.Gmaps.Routes.Directions.pas',
+  Maps.Gmaps.Routes.Directions.Panel in 'Maps.Gmaps.Routes.Directions.Panel.pas',
+  Maps.InfoWindow in 'Maps.InfoWindow.pas',
+  Browser.VCL.WebBrowser in 'Browser.VCL.WebBrowser.pas';
 
 end.
 

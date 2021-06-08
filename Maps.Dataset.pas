@@ -17,6 +17,9 @@ type
       FLngName : String;
       FLabelName : String;
       FValueName : String;
+      FAddressName : String;
+      FIdAddressName : String;
+      FInfoName : String;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -26,11 +29,17 @@ type
       function LngName(Value : String) : iModelMapsDataSet<T>; overload;
       function LabelName(Value : String) : iModelMapsDataSet<T>; overload;
       function ValueName(Value : String) : iModelMapsDataSet<T>; overload;
+      function AddressName(Value : String) : iModelMapsDataSet<T>; overload;
+      function IdAddressName(Value : String) : iModelMapsDataSet<T>; overload;
+      function InfoName(Value : String) : iModelMapsDataSet<T>; overload;
       function DataSet : TDataSet; overload;
       function LatName : String; overload;
       function LngName : String; overload;
       function LabelName : String; overload;
       function ValueName : String; overload;
+      function AddressName : String; overload;
+      function IdAddressName : String; overload;
+      function InfoName : String; overload;
       function &End : T;
   end;
 implementation
@@ -39,6 +48,17 @@ uses
   Injection;
 { TModelGenericDataset<T> }
 
+function TModelMapsDataset<T>.AddressName(Value: String): iModelMapsDataSet<T>;
+begin
+  Result := Self;
+  FAddressName := Value;
+end;
+
+function TModelMapsDataset<T>.AddressName: String;
+begin
+  Result := FAddressName;
+end;
+
 constructor TModelMapsDataset<T>.Create(Parent: T);
 begin
   TInjection.Weak(@FParent, Parent);
@@ -46,6 +66,9 @@ begin
   FLngName := 'Lng';
   FLabelName := 'Label';
   FValueName := 'Value';
+  FAddressName := 'Address';
+  FIdAddressName := 'IdAddress';
+  FInfoName := 'Info';
 end;
 
 function TModelMapsDataset<T>.DataSet: TDataSet;
@@ -68,6 +91,29 @@ end;
 function TModelMapsDataset<T>.&End: T;
 begin
   Result :=FParent;
+end;
+
+function TModelMapsDataset<T>.IdAddressName(
+  Value: String): iModelMapsDataSet<T>;
+begin
+  Result := Self;
+  FIdAddressName := Value;
+end;
+
+function TModelMapsDataset<T>.IdAddressName: String;
+begin
+  Result := FIdAddressName;
+end;
+
+function TModelMapsDataset<T>.InfoName: String;
+begin
+  Result := FInfoName;
+end;
+
+function TModelMapsDataset<T>.InfoName(Value: String): iModelMapsDataSet<T>;
+begin
+  Result := Self;
+  FInfoName := Value;
 end;
 
 function TModelMapsDataset<T>.LabelName(Value: String): iModelMapsDataSet<T>;

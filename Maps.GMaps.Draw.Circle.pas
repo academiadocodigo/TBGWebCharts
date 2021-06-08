@@ -8,6 +8,7 @@ uses
 type
   TModelMapsGMapsDrawCircle = class(TInterfacedObject, iModelMapsDrawCircle)
     private
+      [weak]
       FParent : iModelMapsDraw;
       FDataSet : iModelMapsDataSet<iModelMapsDrawCircle>;
       FStrokeColor : string;
@@ -16,6 +17,7 @@ type
       FFillColor : string;
       FFillOpacity : string;
       FFator : string;
+      FInfoWindow : iModelMapsInfoWindow<iModelMapsDrawCircle>;
     public
       constructor Create(Parent : iModelMapsDraw);
       destructor Destroy; override;
@@ -27,7 +29,8 @@ type
       function FillColor(Value : string) : iModelMapsDrawCircle;
       function FillOpacity(Value : string) : iModelMapsDrawCircle;
       function Fator(Value : integer) : iModelMapsDrawCircle;
-      function ResultScript(Value: string) : String;
+      function InfoWindow : iModelMapsInfoWindow<iModelMapsDrawCircle>;
+      function ResultScript(MapName: string) : String;
       function &End : iModelMapsDraw;
 
   end;
@@ -37,6 +40,7 @@ implementation
 uses
   Injection,
   Maps.DataSet,
+  Maps.InfoWindow,
   System.SysUtils,
   Utilities.Str;
 { TModelMapsGMapsDrawCircle }
@@ -89,46 +93,109 @@ begin
   FFillopacity := Value;
 end;
 
+function TModelMapsGMapsDrawCircle.InfoWindow: iModelMapsInfoWindow<iModelMapsDrawCircle>;
+begin
+  FInfoWindow := TModelMapsInfoWindow<iModelMapsDrawCircle>.New(Self);
+  Result := FInfoWindow;
+end;
+
 class function TModelMapsGMapsDrawCircle.New(
   Parent: iModelMapsDraw): iModelMapsDrawCircle;
 begin
   Result := Self.Create(Parent);
 end;
 
-function TModelMapsGMapsDrawCircle.ResultScript(Value: string): String;
+function TModelMapsGMapsDrawCircle.ResultScript(MapName: string): String;
  var
   I: Integer;
-  Aux, LatValue, LngValue, RadiusValue: string;
+  Circles, GeoCode, LatValue, LngValue, RadiusValue, InfoWindow, InfoContent: string;
 begin
-  Result := '[ ';
-
+  Circles := 'let circles' + MapName + ' = [];';
   FDataSet.DataSet.First;
   for I := 0 to Pred(FDataSet.DataSet.RecordCount) do
   begin
-    Aux := ', ';
-    if I = Pred(FDataSet.DataSet.RecordCount) then
-      Aux := '';
-
     LatValue := TUtilitiesStr.FloatCurrFieldToStrValue(FDataSet.DataSet.FieldByName(FDataSet.LatName));
     LngValue := TUtilitiesStr.FloatCurrFieldToStrValue(FDataSet.DataSet.FieldByName(FDataSet.LngName));
     RadiusValue := TUtilitiesStr.FloatCurrFieldToStrValue(FDataSet.DataSet.FieldByName(FDataSet.ValueName));
+    InfoWindow := '';
+    if Assigned(FInfoWindow) then
+    begin
+      InfoContent := FDataSet.Dataset.FieldByName(FDataSet.LabelName).AsString;
+      if FDataSet.DataSet.Fields.FindField(FDataSet.InfoName) <> nil then
+        InfoContent := FDataSet.Dataset.FieldByName(FDataSet.InfoName).AsString;
+      InfoWindow := 'addCircleListener' + MapName + '(' +
+        'circles' + MapName + '[circles' + MapName + '.length -1],' +
+        'new google.maps.InfoWindow({' +
+          'content: "' + InfoContent + '",' +
+          FInfoWindow.MaxWidth +
+          FInfoWindow.MinWidth +
+        '}),' +
+        FInfoWindow.StartOpened +
+      ');';
+    end;
 
-    Result := Result + 'new google.maps.Circle({' +
-      'strokeColor:"' + FStrokeColor + '",' +
-      'strokeOpacity:' + FStrokeOpacity + ',' +
-      'strokeWeight:' + FStrokeWeight + ',' +
-      'fillColor:"' + FFillColor + '",' +
-      'fillOpacity:' + FFillOpacity + ',' +
-      'map:' + Value + ',' +
-      'center:{' +
-        'lat:' + LatValue + ',' +
-        'lng:' + LngValue + '},' +
-      'radius: Math.sqrt(' + RadiusValue + ') * ' + FFator + ',' +
-      '})' + Aux;
+    if (LatValue <> '') and (LngValue <> '') then
+    begin
+      Circles := Circles + 'circles' + MapName + '.push(' +
+        'new google.maps.Circle({' +
+          'strokeColor:"' + FStrokeColor + '",' +
+          'strokeOpacity:' + FStrokeOpacity + ',' +
+          'strokeWeight:' + FStrokeWeight + ',' +
+          'fillColor:"' + FFillColor + '",' +
+          'fillOpacity:' + FFillOpacity + ',' +
+          'map:' + MapName + ',' +
+          'center:{' +
+            'lat:' + LatValue + ',' +
+            'lng:' + LngValue + '},' +
+          'radius: Math.sqrt(' + RadiusValue + ') * ' + FFator + ',' +
+        '})' +
+      ');' +
+      InfoWindow;
+    end
+    else
+    begin
+      if FDataSet.DataSet.Fields.FindField(FDataSet.AddressName)<> nil then
+      begin
+        GeoCode := GeoCode + 'geocoder' + MapName + '.geocode(' +
+          '{ address: "' + FDataSet.DataSet.FieldByName(FDataSet.AddressName).AsString + '" },' +
+          'function (results, status) {' +
+            'if (status == "OK") {' +
+              'circles' + MapName + '.push(' +
+                'new google.maps.Circle({' +
+                  'strokeColor:"' + FStrokeColor + '",' +
+                  'strokeOpacity:' + FStrokeOpacity + ',' +
+                  'strokeWeight:' + FStrokeWeight + ',' +
+                  'fillColor:"' + FFillColor + '",' +
+                  'fillOpacity:' + FFillOpacity + ',' +
+                  'map:' + MapName + ',' +
+                  'center: results[0].geometry.location,' +
+                  'radius: Math.sqrt(' + RadiusValue + ') * ' + FFator + ',' +
+                '})' +
+              ');' +
+              InfoWindow +
+              'bounds' + MapName + '.union(circles' + MapName +'[circles' + MapName + '.length -1].getBounds());' + MapName + '.fitBounds(bounds' + MapName + ');' +
+              'let pos = geoCodeResult' + MapName + '.findIndex(i => i.address === "' + FDataSet.DataSet.FieldByName(FDataSet.AddressName).AsString + '");' +
+              'if (pos === -1) {' +
+                'geoCodeResult' + MapName + '.push({' +
+                  'id_address: "' + FDataSet.DataSet.FieldByName(FDataSet.IdAddressName).AsString + '",' +
+                  'address:"' + FDataSet.DataSet.FieldByName(FDataSet.AddressName).AsString + '",' +
+                  'lat: results[0].geometry.location.lat(),' +
+                  'lng: results[0].geometry.location.lng(),' +
+                '});' +
+              '}' +
+            '}' +
+          '}' +
+        ');';
+      end;
+    end;
+
     FDataSet.Dataset.Next;
   end;
 
-  Result := Result + ']';
+  Result := Circles + GeoCode;
+  Result := Result + 'for (var i = 0; i < circles' + MapName + '.length; i++) {' +
+      'bounds' + MapName + '.union(circles' + MapName + '[i].getBounds());' +
+    '}';
 
 end;
 

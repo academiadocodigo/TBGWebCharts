@@ -10,9 +10,9 @@ uses
 begin
   GlobalCEFApp := TCefApplication.Create;
 
-  GlobalCEFApp.FrameworkDirPath     := 'D:\Repositorios\CEF4Delphi\dll_64bits\Release';
-  GlobalCEFApp.ResourcesDirPath     := 'D:\Repositorios\CEF4Delphi\dll_64bits\Resource';
-  GlobalCEFApp.LocalesDirPath       := 'D:\Repositorios\CEF4Delphi\dll_64bits\Resources\locales';
+  GlobalCEFApp.FrameworkDirPath     := 'C:\Componentes\CEF4Delphi\Dlls_32';
+  GlobalCEFApp.ResourcesDirPath     := 'C:\Componentes\CEF4Delphi\Dlls_32';
+  GlobalCEFApp.LocalesDirPath       := 'C:\Componentes\CEF4Delphi\Dlls_32\locales';
 
   GlobalCEFApp.AllowRunningInsecureContent := true;
 //  GlobalCEFApp.LogSeverity := LOGSEVERITY_DEBUG;

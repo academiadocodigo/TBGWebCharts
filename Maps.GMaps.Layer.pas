@@ -7,6 +7,7 @@ uses
 type
   TModelMapsGMapsLayer = class(TInterfacedObject, iModelMapsLayer)
     private
+      [weak]
       FParent: iModelMapsGeneric;
       FHeatMap: iModelMapsLayerHeatMap;
     public
@@ -58,19 +59,7 @@ function TModelMapsGMapsLayer.ResultScript: String;
 begin
   Result := '';
   if Assigned(FHeatMap) then
-  begin
-    Result := Result + 'var heatMapData' + FParent.Name + ' = ' + FHeatMap.ResultScript + ';' +
-      'var heatMap' + FParent.Name + ' = new google.maps.visualization.HeatmapLayer({' +
-        'data: heatMapData' + FParent.Name + ',' +
-        FHeatMap.Opacity +
-        FHeatMap.Radius +
-      '});' +
-      'heatMap' + FParent.Name + '.setMap(' + FParent.Name + ');' +
-      'for (var i = 0; i < heatMapData' + FParent.Name + '.length; i++) {' +
-        'bounds' + FParent.Name + '.extend(heatMapData' + FParent.Name + '[i].location);' +
-      '}';
-
-  end;
+    Result := Result + FHeatMap.ResultScript(FParent.Name);
 end;
 
 end.

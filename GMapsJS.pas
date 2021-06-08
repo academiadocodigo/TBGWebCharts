@@ -56,7 +56,7 @@ begin
   if Assigned(FCredenciais) then
   begin
     Result := '<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>' +
-      '<script src="https://maps.googleapis.com/maps/api/js?key=' + FCredenciais.APIGoogle + '&libraries=visualization" ></script>';
+      '<script src="https://maps.googleapis.com/maps/api/js?key=' + FCredenciais.APIGoogle + '&region=BR&language=pt-BR&libraries=visualization" ></script>';
   end;
 end;
 

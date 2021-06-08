@@ -8,6 +8,7 @@ uses
 type
   TModelMapsGMapsDraw = class(TInterfacedObject, iModelMapsDraw)
     private
+      [weak]
       FParent: iModelMapsGeneric;
       FMarker: iModelMapsDrawMarker;
       FCircle: iModelMapsDrawCircle;
@@ -69,19 +70,10 @@ function TModelMapsGMapsDraw.ResultScript: String;
 begin
   Result := '';
   if Assigned(FMarker) then
-  begin
-    Result := Result + 'let markers' + FParent.Name + ' = ' + FMarker.ResultScript(FParent.Name) + ';' +
-      'for (var i = 0; i < markers' + FParent.Name + '.length; i++) {' +
-        'bounds' + FParent.Name + '.extend(markers' + FParent.Name + '[i].position);' +
-      '}';
-  end;
+    Result := Result + FMarker.ResultScript(FParent.Name);
+
   if Assigned(FCircle) then
-  begin
-    Result := Result + 'let circles' + FParent.Name + ' = ' + FCircle.ResultScript(FParent.Name) + ';' +
-      'for (var i = 0; i < circles' + FParent.Name + '.length; i++) {' +
-        'bounds' + FParent.Name + '.extend(circles' + FParent.Name + '[i].getCenter());' +
-      '}';
-  end;
+    Result := Result + FCircle.ResultScript(FParent.Name);
 end;
 
 end.

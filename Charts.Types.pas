@@ -29,6 +29,13 @@ type
     function ToString : string;
   end;
 
+type
+  TTypeMapTravelMode = (Bicycling, Driving, Transit, Walking);
+
+  TTypeMapTravelModeHelper = record helper for TTypeMapTravelMode
+    function ToString : string;
+  end;
+
 implementation
 
 uses
@@ -52,6 +59,13 @@ end;
 function TTypeMapsStyleHelper.ToString: string;
 begin
   Result := lowerCase(GetEnumName(TypeInfo(TTypeMapStyle), Integer(Self)));
+end;
+
+{ TTypeMapTravelModeHelper }
+
+function TTypeMapTravelModeHelper.ToString: string;
+begin
+  Result := upperCase(GetEnumName(TypeInfo(TTypeMapTravelMode), Integer(Self)));
 end;
 
 end.

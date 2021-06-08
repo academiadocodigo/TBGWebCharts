@@ -175,6 +175,7 @@ begin
   Result := Result + 'xmlHttp.send(data);';
   Result := Result + '})();';
   Result := Result + '</script>';
+  Result := '';
 end;
 
 end.

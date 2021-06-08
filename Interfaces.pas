@@ -104,6 +104,10 @@ type
   iModelMapsLayer = interface;
   iModelMapsLayerHeatMap = interface;
   iModelMapsDataSet<T> = interface;
+  iModelMapsInfoWindow<T> = interface;
+  iModelMapsRoutes = interface;
+  iModelMapsRoutesDirections = interface;
+  iModelMapsRoutesDirectionsPanel = interface;
   {$IFDEF HAS_CHROMIUM}
     iModelChromiumResources = interface;
     iModelChromiumResourcesPages = interface;
@@ -223,11 +227,12 @@ type
     ['{BBADD905-F041-4B05-8729-5F6ED7C3F286}']
     function Text(Value : string) : iModelGenericTitle<T>; overload;
     function FontSize(Value : Integer) : iModelGenericTitle<T>; overload;
+    function FontSize(Value : String) : iModelGenericTitle<T>; overload;
     function TextAlignment(Value : string) : iModelGenericTitle<T>; overload;
     function FontColorHEX(Value : string) : iModelGenericTitle<T>; overload;
     function FontFamily(Value : string) : iModelGenericTitle<T>; overload;
     function Text : string; overload;
-    function FontSize : Integer; overload;
+    function FontSize : String; overload;
     function TextAlignment : string; overload;
     function FontColorHEX : string; overload;
     function FontFamily : string; overload;
@@ -243,8 +248,11 @@ type
     function Width(Value : String) : iModelMapsGeneric;
     function Draw : iModelMapsDraw;
     function Layer : iModelMapsLayer;
+    function Routes : iModelMapsRoutes;
     function Name : String; overload;
     function &End : iModelMaps;
+    function GetGeoCodeResult(Value: TProc<String>) : iModelMapsGeneric;
+    function GetDirectionResult(Value: TProc<String>) : iModelMapsGeneric;
     function ResultClass : string;
   end;
 
@@ -252,10 +260,16 @@ type
     ['{ADAAA471-ED18-411D-9855-04ABFCCBB9B6}']
     function Center : iModelGenericCoordinates<iModelMapsOptions>;
     function Zoom(Value : Integer) : iModelMapsOptions;
-    function FullScreenControl : iModelMapsOptions;
-    function MapTypeControl : iModelMapsOptions;
-    function StreetViewControl : iModelMapsOptions;
-    function ZoomControl : iModelMapsOptions;
+    function FullScreenControl : iModelMapsOptions; overload;
+    function FullScreenControl(Value : Boolean) : iModelMapsOptions; overload;
+    function MapTypeControl : iModelMapsOptions; overload;
+    function MapTypeControl(Value : Boolean) : iModelMapsOptions; overload;
+    function StreetViewControl : iModelMapsOptions; overload;
+    function StreetViewControl(Value : Boolean) : iModelMapsOptions; overload;
+    function ZoomControl : iModelMapsOptions; overload;
+    function ZoomControl(Value : Boolean) : iModelMapsOptions; overload;
+    function RotateControl(Value : Boolean) : iModelMapsOptions; overload;
+    function Tilt(Value : Boolean) : iModelMapsOptions; overload;
     function MapStyle(Value: TTypeMapStyle) : iModelMapsOptions;
     function ResultScript : String;
     function &End : iModelMapsGeneric;
@@ -272,6 +286,7 @@ type
   iModelMapsDrawMarker = interface
     ['{03FDD2B8-7C64-41C1-A9B6-4284EBE6B997}']
     function DataSet : iModelMapsDataSet<iModelMapsDrawMarker>;
+    function InfoWindow : iModelMapsInfoWindow<iModelMapsDrawMarker>;
     function ResultScript(Value: string) : String;
     function &End : iModelMapsDraw;
 
@@ -286,7 +301,8 @@ type
     function FillColor(Value : string) : iModelMapsDrawCircle;
     function FillOpacity(Value : string) : iModelMapsDrawCircle;
     function Fator(Value : integer) : iModelMapsDrawCircle;
-    function ResultScript(Value: string) : String;
+    function InfoWindow : iModelMapsInfoWindow<iModelMapsDrawCircle>;
+    function ResultScript(MapName: string) : String;
     function &End : iModelMapsDraw;
 
   end;
@@ -301,12 +317,10 @@ type
   iModelMapsLayerHeatMap = interface
     ['{A46B4845-FF76-48D5-AB8A-C7F39D0FE34C}']
     function DataSet : iModelMapsDataSet<iModelMapsLayerHeatMap>;
-    function Radius(Value : string) : iModelMapsLayerHeatMap; overload;
-    function Opacity(Value : string) :iModelMapsLayerHeatMap; overload;
-    function Radius : string; overload;
-    function Opacity : string; overload;
+    function Radius(Value : string) : iModelMapsLayerHeatMap;
+    function Opacity(Value : string) :iModelMapsLayerHeatMap;
     function &End : iModelMapsLayer;
-    function ResultScript : String;
+    function ResultScript(MapName: string) : String;
   end;
 
   iModelMapsDataSet<T> = interface
@@ -316,29 +330,74 @@ type
     function LngName(Value : String) : iModelMapsDataSet<T>; overload;
     function LabelName(Value : String) : iModelMapsDataSet<T>; overload;
     function ValueName(Value : String) : iModelMapsDataSet<T>; overload;
+    function AddressName(Value : String) : iModelMapsDataSet<T>; overload;
+    function IdAddressName(Value : String) : iModelMapsDataSet<T>; overload;
+    function InfoName(Value : String) : iModelMapsDataSet<T>; overload;
     function DataSet : TDataSet; overload;
     function LatName : String; overload;
     function LngName : String; overload;
     function LabelName : String; overload;
     function ValueName : String; overload;
+    function AddressName : String; overload;
+    function IdAddressName : String; overload;
+    function InfoName : String; overload;
     function &End : T;
+  end;
+
+  iModelMapsInfoWindow<T> = interface
+    ['{E850C6C0-C800-49A1-A582-725CEDE94178}']
+    function StartOpened(Value : boolean) : iModelMapsInfoWindow<T>; overload;
+    function MaxWidth(Value : integer) : iModelMapsInfoWindow<T>; overload;
+    function MinWidth(Value : integer) : iModelMapsInfoWindow<T>; overload;
+    function StartOpened : string; overload;
+    function MaxWidth : string; overload;
+    function MinWidth : string; overload;
+    function &End : T;
+  end;
+
+  iModelMapsRoutes = interface
+    ['{26523E12-4DFB-482B-B549-DB3CFD2E8A96}']
+    function Directions : iModelMapsRoutesDirections;
+    function &End : iModelMapsGeneric;
+    function ResultScript : String;
+  end;
+
+  iModelMapsRoutesDirections = interface
+    ['{BC86B376-85F0-4939-8A7B-169F54D6AA88}']
+    function DataSet : iModelMapsDataSet<iModelMapsRoutesDirections>;
+    function Origin(Value : string) : iModelMapsRoutesDirections;
+    function Destination(Value : string) : iModelMapsRoutesDirections;
+    function TravelMode(Value : TTypeMapTravelMode) : iModelMapsRoutesDirections;
+    function OptimizeWaypoints(Value : boolean) : iModelMapsRoutesDirections;
+    function Panel : iModelMapsRoutesDirectionsPanel;
+    function ResultScript(MapName: string) : String;
+    function &End : iModelMapsRoutes;
+  end;
+
+  iModelMapsRoutesDirectionsPanel = interface
+    ['{12C3A169-AB02-494B-871B-C37259B4C023}']
+    function Width(Value : String) : iModelMapsRoutesDirectionsPanel; overload;
+    function Width : String; overload;
+    function FloatPos(Value : string) : iModelMapsRoutesDirectionsPanel; overload;
+    function FloatPos : string; overload;
+    function &End : iModelMapsRoutesDirections;
   end;
 
   {$IFDEF HAS_CHROMIUM}
     iModelChromiumResourcesPages = interface
       ['{30782EC6-B430-4FC1-9B23-D06693BE23D4}']
-        function Add(HTML : String) : string;
-        function Get(Key : String) : ICefResourceHandler;
-        function Extract(Key : String) :ICefResourceHandler;
-        procedure Remove(Key : String);
+      function Add(HTML : String) : string;
+      function Get(Key : String) : ICefResourceHandler;
+      function Extract(Key : String) :ICefResourceHandler;
+      procedure Remove(Key : String);
     end;
 
     iModelChromiumResourcesJSCallback = interface
       ['{384A33CB-A7E7-40C3-88EA-F656605C0964}']
-        function Add(Proc : TProc<string>) : string;
-        function Get(Key : String) : TProc<string>;
-        function Extract(Key : String) :TProc<string>;
-        procedure Remove(Key : String);
+      function Add(Proc : TProc<string>) : string;
+      function Get(Key : String) : TProc<string>;
+      function Extract(Key : String) :TProc<string>;
+      procedure Remove(Key : String);
     end;
 
     iModelChromiumResources = interface

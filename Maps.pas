@@ -44,9 +44,11 @@ end;
 function TModelMaps.&End: iModelHTML;
 begin
   Result := FParent;
+  FParent.HTML('<div class="col">');
   if Assigned(FTitle) then
     FParent.HTML(FTitle.Result);
   Fparent.HTML(FMapGeneric.ResultClass);
+  FParent.HTML('</div>');
 end;
 
 function TModelMaps.MapTitle: iModelGenericTitle<iModelMaps>;

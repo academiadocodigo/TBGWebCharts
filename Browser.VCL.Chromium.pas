@@ -78,40 +78,17 @@ end;
 
 function TModelBrowserVCLChromium.ExecuteScriptResult(
   Value: iModelJSCommand): string;
-//var
-//  key : String;
 begin
-//  key := vVCLChromiumEvents.Add(FMess);
-//  FChromium.ExecuteJavaScript(
-//   value.ResultCommand + ';' +
-//  'console.log(''' + CONSOLE_MSG_PREAMBLE + Key + '|'' + document.getElementById(''' + Value.TagID + ''').' + Value.TagAttribute + ');'
-//  ,'about:blank', 0);
   Result := 'Use ExecuteScriptCallback';
 end;
 
 function TModelBrowserVCLChromium.Generated(FHTML: string): iModelBrowser;
 var
   Key : string;
-//  Thread : TThread;
 begin
   Result := Self;
   Key := vChromiumEvents.Resources.Pages.add(FHTML);
   FChromium.CreateBrowser(FWindowParent, '');
-
-//  TThread.CreateAnonymousThread(
-//  procedure
-//  begin
-//      if not FChromium.CreateBrowser(FCEFWindowParent, '') then
-//      begin
-//        while not (FChromium.CreateBrowser(FCEFWindowParent, '')) and not (FChromium.Initialized) do
-//        begin
-//          Sleep(300);
-//        end;
-//      end;
-//      FChromium.loadURL(WEBCHART_PREAMBLE + Key);
-//    end
-//  ).start;
-
 
   while not FChromium.Initialized do
     Application.ProcessMessages;

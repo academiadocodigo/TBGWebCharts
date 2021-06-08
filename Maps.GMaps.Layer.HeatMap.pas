@@ -7,6 +7,7 @@ uses
 type
   TModelMapsGMapsLayerHeatMap = class(TInterfacedObject, iModelMapsLayerHeatMap)
     private
+      [weak]
       FParent : iModelMapsLayer;
       FDataSet : iModelMapsDataSet<iModelMapsLayerHeatMap>;
       FOpacity : string;
@@ -16,12 +17,10 @@ type
       destructor Destroy; override;
       class function New(Parent : iModelMapsLayer) : iModelMapsLayerHeatMap;
       function DataSet : iModelMapsDataSet<iModelMapsLayerHeatMap>;
-      function Radius(Value : string) : iModelMapsLayerHeatMap; overload;
-      function Opacity(Value : string) :iModelMapsLayerHeatMap; overload;
-      function Radius : string; overload;
-      function Opacity : string; overload;
+      function Radius(Value : string) : iModelMapsLayerHeatMap;
+      function Opacity(Value : string) :iModelMapsLayerHeatMap;
       function &End : iModelMapsLayer;
-      function ResultScript : String;
+      function ResultScript(Value: string) : String;
 
   end;
 
@@ -61,11 +60,6 @@ begin
   Result := Self.Create(Parent);
 end;
 
-function TModelMapsGMapsLayerHeatMap.Opacity: string;
-begin
-  Result := FOpacity;
-end;
-
 function TModelMapsGMapsLayerHeatMap.Opacity(
   Value: string): iModelMapsLayerHeatMap;
 begin
@@ -80,37 +74,71 @@ begin
   FRadius := 'radius: ' + Value + ',';
 end;
 
-function TModelMapsGMapsLayerHeatMap.Radius: string;
-begin
-  Result := FRadius;
-end;
-
-function TModelMapsGMapsLayerHeatMap.ResultScript: String;
+function TModelMapsGMapsLayerHeatMap.ResultScript(Value: string): String;
 var
   I: Integer;
-  Aux, LatValue, LngValue, WeightValue: string;
+  HeatMap, GeoCode, LatValue, LngValue, WeightValue: string;
 begin
-  Result := '[ ';
-
+  HeatMap := 'let heatMapData' + value + ' = [];';
   FDataSet.Dataset.First;
   for I := 0 to Pred(FDataSet.DataSet.RecordCount) do
   begin
-    Aux := ', ';
-    if I = Pred(FDataSet.DataSet.RecordCount) then
-      Aux := '';
-
     LatValue := TUtilitiesStr.FloatCurrFieldToStrValue(FDataSet.DataSet.FieldByName(FDataSet.LatName));
     LngValue := TUtilitiesStr.FloatCurrFieldToStrValue(FDataSet.DataSet.FieldByName(FDataSet.LngName));
     WeightValue := TUtilitiesStr.FloatCurrFieldToStrValue(FDataSet.DataSet.FieldByName(FDataSet.ValueName));
 
-    Result := Result + '{' +
-      'location: new google.maps.LatLng(' + LatValue + ',' + LngValue + '),' +
-      'weight:' + WeightValue +
-      '}' + Aux;
+    if (LatValue <> '') and (LngValue <> '') then
+    begin
+      HeatMap := HeatMap + 'heatMapData' + value + '.push(' +
+        '{' +
+          'location: new google.maps.LatLng(' + LatValue + ',' + LngValue + '),' +
+          'weight:' + WeightValue +
+        '});';
+    end
+    else
+    begin
+      if FDataSet.DataSet.Fields.FindField(FDataSet.AddressName)<> nil then
+      begin
+        GeoCode := GeoCode + 'geocoder' + Value + '.geocode(' +
+          '{ address: "' + FDataSet.DataSet.FieldByName(FDataSet.AddressName).AsString + '" },' +
+          'function (results, status) {' +
+            'if (status == "OK") {' +
+              'heatMapData' + value + '.push(' +
+                '{' +
+                  'location: results[0].geometry.location,' +
+                  'weight:' + WeightValue +
+                '}' +
+              ');' +
+              'heatMap' + Value + '.setData(heatMapData' + Value + ');' +
+              'bounds' + value + '.extend(heatMapData' + Value + '[heatMapData' + Value + '.length -1].location);' + value + '.fitBounds(bounds' + value + ');' +
+              'let pos = geoCodeResult' + value + '.findIndex(i => i.address === "' + FDataSet.DataSet.FieldByName(FDataSet.AddressName).AsString + '");' +
+              'if (pos === -1) {' +
+                'geoCodeResult' + value + '.push({' +
+                  'id_address: "' + FDataSet.DataSet.FieldByName(FDataSet.IdAddressName).AsString + '",' +
+                  'address:"' + FDataSet.DataSet.FieldByName(FDataSet.AddressName).AsString + '",' +
+                  'lat: results[0].geometry.location.lat(),' +
+                  'lng: results[0].geometry.location.lng(),' +
+                '});' +
+              '}' +
+            '}' +
+          '}' +
+        ');';
+      end;
+    end;
     FDataSet.Dataset.Next;
   end;
+  Result := HeatMap + GeoCode;
 
-  Result := Result + ']';
+  Result := Result + 'var heatMap' + Value + ' = new google.maps.visualization.HeatmapLayer({' +
+      'data: heatMapData' + Value + ',' +
+      FOpacity +
+      FRadius +
+    '});' +
+    'heatMap' + Value + '.setMap(' + Value + ');' +
+    'for (var i = 0; i < heatMapData' + Value + '.length; i++) {' +
+      'bounds' + Value + '.extend(heatMapData' + Value + '[i].location);' +
+    '}';
+
 end;
 
 end.
