@@ -11,7 +11,6 @@ uses
 Type
   TModelBrowserVCLWebBrowser = class(TInterfacedObject, iModelBrowser)
   private
-    FActionMethod : String;
     FWebBrowser : TWebBrowser;
     procedure HtmlBrowserGenerated(CONST HTMLCode: string);
     function ConvertString(aValue : String) : String;
@@ -58,7 +57,7 @@ var
   Params : TStringList;
 begin
   Target := URL;
-  if UpperCase(Target).StartsWith(UpperCase(FActionMethod)) then
+  if UpperCase(Target).StartsWith('ACTIONCALLBACKJS') then
   begin
     Method := Copy(Target, Pos(':', Target) + 1, Length(Target));
     Method := Copy(Method, 1, Pos('(', Method) - 1);
@@ -89,7 +88,6 @@ end;
 constructor TModelBrowserVCLWebBrowser.Create(Value: TObject);
 begin
   FWebBrowser :=  Value as TWebBrowser;
-  FActionMethod := 'ActionCallBackJS';
   DefineIEVersion;
   {$IF RTLVERSION > 22 }
     FWebBrowser.OnBeforeNavigate2 := BeforeNavigate;

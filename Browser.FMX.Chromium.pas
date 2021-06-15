@@ -76,14 +76,7 @@ end;
 
 function TModelBrowserFMXChromium.ExecuteScriptResult(
   Value: iModelJSCommand): string;
-//var
-//  key : String;
 begin
-//  key := vVCLChromiumEvents.Add(FMess);
-//  FChromium.ExecuteJavaScript(
-//   value.ResultCommand + ';' +
-//  'console.log(''' + CONSOLE_MSG_PREAMBLE + Key + '|'' + document.getElementById(''' + Value.TagID + ''').' + Value.TagAttribute + ');'
-//  ,'about:blank', 0);
   Result := 'Use ExecuteScriptCallback';
 end;
 
@@ -93,9 +86,7 @@ var
   TempHandle : HWND;
   TempRect   : System.Types.TRect;
   TempClientRect : TRectF;
-
-//  Thread : TThread;
-begin
+begin
   Result := Self;
   Key := vChromiumEvents.Resources.Pages.add(FHTML);
 
@@ -107,21 +98,6 @@ begin
   TempRect.Bottom := round(TempClientRect.Bottom);
 
   FChromium.CreateBrowser(TempHandle, TempRect);
-
-//  TThread.CreateAnonymousThread(
-//  procedure
-//  begin
-//      if not FChromium.CreateBrowser(FCEFWindowParent, '') then
-//      begin
-//        while not (FChromium.CreateBrowser(FCEFWindowParent, '')) and not (FChromium.Initialized) do
-//        begin
-//          Sleep(300);
-//        end;
-//      end;
-//      FChromium.loadURL(WEBCHART_PREAMBLE + Key);
-//    end
-//  ).start;
-
 
   while not FChromium.Initialized do
     Application.ProcessMessages;

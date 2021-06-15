@@ -57,7 +57,7 @@ var
   Params : TStringList;
 begin
   Target := request.Url;
-  if UpperCase(Target).StartsWith(UpperCase('ActionCallBackJS')) then
+  if UpperCase(Target).StartsWith('ACTIONCALLBACKJS') then
   begin
     Method := Copy(Target, Pos(':', Target) + 1, Length(Target));
     Method := Copy(Method, 1, Pos('(', Method) - 1);
