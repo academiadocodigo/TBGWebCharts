@@ -20,10 +20,10 @@ object Form13: TForm13
     Height = 340
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 639
-    ExplicitHeight = 306
+    ExplicitWidth = 548
+    ExplicitHeight = 342
     ControlData = {
-      4C000000A3380000592300000000000000000000000000000000000000000000
+      4C00000002410000242300000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126208000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000
@@ -36,7 +36,6 @@ object Form13: TForm13
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitWidth = 548
     object Button1: TButton
       Left = 1
       Top = 1
@@ -56,8 +55,6 @@ object Form13: TForm13
       Caption = 'Atualizar'
       TabOrder = 1
       OnClick = Button2Click
-      ExplicitLeft = 183
-      ExplicitTop = -7
     end
   end
   object WebCharts1: TWebCharts
