@@ -121,6 +121,7 @@ Type
     function Alerts : iModelAlerts;
     function ListGroup : iModelListGroup;
     function PivotTable : iModelPivotTable;
+    function LiquiFillGauge : iModelLiquidFillGauge;
     procedure ExecuteScript(Value : iModelJSCommand);
     function ExecuteScriptResult(Value : iModelJSCommand) : string;
     procedure ExecuteScriptCallback(Value: iModelJSCommand);
@@ -165,7 +166,7 @@ uses
     {$ENDIF}
     Maps,
   {$ENDIF}
-  PivotTable;
+  PivotTable, LiquidFillGauge;
 
 { TModelHTML }
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
@@ -192,6 +193,11 @@ end;
 function TModelHTML.PivotTable : iModelPivotTable;
 begin
   Result := TModelPivotTable.New(Self);
+end;
+
+function TModelHTML.LiquiFillGauge : iModelLiquidFillGauge;
+begin
+  Result := TModelLiquidFillGauge.New(Self);
 end;
 
 function TModelHTML.ListGroup : iModelListGroup;

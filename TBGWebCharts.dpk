@@ -142,7 +142,12 @@ contains
   Maps.Gmaps.Routes.Directions in 'Maps.Gmaps.Routes.Directions.pas',
   Maps.Gmaps.Routes.Directions.Panel in 'Maps.Gmaps.Routes.Directions.Panel.pas',
   Maps.InfoWindow in 'Maps.InfoWindow.pas',
-  Browser.VCL.WebBrowser in 'Browser.VCL.WebBrowser.pas';
+  Browser.VCL.WebBrowser in 'Browser.VCL.WebBrowser.pas',
+  D3JS in 'D3JS.pas',
+  LiquidFillGaugeJS in 'LiquidFillGaugeJS.pas',
+  LiquidFillGauge in 'LiquidFillGauge.pas',
+  LiquidFillGauge.Config in 'LiquidFillGauge.Config.pas',
+  LiquidFillGaugeCSS in 'LiquidFillGaugeCSS.pas';
 
 end.
 

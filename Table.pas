@@ -16,6 +16,7 @@ Type
       FTableOptions : iModelTableOption;
       FFeatures : iModelTableFeatures;
       FDatatable : Boolean;
+      function GenerateDataSetStyle : string;
     public
       constructor Create(Parent : iModelHTML);
       destructor Destroy; override;
@@ -91,13 +92,13 @@ begin
     FParent.HTML('});');
     FParent.HTML('} );');
     FParent.HTML('</script>');
+    FParent.HTML(GenerateDataSetStyle);
     FParent.HTML('<table id="' + FTableOptions.Name + '" class="' + FClass + '" style="width:100%">');
     FParent.HTML(FTableData.ResultTable);
   end
   else
   begin
-    for I := 0 to Pred(FDataSet.Count) do
-      FParent.HTML(FDataSet[I].ResultStyle);
+    FParent.HTML(GenerateDataSetStyle);
     FParent.HTML('<table class="' + FClass + '">');
   end;
 
@@ -109,6 +110,14 @@ end;
 function TModelTable.EndTableClass: iModelTable;
 begin
   Result := Self;
+end;
+
+function TModelTable.GenerateDataSetStyle: string;
+var
+  I: Integer;
+begin
+  for I := 0 to Pred(FDataSet.Count) do
+    Result := Result + FDataSet[I].ResultStyle;
 end;
 
 constructor TModelTable.Create(Parent : iModelHTML);

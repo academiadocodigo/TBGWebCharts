@@ -43,7 +43,9 @@ uses
   PivotTablePlotlyRendersJS,
   MomentJS,
   ChartStreamJS,
-  GMapsJS;
+  GMapsJS,
+  LiquidFillGaugeJS,
+  D3JS;
 
 { TPackJS }
 
@@ -95,6 +97,8 @@ begin
     Result := Result + TPivotTablePlotlyJS.New.CDN(FCDN).PackJS;
     Result := Result + TPivotTablePlotlyRendersJS.New.CDN(FCDN).PackJS;
     Result := Result + TGMapsJS.New.Credenciais(FCredenciais).CDN(FCDN).PackJS;
+    Result := Result + TD3JS.New.CDN(FCDN).PackJS;
+    Result := Result + TLiquidFillGaugeJS.New.CDN(FCDN).PackJS;
 
     Result := Result + '<script>';
     Result := Result + '(function (global, factory) {';
@@ -145,7 +149,9 @@ begin
         TJQueryUIJS.New.PackJS+
         TPivotTablePlotlyJS.New.PackJS+
         TPivotTablePlotlyRendersJs.New.PackJS+
-        TGMapsJS.New.Credenciais(FCredenciais).PackJS;
+        TGMapsJS.New.Credenciais(FCredenciais).PackJS+
+        TD3JS.New.PackJS+
+        TLiquidFillGaugeJS.New.PackJS;
   Result := Result + WebChartsAccess;
 end;
 
@@ -175,7 +181,6 @@ begin
   Result := Result + 'xmlHttp.send(data);';
   Result := Result + '})();';
   Result := Result + '</script>';
-  Result := '';
 end;
 
 end.

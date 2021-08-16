@@ -15,12 +15,14 @@ Type
       FRGBName : String;
       FtextLabel : String;
       FBackgroundColor : String;
+      FBackgroundOpacity : String;
       FBorderColor : String;
+      FBorderOpacity : String;
       FBorderWidth : Integer;
+      FBorderDash : String;
       FData : String;
       FFill : Boolean;
       FLineTension : String;
-      FBorderDash : String;
       FScript : String;
       FLabels : String;
       FTypes : String;
@@ -33,6 +35,7 @@ Type
       procedure generatedFill;
       function replaceValue(Value : String) : String;
       function RandomColor : string;
+      function ConvertInt(aValue : Integer) : string;
     public
       constructor Create(Parent : iModelHTMLChartsConfig);
       destructor Destroy; override;
@@ -44,12 +47,14 @@ Type
       function RGBName(Value : String)  : iModelHTMLDataSet;
       function textLabel(Value : String) : iModelHTMLDataSet;
       function BackgroundColor (Value : String) : iModelHTMLDataSet;
+      function BackgroundOpacity(Value : Integer) : iModelHTMLDataSet;
       function BorderColor (Value : String) : iModelHTMLDataSet;
+      function BorderOpacity(Value : Integer) : iModelHTMLDataSet;
       function BorderWidth (Value : Integer) : iModelHTMLDataSet;
+      function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
       function Data (Value : String) : iModelHTMLDataSet;
       function Fill (Value : Boolean) : iModelHTMLDataSet;
       function LineTension (Value : Integer) : iModelHTMLDataSet;
-      function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
       function ResultScript : String;
       function ResultLabels : String;
       function RealTimeInitialValue : String;
@@ -69,7 +74,15 @@ function TModelHTMLChartsDataSet.BackgroundColor(
 begin
   Result := Self;
   if Value <> '' then
-    FBackgroundColor := '"rgba(' + Value + ', 100)"';
+//    FBackgroundColor := '"rgba(' + Value + ', ' + FBackgroundOpacity + ')"';
+    FBackgroundColor := Value;
+end;
+
+function TModelHTMLChartsDataSet.BackgroundOpacity(
+  Value: Integer): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FBackgroundOpacity := ConvertInt(Value);
 end;
 
 function TModelHTMLChartsDataSet.BorderColor(
@@ -86,6 +99,13 @@ begin
   FBorderDash := '[' + IntToStr(Lenght) + ',' + IntToStr(Space) + ']';
 end;
 
+function TModelHTMLChartsDataSet.BorderOpacity(
+  Value: Integer): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FBorderOpacity := ConvertInt(Value);
+end;
+
 function TModelHTMLChartsDataSet.BorderWidth(
   Value: Integer): iModelHTMLDataSet;
 begin
@@ -96,6 +116,12 @@ end;
 function TModelHTMLChartsDataSet.&End: iModelHTMLChartsConfig;
 begin
   Result := FParent;
+end;
+
+function TModelHTMLChartsDataSet.ConvertInt(aValue: Integer): string;
+begin
+  Result :=  FormatFloat('0.00', aValue / 10.0);
+  Result := StringReplace(Result, ',', '.',[rfReplaceAll]);
 end;
 
 constructor TModelHTMLChartsDataSet.Create(Parent : iModelHTMLChartsConfig);
@@ -109,6 +135,8 @@ begin
   FValueName := 'Value';
   FRGBName := 'RGB';
   FBorderWidth := 1;
+  FBackgroundOpacity := '1';
+  FBorderOpacity := '1';
 
 end;
 
@@ -147,7 +175,7 @@ begin
   begin
     HasRGBField := FDataSet.Fields.FindField(FRGBName) <> nil;
     FBackgroundColor := '["';
-    Aux := ', 100)", "';
+    Aux := ', ' + FBackgroundOpacity + ')", "';
     FDataSet.First;
     for Local_I := 0 to Pred(FDataSet.RecordCount) do
     begin
@@ -159,7 +187,9 @@ begin
       FDataSet.Next;
     end;
     FBackgroundColor := FBackgroundColor + '"]';
-  end;
+  end
+  else
+    FBackgroundColor := '"rgba(' + FBackgroundColor + ', ' + FBackgroundOpacity + ')"';
 end;
 
 procedure TModelHTMLChartsDataSet.generatedBorderColor;
@@ -328,7 +358,7 @@ begin
   if FBackgroundColor <> '' then
     FScript := FScript + 'backgroundColor: '+FBackgroundColor+', ' + #13;
   if FBorderColor <> '' then
-    FScript := FScript + 'borderColor: "rgba('+FBorderColor+', 100)", ' + #13;
+    FScript := FScript + 'borderColor: "rgba('+FBorderColor+',' + FBorderOpacity + ')", ' + #13;
   FScript := FScript + 'borderWidth: '+ IntToStr(FBorderWidth) + ', ' + #13;
   if FFill then FScript := FScript + 'fill: true,' else FScript := FScript + 'fill: false,';
   if FLineTension <> ''  then FScript := FScript + 'lineTension: ' + FLineTension + ',';

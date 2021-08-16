@@ -61,6 +61,8 @@ begin
   FParent.HTML('for (x in data.datasets) {');
   FParent.HTML('myChart_' + FConfig.IDChart + '.data.datasets[x].data =');
   FParent.HTML('data.datasets[x].data;');
+  FParent.HTML('myChart_' + FConfig.IDChart + '.data.datasets[x].backgroundColor =');
+  FParent.HTML('data.datasets[x].backgroundColor;');
   FParent.HTML('}');
   FParent.HTML('window.myChart_'+FConfig.IDChart+'.update();');
   FParent.HTML('}');

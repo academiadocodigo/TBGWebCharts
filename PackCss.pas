@@ -31,7 +31,8 @@ uses
   BootstrapCss,
   DataTableCss,
   Chart.Easy.PieCSS,
-  PivotTableCSS;
+  PivotTableCSS,
+  LiquidFillGaugeCSS;
 
 { TPackCss }
 
@@ -87,6 +88,7 @@ begin
                         .BorderColor(FBorderColor)
                         .PackCSS;
     Result := Result + TChartEasyPieCSS.New.PackCSS;
+    Result := Result + TLiquidFillGaugeCSS.New.PackCSS;
   end
   else
     Result :=  TBootstrapCss.New
@@ -99,7 +101,8 @@ begin
               .BorderColor(FBorderColor)
               .PackCSS+
             TChartEasyPieCSS.New.PackCSS+
-            TPivotTableCSS.New.PackCSS;
+            TPivotTableCSS.New.PackCSS+
+            TLiquidFillGaugeCSS.New.PackCSS;
 end;
 
 end.

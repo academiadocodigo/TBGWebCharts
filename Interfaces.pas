@@ -114,6 +114,8 @@ type
     iModelChromiumResourcesJSCallback = interface;
 
   {$ENDIF}
+  iModelLiquidFillGauge = interface;
+  iModelLiquidFillGaugeConfig = interface;
 
   {$IFDEF FULL}
     iModelTable = interface;
@@ -184,6 +186,7 @@ type
     function Alerts : iModelAlerts;
     function ListGroup : iModelListGroup;
     function PivotTable : iModelPivotTable;
+    function LiquiFillGauge : iModelLiquidFillGauge;
     procedure ExecuteScript(Value : iModelJSCommand);
     function ExecuteScriptResult(Value : iModelJSCommand) : string;
     procedure ExecuteScriptCallback(Value: iModelJSCommand);
@@ -407,6 +410,47 @@ type
     end;
 
   {$ENDIF}
+  iModelLiquidFillGauge = interface
+    ['{9ECA3F3B-E741-4B9E-9FAE-46A52D195CD5}']
+    function Config : iModelLiquidFillGaugeConfig;
+    function Height(Value : string) : iModelLiquidFillGauge;
+    function Name(Value : string) : iModelLiquidFillGauge; overload;
+    function Name : string; overload;
+    function Width(Value : string) : iModelLiquidFillGauge;
+    function Value(Value : string) : iModelLiquidFillGauge;
+    function UpdateValue : iModelLiquidFillGauge;
+    function &End : iModelHTML;
+  end;
+
+  iModelLiquidFillGaugeConfig = interface
+    ['{A8E00200-7895-4E94-9492-7A5BE4863B04}']
+    function MinValue(Value : integer) : iModelLiquidFillGaugeConfig;
+    function MaxValue(Value : integer) : iModelLiquidFillGaugeConfig;
+    function CircleThickness(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function CircleFillGap(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function CircleColorHex(Value : string) : iModelLiquidFillGaugeConfig;
+    function CircleColor(Value : string) : iModelLiquidFillGaugeConfig;
+    function WaveHeight(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function WaveCount(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function WaveRiseTime(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function WaveAnimateTime(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function WaveRise(Value : Boolean) : iModelLiquidFillGaugeConfig;
+    function WaveHeightScaling(Value : Boolean) : iModelLiquidFillGaugeConfig;
+    function WaveAnimate(Value : Boolean) : iModelLiquidFillGaugeConfig;
+    function WaveColor(Value : string) : iModelLiquidFillGaugeConfig;
+    function WaveColorHex(Value : string) : iModelLiquidFillGaugeConfig;
+    function WaveOffset(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function TextVertPosition(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function TextSize(Value : Integer) : iModelLiquidFillGaugeConfig;
+    function ValueCountUp(Value : Boolean) : iModelLiquidFillGaugeConfig;
+    function DisplayPercent(Value : Boolean) : iModelLiquidFillGaugeConfig;
+    function TextColor(Value : string) : iModelLiquidFillGaugeConfig;
+    function TextColorHex(Value : string) : iModelLiquidFillGaugeConfig;
+    function WaveTextColor(Value : string) : iModelLiquidFillGaugeConfig;
+    function WaveTextColorHex(Value : string) : iModelLiquidFillGaugeConfig;
+    function ResultScript : String;
+    function &End : iModelLiquidFillGauge;
+  end;
 
 //  iLabelLing = interface
 //    function Numeral(Value : String) : iLabelLing;
@@ -781,12 +825,14 @@ type
     function RGBName(Value : String)  : iModelHTMLDataSet;
     function textLabel(Value : String) : iModelHTMLDataSet;
     function BackgroundColor (Value : String) : iModelHTMLDataSet;
+    function BackgroundOpacity(Value : Integer) : iModelHTMLDataSet;
     function BorderColor (Value : String) : iModelHTMLDataSet;
+    function BorderOpacity(Value : Integer) : iModelHTMLDataSet;
     function BorderWidth (Value : Integer) : iModelHTMLDataSet;
+    function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
     function Data (Value : String) : iModelHTMLDataSet;
     function Fill (Value : Boolean) : iModelHTMLDataSet;
     function LineTension (Value : Integer) : iModelHTMLDataSet;
-    function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
     function ResultScript : String;
     function ResultLabels : String;
     function RealTimeInitialValue : String;
