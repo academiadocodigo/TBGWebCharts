@@ -155,6 +155,7 @@ type
     ClientDataSet4RGB: TStringField;
     WebCharts1: TWebCharts;
     WebCharts2: TWebCharts;
+    btn_bootstrap_cards_styled: TAction;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -195,6 +196,7 @@ type
     procedure btn_chartjs_polar_areaExecute(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure btn_dashboards_5Execute(Sender: TObject);
+    procedure btn_bootstrap_cards_styledExecute(Sender: TObject);
   private
     { Private declarations }
     FSplitExibir : TSplitView;
@@ -469,6 +471,123 @@ begin
     .&End
     .WebBrowser(WebBrowser1)
     .Generated;
+end;
+
+procedure TForm1.btn_bootstrap_cards_styledExecute(Sender: TObject);
+begin
+  WebCharts1
+    .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Cards')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Rows
+      .HTML(
+        WebCharts1
+        .ContinuosProject
+        .CardStyled
+          .CardType(CardstyledIconRight)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#5e72e4,#825ee4)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Vendas')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('R$ 56,58')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('10 Cancelamentos')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-dollar-sign')
+              .Style
+                .BackgroundColor('#F839D7')
+              .&End
+            .&End
+          .&End
+        .&End
+        .CardStyled
+          .CardType(CardstyledIconRight)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#11cdef,#1171ef)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Performance')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('15%')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('5 desistências')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-tachometer-alt')
+              .Style
+                .BackgroundColor('#2DC7F8')
+              .&End
+            .&End
+          .&End
+        .&End
+        .CardStyled
+          .CardType(CardstyledIconRight)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#f5365c,#f56036)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Usuários')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('15')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('5 acessos simultâneos')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-user-plus')
+              .Style
+                .BackgroundColor('#F89714')
+              .&End
+            .&End
+          .&End
+        .&End
+        .HTML
+       )
+    .&End
+    .WebBrowser(WebBrowser1)
+    .Generated;
+
 end;
 
 procedure TForm1.btn_main_chartjsExecute(Sender: TObject);

@@ -381,6 +381,10 @@ object Form1: TForm1
               Action = btn_bootstrap_cards
             end
             item
+              Caption = ' Card Styled'
+              OnClick = btn_bootstrap_cards_styledExecute
+            end
+            item
               Action = btn_bootstrap_images
             end
             item
@@ -1885,6 +1889,10 @@ object Form1: TForm1
     object btn_bootstrap_listgroup: TAction
       Caption = 'btn_listgroup'
       OnExecute = btn_bootstrap_listgroupExecute
+    end
+    object btn_bootstrap_cards_styled: TAction
+      Caption = 'btn_bootstrap_cards_styled'
+      OnExecute = btn_bootstrap_cards_styledExecute
     end
   end
   object ClientDataSet7: TClientDataSet
