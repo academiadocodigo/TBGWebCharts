@@ -36,6 +36,9 @@ type
     function ToString : string;
   end;
 
+type
+  TTypeCardStyled = (CardStyledIconRight);
+
 implementation
 
 uses

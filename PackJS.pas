@@ -13,6 +13,7 @@ type
       FCDN : Boolean;
       FCredenciais : iModelCredenciais;
       function WebChartsAccess : string;
+      function UpdateDomElement : string;
     public
       constructor Create;
       destructor Destroy; override;
@@ -152,7 +153,19 @@ begin
         TGMapsJS.New.Credenciais(FCredenciais).PackJS+
         TD3JS.New.PackJS+
         TLiquidFillGaugeJS.New.PackJS;
-  Result := Result + WebChartsAccess;
+  Result := Result + WebChartsAccess + UpdateDomElement;
+end;
+
+function TPackJS.UpdateDomElement: string;
+begin
+  Result := '<script>' +
+              'function UpdateDOM(elementId, html) {' +
+                'let DOMElement = document.getElementById(elementId);' +
+                'if (DOMElement) {' +
+                  'DOMElement.innerHTML = html;' +
+                '}' +
+              '}' +
+            '</script>';
 end;
 
 function TPackJS.WebChartsAccess: string;

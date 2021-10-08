@@ -126,9 +126,11 @@ Type
     function ExecuteScriptResult(Value : iModelJSCommand) : string;
     procedure ExecuteScriptCallback(Value: iModelJSCommand);
     function Credenciais(Value : iModelCredenciais) : iModelHTML;
+    function DOMElement : iModelDomElement;
     {$IFDEF FULL}
       function Table : iModelTable;
       function Cards : iModelCards;
+      function CardStyled : iModelCardStyled;
       function ChartEasyPie : iModelChartEasyPie;
       {$IFDEF HAS_CALLBACK}
         function CallbackJS : iCallbackJS;
@@ -166,21 +168,29 @@ uses
     {$ENDIF}
     Maps,
   {$ENDIF}
-  PivotTable, LiquidFillGauge;
+  PivotTable,
+  LiquidFillGauge,
+  CardStyled, DomElement;
 
 { TModelHTML }
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
 begin
+  if not Assigned(FWebBrowser) then
+    raise Exception.Create('Primeiro é preciso setar o WebBrowser');
   FWebBrowser.ExecuteScript(Value);
 end;
 
 function TModelHTML.ExecuteScriptResult(Value : iModelJSCommand) : string;
 begin
+  if not Assigned(FWebBrowser) then
+    raise Exception.Create('Primeiro é preciso setar o WebBrowser');
   Result := FWebBrowser.ExecuteScriptResult(Value);
 end;
 
 procedure TModelHTML.ExecuteScriptCallback(Value: iModelJSCommand);
 begin
+  if not Assigned(FWebBrowser) then
+    raise Exception.Create('Primeiro é preciso setar o WebBrowser');
   FWebBrowser.ExecuteScriptCallback(Value);
 end;
 
@@ -188,6 +198,11 @@ function TModelHTML.Credenciais(Value : iModelCredenciais) : iModelHTML;
 begin
   Result := Self;
   FCredenciais := Value;
+end;
+
+function TModelHTML.DOMElement : iModelDomElement;
+begin
+  Result := TModelDomElement.New(Self);
 end;
 
 function TModelHTML.PivotTable : iModelPivotTable;
@@ -428,6 +443,11 @@ end;
 function TModelHTML.Cards : iModelCards;
 begin
   Result := TModelHTMLFactory.New.Cards(Self);
+end;
+
+function TModelHTML.CardStyled : iModelCardStyled;
+begin
+  Result := TModelHTMLCardStyled.New(Self);
 end;
 
 function TModelHTML.Image : iModelImage;

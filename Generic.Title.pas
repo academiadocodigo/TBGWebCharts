@@ -25,11 +25,13 @@ type
       function FontSize(Value : Integer) : iModelGenericTitle<T>; overload;
       function FontSize(Value : String) : iModelGenericTitle<T>; overload;
       function TextAlignment(Value : string) : iModelGenericTitle<T>; overload;
+      function FontColor(Value : string) : iModelGenericTitle<T>; overload;
       function FontColorHEX(Value : string) : iModelGenericTitle<T>; overload;
       function FontFamily(Value : string) : iModelGenericTitle<T>; overload;
       function Text : string; overload;
       function FontSize : string; overload;
       function TextAlignment : string; overload;
+      function FontColor : string; overload;
       function FontColorHEX : string; overload;
       function FontFamily : string; overload;
       function Result : string;
@@ -67,6 +69,17 @@ function TModelGenericTitle<T>.FontColorHEX(
 begin
   Result := Self;
   FFontColor := Value;
+end;
+
+function TModelGenericTitle<T>.FontColor: string;
+begin
+  Result := FFontColor;
+end;
+
+function TModelGenericTitle<T>.FontColor(Value: string): iModelGenericTitle<T>;
+begin
+  Result := Self;
+  FFontColor := format('rgb(%s)', [Value]);
 end;
 
 function TModelGenericTitle<T>.FontColorHEX: string;

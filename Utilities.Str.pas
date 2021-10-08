@@ -5,13 +5,15 @@ interface
 uses
   Classes,
   System.SysUtils,
-  Data.DB;
+  Data.DB,
+  Generics.Collections;
 
 type
     TUtilitiesStr = class
       public
         class function StrToStrValue(Value: string) : string;
         class function FloatCurrFieldToStrValue(Value: TField) : string;
+        class function TestRgbColor(Value : string) : string;
     end;
 
 implementation
@@ -59,6 +61,22 @@ begin
       end;
   end;
   result:=caracter;
+end;
+
+class function TUtilitiesStr.TestRgbColor(Value: string): string;
+var
+  Color : TArray<string>;
+  ColorInt, I : Integer;
+begin
+  Result := Value;
+  Color := Value.Split([',']);
+  if Length(Color) <> 3 then exit;
+  for I := 0 to Length(Color) - 1 do
+  begin
+    if not TryStrToInt(Trim(color[i]), ColorInt) then exit;
+    if (ColorInt < 0) or (ColorInt > 255) then exit;
+  end;
+  Result := format('rgb(%s)', [Result]);
 end;
 
 end.

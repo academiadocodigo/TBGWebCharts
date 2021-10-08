@@ -3,21 +3,25 @@ unit Rows.Divv;
 interface
 
 uses
-  Interfaces, Generics.Collections, SysUtils;
+  Interfaces,
+  Generics.Collections,
+  SysUtils;
 
 Type
   TModelHTMLRowsDiv = class(TInterfacedObject, IModelHTMLRowsDiv)
     private
       [weak]
       FParent : IModelHTMLRows;
+      FID : string;
       FLista : TList<String>;
-      FColSpan : Integer;
+      FColSpan : String;
     public
       constructor Create(Parent : IModelHTMLRows);
       destructor Destroy; override;
       class function New(Parent : IModelHTMLRows)  : IModelHTMLRowsDiv;
       function Add(Value : String) : IModelHTMLRowsDiv;
       function ColSpan(Value : Integer) : IModelHTMLRowsDiv;
+      function ID(Value : string) : IModelHTMLRowsDiv;
       function &End : IModelHTMLRows;
   end;
 
@@ -39,19 +43,22 @@ var
   I: Integer;
 begin
   Result := FParent;
-  FParent.HTML('<div');
-  if FColSpan > 0 then
-    FParent.HTML(' class="col-sm-' + IntToStr(FColSpan) + '" ');
-  FParent.HTML('>');
+  FParent.HTML('<div' + FID + FColSpan + '>');
   for I := 0 to Pred(FLista.Count) do
     FParent.HTML(FLista.Items[I]);
   FParent.HTML('</div>');
 end;
 
+function TModelHTMLRowsDiv.ID(Value: string): IModelHTMLRowsDiv;
+begin
+  Result := Self;
+  FID := Format(' id="%s"', [Value]);
+end;
+
 function TModelHTMLRowsDiv.ColSpan(Value: Integer): IModelHTMLRowsDiv;
 begin
   Result := Self;
-  FColSpan := Value;
+  FColSpan := Format(' class="col-sm-%d"', [Value]);
 end;
 
 constructor TModelHTMLRowsDiv.Create(Parent : IModelHTMLRows);

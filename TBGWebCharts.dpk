@@ -147,7 +147,13 @@ contains
   LiquidFillGaugeJS in 'LiquidFillGaugeJS.pas',
   LiquidFillGauge in 'LiquidFillGauge.pas',
   LiquidFillGauge.Config in 'LiquidFillGauge.Config.pas',
-  LiquidFillGaugeCSS in 'LiquidFillGaugeCSS.pas';
+  LiquidFillGaugeCSS in 'LiquidFillGaugeCSS.pas',
+  CardStyled in 'CardStyled.pas',
+  CardStyled.IconRight in 'CardStyled.IconRight.pas',
+  CardStyled.Text in 'CardStyled.Text.pas',
+  CardStyled.Shape in 'CardStyled.Shape.pas',
+  CardStyled.Shape.Classes in 'CardStyled.Shape.Classes.pas',
+  DomElement in 'DomElement.pas';
 
 end.
 

@@ -93,6 +93,7 @@ type
   iModelBrowser = interface;
   iModelGenericCoordinates<T> = interface;
   iModelCredenciais = interface;
+  iModelDOMElement = interface;
 
   iModelMaps = interface;
   iModelGenericTitle<T> = interface;
@@ -116,6 +117,12 @@ type
   {$ENDIF}
   iModelLiquidFillGauge = interface;
   iModelLiquidFillGaugeConfig = interface;
+
+  iModelCardStyled = interface;
+  iModelCardStyledGeneric = interface;
+  iModelCardStyledText = interface;
+  iModelCardStyledShape = interface;
+  iModelCardStyledShapeClasses = interface;
 
   {$IFDEF FULL}
     iModelTable = interface;
@@ -191,9 +198,11 @@ type
     function ExecuteScriptResult(Value : iModelJSCommand) : string;
     procedure ExecuteScriptCallback(Value: iModelJSCommand);
     function Credenciais(Value : iModelCredenciais) : iModelHTML;
+    function DOMElement : iModelDomElement;
     {$IFDEF FULL}
       function Table : iModelTable;
       function Cards : iModelCards;
+      function CardStyled : iModelCardStyled;
       function ChartEasyPie : iModelChartEasyPie;
       {$IFDEF HAS_CALLBACK}
         function CallbackJS : iCallbackJS;
@@ -202,6 +211,13 @@ type
       function Image : iModelImage;
       //function CacheControl : iCacheControl;
     {$ENDIF}
+  end;
+
+  iModelDomElement = interface
+    function Id(Value : string) : iModelDomElement;
+    function Html(Value : string) : iModelDomElement;
+    function Update : iModelDOMElement;
+    function &End : iModelHTML;
   end;
 
   iModelCredenciais = interface
@@ -233,11 +249,13 @@ type
     function FontSize(Value : String) : iModelGenericTitle<T>; overload;
     function TextAlignment(Value : string) : iModelGenericTitle<T>; overload;
     function FontColorHEX(Value : string) : iModelGenericTitle<T>; overload;
+    function FontColor(Value : string) : iModelGenericTitle<T>; overload;
     function FontFamily(Value : string) : iModelGenericTitle<T>; overload;
     function Text : string; overload;
     function FontSize : String; overload;
     function TextAlignment : string; overload;
     function FontColorHEX : string; overload;
+    function FontColor : string; overload;
     function FontFamily : string; overload;
     function Result : string;
     function &End : T;
@@ -412,10 +430,12 @@ type
   {$ENDIF}
   iModelLiquidFillGauge = interface
     ['{9ECA3F3B-E741-4B9E-9FAE-46A52D195CD5}']
+    function Align(Value :string) : iModelLiquidFillGauge;
     function Config : iModelLiquidFillGaugeConfig;
     function Height(Value : string) : iModelLiquidFillGauge;
     function Name(Value : string) : iModelLiquidFillGauge; overload;
     function Name : string; overload;
+    function Title : iModelGenericTitle<iModelLiquidFillGauge>;
     function Width(Value : string) : iModelLiquidFillGauge;
     function Value(Value : string) : iModelLiquidFillGauge;
     function UpdateValue : iModelLiquidFillGauge;
@@ -452,6 +472,55 @@ type
     function &End : iModelLiquidFillGauge;
   end;
 
+  iModelCardStyled = interface
+    ['{9DB61CB7-D7D1-4E62-80AE-815CD0BC3717}']
+    function CardType(Value : TTypeCardStyled) : iModelCardStyledGeneric;
+    function &End : iModelHTML;
+  end;
+
+  iModelCardStyledGeneric = interface
+    ['{3CE71864-DAF3-4C3A-8CEA-A715BBDDD85C}']
+    function BackgroundColor(Value : String) : iModelCardStyledGeneric;
+    function Body : iModelCardStyledText;
+    function Col(Value : Integer) : iModelCardStyledGeneric;
+    function Colmd(Value : Integer) : iModelCardStyledGeneric;
+    function Colxl(Value : Integer) : iModelCardStyledGeneric;
+    function DefaultFontColor(Value : string) : iModelCardStyledGeneric;
+    function Footer : iModelCardStyledText;
+    function HTML : String;
+    function Name( Value : String) : iModelCardStyledGeneric;
+    function Shape : iModelCardStyledShape;
+    function Title : iModelCardStyledText;
+    function &End : iModelCardStyled;
+  end;
+
+  iModelCardStyledText = interface
+    ['{C6A880DD-CA67-4335-9FD8-378A334CD59A}']
+    function Style : iModelGenericStyle<iModelCardStyledText>;
+    function Text(Value : String) : iModelCardStyledText; overload;
+    function Text : String; overload;
+    function &End : iModelCardStyledGeneric;
+  end;
+
+  iModelCardStyledShape = interface
+    ['{DD59592F-FA79-4E15-84C4-C53143A0F1A6}']
+    function Icon(Value : String) :  iModelCardStyledShape;
+    function ResultClass : String;
+    function ShapeClass : iModelCardStyledShapeClasses;
+    function Style : iModelGenericStyle<iModelCardStyledShape>;
+    function Text(Value : String) : iModelCardStyledShape;
+    function &End : iModelCardStyledGeneric;
+  end;
+
+  iModelCardStyledShapeClasses = interface
+    ['{B03205C4-5A8A-49D9-B37F-DBD47AAC999A}']
+    function ResultShapeClass : String;
+    function RoundedCircle : iModelCardStyledShapeClasses;
+    function Rounded : iModelCardStyledShapeClasses;
+    function Shadow : iModelCardStyledShapeClasses;
+    function &End : iModelCardStyledShape;
+  end;
+
 //  iLabelLing = interface
 //    function Numeral(Value : String) : iLabelLing;
 //    function Result : String;
@@ -465,6 +534,7 @@ type
     ['{684C6EA3-4C2D-4AA9-9A94-BF0A07B14A8B}']
     function HTML(Value : String) : IModelHTMLRows; overload;
     function HTML : String; overload;
+    function ID(Value : string) : IModelHTMLRows;
     function Title : iModelHTMLRowsTitle;
     function Tag : iModelHTMLRowsTag;
     {$IFDEF FULL}
@@ -1012,13 +1082,37 @@ type
 
   iModelGenericStyle<T> = interface
   ['{C98A4A18-4BA5-45E1-B442-0D728E7138E3}']
+    function AlignItems(Value : String) : iModelGenericStyle<T>; overload;
+    function AlignItems : string; overload;
+    function Background(Value : string) : iModelGenericStyle<T>; overload;
+    function Background : string; overload;
     function BackgroundColor(Value : string) : iModelGenericStyle<T>; overload;
-    function FontColor(Value : string) : iModelGenericStyle<T>; overload;
+    function BackgroundColor : string; overload;
+    function Color(Value : string) : iModelGenericStyle<T>; overload;
+    function Color : string; overload;
+    function Display(Value : String) : iModelGenericStyle<T>; overload;
+    function Display : string; overload;
+    function FontFamily(Value : String) : iModelGenericStyle<T>; overload;
+    function FontFamily : string; overload;
     function FontSize(Value : Integer) : iModelGenericStyle<T>; overload;
     function FontSize(Value : string) : iModelGenericStyle<T>; overload;
-    function BackgroundColor : string; overload;
-    function FontColor : string; overload;
     function FontSize : string; overload;
+    function FontWeight(Value : String) : iModelGenericStyle<T>; overload;
+    function FontWeight : string; overload;
+    function Height(Value : Integer) : iModelGenericStyle<T>; overload;
+    function Height(Value : String) : iModelGenericStyle<T>; overload;
+    function Height : string; overload;
+    function JustifyContent(Value : String) : iModelGenericStyle<T>; overload;
+    function JustifyContent : string; overload;
+    function Padding(Value : Integer) : iModelGenericStyle<T>; overload;
+    function Padding(Value : String) : iModelGenericStyle<T>; overload;
+    function Padding : string; overload;
+    function TextAlign(Value : String) : iModelGenericStyle<T>; overload;
+    function TextAlign : string; overload;
+    function Width(Value : Integer) : iModelGenericStyle<T>; overload;
+    function Width(Value : String) : iModelGenericStyle<T>; overload;
+    function Width : string; overload;
+    function ResultStyle : String;
     function &End : T;
   end;
 
@@ -1035,6 +1129,7 @@ type
   IModelHTMLRowsP = interface
     ['{F26E4162-73CC-40E9-8E35-9499B6D61673}']
     function _Class(Value : String) : IModelHTMLRowsP;
+    function ID(Value : string) : IModelHTMLRowsP;
     function Add(Value : String) : iModelHTMLRowsP;
     function &End : IModelHTMLRows;
   end;
@@ -1165,6 +1260,7 @@ type
     ['{BD95F279-9614-47FD-B0AD-56B93279D4F1}']
     function Add(Value : String) : IModelHTMLRowsDiv;
     function ColSpan(Value : Integer) : IModelHTMLRowsDiv;
+    function ID(Value : string) : IModelHTMLRowsDiv;
     function &End : IModelHTMLRows;
   end;
 

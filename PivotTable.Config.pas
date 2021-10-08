@@ -87,13 +87,15 @@ begin
 
   FConfigBackgroundColor := '#EEE';
 
-  FHeadStyle.BackgroundColor('#f2f2f2');
-  FHeadStyle.FontColor('#333');
-  FHeadStyle.FontSize('1rem');
+  FHeadStyle
+    .BackgroundColor('#f2f2f2')
+    .Color('#333')
+    .FontSize('1rem');
 
-  FBodyStyle.BackgroundColor('#FFF');
-  FBodyStyle.FontColor('#3D3D3D');
-  FBodyStyle.FontSize('1rem');
+  FBodyStyle
+    .BackgroundColor('#FFF')
+    .Color('#3D3D3D')
+    .FontSize('1rem');
 end;
 
 function TModelPivotTableConfig.DataSet: iModelGenericDataSet<iModelPivotTableConfig>;
@@ -199,7 +201,7 @@ end;
 function TModelPivotTableConfig.GeneratedBody: string;
 begin
   Result := 'table.pvtTable tbody tr td {';
-  Result := Result + 'color: ' + FBodyStyle.FontColor + ';';
+  Result := Result + 'color: ' + FBodyStyle.Color + ';';
   Result := Result + 'font-size: ' + FBodyStyle.FontSize + ';';
   Result := Result + 'padding: 5px;';
   Result := Result + 'background-color: ' + FBodyStyle.BackgroundColor + ';';
@@ -240,7 +242,7 @@ begin
   Result := 'table.pvtTable thead tr th, table.pvtTable tbody tr th {';
   Result := Result + 'background-color: ' + FHeadStyle.BackgroundColor + ';';
   Result := Result + 'border: 1px solid #dee2ed;';
-  Result := Result + 'color: ' + FHeadStyle.FontColor + ';';
+  Result := Result + 'color: ' + FHeadStyle.Color + ';';
   Result := Result + 'font-size: ' + FHeadStyle.FontSize + ';';
   Result := Result + 'padding: .45rem;';
   Result := Result + 'font-weight: 400;';

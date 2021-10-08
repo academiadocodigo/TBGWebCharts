@@ -3,7 +3,8 @@ unit Rows.P;
 interface
 
 uses
-  Interfaces, Generics.Collections;
+  Interfaces,
+  Generics.Collections;
 
 Type
   TModelHTMLRowsP = class(TInterfacedObject, IModelHTMLRowsP)
@@ -12,19 +13,22 @@ Type
       FParent : IModelHTMLRows;
       FLista : TList<String>;
       FClass : String;
+      FID : string;
     public
       constructor Create(Parent : IModelHTMLRows);
       destructor Destroy; override;
       class function New(Parent : IModelHTMLRows) : IModelHTMLRowsP;
       function Add(Value : String) : iModelHTMLRowsP;
       function _Class(Value : String) : IModelHTMLRowsP;
+      function ID(Value : string) : IModelHTMLRowsP;
       function &End : IModelHTMLRows;
   end;
 
 implementation
 
 uses
-  Injection, SysUtils;
+  Injection,
+  SysUtils;
 
 { TModelHTMLRowsP }
 
@@ -39,14 +43,17 @@ var
   I: Integer;
 begin
   Result := FParent;
-  FParent.HTML('<p ');
-  if FClass <> '' then
-    FParent.HTML('class="' + FClass + '"');
-  FParent.HTML(' >');
+  FParent.HTML('<p' + FID + FClass + '>');
   for I := 0 to Pred(FLista.Count) do
     FParent.HTML(FLista.Items[I]);
   FParent.HTML('</p>');
 
+end;
+
+function TModelHTMLRowsP.ID(Value: string): IModelHTMLRowsP;
+begin
+  Result := Self;
+  FID := Format(' id="%s"', [Value]);
 end;
 
 constructor TModelHTMLRowsP.Create(Parent : IModelHTMLRows);
@@ -73,7 +80,7 @@ end;
 function TModelHTMLRowsP._Class(Value: String): IModelHTMLRowsP;
 begin
   Result := Self;
-  FClass := Value;
+  FClass := Format(' class="%s"', [Value]);
 end;
 
 end.
