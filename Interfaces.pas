@@ -882,6 +882,13 @@ type
     function format ( Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
     function format : String; overload;
     function BeginAtZero (Value : Boolean) : iModelHTMLChartsAxesTicks<T>;
+    function Max ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+    function Min( Value : String) : iModelHTMLChartsAxesTicks<T>;
+    function StepSize ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+    function SuggestedMin ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+    function SuggestedMax ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+    function MaxTicksLimit ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+
     function Result : String;
     function &End : T;
   end;

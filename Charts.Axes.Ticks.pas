@@ -22,6 +22,12 @@ type
       Fpadding : Integer;
       Fformat : string;
       FBeginAtZero : Boolean;
+      FMax : string;
+      FMin : string;
+      FStepSize : string;
+      FSuggestedMin : string;
+      FSuggestedMax : string;
+      FMaxTicksLimit : string;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -50,6 +56,12 @@ type
       function padding : Integer; overload;
       function Result : String;
       function BeginAtZero (Value : Boolean) : iModelHTMLChartsAxesTicks<T>;
+      function Max ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+      function Min( Value : String) : iModelHTMLChartsAxesTicks<T>;
+      function StepSize ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+      function SuggestedMin ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+      function SuggestedMax ( Value : String) : iModelHTMLChartsAxesTicks<T>;
+      function MaxTicksLimit ( Value : String) : iModelHTMLChartsAxesTicks<T>;
       function &End : T;
   end;
 
@@ -172,9 +184,30 @@ begin
   Result := FlabelOffset;
 end;
 
+function TModelHTMLAxesTicks<T>.Max(
+  Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FMax :=  System.SysUtils.Format(' max : %s,', [Value]);
+end;
+
 function TModelHTMLAxesTicks<T>.maxRotation: Integer;
 begin
   Result := FmaxRotation;
+end;
+
+function TModelHTMLAxesTicks<T>.MaxTicksLimit(
+  Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FMaxTicksLimit :=  System.SysUtils.Format(' maxTicksLimit : %s,', [Value]);
+end;
+
+function TModelHTMLAxesTicks<T>.Min(
+  Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FMin :=  System.SysUtils.Format(' min : %s,', [Value]);
 end;
 
 function TModelHTMLAxesTicks<T>.minRotation: Integer;
@@ -250,9 +283,36 @@ begin
   FResult := FResult + 'minRotation : ' + IntToStr(FminRotation) + ',';
   if Fmirror then FResult := FResult + 'mirror : true, ' else FResult := FResult + 'mirror : false, ';
   FResult := FResult + 'padding : ' + IntToStr(Fpadding) + ',';
+  FResult := FResult + FMax;
+  FResult := FResult + FMin;
+  FResult := FResult + FStepSize;
+  FResult := FResult + FSuggestedMin;
+  FResult := FResult + FSuggestedMax;
+  FResult := FResult + FMaxTicksLimit;
   if FBeginAtZero then FResult := FResult + 'beginAtZero: true ' else FResult := FResult + 'beginAtZero: false ';
   FResult := FResult + '}';
   Result := FResult;
+end;
+
+function TModelHTMLAxesTicks<T>.StepSize(
+  Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FStepSize :=  System.SysUtils.Format(' stepSize : %s,', [Value]);
+end;
+
+function TModelHTMLAxesTicks<T>.SuggestedMax(
+  Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FSuggestedMax :=  System.SysUtils.Format(' suggestedMax : %s,', [Value]);
+end;
+
+function TModelHTMLAxesTicks<T>.SuggestedMin(
+  Value: String): iModelHTMLChartsAxesTicks<T>;
+begin
+  Result := Self;
+  FSuggestedMin := System.SysUtils.Format(' suggestedMin : %s,', [Value]);
 end;
 
 end.

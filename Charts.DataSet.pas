@@ -179,7 +179,7 @@ begin
     FDataSet.First;
     for Local_I := 0 to Pred(FDataSet.RecordCount) do
     begin
-      if Local_I = Pred(FDataSet.RecordCount) then Aux := ', 100)';
+      if Local_I = Pred(FDataSet.RecordCount) then Aux := ', ' + FBackgroundOpacity + ')';
       if HasRGBField then
         FBackgroundColor := FBackgroundColor + 'rgba(' + FDataSet.FieldByName(FRGBName).AsString + Aux
       else

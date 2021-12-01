@@ -13,9 +13,10 @@ Type
       [weak]
       FParent : IModelHTML;
       FID : string;
-      FHTML : string;
+      FDivOpened : Boolean;
       FRowsTitle : iModelHTMLRowsTitle;
       FRowTag : IModelHTMLRowsTag;
+      procedure OpenDiv;
     public
       constructor Create(Parent : IModelHTML);
       destructor Destroy; override;
@@ -49,33 +50,29 @@ uses
 function TModelHTMLRows.&End: iModelHTML;
 begin
   Result := FParent;
-  FParent.HTML(Format('<div%s class="row">', [FID]));
-  FParent.HTML(FHTML);
+  OpenDiv;
   FParent.HTML('</div>');
 end;
 
 function TModelHTMLRows.HTML: String;
 begin
-  if FHTML <> '' then
-  begin
-    FParent.HTML(Format('<div%s class="row">', [FID]));
-    FParent.HTML(FHTML);
-    FHTML := '';
-  end;
+  OpenDiv;
   Result := FParent.HTML;
 end;
 
 function TModelHTMLRows.ID(Value: string): IModelHTMLRows;
 begin
   Result := Self;
-  FID := Format(' id="%s"', [Value]);
+  if Trim(Value) <> '' then
+    FID := Format(' id="%s"', [Value]);
+  OpenDiv;
 end;
 
 function TModelHTMLRows.HTML(Value: String): IModelHTMLRows;
 begin
   Result := Self;
-  FHTML := FHTML + Value;
-//  FParent.HTML(Value);
+  OpenDiv;
+  FParent.HTML(Value);
 end;
 
 constructor TModelHTMLRows.Create(Parent : IModelHTML);
@@ -85,7 +82,6 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
-//  FParent.HTML(Format('<div%s class="row">', [FID]));
 end;
 
 destructor TModelHTMLRows.Destroy;
@@ -99,14 +95,25 @@ begin
   Result := Self.Create(Parent);
 end;
 
+procedure TModelHTMLRows.OpenDiv;
+begin
+  if not FDivOpened then
+  begin
+    FDivOpened := True;
+    FParent.HTML(Format('<div%s class="row">', [FID]));
+  end;
+end;
+
 function TModelHTMLRows.Tag: iModelHTMLRowsTag;
 begin
+  OpenDiv;
   FRowTag :=  TModelHTMLRowsTag.New(Self);
   Result := FRowTag;
 end;
 
 function TModelHTMLRows.Title: iModelHTMLRowsTitle;
 begin
+  OpenDiv;
   FRowsTitle := TModelHTMLRowsTitle.New(Self);
   Result := FRowsTitle;
 end;
@@ -114,11 +121,13 @@ end;
 {$IFDEF FULL}
 function TModelHTMLRows._Div: IModelHTMLRowsDiv;
 begin
+  OpenDiv;
   Result := TModelHTMLRowsDiv.New(Self);
 end;
 
 function TModelHTMLRows._P : IModelHTMLRowsP;
 begin
+  OpenDiv;
   Result := TModelHTMLRowsP.New(Self);
 end;
 {$ENDIF}
