@@ -1,2 +1,2 @@
 # TBGWebCharts
-Componente para Criação de Gráficos e Dashboards
+Componente para Criação de Gráficos e  Dashboards
