@@ -154,9 +154,7 @@ begin
           '</div>' +
           GenerateShape +
         '</div>' +
-        '<p class="mt-3 mb-0" style="font-size:.575rem;">' +
           GenerateFooter +
-        '</p>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -196,9 +194,14 @@ function TModelCardStyledIconRight.GenerateFooter: String;
 var
   Footer : iModelCardStyledText;
 begin
-  for Footer in FFooter do
-    Result := Result + Format('<span %s>%s</span>',
-      [Footer.Style.ResultStyle, Footer.Text]);
+  Result := '';
+  if FFooter.Count > 0 then
+  begin
+   for Footer in FFooter do
+      Result := Result + Format('<span %s>%s</span>',
+        [Footer.Style.ResultStyle, Footer.Text]);
+   Result := Format('<p class="mt-3 mb-0" style="font-size:.575rem;">%s</p>', [Result]);
+  end;
 end;
 
 function TModelCardStyledIconRight.Name(Value: String): iModelCardStyledGeneric;
