@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/11/11 08:15:06.000.160,=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2021/11/15 12:32:52.000.625,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2021/11/16 15:09:05.000.226,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2021/11/19 18:45:30.000.779,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2022/01/07 10:17:57.000.432,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2022/01/07 10:35:11.000.146,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2022/01/22 21:34:07.000.693,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2022/01/26 13:35:14.000.653,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit8.pas</Transaction>
+    <Transaction>2022/01/26 14:24:11.000.856,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit10.pas</Transaction>
+    <Transaction>2022/01/28 16:57:17.000.370,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main.pas=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2022/01/28 16:57:17.000.370,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main.dfm=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit7.dfm</Transaction>
+    <Transaction>2022/01/28 16:57:24.000.554,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main2.dfm=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit8.dfm</Transaction>
+    <Transaction>2022/01/28 16:57:24.000.554,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main2.pas=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Unit8.pas</Transaction>
+    <Transaction>2022/01/28 16:57:59.000.213,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\TBGWebChartsQuillEditor.dproj=C:\Users\julio\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2022/01/28 16:58:14.000.092,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\frmMain.dfm=C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main.dfm</Transaction>
+    <Transaction>2022/01/28 16:58:14.000.092,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\frmMain.pas=C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main.pas</Transaction>
+    <Transaction>2022/01/28 16:58:19.000.944,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\frmMain2.dfm=C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main2.dfm</Transaction>
+    <Transaction>2022/01/28 16:58:19.000.944,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\frmMain2.pas=C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\Main2.pas</Transaction>
+    <Transaction>2022/01/28 18:00:21.000.448,=C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\assets\TWebCharts.fw.png</Transaction>
+    <Transaction>2022/02/02 14:45:42.000.317,C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\RichTextEditor.dproj=C:\Users\julio\Documents\Embarcadero\Studio\Projects\TBGWebCharts-QuillEditor\TBGWebChartsQuillEditor.dproj</Transaction>
+    <Transaction>2022/02/02 15:50:38.689,C:\Componentes\TBGWebCharts\Sample\VCL\RichTextEditor\Sample_RichTextEditor.dproj=C:\Componentes\TBGWebCharts\Sample\VCL\RichTextEditor\RichTextEditor.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5" Android64="RQ8N6025CKZ"/>
+	</ActiveMobileDevice>
+</BorlandProject>

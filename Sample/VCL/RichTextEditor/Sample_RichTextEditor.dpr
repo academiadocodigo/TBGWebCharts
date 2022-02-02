@@ -1,4 +1,4 @@
-program RichTextEditor;
+program Sample_RichTextEditor;
 
 {$R *.dres}
 
