@@ -123,6 +123,9 @@ type
   iModelCardStyledText = interface;
   iModelCardStyledShape = interface;
   iModelCardStyledShapeClasses = interface;
+  iModelRichTextEditor = interface;
+  iModelRichTextEditorConfig = interface;
+  iModelRichTextEditorConfigPrintHeader = interface;
 
   {$IFDEF FULL}
     iModelTable = interface;
@@ -199,6 +202,8 @@ type
     procedure ExecuteScriptCallback(Value: iModelJSCommand);
     function Credenciais(Value : iModelCredenciais) : iModelHTML;
     function DOMElement : iModelDomElement;
+    function RichTextEditor : iModelRichTextEditor;
+    function Print : iModelHTML;
     {$IFDEF FULL}
       function Table : iModelTable;
       function Cards : iModelCards;
@@ -520,6 +525,74 @@ type
     function Shadow : iModelCardStyledShapeClasses;
     function &End : iModelCardStyledShape;
   end;
+
+  iModelRichTextEditor = interface
+    ['{B06FEC4A-D856-405A-BBCA-9DC9B1ABBD68}']
+    function Attributes : iModelRichTextEditorConfig;
+    function LoadContent(aValue : String) : iModelRichTextEditor;
+    function SaveContent(Value : TProc<String>) : iModelRichTextEditor;
+    function SaveContentHtml(Value : TProc<String>) : iModelRichTextEditor;
+    function SaveContentText(Value : TProc<String>) : iModelRichTextEditor;
+    function &End : iModelHTML;
+  end;
+
+  iModelRichTextEditorConfig = interface
+    ['{F17E30E3-C930-4907-B79E-9A7D1DABFFF6}']
+    function Content(aValue : String) : iModelRichTextEditorConfig;
+    function Height(aValue : string) : iModelRichTextEditorConfig;
+    function Width(aValue : string) : iModelRichTextEditorConfig;
+    function Margin(aValue : string) : iModelRichTextEditorConfig;
+    function MaxHeight(aValue : string) : iModelRichTextEditorConfig;
+    function MaxWidth(aValue : string) : iModelRichTextEditorConfig;
+    function PlaceHolder(aValue : String) : iModelRichTextEditorConfig;
+    function PrintHeader : iModelRichTextEditorConfigPrintHeader;
+    function ReadOnly(aValue : Boolean) : iModelRichTextEditorConfig;
+    function ResultStyleContainer : String;
+    function ResultStyleEditor : String;
+    function ResultConfig : String;
+    function ResultContent : String;
+    function ResultPrintHeader : String;
+    function &End : iModelRichTextEditor;
+  end;
+
+  iModelRichTextEditorConfigPrintHeaderDiv = interface;
+  iModelRichTextEditorConfigPrintHeaderImage = interface;
+  iModelRichTextEditorConfigPrintHeaderTitle = interface;
+
+  iModelRichTextEditorConfigPrintHeader = interface
+    ['{7011CAA5-ACA4-4CB6-A41C-61BCBDF083FA}']
+    function &Div : iModelRichTextEditorConfigPrintHeaderDiv;
+    function HTML : String;
+    function &End : iModelRichTextEditorConfig;
+  end;
+
+  iModelRichTextEditorConfigPrintHeaderDiv = interface
+    ['{21CC0E25-6451-4E02-8CDE-0B5BF457586A}']
+    function Image : iModelRichTextEditorConfigPrintHeaderImage;
+    function Col(aValue : Integer) : iModelRichTextEditorConfigPrintHeaderDiv; overload;
+    function Col(aValue : String) : iModelRichTextEditorConfigPrintHeaderDiv; overload;
+    function Title : iModelRichTextEditorConfigPrintHeaderTitle;
+    function HTML : String;
+    function &End : iModelRichTextEditorConfigPrintHeader;
+  end;
+
+  iModelRichTextEditorConfigPrintHeaderImage = interface
+    ['{D9AD1ABA-940A-4CBA-AA1D-2E1C2D2D234C}']
+    function HTML : String;
+    function Image (aValue : TCustomMemoryStream) : iModelRichTextEditorConfigPrintHeaderImage; overload;
+    function Image (aValue : String) : iModelRichTextEditorConfigPrintHeaderImage; overload;
+    function Style : iModelGenericStyle<iModelRichTextEditorConfigPrintHeaderImage>;
+    function &End : iModelRichTextEditorConfigPrintHeaderDiv;
+  end;
+
+  iModelRichTextEditorConfigPrintHeaderTitle = interface
+    ['{35743850-BD83-49C4-A0DD-BCDBD70A9911}']
+    function HTML : String;
+    function Text (aValue : String) : iModelRichTextEditorConfigPrintHeaderTitle; overload;
+    function Style : iModelGenericStyle<iModelRichTextEditorConfigPrintHeaderTitle>;
+    function &End : iModelRichTextEditorConfigPrintHeaderDiv;
+  end;
+
 
 //  iLabelLing = interface
 //    function Numeral(Value : String) : iLabelLing;

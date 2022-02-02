@@ -37,7 +37,7 @@ type
   end;
 
 type
-  TTypeCardStyled = (CardStyledIconRight);
+  TTypeCardStyled = (CardStyledIconRight, CardStyledIconLeft);
 
 implementation
 

@@ -32,7 +32,8 @@ uses
   DataTableCss,
   Chart.Easy.PieCSS,
   PivotTableCSS,
-  LiquidFillGaugeCSS;
+  LiquidFillGaugeCSS,
+  QuillEditorCSS;
 
 { TPackCss }
 
@@ -81,7 +82,8 @@ begin
   begin
     Result := Result + '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">';
 		Result := Result + '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.20/r-2.2.3/sl-1.3.1/datatables.min.css"/>';
-    Result := Result + '<link rel="stylesheet" type="text/css" href="http://thuliobittencourt.com/pivotjs/dist/pivot.css">';
+    Result := Result + '<link rel="stylesheet" type="text/css" href="https://thuliobittencourt.com/tbgwebcharts/pivotjs/dist/pivot.css">';
+    Result := Result + '<link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">';
     Result := Result + TStyleCSS.New
                         .BackgroundColor(FBackgroundColor)
                         .FontColor(FFontColor)
@@ -89,6 +91,7 @@ begin
                         .PackCSS;
     Result := Result + TChartEasyPieCSS.New.PackCSS;
     Result := Result + TLiquidFillGaugeCSS.New.PackCSS;
+    Result := Result + TQuillEditorCSS.New.CDN(FCDN).PackCSS;
   end
   else
     Result :=  TBootstrapCss.New
@@ -102,7 +105,8 @@ begin
               .PackCSS+
             TChartEasyPieCSS.New.PackCSS+
             TPivotTableCSS.New.PackCSS+
-            TLiquidFillGaugeCSS.New.PackCSS;
+            TLiquidFillGaugeCSS.New.PackCSS+
+            TQuillEditorCSS.New.PackCSS;
 end;
 
 end.

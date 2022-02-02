@@ -153,7 +153,17 @@ contains
   CardStyled.Text in 'CardStyled.Text.pas',
   CardStyled.Shape in 'CardStyled.Shape.pas',
   CardStyled.Shape.Classes in 'CardStyled.Shape.Classes.pas',
-  DomElement in 'DomElement.pas';
+  DomElement in 'DomElement.pas',
+  CardStyled.IconLeft in 'CardStyled.IconLeft.pas',
+  QuillEditorJS in 'QuillEditorJS.pas',
+  QuillEditorCSS in 'QuillEditorCSS.pas',
+  RichTextEditor in 'RichTextEditor.pas',
+  RichTextEditor.Config in 'RichTextEditor.Config.pas',
+  QuillDeltaConverter in 'QuillDeltaConverter.pas',
+  RichTextEditor.Config.PrintHeader in 'RichTextEditor.Config.PrintHeader.pas',
+  RichTextEditor.Config.PrintHeader.Divv in 'RichTextEditor.Config.PrintHeader.Divv.pas',
+  RichTextEditor.Config.PrintHeader.Image in 'RichTextEditor.Config.PrintHeader.Image.pas',
+  RichTextEditor.Config.PrintHeader.Title in 'RichTextEditor.Config.PrintHeader.Title.pas';
 
 end.
 

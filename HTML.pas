@@ -127,6 +127,8 @@ Type
     procedure ExecuteScriptCallback(Value: iModelJSCommand);
     function Credenciais(Value : iModelCredenciais) : iModelHTML;
     function DOMElement : iModelDomElement;
+    function RichTextEditor : iModelRichTextEditor;
+    function Print : iModelHTML;
     {$IFDEF FULL}
       function Table : iModelTable;
       function Cards : iModelCards;
@@ -170,7 +172,7 @@ uses
   {$ENDIF}
   PivotTable,
   LiquidFillGauge,
-  CardStyled, DomElement;
+  CardStyled, DomElement, RichTextEditor, JSCommand;
 
 { TModelHTML }
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
@@ -203,6 +205,20 @@ end;
 function TModelHTML.DOMElement : iModelDomElement;
 begin
   Result := TModelDomElement.New(Self);
+end;
+
+function TModelHTML.Print : iModelHTML;
+var
+  CommandJS : iModelJSCommand;
+begin
+  CommandJS := TModelJSCommand.New
+    .Command('window.print');
+  ExecuteScript(CommandJS);
+end;
+
+function TModelHTML.RichTextEditor : iModelRichTextEditor;
+begin
+  Result := TModelRichTextEditor.New(Self);
 end;
 
 function TModelHTML.PivotTable : iModelPivotTable;

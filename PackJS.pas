@@ -12,7 +12,6 @@ type
       FPack : TStringList;
       FCDN : Boolean;
       FCredenciais : iModelCredenciais;
-      function WebChartsAccess : string;
       function UpdateDomElement : string;
     public
       constructor Create;
@@ -46,7 +45,8 @@ uses
   ChartStreamJS,
   GMapsJS,
   LiquidFillGaugeJS,
-  D3JS;
+  D3JS,
+  QuillEditorJS, QuillDeltaConverter;
 
 { TPackJS }
 
@@ -100,6 +100,8 @@ begin
     Result := Result + TGMapsJS.New.Credenciais(FCredenciais).CDN(FCDN).PackJS;
     Result := Result + TD3JS.New.CDN(FCDN).PackJS;
     Result := Result + TLiquidFillGaugeJS.New.CDN(FCDN).PackJS;
+    Result := Result + TQuillEditorJS.New.CDN(FCDN).PackJS;
+    Result := Result + TQuillDeltaConverter.New.CDN(FCDN).PackJS;
 
     Result := Result + '<script>';
     Result := Result + '(function (global, factory) {';
@@ -152,8 +154,10 @@ begin
         TPivotTablePlotlyRendersJs.New.PackJS+
         TGMapsJS.New.Credenciais(FCredenciais).PackJS+
         TD3JS.New.PackJS+
-        TLiquidFillGaugeJS.New.PackJS;
-  Result := Result + WebChartsAccess + UpdateDomElement;
+        TLiquidFillGaugeJS.New.PackJS+
+        TQuillEditorJS.New.CDN(FCDN).PackJS+
+        TQuillDeltaConverter.New.CDN(FCDN).PackJS;
+  Result := Result + UpdateDomElement;
 end;
 
 function TPackJS.UpdateDomElement: string;
@@ -166,34 +170,6 @@ begin
                 '}' +
               '}' +
             '</script>';
-end;
-
-function TPackJS.WebChartsAccess: string;
-var
-  AppName : string;
-  AppType : string;
-begin
-  {$IFDEF HAS_FMX}
-    AppType := 'FMX';
-    {$IF Defined(ANDROID) or Defined(IOS)}
-      AppName := '';
-    {$ELSE}
-      AppName := ExtractFileName(ExtractFileName(ParamStr(0)));
-    {$ENDIF}
-  {$ELSE}
-    AppType := 'VCL';
-    AppName := ExtractFileName(ExtractFileName(ParamStr(0)));
-  {$ENDIF}
-  Result := '<script>';
-  Result := Result + '(function () {';
-  Result := Result + 'var xmlHttp = null;';
-  Result := Result + 'xmlHttp = new XMLHttpRequest();';
-  Result := Result + 'xmlHttp.open("POST", "http://54.156.235.34:3003/api/v1/access");';
-  Result := Result + 'xmlHttp.setRequestHeader("Content-Type", "application/json");';
-  Result := Result + 'const data = JSON.stringify({"appName": "' + AppName + '", "appType": "' + AppType + '"});';
-  Result := Result + 'xmlHttp.send(data);';
-  Result := Result + '})();';
-  Result := Result + '</script>';
 end;
 
 end.

@@ -84,7 +84,7 @@ end;
 function TChartEasyPieJS.PackJS: String;
 begin
   if FCDN then
-    Result := '<script src="https://thuliobittencourt.com/easypiechart.min.js"></script>'
+    Result := '<script src="https://thuliobittencourt.com/tbgwebcharts/easypiechart.min.js"></script>'
   else
   begin
     ChartEasyPieJS_1;

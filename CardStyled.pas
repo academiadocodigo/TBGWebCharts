@@ -23,7 +23,7 @@ implementation
 
 uses
   Injection,
-  CardStyled.IconRight;
+  CardStyled.IconRight, CardStyled.IconLeft;
 
 { TModelHTMLCardStyle }
 
@@ -32,6 +32,7 @@ function TModelHTMLCardStyled.CardType(
 begin
   case Value of
     CardStyledIconRight : FCardStyled := TModelCardStyledIconRight.New(Self);
+    CardStyledIconLeft : FCardStyled := TModelCardStyledIconLeft.New(Self);
   end;
   Result := FCardStyled;
 end;

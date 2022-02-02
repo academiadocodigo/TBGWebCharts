@@ -585,6 +585,107 @@ begin
         .HTML
        )
     .&End
+    .Jumpline
+    .Rows
+      .HTML(
+        WebCharts1
+        .ContinuosProject
+        .CardStyled
+          .CardType(CardstyledIconLeft)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#50EB76,#269E44)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Vendas')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('R$ 56,58')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('10 Cancelamentos')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-dollar-sign')
+              .Style
+                .BackgroundColor('#EB5059')
+              .&End
+            .&End
+          .&End
+        .&End
+        .CardStyled
+          .CardType(CardstyledIconLeft)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#EBDB56,#FFF178)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Performance')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('15%')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('5 desistências')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-tachometer-alt')
+              .Style
+                .BackgroundColor('#7757EB')
+              .&End
+            .&End
+          .&End
+        .&End
+        .CardStyled
+          .CardType(CardstyledIconLeft)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#57D1EB,#2B8A9E)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Usuários')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('15')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('5 acessos simultâneos')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-user-plus')
+              .Style
+                .BackgroundColor('#EB9C57')
+              .&End
+            .&End
+          .&End
+        .&End
+        .HTML
+       )
+    .&End
     .WebBrowser(WebBrowser1)
     .Generated;
 
