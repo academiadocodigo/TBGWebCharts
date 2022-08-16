@@ -156,6 +156,7 @@ type
     WebCharts1: TWebCharts;
     WebCharts2: TWebCharts;
     btn_bootstrap_cards_styled: TAction;
+    btn_bootstrap_progress: TAction;
     procedure btnMainClick(Sender: TObject);
     procedure btn_main_bootstrapExecute(Sender: TObject);
     procedure btn_bootstrap_cardsExecute(Sender: TObject);
@@ -197,6 +198,7 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure btn_dashboards_5Execute(Sender: TObject);
     procedure btn_bootstrap_cards_styledExecute(Sender: TObject);
+    procedure btn_bootstrap_progressExecute(Sender: TObject);
   private
     { Private declarations }
     FSplitExibir : TSplitView;
@@ -222,7 +224,7 @@ var
 implementation
 
 uses
-  Charts.Types, Unit2;
+  Charts.Types, Unit2, Colors.Bootstrap;
 
 {$R *.dfm}
 
@@ -490,95 +492,77 @@ begin
         WebCharts1
         .ContinuosProject
         .CardStyled
-          .CardType(CardstyledIconRight)
+          .CardType(CardStyledIconBackground)
             .Col(3)
-            .BackgroundColor('linear-gradient(87deg,#5e72e4,#825ee4)')
+            .BackgroundColor('linear-gradient(to right,#493240,#f09)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Vendas')
-              .Style
-                .FontSize(15)
-              .&End
+              .Text('Novas Vendas')
             .&End
             .Body
-              .Text('R$ 56,58')
-              .Style
-                .FontSize(20)
-              .&End
+              .Text('3.243')
             .&End
             .Footer
-              .Text('10 Cancelamentos')
-              .Style
-                .FontSize(15)
-              .&End
+              .Text('30%')
             .&End
             .Shape
-              .Icon('fas fa-dollar-sign')
-              .Style
-                .BackgroundColor('#F839D7')
-              .&End
+              .Icon('fas fa-shopping-cart')
+            .&End
+            .Progress
+              .Background('linear-gradient(135deg, #289cf5, #84c0ec)')
+              .Value('30')
             .&End
           .&End
         .&End
         .CardStyled
-          .CardType(CardstyledIconRight)
+          .CardType(CardStyledIconBackground)
             .Col(3)
-            .BackgroundColor('linear-gradient(87deg,#11cdef,#1171ef)')
+            .BackgroundColor('linear-gradient(to right, #373b44, #4286f4)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Performance')
-              .Style
-                .FontSize(15)
-              .&End
+              .Text('Clientes')
             .&End
             .Body
-              .Text('15%')
-              .Style
-                .FontSize(20)
-              .&End
+              .Text('15.07K')
             .&End
             .Footer
-              .Text('5 desistências')
-              .Style
-                .FontSize(15)
-              .&End
+              .Text('9.37%')
             .&End
             .Shape
-              .Icon('fas fa-tachometer-alt')
-              .Style
-                .BackgroundColor('#2DC7F8')
-              .&End
+              .Icon('fas fa-users')
+            .&End
+            .Progress
+              .Background('linear-gradient(135deg, #23bdb8 0%, #43e794 100%)')
+              .Value('40')
             .&End
           .&End
         .&End
         .CardStyled
-          .CardType(CardstyledIconRight)
+          .CardType(CardStyledIconBackground)
             .Col(3)
             .BackgroundColor('linear-gradient(87deg,#f5365c,#f56036)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Usuários')
-              .Style
-                .FontSize(15)
-              .&End
+              .Text('Receita Hoje')
             .&End
             .Body
-              .Text('15')
+              .Text('110.000')
+            .&End
+            .Body
+              .Text(',00')
               .Style
-                .FontSize(20)
+                .FontSize(14)
               .&End
             .&End
             .Footer
-              .Text('5 acessos simultâneos')
-              .Style
-                .FontSize(15)
-              .&End
+              .Text('60%')
             .&End
             .Shape
-              .Icon('fas fa-user-plus')
-              .Style
-                .BackgroundColor('#F89714')
-              .&End
+              .Icon('fas fa-dollar-sign')
+            .&End
+            .Progress
+              .Sytle(bg_warning)
+              .Value('60')
             .&End
           .&End
         .&End
@@ -686,7 +670,123 @@ begin
         .HTML
        )
     .&End
+    .Jumpline
+    .Rows
+      .HTML(
+        WebCharts1
+        .ContinuosProject
+        .CardStyled
+          .CardType(CardstyledIconRight)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#5e72e4,#825ee4)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Vendas')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('R$ 56,58')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('10 Cancelamentos')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-dollar-sign')
+              .Style
+                .BackgroundColor('#F839D7')
+              .&End
+            .&End
+            .Callback
+              .MethodName('CallBack')
+              .ParamValue('Card Usuários R$ 56,58')
+            .&End
+          .&End
+        .&End
+        .CardStyled
+          .CardType(CardstyledIconRight)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#11cdef,#1171ef)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Performance')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('15%')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('5 desistências')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-tachometer-alt')
+              .Style
+                .BackgroundColor('#2DC7F8')
+              .&End
+            .&End
+            .Callback
+              .MethodName('CallBack')
+              .ParamValue('Card Usuários 15%')
+            .&End
+          .&End
+        .&End
+        .CardStyled
+          .CardType(CardstyledIconRight)
+            .Col(3)
+            .BackgroundColor('linear-gradient(87deg,#f5365c,#f56036)')
+            .DefaultFontColor('255,255,255')
+            .Title
+              .Text('Usuários')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Body
+              .Text('15')
+              .Style
+                .FontSize(20)
+              .&End
+            .&End
+            .Footer
+              .Text('5 acessos simultâneos')
+              .Style
+                .FontSize(15)
+              .&End
+            .&End
+            .Shape
+              .Icon('fas fa-user-plus')
+              .Style
+                .BackgroundColor('#F89714')
+              .&End
+            .&End
+            .Callback
+              .MethodName('CallBack')
+              .ParamValue('Card Usuários 15')
+            .&End
+          .&End
+        .&End
+        .HTML
+       )
+    .&End
     .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
     .Generated;
 
 end;
@@ -708,9 +808,7 @@ begin
           .&End
         .&End
       .&End
-
       .Jumpline
-
       .Rows
         .Title
           .Configuracoes
@@ -718,7 +816,6 @@ begin
           .&End
         .&End
       .&End
-
       .Charts
         ._ChartType(bar)
           .Attributes
@@ -732,9 +829,7 @@ begin
         .&End
       .&End
 
-
       .Jumpline
-
       .Rows
         .Title
           .Configuracoes
@@ -742,7 +837,6 @@ begin
           .&End
         .&End
       .&End
-
       .Rows
         .Tag
           .Add(
@@ -764,7 +858,6 @@ begin
               .HTML
           )
         .&End
-
         .Tag
           .Add(
             WebCharts1
@@ -785,7 +878,6 @@ begin
               .HTML
           )
         .&End
-
         .Tag
           .Add(
             WebCharts1
@@ -869,7 +961,6 @@ begin
         .DataSet(ClientDataSet5)
       .&End
     .&End
-
     .WebBrowser(WebBrowser1)
     .CallbackJS
       .ClassProvider(Self)
@@ -950,10 +1041,10 @@ begin
                '</span> ')
         .&End
       .&End
-//
+
+//
       //Adicionando uma nova linha com um gráfico LineStack e Barras Horizontal
       .Rows
-
         //Adicionando Grafico LineStacked
         .Tag
           .Add(
@@ -995,14 +1086,12 @@ begin
 //                          .Format('$0,0.00')
                         .&End
                       .&End
-
                     .&End
                   .&End
                 .&End
                 .HTML
           )
         .&End
-
         //Adicionando Grafico Barras Horizontal
         .Tag
           .Add(
@@ -1028,7 +1117,6 @@ begin
           )
         .&End
       .&End
-
       .Rows
         .Tag
           .Add(
@@ -1053,7 +1141,6 @@ begin
                 .HTML
           )
         .&End
-
         .Tag
           .Add(
             WebCharts2
@@ -1077,7 +1164,6 @@ begin
                 .HTML
           )
         .&End
-
         .Tag
           .Add(
             WebCharts2
@@ -1122,7 +1208,6 @@ begin
       .&End
     .&End
     .Jumpline
-
     .Rows
       ._Div
         .ColSpan(12)
@@ -1159,7 +1244,6 @@ begin
       .&End
     .&End
     .Jumpline
-
     .Rows
       ._Div
         .ColSpan(6)
@@ -1227,7 +1311,6 @@ begin
                   .&End
                 .&End
                 .HTML
-
               )
             .&End
             ._Div
@@ -1266,7 +1349,6 @@ begin
             .&End
           .&End
         .HTML +
-
         '</div>'
         )
       .&End
@@ -1298,7 +1380,6 @@ begin
                 .&End
               .&End
               .HTML +
-
             '</div>')
       .&End
     .&End
@@ -1462,7 +1543,6 @@ begin
           )
         .&End
       .&End
-
     .WebBrowser(WebBrowser1)
   .Generated;
 end;
@@ -1612,7 +1692,6 @@ begin
           .&End
           .HTML)
       .&End
-
      ._Div
       .Add('<div class="box graphic" ">')
       .ColSpan(8)
@@ -1644,9 +1723,7 @@ begin
        .Add('</div>')
     .&End
     .&End
-
     .Jumpline
-
     .Rows
      ._Div
       .Add('<div class="box" >')
@@ -1672,7 +1749,6 @@ begin
         )
       .Add('</div>')
     .&End
-
      ._Div
       .Add('<div class="box" >')
       .ColSpan(4)
@@ -1697,7 +1773,6 @@ begin
           )
     .Add('</div>')
     .&End
-
      ._Div
      .Add('<div class="box" >')
       .ColSpan(4)
@@ -1855,7 +1930,6 @@ begin
             .BorderColor('30,182,203')
             .Fill(False)
           .&End
-
         .&End
       .&End
     .&End
@@ -1974,6 +2048,140 @@ begin
   .CallbackJS
       .ClassProvider(Self)
     .&End
+  .Generated;
+end;
+
+procedure TForm1.btn_bootstrap_progressExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Progress')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .Info
+        .Title
+          .Text('Recebimentos')
+        .&End
+        .Value
+          .Text('19% (R$ 4.703,00)')
+        .&End
+        .Icon
+          .Up(true)
+          .Positive(true)
+        .&End
+      .&End
+      .ProgressBar
+        .Value('19')
+        .Sytle(bg_success)
+      .&end
+    .&End
+    .Progress
+      .Info
+        .Title
+          .Text('Despesas Gerais')
+        .&End
+        .Value
+          .Text('85% (R$ 30.000,00)')
+        .&End
+        .Icon
+          .Up(true)
+          .Positive(false)
+        .&End
+      .&End
+      .ProgressBar
+        .Value('85')
+        .Sytle(bg_danger)
+      .&end
+    .&End
+    .Progress
+      .Info
+        .Title
+          .Text('Despesas Fixas')
+        .&End
+        .Value
+          .Text('60% (R$ 40.852,00)')
+        .&End
+        .Icon
+          .Up(False)
+          .Positive(false)
+        .&End
+      .&End
+      .ProgressBar
+        .Value('60')
+        .Sytle(bg_warning)
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .ProgressBar
+        .Value('50')
+        .DisplayLabel(true)
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .Height(1)
+      .ProgressBar
+        .Value('50')
+      .&end
+    .&End
+    .Progress
+      .Height(20)
+      .ProgressBar
+        .Value('50')
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .ProgressBar
+        .Sytle(bg_success)
+        .Value('25')
+      .&end
+    .&End
+    .Progress
+      .ProgressBar
+        .Sytle(bg_info)
+        .Value('50')
+      .&end
+    .&End
+    .Progress
+      .ProgressBar
+        .Sytle(bg_warning)
+        .Value('75')
+      .&end
+    .&End
+    .Progress
+      .ProgressBar
+        .Sytle(bg_danger)
+        .Value('100')
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .ProgressBar
+        .Value('15')
+      .&end
+      .ProgressBar
+        .Sytle(bg_success)
+        .Value('30')
+      .&end
+      .ProgressBar
+        .Sytle(bg_danger)
+        .Value('20')
+      .&end
+    .&End
+  .WebBrowser(WebBrowser1)
   .Generated;
 end;
 
@@ -2481,7 +2689,6 @@ begin
   ClientDataSet6.Filtered := false;
   ClientDataSet6.Filter := 'ACCT_NBR = ' + CurrToStr(Value);
   ClientDataSet6.Filtered := true;
-
   WebCharts1
   .NewProject
     .Rows

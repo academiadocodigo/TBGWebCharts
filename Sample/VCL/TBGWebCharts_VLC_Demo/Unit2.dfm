@@ -45,6 +45,8 @@ object Form2: TForm2
       ParentColor = False
       ParentFont = False
       Layout = tlCenter
+      ExplicitLeft = -1
+      ExplicitTop = -6
     end
     object SpeedButton1: TSpeedButton
       Left = 0
@@ -163,7 +165,7 @@ object Form2: TForm2
     end
     object SpeedButton2: TSpeedButton
       Left = 0
-      Top = 74
+      Top = 114
       Width = 209
       Height = 40
       Align = alTop
@@ -179,9 +181,29 @@ object Form2: TForm2
       ParentFont = False
       ParentBiDiMode = False
       OnClick = SpeedButton2Click
-      ExplicitLeft = -32
-      ExplicitTop = 51
-      ExplicitWidth = 169
+      ExplicitLeft = -4
+      ExplicitTop = 108
+    end
+    object SpeedButton3: TSpeedButton
+      Left = 0
+      Top = 74
+      Width = 209
+      Height = 40
+      Align = alTop
+      BiDiMode = bdLeftToRight
+      Caption = 'EDITAR DADOS'
+      Flat = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      Font.Quality = fqClearType
+      ParentFont = False
+      ParentBiDiMode = False
+      OnClick = SpeedButton3Click
+      ExplicitLeft = -4
+      ExplicitTop = 69
     end
     object cbTypeChart: TComboBox
       Left = 0
@@ -209,19 +231,15 @@ object Form2: TForm2
     end
     object PageControl2: TPageControl
       Left = 0
-      Top = 114
+      Top = 154
       Width = 209
-      Height = 478
-      ActivePage = TabSheet10
+      Height = 438
+      ActivePage = TabSheet11
       Align = alClient
       MultiLine = True
       TabOrder = 1
       object TabSheet3: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor1: TValueListEditor
           Left = 0
           Top = 0
@@ -268,7 +286,7 @@ object Form2: TForm2
           Left = 0
           Top = 85
           Width = 201
-          Height = 42
+          Height = 84
           Align = alTop
           BorderStyle = bsNone
           Color = clWhite
@@ -281,7 +299,9 @@ object Form2: TForm2
           Font.Style = []
           ParentFont = False
           Strings.Strings = (
-            'SemiCircule=False')
+            'HideLabelEmptyData=False'
+            'SemiCircule=False'
+            'SkipEmptyData=False')
           TabOrder = 2
           ColWidths = (
             96
@@ -291,10 +311,6 @@ object Form2: TForm2
       object TabSheet4: TTabSheet
         Caption = 'Attributes'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor2: TValueListEditor
           Left = 0
           Top = 0
@@ -321,21 +337,17 @@ object Form2: TForm2
           TabOrder = 0
           ColWidths = (
             96
-            111)
+            86)
         end
       end
       object TabSheet5: TTabSheet
         Caption = 'Scale xAxe'
         ImageIndex = 2
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ScrollBox2: TScrollBox
           Left = 0
           Top = 0
           Width = 201
-          Height = 414
+          Height = 374
           Align = alClient
           BorderStyle = bsNone
           Color = clWhite
@@ -436,7 +448,6 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 3
-            ExplicitTop = 339
           end
           object ValueListEditor5: TValueListEditor
             Left = 0
@@ -465,7 +476,6 @@ object Form2: TForm2
               'zeroLineWidth=50'
               'zeroLineColorRGBA=102,102,102,100')
             TabOrder = 4
-            ExplicitTop = 362
             ColWidths = (
               96
               86)
@@ -487,7 +497,6 @@ object Form2: TForm2
             ParentBackground = False
             ParentFont = False
             TabOrder = 5
-            ExplicitTop = 556
           end
           object ValueListEditor6: TValueListEditor
             Left = 0
@@ -514,7 +523,6 @@ object Form2: TForm2
               'fontStyle=normal'
               'padding=10')
             TabOrder = 6
-            ExplicitTop = 579
             ColWidths = (
               96
               86)
@@ -524,15 +532,11 @@ object Form2: TForm2
       object TabSheet6: TTabSheet
         Caption = 'Scale yAxe'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ScrollBox1: TScrollBox
           Left = 0
           Top = 0
           Width = 201
-          Height = 414
+          Height = 374
           Align = alClient
           BorderStyle = bsNone
           Color = clWhite
@@ -717,15 +721,11 @@ object Form2: TForm2
       object TabSheet7: TTabSheet
         Caption = 'Labelling'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor11: TValueListEditor
           Left = 0
           Top = 0
           Width = 201
-          Height = 161
+          Height = 185
           Align = alTop
           BorderStyle = bsNone
           Color = clWhite
@@ -743,6 +743,7 @@ object Form2: TForm2
             'FontSize=10'
             'FontStyle=normal'
             'FontFamily=Open Sans'
+            'HideZeroValues=False'
             'Padding=4'
             'PaddingX=4')
           TabOrder = 0
@@ -754,10 +755,6 @@ object Form2: TForm2
       object TabSheet8: TTabSheet
         Caption = 'Legend'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor12: TValueListEditor
           Left = 0
           Top = 0
@@ -831,10 +828,6 @@ object Form2: TForm2
       object TabSheet9: TTabSheet
         Caption = 'Title'
         ImageIndex = 6
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor14: TValueListEditor
           Left = 0
           Top = 0
@@ -873,7 +866,7 @@ object Form2: TForm2
           Left = 0
           Top = 0
           Width = 201
-          Height = 177
+          Height = 193
           Align = alTop
           BorderStyle = bsNone
           Color = clWhite
@@ -891,22 +884,20 @@ object Form2: TForm2
             'BorderColor='
             'BorderWidth=1'
             'Fill=False'
+            'Hidden=False'
+            'HideZeroValuesControl=False'
             'LineTension=0'
             'BorderDash(Lenght)=8'
             'BorderDash(Space)=4')
           TabOrder = 0
           ColWidths = (
             104
-            95)
+            78)
         end
       end
       object TabSheet11: TTabSheet
         Caption = 'Tooltip'
         ImageIndex = 8
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor17: TValueListEditor
           Left = 0
           Top = 0
@@ -927,7 +918,8 @@ object Form2: TForm2
             'Enabled=True'
             'Format=$0,0.00'
             'Intersect=False'
-            'DisplayTitle=False')
+            'DisplayTitle=False'
+            'HideZeroValues=False')
           TabOrder = 0
           ColWidths = (
             96
@@ -937,10 +929,6 @@ object Form2: TForm2
       object Table: TTabSheet
         Caption = 'Table'
         ImageIndex = 9
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object ValueListEditor18: TValueListEditor
           Left = 0
           Top = 0
@@ -990,18 +978,149 @@ object Form2: TForm2
     TabOrder = 1
     object WebBrowser1: TWebBrowser
       Left = 0
-      Top = 0
+      Top = 321
       Width = 835
-      Height = 640
+      Height = 319
       Align = alClient
       TabOrder = 0
       ExplicitLeft = 6
+      ExplicitTop = 0
+      ExplicitHeight = 640
       ControlData = {
-        4C0000004D560000254200000000000000000000000000000000000000000000
+        4C0000004D560000F82000000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
         2B2E126208000000000000004C0000000114020000000000C000000000000046
         8000000000000000000000000000000000000000000000000000000000000000
         00000000000000000100000000000000000000000000000000000000}
+    end
+    object pnlEditar: TPanel
+      Left = 0
+      Top = 0
+      Width = 835
+      Height = 321
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 1
+      Visible = False
+      object Panel4: TPanel
+        Left = 0
+        Top = 74
+        Width = 835
+        Height = 247
+        Align = alClient
+        BevelOuter = bvNone
+        Padding.Left = 2
+        Padding.Right = 2
+        TabOrder = 0
+        object DBGrid1: TDBGrid
+          Left = 2
+          Top = 0
+          Width = 831
+          Height = 247
+          Align = alClient
+          DataSource = DataSource1
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = []
+        end
+      end
+      object Panel5: TPanel
+        Left = 0
+        Top = 0
+        Width = 835
+        Height = 74
+        Align = alTop
+        BevelOuter = bvNone
+        Padding.Left = 2
+        Padding.Top = 2
+        Padding.Right = 2
+        TabOrder = 1
+        object Panel7: TPanel
+          Left = 2
+          Top = 37
+          Width = 831
+          Height = 35
+          Align = alTop
+          BevelOuter = bvNone
+          Padding.Top = 5
+          Padding.Bottom = 5
+          TabOrder = 0
+          ExplicitLeft = -14
+          ExplicitTop = 43
+          object ComboBox1: TComboBox
+            Left = 0
+            Top = 5
+            Width = 236
+            Height = 21
+            Align = alLeft
+            Style = csDropDownList
+            ItemIndex = 0
+            TabOrder = 0
+            Text = 'ClientDataset1'
+            OnSelect = ComboBox1Select
+            Items.Strings = (
+              'ClientDataset1'
+              'ClientDataset2'
+              'ClientDataset3')
+          end
+          object DBNavigator1: TDBNavigator
+            Left = 441
+            Top = 5
+            Width = 390
+            Height = 25
+            DataSource = DataSource1
+            Align = alRight
+            TabOrder = 1
+          end
+          object Button1: TButton
+            Left = 344
+            Top = 5
+            Width = 97
+            Height = 25
+            Align = alRight
+            Caption = 'Update Chart'
+            TabOrder = 2
+            OnClick = Button1Click
+          end
+        end
+        object Panel6: TPanel
+          Left = 2
+          Top = 2
+          Width = 831
+          Height = 35
+          Align = alTop
+          BevelOuter = bvNone
+          Color = clSilver
+          Padding.Left = 5
+          ParentBackground = False
+          TabOrder = 1
+          object Label1: TLabel
+            Left = 5
+            Top = 0
+            Width = 826
+            Height = 35
+            Margins.Left = 10
+            Align = alClient
+            AutoSize = False
+            Caption = 'Editar Dados'
+            Color = clBtnFace
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -16
+            Font.Name = 'Segoe UI'
+            Font.Style = [fsBold]
+            ParentColor = False
+            ParentFont = False
+            Layout = tlCenter
+            ExplicitLeft = 8
+            ExplicitTop = -1
+            ExplicitWidth = 825
+          end
+        end
+      end
     end
   end
   object ClientDataSet5: TClientDataSet
@@ -1438,5 +1557,10 @@ object Form2: TForm2
     Params = <>
     Left = 289
     Top = 122
+  end
+  object DataSource1: TDataSource
+    DataSet = ClientDataSet1
+    Left = 769
+    Top = 164
   end
 end

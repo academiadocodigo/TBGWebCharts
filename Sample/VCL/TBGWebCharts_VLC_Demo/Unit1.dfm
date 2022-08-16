@@ -402,6 +402,10 @@ object Form1: TForm1
             item
               Action = btn_bootstrap_listgroup
               Caption = ' List Group'
+            end
+            item
+              Action = btn_bootstrap_progress
+              Caption = ' Progress'
             end>
           TextColor = clNone
         end>
@@ -1893,6 +1897,10 @@ object Form1: TForm1
     object btn_bootstrap_cards_styled: TAction
       Caption = 'btn_bootstrap_cards_styled'
       OnExecute = btn_bootstrap_cards_styledExecute
+    end
+    object btn_bootstrap_progress: TAction
+      Caption = 'btn_bootstrap_progress'
+      OnExecute = btn_bootstrap_progressExecute
     end
   end
   object ClientDataSet7: TClientDataSet

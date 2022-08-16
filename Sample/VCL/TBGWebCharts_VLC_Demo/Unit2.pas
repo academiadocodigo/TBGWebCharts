@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.ValEdit, Vcl.ComCtrls,
   Vcl.StdCtrls, Vcl.Buttons, Vcl.OleCtrls, SHDocVw, Vcl.ExtCtrls, Data.DB,
-  Datasnap.DBClient;
+  Datasnap.DBClient, Vcl.DBCtrls, Vcl.DBGrids;
 
 type
   TForm2 = class(TForm)
@@ -71,9 +71,24 @@ type
     ClientDataSet1Label: TStringField;
     ClientDataSet1Value: TStringField;
     ClientDataSet1RGB: TStringField;
+    pnlEditar: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    DBNavigator1: TDBNavigator;
+    ComboBox1: TComboBox;
+    Panel7: TPanel;
+    Panel6: TPanel;
+    Label1: TLabel;
+    SpeedButton3: TSpeedButton;
+    Button1: TButton;
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
+    procedure ComboBox1Select(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -89,6 +104,48 @@ uses
   View.WebCharts, Charts.Types, System.TypInfo;
 
 {$R *.dfm}
+
+procedure TForm2.Button1Click(Sender: TObject);
+var
+  WebCharts1 : TWebCharts;
+begin
+  WebCharts1 := TWebCharts.Create;
+  try
+    WebCharts1
+    .ContinuosProject
+      .WebBrowser(WebBrowser1)
+      .Charts
+        ._ChartType(bar)
+          .Attributes
+            .Name(ValueListEditor2.Values['Name'])
+            .DataSet
+              .DataSet(ClientDataSet1)
+              .textLabel(ValueListEditor16.Values['textLabel'])
+              .BackgroundColor(ValueListEditor16.Values['BackgroundColor'])
+            .&End
+            .DataSet
+              .BackgroundColor('30,182,203')
+              .textLabel('Meu DataSet 2')
+              .DataSet(ClientDataSet2)
+            .&End
+          .&End
+        .UpdateChart
+      .&End
+    .&End
+  finally
+    WebCharts1.Free;
+  end;
+
+end;
+
+procedure TForm2.ComboBox1Select(Sender: TObject);
+begin
+  case ComboBox1.ItemIndex of
+    0: DataSource1.DataSet := ClientDataset1;
+    1: DataSource1.DataSet := ClientDataset2;
+    2: DataSource1.DataSet := ClientDataset5;
+  end;
+end;
 
 procedure TForm2.FormCreate(Sender: TObject);
 begin
@@ -166,6 +223,8 @@ begin
             .BackgroundColor(ValueListEditor2.Values['BackgroundColor'])
             .Options
               .SemiCircule(ValueListEditor15.Values['SemiCircule'].ToBoolean)
+              .HideLabelEmptyData(ValueListEditor15.Values['HideLabelEmptyData'].ToBoolean)
+              .SkipEmptyData(ValueListEditor15.Values['SkipEmptyData'].ToBoolean)
               .Legend
                 .display(ValueListEditor12.Values['display'].ToBoolean)
                 .position(ValueListEditor12.Values['position'])
@@ -276,6 +335,7 @@ begin
                 .Format(ValueListEditor17.Values['Format'])
                 .Intersect(ValueListEditor17.Values['Intersect'].ToBoolean)
                 .DisplayTitle(ValueListEditor17.Values['DisplayTitle'].ToBoolean)
+                .HideZeroValues(ValueListEditor17.Values['HideZeroValues'].ToBoolean)
               .&End
             .&End
             .Labelling
@@ -284,10 +344,13 @@ begin
               .FontSize(ValueListEditor11.Values['FontSize'].ToInteger)
               .FontStyle(ValueListEditor11.Values['FontStyle']) //normal, bold, italic
               .FontFamily(ValueListEditor11.Values['FontFamily']) //Open Sans, Arial, Helvetica e etc..
+              .HideZeroValues(ValueListEditor11.Values['HideZeroValues'].ToBoolean)
               .Padding(ValueListEditor11.Values['Padding'].ToInteger) //Numeros negativos e positivos
               .PaddingX(ValueListEditor11.Values['PaddingX'].ToInteger)
             .&End
             .DataSet
+              .Hidden(ValueListEditor16.Values['Hidden'].ToBoolean)
+              .HideZeroValuesControl(ValueListEditor16.Values['HideZeroValuesControl'].ToBoolean)
               .DataSet(ClientDataSet1)
               .textLabel(ValueListEditor16.Values['textLabel'])
               .BackgroundColor(ValueListEditor16.Values['BackgroundColor'])
@@ -311,6 +374,11 @@ begin
   finally
     webcharts1.free;
   end;
+end;
+
+procedure TForm2.SpeedButton3Click(Sender: TObject);
+begin
+  pnlEditar.Visible := not pnlEditar.Visible;
 end;
 
 end.
