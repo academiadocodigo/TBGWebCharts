@@ -44,7 +44,11 @@ uses
 
 constructor TModelMapsGMapsRoutesDirections.Create(Parent: iModelMapsRoutes);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FDataSet := TModelMapsDataSet<iModelMapsRoutesDirections>.new(Self);
   FTravelMode := 'google.maps.TravelMode.DRIVING';
   FOptimizeWaypoints := 'true';

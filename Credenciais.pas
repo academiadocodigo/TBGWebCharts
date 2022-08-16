@@ -38,7 +38,11 @@ end;
 
 constructor TModelCredenciais.Create(Parent: iWebCharts);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 destructor TModelCredenciais.Destroy;

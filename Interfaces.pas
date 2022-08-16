@@ -1,9 +1,6 @@
 unit Interfaces;
-
 {$I TBGWebCharts.inc}
-
 interface
-
 uses
   {$IF RTLVERSION > 22 }
     {$IFDEF HAS_FMX}
@@ -14,7 +11,6 @@ uses
       {$DEFINE HAS_CALLBACK}
     {$ENDIF}
   {$ENDIF}
-
   DB,
   Generics.Collections,
   {$IFDEF HAS_FMX}
@@ -44,8 +40,7 @@ uses
   {$ENDIF}
    System.SysUtils,
    Classes,
-   Charts.Types;
-
+   Charts.Types, Colors.Bootstrap;
 type
   iWebCharts = interface;
   iModelHTML = interface;
@@ -94,7 +89,6 @@ type
   iModelGenericCoordinates<T> = interface;
   iModelCredenciais = interface;
   iModelDOMElement = interface;
-
   iModelMaps = interface;
   iModelGenericTitle<T> = interface;
   iModelMapsGeneric = interface;
@@ -113,20 +107,23 @@ type
     iModelChromiumResources = interface;
     iModelChromiumResourcesPages = interface;
     iModelChromiumResourcesJSCallback = interface;
-
   {$ENDIF}
   iModelLiquidFillGauge = interface;
   iModelLiquidFillGaugeConfig = interface;
-
   iModelCardStyled = interface;
   iModelCardStyledGeneric = interface;
   iModelCardStyledText = interface;
   iModelCardStyledShape = interface;
   iModelCardStyledShapeClasses = interface;
+  iModelCardStyledCallback = interface;
   iModelRichTextEditor = interface;
   iModelRichTextEditorConfig = interface;
   iModelRichTextEditorConfigPrintHeader = interface;
-
+  iModelGenericProgressBar<T> = interface;
+  iModelProgress = interface;
+  iModelProgressInfo = interface;
+  iModelProgressInfoText = interface;
+  iModelProgressInfoIcon = interface;
   {$IFDEF FULL}
     iModelTable = interface;
     iModelTableDataSet = interface;
@@ -149,7 +146,6 @@ type
     IModelHTMLRowsP = interface;
     //iCacheControl = interface;
   {$ENDIF}
-
   iWebCharts = interface
     ['{D98D23CE-5E37-4941-89E3-92AF922ACE60}']
     function NewProject : iModelHTML; overload;
@@ -162,7 +158,6 @@ type
     function CDN(Value : Boolean) : iWebCharts;
     function Credenciais : iModelCredenciais;
   end;
-
   iModelHTML = interface
     ['{6D5210CC-D750-4643-8685-48037F21E6AA}']
     function GenerateHead : iModelHTML; overload;
@@ -204,6 +199,7 @@ type
     function DOMElement : iModelDomElement;
     function RichTextEditor : iModelRichTextEditor;
     function Print : iModelHTML;
+    function Progress : iModelProgress;
     {$IFDEF FULL}
       function Table : iModelTable;
       function Cards : iModelCards;
@@ -217,21 +213,18 @@ type
       //function CacheControl : iCacheControl;
     {$ENDIF}
   end;
-
   iModelDomElement = interface
     function Id(Value : string) : iModelDomElement;
     function Html(Value : string) : iModelDomElement;
     function Update : iModelDOMElement;
     function &End : iModelHTML;
   end;
-
   iModelCredenciais = interface
     ['{FCE8B965-DB1B-42E6-B831-588BB955A88A}']
     function APIGoogle(Value : string) : iModelCredenciais; overload;
     function APIGoogle : string; overload;
     function &End : iWebCharts;
   end;
-
   iModelBrowser = interface
   ['{90CE8FFC-31D4-423B-A585-5A6B5E01A3F8}']
     procedure ExecuteScript(Value : iModelJSCommand);
@@ -246,7 +239,6 @@ type
     function MapTitle : iModelGenericTitle<iModelMaps>;
     function &End : iModelHTML;
   end;
-
   iModelGenericTitle<T> = interface
     ['{BBADD905-F041-4B05-8729-5F6ED7C3F286}']
     function Text(Value : string) : iModelGenericTitle<T>; overload;
@@ -265,7 +257,6 @@ type
     function Result : string;
     function &End : T;
   end;
-
   iModelMapsGeneric = interface
     ['{9831E9BF-E318-4D65-9722-B1A8E9562AC3}']
     function Name(Value : String) : iModelMapsGeneric; overload;
@@ -281,7 +272,6 @@ type
     function GetDirectionResult(Value: TProc<String>) : iModelMapsGeneric;
     function ResultClass : string;
   end;
-
   iModelMapsOptions = interface
     ['{ADAAA471-ED18-411D-9855-04ABFCCBB9B6}']
     function Center : iModelGenericCoordinates<iModelMapsOptions>;
@@ -300,7 +290,6 @@ type
     function ResultScript : String;
     function &End : iModelMapsGeneric;
   end;
-
   iModelMapsDraw = interface
     ['{00620760-9D3F-48FE-9FB4-91CB43C64F53}']
     function Marker : iModelMapsDrawMarker;
@@ -308,16 +297,13 @@ type
     function ResultScript : String;
     function &End : iModelMapsGeneric;
   end;
-
   iModelMapsDrawMarker = interface
     ['{03FDD2B8-7C64-41C1-A9B6-4284EBE6B997}']
     function DataSet : iModelMapsDataSet<iModelMapsDrawMarker>;
     function InfoWindow : iModelMapsInfoWindow<iModelMapsDrawMarker>;
     function ResultScript(Value: string) : String;
     function &End : iModelMapsDraw;
-
   end;
-
   iModelMapsDrawCircle = interface
     ['{14E21290-71DA-4BE7-919B-DA81B6E765E7}']
     function DataSet : iModelMapsDataSet<iModelMapsDrawCircle>;
@@ -330,16 +316,13 @@ type
     function InfoWindow : iModelMapsInfoWindow<iModelMapsDrawCircle>;
     function ResultScript(MapName: string) : String;
     function &End : iModelMapsDraw;
-
   end;
-
   iModelMapsLayer = interface
     ['{ACABBD56-A9D9-4D0B-85B1-6D115C218FAD}']
     function HeatMap : iModelMapsLayerHeatMap;
     function &End : iModelMapsGeneric;
     function ResultScript : String;
   end;
-
   iModelMapsLayerHeatMap = interface
     ['{A46B4845-FF76-48D5-AB8A-C7F39D0FE34C}']
     function DataSet : iModelMapsDataSet<iModelMapsLayerHeatMap>;
@@ -348,7 +331,6 @@ type
     function &End : iModelMapsLayer;
     function ResultScript(MapName: string) : String;
   end;
-
   iModelMapsDataSet<T> = interface
     ['{F58E5C44-D904-4347-BC57-CF7889DB4DD1}']
     function DataSet (Value : TDataSet) : iModelMapsDataSet<T>; overload;
@@ -369,7 +351,6 @@ type
     function InfoName : String; overload;
     function &End : T;
   end;
-
   iModelMapsInfoWindow<T> = interface
     ['{E850C6C0-C800-49A1-A582-725CEDE94178}']
     function StartOpened(Value : boolean) : iModelMapsInfoWindow<T>; overload;
@@ -380,14 +361,12 @@ type
     function MinWidth : string; overload;
     function &End : T;
   end;
-
   iModelMapsRoutes = interface
     ['{26523E12-4DFB-482B-B549-DB3CFD2E8A96}']
     function Directions : iModelMapsRoutesDirections;
     function &End : iModelMapsGeneric;
     function ResultScript : String;
   end;
-
   iModelMapsRoutesDirections = interface
     ['{BC86B376-85F0-4939-8A7B-169F54D6AA88}']
     function DataSet : iModelMapsDataSet<iModelMapsRoutesDirections>;
@@ -399,7 +378,6 @@ type
     function ResultScript(MapName: string) : String;
     function &End : iModelMapsRoutes;
   end;
-
   iModelMapsRoutesDirectionsPanel = interface
     ['{12C3A169-AB02-494B-871B-C37259B4C023}']
     function Width(Value : String) : iModelMapsRoutesDirectionsPanel; overload;
@@ -408,7 +386,6 @@ type
     function FloatPos : string; overload;
     function &End : iModelMapsRoutesDirections;
   end;
-
   {$IFDEF HAS_CHROMIUM}
     iModelChromiumResourcesPages = interface
       ['{30782EC6-B430-4FC1-9B23-D06693BE23D4}']
@@ -417,7 +394,6 @@ type
       function Extract(Key : String) :ICefResourceHandler;
       procedure Remove(Key : String);
     end;
-
     iModelChromiumResourcesJSCallback = interface
       ['{384A33CB-A7E7-40C3-88EA-F656605C0964}']
       function Add(Proc : TProc<string>) : string;
@@ -425,13 +401,11 @@ type
       function Extract(Key : String) :TProc<string>;
       procedure Remove(Key : String);
     end;
-
     iModelChromiumResources = interface
       ['{16F507A0-D848-4491-AF0A-8AE73782FBB2}']
       function Pages : iModelChromiumResourcesPages;
       function JSCallback : iModelChromiumResourcesJSCallback;
     end;
-
   {$ENDIF}
   iModelLiquidFillGauge = interface
     ['{9ECA3F3B-E741-4B9E-9FAE-46A52D195CD5}']
@@ -446,7 +420,6 @@ type
     function UpdateValue : iModelLiquidFillGauge;
     function &End : iModelHTML;
   end;
-
   iModelLiquidFillGaugeConfig = interface
     ['{A8E00200-7895-4E94-9492-7A5BE4863B04}']
     function MinValue(Value : integer) : iModelLiquidFillGaugeConfig;
@@ -487,6 +460,7 @@ type
     ['{3CE71864-DAF3-4C3A-8CEA-A715BBDDD85C}']
     function BackgroundColor(Value : String) : iModelCardStyledGeneric;
     function Body : iModelCardStyledText;
+    function Callback : iModelCardStyledCallback;
     function Col(Value : Integer) : iModelCardStyledGeneric;
     function Colmd(Value : Integer) : iModelCardStyledGeneric;
     function Colxl(Value : Integer) : iModelCardStyledGeneric;
@@ -495,10 +469,17 @@ type
     function HTML : String;
     function Name( Value : String) : iModelCardStyledGeneric;
     function Shape : iModelCardStyledShape;
+    function Progress : iModelGenericProgressBar<iModelCardStyledGeneric>;
     function Title : iModelCardStyledText;
     function &End : iModelCardStyled;
   end;
-
+  iModelCardStyledCallback = interface
+    ['{9F8311B1-92BC-49FC-BCDD-CC5DCED5C3FD}']
+    function MethodName(aValue : string) : iModelCardStyledCallback;
+    function ParamValue(aValue : string) : iModelCardStyledCallback;
+    function ResultClass : string;
+    function &End : iModelCardStyledGeneric;
+  end;
   iModelCardStyledText = interface
     ['{C6A880DD-CA67-4335-9FD8-378A334CD59A}']
     function Style : iModelGenericStyle<iModelCardStyledText>;
@@ -506,17 +487,16 @@ type
     function Text : String; overload;
     function &End : iModelCardStyledGeneric;
   end;
-
   iModelCardStyledShape = interface
     ['{DD59592F-FA79-4E15-84C4-C53143A0F1A6}']
     function Icon(Value : String) :  iModelCardStyledShape;
+    function ColAuto(Value : boolean) : iModelCardStyledShape;
     function ResultClass : String;
     function ShapeClass : iModelCardStyledShapeClasses;
     function Style : iModelGenericStyle<iModelCardStyledShape>;
     function Text(Value : String) : iModelCardStyledShape;
     function &End : iModelCardStyledGeneric;
   end;
-
   iModelCardStyledShapeClasses = interface
     ['{B03205C4-5A8A-49D9-B37F-DBD47AAC999A}']
     function ResultShapeClass : String;
@@ -535,7 +515,6 @@ type
     function SaveContentText(Value : TProc<String>) : iModelRichTextEditor;
     function &End : iModelHTML;
   end;
-
   iModelRichTextEditorConfig = interface
     ['{F17E30E3-C930-4907-B79E-9A7D1DABFFF6}']
     function Content(aValue : String) : iModelRichTextEditorConfig;
@@ -554,11 +533,9 @@ type
     function ResultPrintHeader : String;
     function &End : iModelRichTextEditor;
   end;
-
   iModelRichTextEditorConfigPrintHeaderDiv = interface;
   iModelRichTextEditorConfigPrintHeaderImage = interface;
   iModelRichTextEditorConfigPrintHeaderTitle = interface;
-
   iModelRichTextEditorConfigPrintHeader = interface
     ['{7011CAA5-ACA4-4CB6-A41C-61BCBDF083FA}']
     function &Div : iModelRichTextEditorConfigPrintHeaderDiv;
@@ -575,7 +552,6 @@ type
     function HTML : String;
     function &End : iModelRichTextEditorConfigPrintHeader;
   end;
-
   iModelRichTextEditorConfigPrintHeaderImage = interface
     ['{D9AD1ABA-940A-4CBA-AA1D-2E1C2D2D234C}']
     function HTML : String;
@@ -593,7 +569,55 @@ type
     function &End : iModelRichTextEditorConfigPrintHeaderDiv;
   end;
 
+  iModelGenericProgressBar<T> = interface
+    ['{7442EC82-63F9-44DF-A346-4529556F79EE}']
+    function Background(aValue : string) : iModelGenericProgressBar<T>;
+    function Color(aValue : string) : iModelGenericProgressBar<T>;
+    function DisplayLabel(aValue : Boolean) : iModelGenericProgressBar<T>;
+    function Height(aValue : Integer) : iModelGenericProgressBar<T>; overload;
+    function Height : string; overload;
+    function HTML : String;
+    function Sytle(aValue : TTypeBackgroundColor) : iModelGenericProgressBar<T>;
+    function Value(aValue : string) : iModelGenericProgressBar<T>;
+    function &End : T;
+  end;
 
+  iModelProgress = interface
+    ['{5AEB894D-A80F-4FA2-89E8-EF4EAE6F11DB}']
+    function Height(aValue : integer) : iModelProgress;
+    function HTML : string;
+    function Info : iModelProgressInfo;
+    function ProgressBar : iModelGenericProgressBar<iModelProgress>;
+    function MarginTop(aValue : string) : iModelProgress;
+    function &End : iModelHTML;
+  end;
+
+  iModelProgressInfo = interface
+    ['{33505BD6-334C-4B41-9043-AFE6495B5E2C}']
+    function Icon : iModelProgressInfoIcon;
+    function ResultClass : string;
+    function Title : iModelProgressInfoText;
+    function Value : iModelProgressInfoText;
+    function &End : iModelProgress;
+  end;
+
+  iModelProgressInfoText = interface
+    ['{8EB4A93C-D5B6-42C0-A66C-9B2ECA5832F0}']
+    function Style : iModelGenericStyle<iModelProgressInfoText>;
+    function Text(Value : String) : iModelProgressInfoText; overload;
+    function Text : String; overload;
+    function &End : iModelProgressInfo;
+  end;
+
+  iModelProgressInfoIcon = interface
+    ['{86914363-ED8C-46C6-912B-372855C175F0}']
+    function Icon(Value : String) : iModelProgressInfoIcon; overload;
+    function Icon : String; overload;
+    function Positive(Value : Boolean = true) : iModelProgressInfoIcon;
+    function Style : iModelGenericStyle<iModelProgressInfoIcon>;
+    function Up(Value : Boolean = true) : iModelProgressInfoIcon;
+    function &End : iModelProgressInfo;
+  end;
 //  iLabelLing = interface
 //    function Numeral(Value : String) : iLabelLing;
 //    function Result : String;
@@ -602,7 +626,6 @@ type
 //  iNumeral = interface
 //    function Result(Value : String) : String;
 //  end;
-
   IModelHTMLRows = interface
     ['{684C6EA3-4C2D-4AA9-9A94-BF0A07B14A8B}']
     function HTML(Value : String) : IModelHTMLRows; overload;
@@ -616,13 +639,11 @@ type
     {$ENDIF}
     function &End : iModelHTML;
   end;
-
   IModelHTMLRowsTag = interface
     ['{15075847-E7A6-4F18-878D-A7DBCECABE94}']
     function Add(Value : String) : IModelHTMLRowsTag;
     function &End : IModelHTMLRows;
   end;
-
   iModelHTMLRowsTitle = interface
     ['{F2D34927-8232-4A18-944A-DB0ADAD1C903}']
     function HTML(Value : String) : iModelHTMLRowsTitle; overload;
@@ -631,7 +652,6 @@ type
     function Config : IModelRowsTitleConfig;
     function &End : IModelHTMLRows;
   end;
-
   IModelRowsTitleConfig = interface
     ['{87031018-5C12-42DF-895F-2602B87FE468}']
     function H1(Value : String) : IModelRowsTitleConfig; overload;
@@ -646,7 +666,6 @@ type
     function H5 : String; overload;
     function &End : iModelHTMLRowsTitle;
   end;
-
   iModelHTMLCharts = interface
     ['{4CC23536-78BD-40F7-B4A8-D5625E849065}']
     function _ChartType(Value : TTypeChart) : iModelHTMLChartsGeneric; overload;
@@ -655,7 +674,6 @@ type
     function HTML : String; overload;
     function &End : iModelHTML;
   end;
-
   iModelHTMLChartsGeneric = interface
     ['{83AA6A13-6102-4352-9503-FF9C4AA2C4C7}']
     function HTML(Value : String) : iModelHTMLChartsGeneric; overload;
@@ -665,7 +683,6 @@ type
     function UpdateRealTime : iModelHTMLChartsGeneric;
     function UpdateChart : iModelHTMLChartsGeneric;
   end;
-
   iModelHTMLChartsDoughnut = interface
     ['{709FF228-7F8A-4E2B-8AB9-EFAEC9AEE1B4}']
     function SemiCircule ( aValue : Boolean ) : iModelHTMLChartsDoughnut; overload;
@@ -674,7 +691,6 @@ type
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
   end;
-
   iModelHTMLChartsBar = interface
     ['{25AE0278-2105-4223-86A9-41F289F75EAE}']
     function HTML(Value : String) : iModelHTMLChartsBar; overload;
@@ -682,7 +698,6 @@ type
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
   end;
-
   iModelHTMLChartsLines = interface
     ['{10DCD4CF-984F-4952-919A-5259A13A9D8D}']
     function HTML(Value : String) : iModelHTMLChartsLines; overload;
@@ -690,7 +705,6 @@ type
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
   end;
-
   iModelHTMLChartsLineStacked = interface
     ['{6A3F3157-8FB2-4D72-A33A-27A66BED2661}']
     function HTML(Value : String) : iModelHTMLChartsLineStacked; overload;
@@ -698,7 +712,6 @@ type
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
   end;
-
   iModelHTMLChartsPie = interface
     ['{470E91C0-58DF-440E-AF3A-445746F0CFE0}']
     function HTML(Value : String) : iModelHTMLChartsPie; overload;
@@ -706,7 +719,6 @@ type
     function Attributes : iModelHTMLChartsConfig;
     function &End : iModelHTMLCharts;
   end;
-
   iModelHTMLChartsConfig = interface
     ['{B140654A-10FE-48A2-93B8-3D90743E3F1E}']
     function Name(Value : String) : iModelHTMLChartsConfig; overload;
@@ -736,7 +748,6 @@ type
     function Options : iModelHTMLOptions;
     function &End : iModelHTMLChartsGeneric;
   end;
-
   iModelHTMLOptions = interface
     ['{8984AFE4-EBFC-4C97-B7BC-D3DA8FFFB42B}']
     function SemiCircule ( Value : Boolean ) : iModelHTMLOptions;
@@ -745,17 +756,17 @@ type
     function Title : iModelHTMLTitle<iModelHTMLOptions>;
     function Tooltip : iModelHTMLTooltip<iModelHTMLOptions>;
     function Plugins : iModelHtmlplugins;
+    function SkipEmptyData(Value : Boolean) : iModelHTMLOptions;
+    function HideLabelEmptyData(Value : Boolean) : iModelHTMLOptions;
     function Result : String;
     function &End : iModelHTMLChartsConfig;
   end;
-
   iModelHTMLPlugins = interface
     ['{55083212-FCFF-4AEC-A1ED-AEFC2C39BB5E}']
     function Streaming(Value : Boolean) : iModelHTMLPlugins;
     function Result : String;
     function &End : iModelHTMLOptions;
   end;
-
   iModelHTMLScales = interface
     ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
     function GeneratedAxes ( Value : Boolean ) : iModelHTMLScales;
@@ -763,7 +774,6 @@ type
     function Result : String;
     function &End : iModelHTMLOptions;
   end;
-
   iModelHTMLTooltip<T> = interface
     ['{5968D5D3-75C9-4F2C-9E66-3361A92D8DA4}']
     function Format(Value : String) : iModelHTMLTooltip<T>;
@@ -777,10 +787,10 @@ type
     function InteractionModeY : iModelHTMLTooltip<T>;
     function Intersect(Value : Boolean) : iModelHTMLTooltip<T>;
     function DisplayTitle(Value : Boolean) : iModelHTMLTooltip<T>;
+    function HideZeroValues(Value : boolean) : iModelHTMLTooltip<T>;
     function Result : String;
     function &End : T;
   end;
-
   iModelHTMLTitle<T> = interface
     ['{21A4474D-87C2-435B-9881-D385518C6EA6}']
     function display ( Value : Boolean ) :  iModelHTMLTitle<T>; overload;
@@ -802,7 +812,6 @@ type
     function Result : String;
     function &End : T;
   end;
-
   iModelHTMLLegend = interface
     ['{BC60AEB1-5404-4355-868A-D26BB5A2C773}']
     function Labels : iModelHTMLLegendLabels<iModelHTMLLegend>;
@@ -813,7 +822,6 @@ type
     function Result : String;
     function &End : iModelHTMLOptions;
   end;
-
   iModelHTMLLegendLabels<T> = interface
     ['{796188B6-4031-43E8-ABF1-43D6C8E1B18D}']
     function fontSize (Value : Integer) : iModelHTMLLegendLabels<T>; overload;
@@ -829,7 +837,6 @@ type
     function Result : String;
     function &End : T;
   end;
-
   iModelLabellingConfig<T> = interface
     ['{4BBEDE9F-9F02-4E92-AFA4-3B301DEC6672}']
     function Format ( Value : String) : iModelLabellingConfig<T>; overload;
@@ -842,6 +849,7 @@ type
     function FontStyle : String; overload;
     function FontFamily (Value : String) : iModelLabellingConfig<T>; overload;
     function FontFamily : String; overload;
+    function HideZeroValues(Value : boolean) : iModelLabellingConfig<T>; overload;
     function Padding (Value : Integer) : iModelLabellingConfig<T>; overload;
     function Padding : Integer; overload;
     function PaddingX (Value : Integer) : iModelLabellingConfig<T>; overload;
@@ -849,7 +857,6 @@ type
     function Result : String;
     function &End : T;
   end;
-
   iModelHTMLChartsAxes = interface
     ['{2E97CD69-FDAC-4A01-ADA6-0EA9F1FFFF7C}']
     function xAxe : iModelHTMLChartsAxesParam;
@@ -857,7 +864,6 @@ type
     function Result : String;
     function &End : iModelHTMLScales;
   end;
-
   iModelHTMLChartsAxesParam = interface
     ['{E4C5DE93-B372-4D75-ADD2-8A3D1F30223E}']
     function Ticks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam>;
@@ -875,7 +881,6 @@ type
     function Result : String;
     function &End : iModelHTMLChartsAxes;
   end;
-
   iModelHTMLChartsAxesParamRealTime = interface
     ['{448ECDC3-69C1-44F3-B5C5-6C2336F60321}']
     function Duration (Value : Integer) : iModelHTMLChartsAxesParamRealTime;
@@ -905,7 +910,6 @@ type
     function Result : String;
     function &End : T;
   end;
-
   iModelHTMLChartsAxesGridLines<T> = interface
     ['{F9043117-4398-478D-8EA2-8E5E065FB142}']
     function display (Value : Boolean) : iModelHTMLChartsAxesGridLines<T>; overload;
@@ -929,7 +933,6 @@ type
     function Result : String;
     function &End : T;
   end;
-
   iModelHTMLChartsAxesTicks<T> = interface
     ['{C56445FE-00C6-47E1-8B38-F0FE57419A71}']
     function fontColor (Value : String) : iModelHTMLChartsAxesTicks<T>; overload;
@@ -961,11 +964,9 @@ type
     function SuggestedMin ( Value : String) : iModelHTMLChartsAxesTicks<T>;
     function SuggestedMax ( Value : String) : iModelHTMLChartsAxesTicks<T>;
     function MaxTicksLimit ( Value : String) : iModelHTMLChartsAxesTicks<T>;
-
     function Result : String;
     function &End : T;
   end;
-
   iModelHTMLDataSet = interface
     ['{761961EF-0C2B-4B88-AC8F-B4806D530D07}']
     function DataSet (Value : TDataSet) : iModelHTMLDataSet;
@@ -987,9 +988,10 @@ type
     function ResultLabels : String;
     function RealTimeInitialValue : String;
     function Types (Value : String) : iModelHTMLDataSet;
+    function Hidden(Value : Boolean) : iModelHTMLDataSet;
+    function HideZeroValuesControl(Value : Boolean) : iModelHTMLDataSet;
     function &End : iModelHTMLChartsConfig;
   end;
-
   iModelHTMLFactory = interface
     ['{8CF35864-C906-4B8B-AC69-CD2F2001D906}']
     function HTML : iModelHTML;
@@ -1003,7 +1005,6 @@ type
     function ChartEasyPie(Parent : iModelHTML) : iModelChartEasyPie;
     {$ENDIF}
   end;
-
   iModelColors<T> = interface
     ['{8A6FA48B-BCB6-468B-A6EC-BC582B898E16}']
     function Primary : iModelColors<T>;
@@ -1017,21 +1018,18 @@ type
     function Result : String;
     function &End : T;
   end;
-
   iModelJumbotron = interface
     ['{90EB606E-886D-4333-ADD4-3A723A4F989B}']
     function Title(Value : String) : iModelJumbotron;
     function Description(Value : String) : iModelJumbotron;
     function &End : iModelHTML;
   end;
-
   iModelAlerts = interface
     ['{F6967759-446A-42EF-9459-DE04C83BB65B}']
     function Title(Value : String) : iModelAlerts;
     function AlertsClass : iModelAlertsClass;
     function &End : iModelHTML;
   end;
-
   iModelAlertsClass = interface
     ['{B877835D-FABB-4E0E-A44D-72DEC61B098B}']
     function primary : iModelAlertsClass;
@@ -1069,14 +1067,12 @@ type
     function RGBName : String; overload;
     function DataSetJstringify : string;
  end;
-
   iModelListGroup = interface
     ['{4E7BC346-00A5-4B5C-92A2-348107CFEADA}']
     function ListGroupType : iModelListGroupClass;
     function DataSet : iModelGenericDataSet<iModelListGroup>;
     function &End : iModelHTML;
   end;
-
   iModelListGroupClass = interface
     ['{9DE42B06-A698-437D-B25D-2A6CB8A9B409}']
     function Basic : iModelListGroupClass;
@@ -1089,7 +1085,6 @@ type
     function ClassType : String;
     function &End : iModelListGroup;
   end;
-
   iModelGenericList<T> = interface
     ['{BCF34A04-11DC-437B-BACA-97FBB4F0C7AF}']
     function Add(Value : string) : iModelGenericList<T>;
@@ -1192,6 +1187,24 @@ type
     function Width(Value : Integer) : iModelGenericStyle<T>; overload;
     function Width(Value : String) : iModelGenericStyle<T>; overload;
     function Width : string; overload;
+    function LineHeight(Value : string) : iModelGenericStyle<T>; overload;
+    function LineHeight(Value : Integer) : iModelGenericStyle<T>; overload;
+    function LineHeight : string; overload;
+    function MarginLeft(Value : Integer) : iModelGenericStyle<T>; overload;
+    function MarginLeft(Value : string) : iModelGenericStyle<T>; overload;
+    function MarginLeft : string; overload;
+    function Position(Value : string) : iModelGenericStyle<T>; overload;
+    function Position : string; overload;
+    function Right(Value : Integer) : iModelGenericStyle<T>; overload;
+    function Right(Value : string) : iModelGenericStyle<T>; overload;
+    function Right : string; overload;
+    function Top(Value : Integer) : iModelGenericStyle<T>; overload;
+    function Top(Value : string) : iModelGenericStyle<T>; overload;
+    function Top : string; overload;
+    function VerticalAlign(Value : string) : iModelGenericStyle<T>; overload;
+    function VerticalAlign : string; overload;
+    function Opacity(Value : string) : iModelGenericStyle<T>; overload;
+    function Opacity : string; overload;
     function ResultStyle : String;
     function &End : T;
   end;
@@ -1204,7 +1217,6 @@ type
     function Longitude : string; overload;
     function &End : T;
   end;
-
   {$IFDEF FULL}
   IModelHTMLRowsP = interface
     ['{F26E4162-73CC-40E9-8E35-9499B6D61673}']
@@ -1213,7 +1225,6 @@ type
     function Add(Value : String) : iModelHTMLRowsP;
     function &End : IModelHTMLRows;
   end;
-
   iModelTable = interface
     ['{D0151987-64C8-40E2-A83C-18AF9648F8AE}']
     function &End : iModelHTML;
@@ -1224,7 +1235,6 @@ type
     function TableData : iModelTableData;
     function Datatable(Value : Boolean) : iModelTable;
   end;
-
   iModelTableClass = interface
     ['{AC891435-E424-4C9D-BC69-4B05A705B96E}']
     function tableDark : iModelTableClass;
@@ -1235,7 +1245,6 @@ type
     function tableResponsive : iModelTableClass;
     function &EndTableClass : iModelTable;
   end;
-
   iModelTableDataSet = interface
     ['{061B2938-6100-42AF-8EE4-D5895E5A38B8}']
     function DataSet (Value : TDataSet) : iModelTableDataSet;
@@ -1248,7 +1257,6 @@ type
     function ResultStyle : String;
     function &End : iModelTable;
   end;
-
   iModelTableActionImage = Interface
     ['{60D2D1F0-B0F7-404D-8681-B9EBE36FFEB2}']
     function Image (Value : TCustomMemoryStream) : iModelTableActionImage; overload;
@@ -1262,9 +1270,7 @@ type
     function Tooltip : String overload;
     function StyleClass : String;
     function &End : iModelTableAction;
-
   end;
-
   iModelTableAction = interface
     ['{D9476DEA-F074-4A7B-9472-B7A9872F7023}']
     function ActionHeader (Value : String) : iModelTableAction; overload;
@@ -1277,7 +1283,6 @@ type
     function ResultStyle : String;
     function &End : iModelTableDataSet;
   end;
-
   iModelTableOption = interface
     ['{2DFF85D5-1116-4160-AAE4-8A5172B8EFD8}']
     function ScrollCollapse(Value : Boolean) : iModelTableOption; //Permita que a tabela reduza em altura quando um número limitado de linhas for mostrado.
@@ -1299,7 +1304,6 @@ type
     function Result : String;
     function &End : iModelTable;
   end;
-
   iModelTableFeatures = interface
     ['{3A297833-19EA-46CB-A10D-5AF1905791FC}']
     function AutoWidth(Value : Boolean) : iModelTableFeatures; //Controle de recursos Tratamento de largura de colunas inteligentes do DataTables
@@ -1317,7 +1321,6 @@ type
     function Result : String;
     function &End : iModelTable;
   end;
-
   iModelTableData = interface
     ['{6241E52E-02AF-4395-B162-6FF6B5821A6C}']
     function Server(Value : String) : iModelTableData;
@@ -1328,14 +1331,12 @@ type
     function Result : String;
     function &End : iModelTable;
   end;
-
   iModelTableCallback = interface
     ['{CB685C9B-1FC8-4C23-BECC-BFCBBAA99C37}']
     function formatNumber(aCampo, aFormat : String) : iModelTableCallback;
     function Result : String;
     function &End : iModelTable;
   end;
-
   IModelHTMLRowsDiv = interface
     ['{BD95F279-9614-47FD-B0AD-56B93279D4F1}']
     function Add(Value : String) : IModelHTMLRowsDiv;
@@ -1343,7 +1344,6 @@ type
     function ID(Value : string) : IModelHTMLRowsDiv;
     function &End : IModelHTMLRows;
   end;
-
   iModelCards = interface
     ['{5BA3AF40-D673-44BA-BF79-5F35E0F00BFB}']
     function Colors : iModelColors<iModelCards>;
@@ -1358,33 +1358,28 @@ type
     function ColSpan : Integer; overload;
     function &End : iModelHTML;
   end;
-
   iModelCardsDataSet = interface
     ['{E38197FC-8395-45BC-A0DE-D7283DD7E594}']
     function DataSet (Value : TDataSet) : iModelCardsDataSet;
     function ResultScript : String;
     function &End : iModelCards;
   end;
-
   iCallbackJS = interface
     ['{B3DD9B36-2024-4763-96A3-DEC0F10F454A}']
     function ClassProvider(Value : TObject) : iCallbackJS;
     function &End : iModelHTML;
   end;
-
   iChartsCallback = interface
   ['{4040F646-6D4F-477A-B5CE-98FDD025DAEB}']
     function Result (Value : String) : String;
     function IDChart ( Value : String) : iChartsCallback;
   end;
-
   iModelImage = interface
     ['{477D75E4-1BEE-4E4B-B15F-80B92DA186EA}']
     function &End : iModelHTML;
     function ImageClass : iModelImageClass;
     function DataSet : iModelImageDataSet;
   end;
-
   iModelImageDataSet = interface
     ['{061B2938-6100-42AF-8EE4-D5895E5A38B8}']
     function Field(Value : String) : iModelImageDataSet;
@@ -1392,7 +1387,6 @@ type
     function ResultScript : String;
     function &End : iModelImage;
   end;
-
   iModelImageClass = interface
     ['{9631B98F-CDE7-41A1-8138-E8E05AD72B65}']
     function imgFluid : iModelImageClass;
@@ -1405,7 +1399,6 @@ type
     function ResultClass : String;
     function &End : iModelImage;
   end;
-
   iModelButton = interface
     ['{BF6585F7-1823-4604-8FE4-1305EF38833B}']
     function ButtonClass : iModelButtonClass;
@@ -1413,7 +1406,6 @@ type
     function Title(Value : String) : iModelButton;
     function &End : iModelHTML;
   end;
-
   iModelButtonClass = interface
   ['{E03B3D3A-2D23-4AC0-86E3-5C4F18B9A9CE}']
     function primary : iModelButtonClass;
@@ -1433,7 +1425,6 @@ type
     function ResultClass : String;
     function &End : iModelButton;
   end;
-
   iModelCSS = interface
     ['{DBC52618-B95B-4871-9BC5-632B7737F2FD}']
     function PackCSS : String;
@@ -1442,14 +1433,12 @@ type
     function FontColor ( Value : String ) : iModelCSS;
     function BorderColor ( Value : String ) : iModelCSS;
   end;
-
   iModelJS = interface
     ['{CB37AC61-A8D6-4CEB-BFD1-FDC26CDEB2AA}']
     function PackJS : String;
     function CDN(Value : Boolean) : iModelJS;
     function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
-
   iModelChartEasyPie = interface
     ['{236E2A17-A50A-4E23-A414-19A1E8A7B34E}']
     function BarColor(Value : String) : iModelChartEasyPie;
@@ -1465,9 +1454,6 @@ type
     function DataPercent(Value : String) : iModelChartEasyPie;
     function &End : iModelHTML;
   end;
-
   {$ENDIF}
-
 implementation
-
 end.

@@ -163,7 +163,16 @@ contains
   RichTextEditor.Config.PrintHeader in 'RichTextEditor.Config.PrintHeader.pas',
   RichTextEditor.Config.PrintHeader.Divv in 'RichTextEditor.Config.PrintHeader.Divv.pas',
   RichTextEditor.Config.PrintHeader.Image in 'RichTextEditor.Config.PrintHeader.Image.pas',
-  RichTextEditor.Config.PrintHeader.Title in 'RichTextEditor.Config.PrintHeader.Title.pas';
+  RichTextEditor.Config.PrintHeader.Title in 'RichTextEditor.Config.PrintHeader.Title.pas',
+  CardStyled.IconBackground in 'CardStyled.IconBackground.pas',
+  Generic.ProgressBar in 'Generic.ProgressBar.pas',
+  Colors.Bootstrap in 'Colors.Bootstrap.pas',
+  Progress in 'Progress.pas',
+  CardStyled.Callback in 'CardStyled.Callback.pas',
+  Progress.Info in 'Progress.Info.pas',
+  Progress.Info.Text in 'Progress.Info.Text.pas',
+  Progress.Info.Icon in 'Progress.Info.Icon.pas',
+  ChartJSScript in 'ChartJSScript.pas';
 
 end.
 

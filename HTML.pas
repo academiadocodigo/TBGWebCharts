@@ -129,6 +129,7 @@ Type
     function DOMElement : iModelDomElement;
     function RichTextEditor : iModelRichTextEditor;
     function Print : iModelHTML;
+    function Progress : iModelProgress;
     {$IFDEF FULL}
       function Table : iModelTable;
       function Cards : iModelCards;
@@ -172,7 +173,7 @@ uses
   {$ENDIF}
   PivotTable,
   LiquidFillGauge,
-  CardStyled, DomElement, RichTextEditor, JSCommand;
+  CardStyled, DomElement, RichTextEditor, JSCommand, Progress;
 
 { TModelHTML }
 procedure TModelHTML.ExecuteScript(Value : iModelJSCommand);
@@ -200,6 +201,11 @@ function TModelHTML.Credenciais(Value : iModelCredenciais) : iModelHTML;
 begin
   Result := Self;
   FCredenciais := Value;
+end;
+
+function TModelHTML.Progress : iModelProgress;
+begin
+  Result := TModelProgress.New(Self)
 end;
 
 function TModelHTML.DOMElement : iModelDomElement;

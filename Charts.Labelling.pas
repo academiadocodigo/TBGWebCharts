@@ -16,6 +16,7 @@ Type
       FFontSize : Integer;
       FFontStyle : String;
       FFontFamily : String;
+      FHideZeroValues : Boolean;
       FPadding : Integer;
       FPaddingX : Integer;
     public
@@ -33,6 +34,7 @@ Type
       function FontStyle : String; overload;
       function FontFamily (Value : String) : iModelLabellingConfig<T>; overload;
       function FontFamily : String; overload;
+      function HideZeroValues(Value : boolean) : iModelLabellingConfig<T>; overload;
       function Padding (Value : Integer) : iModelLabellingConfig<T>; overload;
       function Padding : Integer; overload;
       function PaddingX (Value : Integer) : iModelLabellingConfig<T>; overload;
@@ -68,6 +70,7 @@ begin
   FFontFamily := 'Open Sans';
   FPadding := 5;
   FPaddingX := 0;
+  FHideZeroValues := False;
 end;
 
 destructor TChartsLabelling<T>.Destroy;
@@ -115,6 +118,13 @@ begin
   Result := FFormat;
 end;
 
+function TChartsLabelling<T>.HideZeroValues(
+  Value: boolean): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FHideZeroValues := Value;
+end;
+
 function TChartsLabelling<T>.Format(Value: String): iModelLabellingConfig<T>;
 begin
   Result := Self;
@@ -154,12 +164,15 @@ begin
   FResult := '';
   if FFormat <> '' then
   begin
-    FResult := FResult + ',plugins : [{';
     FResult := FResult + 'afterDatasetsDraw: function(chart) { ';
     FResult := FResult + 'var ctx = chart.ctx;';
     FResult := FResult + '';
     FResult := FResult + 'chart.data.datasets.forEach(function(dataset, i) { ';
     FResult := FResult + 'var meta = chart.getDatasetMeta(i); ';
+    FResult := FResult + 'if (dataset.hidden) {';
+    FResult := FResult + 'dataset.hidden = false;';
+    FResult := FResult + 'meta.hidden = true;';
+    FResult := FResult + '}';
     FResult := FResult + 'if (!meta.hidden) { ';
     FResult := FResult + 'meta.data.forEach(function(element, index) { ';
     FResult := FResult + 'if (!element.hidden) {';
@@ -171,10 +184,15 @@ begin
     FResult := FResult + 'var fontFamily = '''+FFontFamily+'''; ';
     FResult := FResult + 'ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily); ';
     FResult := FResult + '';
+    FResult := FResult + 'numeral.locale(''pt-br'');';
+    FResult := FResult + 'let dataNumber = numeral(dataset.data[index]);';
     if FFormat<>'' then
-      FResult := FResult + FAction
+      FResult := FResult + 'let dataString = dataNumber.format('+QuotedStr(FFormat)+');'
     else
-      FResult := FResult + 'var dataString = dataset.data[index].toString();';
+      FResult := FResult + 'let dataString = dataset.data[index].toString();';
+    if FHideZeroValues then
+      FResult := FResult + 'if (dataNumber.value() == 0 && dataset.hideZeroValues) {dataString = "";}';
+
     FResult := FResult + '';
     FResult := FResult + 'ctx.textAlign = ''center''; ';
     FResult := FResult + 'ctx.textBaseline = ''middle''; ';
@@ -187,8 +205,7 @@ begin
     FResult := FResult + '});';
     FResult := FResult + '}';
     FResult := FResult + '});';
-    FResult := FResult + '}';
-    FResult := FResult + '}]';
+    FResult := FResult + '},';
     Result := FResult;
   end;
 

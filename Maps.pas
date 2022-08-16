@@ -32,7 +32,11 @@ uses
 
 constructor TModelMaps.Create(Parent: IModelHTML);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 destructor TModelMaps.Destroy;

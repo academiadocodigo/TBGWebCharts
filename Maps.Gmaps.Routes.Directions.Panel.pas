@@ -34,7 +34,11 @@ uses
 constructor TModelMapsGMapsRoutesDirectionsPanel.Create(
   Parent: iModelMapsRoutesDirections);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FWidth := '390px';
   FFloat := 'right';
 end;

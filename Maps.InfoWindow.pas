@@ -36,8 +36,11 @@ uses
 
 constructor TModelMapsInfoWindow<T>.Create(Parent: T);
 begin
-  TInjection.Weak(@FParent, Parent);
-
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
 end;
 
 destructor TModelMapsInfoWindow<T>.Destroy;

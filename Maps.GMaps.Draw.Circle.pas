@@ -47,7 +47,11 @@ uses
 
 constructor TModelMapsGMapsDrawCircle.Create(Parent: iModelMapsDraw);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FDataSet := TModelMapsDataSet<iModelMapsDrawCircle>.new(Self);
   FStrokeColor := '#FF0000';
   FStrokeOpacity := '0.8';

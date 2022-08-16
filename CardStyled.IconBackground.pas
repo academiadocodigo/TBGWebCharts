@@ -1,13 +1,14 @@
-unit CardStyled.IconLeft;
+unit CardStyled.IconBackground;
 
 interface
+
 uses
   Interfaces,
   Generics.Collections,
-  CardStyled.Shape;
+  System.Classes;
 
 Type
-  TModelCardStyledIconLeft = class(TInterfacedObject, IModelCardStyledGeneric)
+  TModelCardStyledIconBackground = class(TInterfacedObject, iModelCardStyledGeneric)
   private
     [weak]
     FParent : iModelCardStyled;
@@ -18,17 +19,17 @@ Type
     FColXl : string;
     FDefaultFontColor : string;
     FFooter : TList<iModelCardStyledText>;
-    FProgress : iModelGenericProgressBar<iModelCardStyledGeneric>;
     FHTML : String;
     FName : String;
+    FProgress : iModelGenericProgressBar<iModelCardStyledGeneric>;
     FShape : iModelCardStyledShape;
     FTitle : TList<iModelCardStyledText>;
     procedure GenerateHTML;
     function GenerateTitle : String;
     function GenerateBody : String;
     function GenerateFooter : String;
+    function GenerateProgress : String;
     function GenerateShape : string;
-    function GenerateProgress : string;
   public
     constructor Create(Parent : iModelCardStyled);
     destructor Destroy; override;
@@ -53,65 +54,63 @@ implementation
 
 uses
   Injection,
-  Utilities.Str,
   CardStyled.Text,
-  System.SysUtils, Generic.ProgressBar, CardStyled.Callback;
+  System.SysUtils,
+  Utilities.Str,
+  CardStyled.Shape,
+  Generic.ProgressBar, CardStyled.Callback;
 
-{ TModelCardStyledIconLeft }
+{ TModelCardStyledGeneric }
 
-function TModelCardStyledIconLeft.BackgroundColor(
+function TModelCardStyledIconBackground.BackgroundColor(
   Value: String): iModelCardStyledGeneric;
 begin
   Result := Self;
   FBackgroundColor := TUtilitiesStr.TestRgbColor(Value);
 end;
 
-function TModelCardStyledIconLeft.Body: iModelCardStyledText;
+function TModelCardStyledIconBackground.Body: iModelCardStyledText;
 begin
   FBody.Add(TModelCardStyledText.New(Self));
   Result := FBody[Pred(FBody.Count)];
   Result
     .Style
-      .Color(FDefaultFontColor)
-      .FontSize(14)
-      .FontWeight('bold');
+      .Color(FDefaultFontColor);
 end;
 
-function TModelCardStyledIconLeft.Callback: iModelCardStyledCallback;
+function TModelCardStyledIconBackground.Callback: iModelCardStyledCallback;
 begin
   if not Assigned(FCallBack) then
     FCallBack := TModelCardStyledCallback.New(self);
   Result := FCallBack;
 end;
 
-function TModelCardStyledIconLeft.Col(Value: Integer): iModelCardStyledGeneric;
+function TModelCardStyledIconBackground.Col(Value: Integer): iModelCardStyledGeneric;
 begin
   Result := Self;
   FColmd := Format('col-md-%d', [Value]);
   FColxl := Format('col-xl-%d', [Value]);
 end;
 
-function TModelCardStyledIconLeft.Colmd(
-  Value: Integer): iModelCardStyledGeneric;
+function TModelCardStyledIconBackground.Colmd(Value: Integer): iModelCardStyledGeneric;
 begin
   Result := Self;
   FColmd := Format('col-md-%d', [Value]);
 end;
 
-function TModelCardStyledIconLeft.Colxl(
-  Value: Integer): iModelCardStyledGeneric;
+function TModelCardStyledIconBackground.Colxl(Value: Integer): iModelCardStyledGeneric;
 begin
   Result := Self;
   FColxl := Format('col-xl-%d', [Value]);
 end;
 
-function TModelCardStyledIconLeft.&End: iModelCardStyled;
+function TModelCardStyledIconBackground.&End: iModelCardStyled;
 begin
   GenerateHTML;
   Result := FParent;
 end;
 
-constructor TModelCardStyledIconLeft.Create;
+constructor TModelCardStyledIconBackground.Create(Parent : iModelCardStyled);
 begin
   {$IF RTLVERSION > 27  }
     TInjection.Weak(@FParent, Parent);
@@ -126,14 +125,14 @@ begin
   FTitle := TList<iModelCardStyledText>.Create;
 end;
 
-function TModelCardStyledIconLeft.DefaultFontColor(
+function TModelCardStyledIconBackground.DefaultFontColor(
   Value: string): iModelCardStyledGeneric;
 begin
   Result := Self;
   FDefaultFontColor := TUtilitiesStr.TestRgbColor(Value);
 end;
 
-destructor TModelCardStyledIconLeft.Destroy;
+destructor TModelCardStyledIconBackground.Destroy;
 begin
   FTitle.Free;
   FBody.Free;
@@ -141,63 +140,60 @@ begin
   inherited;
 end;
 
-function TModelCardStyledIconLeft.Footer: iModelCardStyledText;
+function TModelCardStyledIconBackground.Footer: iModelCardStyledText;
 begin
   FFooter.Add(TModelCardStyledText.New(Self));
   Result := FFooter[Pred(FFooter.Count)];
   Result
     .Style
       .Color(FDefaultFontColor)
-      .FontSize(9);
+      .FontSize(16);
 end;
 
-function TModelCardStyledIconLeft.GenerateBody: String;
+function TModelCardStyledIconBackground.GenerateBody: String;
 var
   Body : iModelCardStyledText;
 begin
   for Body in FBody do
-    Result := Result + Format('<span class="mb-0" %s>%s</span>',
+    Result := Result + Format('<span %s>%s</span>',
       [Body.Style.ResultStyle, Body.Text]);
+  Result := Format('<h2 class="d-flex align-items-baseline mb-0">%s</h2>', [Result]);
 end;
 
-function TModelCardStyledIconLeft.GenerateFooter: String;
+function TModelCardStyledIconBackground.GenerateFooter: String;
 var
   Footer : iModelCardStyledText;
-  LineSeparator : string;
 begin
   Result := '';
-  if FFooter.Count > 0 then
-  begin
-   for Footer in FFooter do
-      Result := Result + Format('<span %s>%s</span>',
-        [Footer.Style.ResultStyle, Footer.Text]);
-   LineSeparator := Format('<hr style="margin-top: 1rem; margin-bottom: -0.5rem; border: 0; border-top: 1px solid %s;"/>',
-    [FDefaultFontColor]);
-
-   Result := Format('%s<p class="mt-3 mb-0" style="font-size:.575rem;">%s</p>', [LineSeparator, Result]);
-  end;
+  for Footer in FFooter do
+    Result := Result + Format('<span %s>%s</span>',
+      [Footer.Style.ResultStyle, Footer.Text]);
 end;
 
-procedure TModelCardStyledIconLeft.GenerateHTML;
+procedure TModelCardStyledIconBackground.GenerateHTML;
 begin
   FHTML := Format('<div id="%s" class="%s %s">', [FName, FColMd, Fcolxl]) +
-    '<div class="card" style="background: ' + FBackgroundColor +'">' +
-      '<div class="card-body">' +
-        '<div class="row">' +
-          GenerateShape +
-          '<div class="col">' +
-            GenerateTitle +
+    '<div class="card" style="background: ' + FBackgroundColor +'; border-radius: 10px;">' +
+      '<div class="p-4">' +
+        GenerateShape +
+        '<div class="mb-3">' +
+          GenerateTitle +
+        '</div>' +
+        '<div class="row align-items-center mb-2 flex">' +
+          '<div class="col-7">' +
             GenerateBody +
           '</div>' +
+          '<div class="col-5 text-right">' +
+            GenerateFooter +
+          '</div>' +
         '</div>' +
-          GenerateFooter +
-          GenerateProgress +
+        GenerateProgress +
       '</div>' +
     '</div>' +
   '</div>';
 end;
 
-function TModelCardStyledIconLeft.GenerateProgress: string;
+function TModelCardStyledIconBackground.GenerateProgress: String;
 begin
   Result := '';
   if not Assigned(FProgress) then
@@ -205,13 +201,13 @@ begin
   Result := Format('<div class="progress mt-1"%s>%s</div>', [FProgress.Height, FProgress.HTML]);
 end;
 
-function TModelCardStyledIconLeft.GenerateShape: string;
+function TModelCardStyledIconBackground.GenerateShape: string;
 begin
   if Assigned(FShape) then
     Result := FShape.ResultClass;
 end;
 
-function TModelCardStyledIconLeft.GenerateTitle: String;
+function TModelCardStyledIconBackground.GenerateTitle: String;
 var
   Title : iModelCardStyledText;
 begin
@@ -220,24 +216,23 @@ begin
       [Title.Style.ResultStyle, Title.Text]);
 end;
 
-function TModelCardStyledIconLeft.HTML: String;
+function TModelCardStyledIconBackground.HTML: String;
 begin
   Result := FHTML;
 end;
 
-function TModelCardStyledIconLeft.Name(Value: String): iModelCardStyledGeneric;
+function TModelCardStyledIconBackground.Name(Value: String): iModelCardStyledGeneric;
 begin
   Result := Self;
   FName := Value;
 end;
 
-class function TModelCardStyledIconLeft.New(
-  Parent: iModelCardStyled): iModelCardStyledGeneric;
+class function TModelCardStyledIconBackground.New(Parent : iModelCardStyled) : iModelCardStyledGeneric;
 begin
   Result := Self.Create(Parent);
 end;
 
-function TModelCardStyledIconLeft.Progress: iModelGenericProgressBar<iModelCardStyledGeneric>;
+function TModelCardStyledIconBackground.Progress: iModelGenericProgressBar<iModelCardStyledGeneric>;
 begin
   if not Assigned(FProgress) then
     FProgress := TModelGenericProgressBar<iModelCardStyledGeneric>.New(Self)
@@ -245,37 +240,32 @@ begin
   Result := FProgress;
 end;
 
-function TModelCardStyledIconLeft.Shape: iModelCardStyledShape;
+function TModelCardStyledIconBackground.Shape: iModelCardStyledShape;
 begin
   if Not Assigned(FShape) then
     FShape := TModelCardStyledShape.New(Self)
-      .ShapeClass
-        .Rounded
-        .Shadow
-      .&End
+      .ColAuto(False)
       .Style
-        .Width('3rem')
-        .Height('3rem')
-        .Padding(12)
         .TextAlign('center')
-        .Display('inline-flex')
-        .AlignItems('center')
-        .JustifyContent('center')
-        .FontSize('1.25rem')
-        .Background('linear-gradient(87deg, #f5365c, #f56036)')
-        .Color('#fff !important')
+        .LineHeight(50)
+        .MarginLeft(15)
+        .Color('#000 !important')
+        .position('absolute')
+        .Right(5)
+        .Top(10)
+        .Opacity('0.1')
+        .FontSize(110)
       .&End;
   Result := FShape;
 end;
 
-function TModelCardStyledIconLeft.Title: iModelCardStyledText;
+function TModelCardStyledIconBackground.Title: iModelCardStyledText;
 begin
   FTitle.Add(TModelCardStyledText.New(Self));
   Result := FTitle[Pred(FTitle.Count)];
   Result
     .Style
-      .Color(FDefaultFontColor)
-      .FontSize(10);
+      .Color(FDefaultFontColor);
 end;
 
 end.

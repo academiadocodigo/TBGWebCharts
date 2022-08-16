@@ -61,7 +61,11 @@ end;
 
 constructor TModelMapsDataset<T>.Create(Parent: T);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FLatName := 'Lat';
   FLngName := 'Lng';
   FLabelName := 'Label';

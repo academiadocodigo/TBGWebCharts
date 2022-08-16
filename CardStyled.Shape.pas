@@ -10,6 +10,7 @@ Type
   private
     [weak]
     FParent : iModelCardStyledGeneric;
+    FColAuto : boolean;
     FShapeClass : iModelCardStyledShapeClasses;
     FStyle : iModelGenericStyle<iModelCardStyledShape>;
     FText : string;
@@ -18,6 +19,7 @@ Type
     constructor Create(Parent : iModelCardStyledGeneric);
     destructor Destroy; override;
     class function New(Parent : iModelCardStyledGeneric) : iModelCardStyledShape;
+    function ColAuto(Value : boolean) : iModelCardStyledShape;
     function Icon(Value : String) :  iModelCardStyledShape;
     function ResultClass : String;
     function ShapeClass : iModelCardStyledShapeClasses;
@@ -46,6 +48,12 @@ begin
   FIcon := format('<i class="%s"></i>', [Value]);
 end;
 
+function TModelCardStyledShape.ColAuto(Value: boolean): iModelCardStyledShape;
+begin
+  Result := Self;
+  FColAuto := Value;
+end;
+
 constructor TModelCardStyledShape.Create(Parent : iModelCardStyledGeneric);
 begin
   {$IF RTLVERSION > 27  }
@@ -53,6 +61,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
+  FColAuto := True;
   FShapeClass := TModelCardStyledShapeClasses.New(Self);
   FStyle := TModelGenericStyle<iModelCardStyledShape>.New(Self);
 end;
@@ -70,9 +79,10 @@ end;
 
 function TModelCardStyledShape.ResultClass: String;
 begin
-  Result := '<div class="col-auto col">' +
-    Format('<div %s %s>%s</div>', [FShapeClass.ResultShapeClass,
-      FStyle.ResultStyle, FIcon]) + '</div>';
+  Result := Format('<div %s %s>%s</div>', [FShapeClass.ResultShapeClass,
+      FStyle.ResultStyle, FIcon]);
+  if FColAuto then
+    Result := Format('<div class="col-auto col">%s</div>', [Result]);
 end;
 
 function TModelCardStyledShape.ShapeClass: iModelCardStyledShapeClasses;

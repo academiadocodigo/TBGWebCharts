@@ -1,10 +1,7 @@
 unit Charts.DataSet;
-
 interface
-
 uses
   Interfaces, DB, SysUtils;
-
 Type
   TModelHTMLChartsDataSet = class(TInterfacedObject, iModelHTMLDataSet)
     private
@@ -22,6 +19,8 @@ Type
       FBorderDash : String;
       FData : String;
       FFill : Boolean;
+      FHidden: Boolean;
+      FHideZeroValues : Boolean;
       FLineTension : String;
       FScript : String;
       FLabels : String;
@@ -54,6 +53,8 @@ Type
       function BorderDash (Lenght : Integer; Space : Integer) : iModelHTMLDataSet;
       function Data (Value : String) : iModelHTMLDataSet;
       function Fill (Value : Boolean) : iModelHTMLDataSet;
+      function Hidden(Value : Boolean) : iModelHTMLDataSet;
+      function HideZeroValuesControl(Value : Boolean) : iModelHTMLDataSet;
       function LineTension (Value : Integer) : iModelHTMLDataSet;
       function ResultScript : String;
       function ResultLabels : String;
@@ -61,14 +62,10 @@ Type
       function Types (Value : String) : iModelHTMLDataSet;
       function &End : iModelHTMLChartsConfig;
   end;
-
 implementation
-
 uses
   Injection;
-
 { TModelHTMLChartsDataSet<T> }
-
 function TModelHTMLChartsDataSet.BackgroundColor(
   Value: String): iModelHTMLDataSet;
 begin
@@ -77,7 +74,6 @@ begin
 //    FBackgroundColor := '"rgba(' + Value + ', ' + FBackgroundOpacity + ')"';
     FBackgroundColor := Value;
 end;
-
 function TModelHTMLChartsDataSet.BackgroundOpacity(
   Value: Integer): iModelHTMLDataSet;
 begin
@@ -91,7 +87,6 @@ begin
   Result := Self;
   FBorderColor := Value;
 end;
-
 function TModelHTMLChartsDataSet.BorderDash(Lenght,
   Space: Integer): iModelHTMLDataSet;
 begin
@@ -112,12 +107,10 @@ begin
   Result := Self;
   FBorderWidth := Value;
 end;
-
 function TModelHTMLChartsDataSet.&End: iModelHTMLChartsConfig;
 begin
   Result := FParent;
 end;
-
 function TModelHTMLChartsDataSet.ConvertInt(aValue: Integer): string;
 begin
   Result :=  FormatFloat('0.00', aValue / 10.0);
@@ -137,34 +130,29 @@ begin
   FBorderWidth := 1;
   FBackgroundOpacity := '1';
   FBorderOpacity := '1';
-
+  FHidden := false;
+  FHideZeroValues := false;
 end;
-
 function TModelHTMLChartsDataSet.Data(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FData := Value;
 end;
-
 function TModelHTMLChartsDataSet.DataSet(
   Value: TDataSet): iModelHTMLDataSet;
 begin
   Result := Self;
   FDataSet := Value;
 end;
-
 destructor TModelHTMLChartsDataSet.Destroy;
 begin
-
   inherited;
 end;
-
 function TModelHTMLChartsDataSet.Fill(Value: Boolean): iModelHTMLDataSet;
 begin
   Result := Self;
   FFill := Value;
 end;
-
 procedure TModelHTMLChartsDataSet.generatedBackgroundColor;
 var
   Local_I: Integer;
@@ -191,17 +179,12 @@ begin
   else
     FBackgroundColor := '"rgba(' + FBackgroundColor + ', ' + FBackgroundOpacity + ')"';
 end;
-
 procedure TModelHTMLChartsDataSet.generatedBorderColor;
 begin
-
 end;
-
 procedure TModelHTMLChartsDataSet.generatedBorderWidth;
 begin
-
 end;
-
 procedure TModelHTMLChartsDataSet.generatedData;
 var
   Aux: string;
@@ -222,15 +205,23 @@ begin
   end;
   FData := FData + ']';
 end;
-
 procedure TModelHTMLChartsDataSet.generatedFill;
 begin
-
 end;
-
 procedure TModelHTMLChartsDataSet.generatedLabel;
 begin
+end;
+function TModelHTMLChartsDataSet.Hidden(Value: Boolean): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FHidden := Value;
+end;
 
+function TModelHTMLChartsDataSet.HideZeroValuesControl(
+  Value: Boolean): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FHideZeroValues := Value;
 end;
 
 function TModelHTMLChartsDataSet.LabelName(Value: String): iModelHTMLDataSet;
@@ -238,7 +229,6 @@ begin
   Result := Self;
   FLabelName := Value;
 end;
-
 function TModelHTMLChartsDataSet.LineTension(Value: Integer): iModelHTMLDataSet;
 begin
   Result := Self;
@@ -249,7 +239,6 @@ class function TModelHTMLChartsDataSet.New(Parent : iModelHTMLChartsConfig): iMo
 begin
   Result := Self.Create(Parent);
 end;
-
 function TModelHTMLChartsDataSet.RandomColor: string;
 var
   _r,_g,_b, cont: Integer;
@@ -312,7 +301,6 @@ begin
   end;
   result:=caracter;
 end;
-
 function TModelHTMLChartsDataSet.ResultLabels: String;
 var
   Local_I: Integer;
@@ -335,7 +323,6 @@ begin
   FLabels := FLabels + ']';
   Result := FLabels;
 end;
-
 function TModelHTMLChartsDataSet.RealTimeInitialValue: String;
 begin
   FDataSet.Last;
@@ -353,6 +340,8 @@ begin
   generatedData;
   generatedFill;
   FScript := FScript + '{' + #13;
+  FScript := Format('%s hidden:%s,', [FScript, LowerCase(BoolToStr(FHidden, True))]);
+  FScript := Format('%s hideZeroValues:%s,', [FScript, LowerCase(BoolToStr(FHideZeroValues, True))]);
   if FTypes <> '' then FScript := FScript + 'type : '''+FTypes+''', ' + #13;
   FScript := FScript + 'label: '''+FtextLabel+''', ' + #13;
   if FBackgroundColor <> '' then
@@ -367,30 +356,25 @@ begin
   FScript := FScript + '} ' + #13;
   Result := FScript;
 end;
-
 function TModelHTMLChartsDataSet.RGBName(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FRGBName := Value;
 end;
-
 function TModelHTMLChartsDataSet.textLabel(
   Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FtextLabel := Value;
 end;
-
 function TModelHTMLChartsDataSet.Types(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FTypes := Value;
 end;
-
 function TModelHTMLChartsDataSet.ValueName(Value: String): iModelHTMLDataSet;
 begin
   Result := Self;
   FValueName := Value;
 end;
-
 end.

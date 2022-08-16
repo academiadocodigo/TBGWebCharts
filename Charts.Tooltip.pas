@@ -1,10 +1,7 @@
 unit Charts.Tooltip;
-
 interface
-
 uses
   Interfaces;
-
 type
   TModelHTMLChartsTooltip<T : IInterface> = class(TInterfacedObject, iModelHTMLTooltip<T>)
     private
@@ -15,6 +12,7 @@ type
       FIntersect : String;
       FTitle : string;
       FEnabled : string;
+      FHideZeroValues : string;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -30,17 +28,15 @@ type
       function InteractionModeY : iModelHTMLTooltip<T>;
       function Intersect(Value : Boolean) : iModelHTMLTooltip<T>;
       function DisplayTitle(Value : Boolean) : iModelHTMLTooltip<T>;
+      function HideZeroValues(Value : boolean) : iModelHTMLTooltip<T>;
       function Result : String;
       function &End : T;
   end;
-
 implementation
-
 uses
   Injection,
   System.SysUtils;
 { TModelHTMLChartsTooltip<T> }
-
 function TModelHTMLChartsTooltip<T>.Enabled(
   Value: Boolean): iModelHTMLTooltip<T>;
 begin
@@ -52,11 +48,30 @@ function TModelHTMLChartsTooltip<T>.&End: T;
 begin
   Result := FParent;
 end;
-
 function TModelHTMLChartsTooltip<T>.Format(Value: String): iModelHTMLTooltip<T>;
 begin
   Result := Self;
   FFormat := Value;
+end;
+function TModelHTMLChartsTooltip<T>.HideZeroValues(
+  Value: boolean): iModelHTMLTooltip<T>;
+begin
+  Result := Self;
+  FHideZeroValues := '';
+  if Value then
+  begin
+    FHideZeroValues := FHideZeroValues + 'filter: function (tooltipItem, data) {';
+    FHideZeroValues := FHideZeroValues + 'let showTooltip = true;';
+    FHideZeroValues := FHideZeroValues + 'if (data.datasets[tooltipItem.datasetIndex].hideZeroValues) {';
+    FHideZeroValues := FHideZeroValues + 'let valueNumber = numeral(tooltipItem.value);';
+    FHideZeroValues := FHideZeroValues + 'if (valueNumber.value() == 0) {';
+    FHideZeroValues := FHideZeroValues + 'showTooltip = false;';
+    FHideZeroValues := FHideZeroValues + '}';
+    FHideZeroValues := FHideZeroValues + '}';
+    FHideZeroValues := FHideZeroValues + 'return showTooltip;';
+    FHideZeroValues := FHideZeroValues + '},';
+  end;
+
 end;
 
 function TModelHTMLChartsTooltip<T>.InteractionModeDataset: iModelHTMLTooltip<T>;
@@ -110,13 +125,10 @@ begin
   {$IFEND}
   FToolTipValue := 'tooltipItem.value';
 end;
-
 destructor TModelHTMLChartsTooltip<T>.Destroy;
 begin
-
   inherited;
 end;
-
 function TModelHTMLChartsTooltip<T>.DisplayTitle(
   Value: Boolean): iModelHTMLTooltip<T>;
 begin
@@ -135,7 +147,6 @@ class function TModelHTMLChartsTooltip<T>.New(Parent : T): iModelHTMLTooltip<T>;
 begin
   Result := Self.Create(Parent);
 end;
-
 function TModelHTMLChartsTooltip<T>.Result: String;
 begin
   Result := '';
@@ -143,6 +154,7 @@ begin
   Result := Result + FEnabled;
   Result := Result + FInteractionMode;
   Result := Result + FIntersect;
+  Result := Result + FHideZeroValues;
   Result := Result + 'callbacks: {';
   Result := Result + FTitle;
   Result := Result + 'label: function(tooltipItem, data) {';
@@ -156,7 +168,6 @@ begin
   Result := Result + '}';
   Result := Result + '},';
 end;
-
 function TModelHTMLChartsTooltip<T>.ToolTipNoScales : iModelHTMLTooltip<T>;
 begin
   Result := Self;

@@ -9,14 +9,14 @@ type
   private
     FPack: TStringList;
     FCDN: Boolean;
-  public
-    constructor Create;
-    destructor Destroy; override;
-    class function New: iModelJS;
     procedure ChartbundleJS_1;
     procedure ChartbundleJS_2;
     procedure ChartbundleJS_3;
     procedure ChartbundleJS_4;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    class function New: iModelJS;
 
     function PackJS: String;
     function CDN(Value: Boolean): iModelJS;
@@ -2177,7 +2177,7 @@ begin
 
     Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
     Result := TUtilitiesEncoder.Base64Decode(Result);
-  end;
+   end;
 end;
 
 end.

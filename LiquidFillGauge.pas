@@ -83,7 +83,11 @@ end;
 
 constructor TModelLiquidFillGauge.Create(Parent : ImodelHTML);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FConfig := TModelLiquidFillGaugeConfig.New(Self);
   FName := 'fillgauge' + IntToStr(Random(100));
   FWidth := '100';

@@ -1,8 +1,6 @@
 unit PackJS;
 {$I TBGWebCharts.inc}
-
 interface
-
 uses
   Interfaces,
   Classes;
@@ -21,9 +19,7 @@ type
       function CDN(Value : Boolean) : iModelJS;
       function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
-
 implementation
-
 uses
   SysUtils,
   BootstrapJS,
@@ -46,22 +42,18 @@ uses
   GMapsJS,
   LiquidFillGaugeJS,
   D3JS,
-  QuillEditorJS, QuillDeltaConverter;
-
+  QuillEditorJS, QuillDeltaConverter, ChartJSScript;
 { TPackJS }
-
 function TPackJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
   FCDN := Value;
 end;
-
 constructor TPackJS.Create;
 begin
   FPack := TStringList.Create;
   FCDN := False;
 end;
-
 function TPackJS.Credenciais(Value: iModelCredenciais): iModelJS;
 begin
   Result := Self;
@@ -73,12 +65,10 @@ begin
   freeandnil(fpack);
   inherited;
 end;
-
 class function TPackJS.New: iModelJS;
 begin
   Result := Self.Create;
 end;
-
 function TPackJS.PackJS : String;
 begin
   if FCDN then
@@ -102,7 +92,7 @@ begin
     Result := Result + TLiquidFillGaugeJS.New.CDN(FCDN).PackJS;
     Result := Result + TQuillEditorJS.New.CDN(FCDN).PackJS;
     Result := Result + TQuillDeltaConverter.New.CDN(FCDN).PackJS;
-
+    Result := Result + TChartJSScript.New.CDN(FCDN).PackJS;
     Result := Result + '<script>';
     Result := Result + '(function (global, factory) {';
     Result := Result + '    if (typeof define === ''function'' && define.amd) {';
@@ -136,10 +126,10 @@ begin
   end
   else
     Result := FPack.Text+
-        TBootstrapJS.New.PackJS+
-        TFontawesomeallJS.New.PackJS+
         TJqueryJS.New.PackJS+
         TPopperJS.New.PackJS+
+        TBootstrapJS.New.PackJS+
+        TFontawesomeallJS.New.PackJS+
         TTetherminJS.New.PackJS+
         TUtilsJS.New.PackJS+
         TNumberJS.New.PackJS+
@@ -156,10 +146,10 @@ begin
         TD3JS.New.PackJS+
         TLiquidFillGaugeJS.New.PackJS+
         TQuillEditorJS.New.CDN(FCDN).PackJS+
-        TQuillDeltaConverter.New.CDN(FCDN).PackJS;
+        TQuillDeltaConverter.New.CDN(FCDN).PackJS+
+        TChartJSScript.new.CDN(FCDN).PackJS;
   Result := Result + UpdateDomElement;
 end;
-
 function TPackJS.UpdateDomElement: string;
 begin
   Result := '<script>' +

@@ -50,7 +50,11 @@ uses
 
 constructor TModelMapsGMaps.Create(Parent : IModelMaps);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FName := 'map';
   FHeight := 'height: 400px;';
   FOptions := TModelMapsGMapsOptions.New(Self);

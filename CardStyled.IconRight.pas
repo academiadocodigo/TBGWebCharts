@@ -14,10 +14,12 @@ Type
     FParent : iModelCardStyled;
     FBackgroundColor : String;
     FBody : TList<iModelCardStyledText>;
+    FCallBack : iModelCardStyledCallback;
     FColMd : string;
     FColXl : string;
     FDefaultFontColor : string;
     FFooter : TList<iModelCardStyledText>;
+    FProgress : iModelGenericProgressBar<iModelCardStyledGeneric>;
     FHTML : String;
     FName : String;
     FShape : iModelCardStyledShape;
@@ -27,12 +29,14 @@ Type
     function GenerateBody : String;
     function GenerateFooter : String;
     function GenerateShape : string;
+    function GenerateProgress : string;
   public
     constructor Create(Parent : iModelCardStyled);
     destructor Destroy; override;
     class function New(Parent : iModelCardStyled) : iModelCardStyledGeneric;
     function BackgroundColor(Value : String) : iModelCardStyledGeneric;
     function Body : iModelCardStyledText;
+    function Callback : iModelCardStyledCallback;
     function Col(Value : Integer) : iModelCardStyledGeneric;
     function Colmd(Value : Integer) : iModelCardStyledGeneric;
     function Colxl(Value : Integer) : iModelCardStyledGeneric;
@@ -40,6 +44,7 @@ Type
     function Footer : iModelCardStyledText;
     function HTML : String;
     function Name(Value : String) : iModelCardStyledGeneric;
+    function Progress : iModelGenericProgressBar<iModelCardStyledGeneric>;
     function Shape : iModelCardStyledShape;
     function Title : iModelCardStyledText;
     function &End : iModelCardStyled;
@@ -51,7 +56,9 @@ uses
   Injection,
   CardStyled.Text,
   System.SysUtils,
-  Utilities.Str;
+  Utilities.Str,
+  Generic.ProgressBar,
+  CardStyled.Callback;
 
 { TModelCardStyledIconRight }
 
@@ -78,6 +85,13 @@ function TModelCardStyledIconRight.&End: iModelCardStyled;
 begin
   GenerateHTML;
   Result := FParent;
+end;
+
+function TModelCardStyledIconRight.Callback: iModelCardStyledCallback;
+begin
+  if not Assigned(FCallBack) then
+    FCallBack := TModelCardStyledCallback.New(self);
+  Result := FCallBack;
 end;
 
 function TModelCardStyledIconRight.Col(Value: Integer): iModelCardStyledGeneric;
@@ -143,8 +157,13 @@ begin
 end;
 
 procedure TModelCardStyledIconRight.GenerateHTML;
+var
+  CardCallback : string;
 begin
-  FHTML := Format('<div id="%s" class="%s %s">', [FName, FColMd, Fcolxl]) +
+  CardCallback := '';
+  if Assigned(FCallBack) then
+    CardCallback := FCallBack.ResultClass;
+  FHTML := Format('<div id="%s" class="%s %s"%s>', [FName, FColMd, Fcolxl, CardCallback]) +
     '<div class="card" style="background: ' + FBackgroundColor +'">' +
       '<div class="card-body">' +
         '<div class="row">' +
@@ -155,10 +174,19 @@ begin
           GenerateShape +
         '</div>' +
           GenerateFooter +
+          GenerateProgress +
       '</div>' +
     '</div>' +
   '</div>';
 
+end;
+
+function TModelCardStyledIconRight.GenerateProgress: string;
+begin
+  Result := '';
+  if not Assigned(FProgress) then
+    exit;
+  Result := Format('<div class="progress mt-1"%s>%s</div>', [FProgress.Height, FProgress.HTML]);
 end;
 
 function TModelCardStyledIconRight.GenerateShape: string;
@@ -213,6 +241,14 @@ end;
 class function TModelCardStyledIconRight.New(Parent : iModelCardStyled) : iModelCardStyledGeneric;
 begin
   Result := Self.Create(Parent);
+end;
+
+function TModelCardStyledIconRight.Progress: iModelGenericProgressBar<iModelCardStyledGeneric>;
+begin
+  if not Assigned(FProgress) then
+    FProgress := TModelGenericProgressBar<iModelCardStyledGeneric>.New(Self)
+      .Height(8);
+  Result := FProgress;
 end;
 
 function TModelCardStyledIconRight.Shape: iModelCardStyledShape;

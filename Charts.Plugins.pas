@@ -10,7 +10,6 @@ type
     private
       FParent : iModelHTMLOptions;
       FStreaming : Boolean;
-
     public
       constructor Create(Parent : iModelHTMLOptions);
       destructor Destroy; override;
@@ -18,7 +17,6 @@ type
       function Streaming(Value : Boolean) : iModelHTMLPlugins;
       function Result : String;
       function &End : iModelHTMLOptions;
-
   end;
 
 implementation
@@ -55,7 +53,7 @@ function TModelHTMLChartsPlugins.Result: String;
 begin
   Result :=  'plugins: {';
   if FStreaming then Result := Result + 'streaming: true' else Result := Result + 'streaming: false';
-  Result := Result + '}';
+  Result := Result + '},';
 end;
 
 function TModelHTMLChartsPlugins.Streaming(Value: Boolean): iModelHTMLPlugins;

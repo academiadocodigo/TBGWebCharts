@@ -34,7 +34,11 @@ uses
 
 constructor TModelMapsGMapsLayerHeatMap.Create(Parent: iModelMapsLayer);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FDataSet := TModelMapsDataSet<iModelMapsLayerHeatMap>.new(Self);
 end;
 

@@ -1,9 +1,6 @@
 unit TetherminJS;
-
 interface
-
 uses Interfaces, Classes;
-
 type
   TTetherminJS = class(TInterfacedObject,iModelJS)
     private
@@ -17,24 +14,18 @@ type
       function CDN(Value : Boolean) : iModelJS;
       function Credenciais(Value : iModelCredenciais) : iModelJS;
   end;
-
 implementation
-
 uses
   SysUtils;
-
 { TTetherminJS }
-
 function TTetherminJS.CDN(Value: Boolean): iModelJS;
 begin
   Result := Self;
 end;
-
 constructor TTetherminJS.Create;
 begin
   FPack := TStringList.Create;
 end;
-
 function TTetherminJS.Credenciais(Value: iModelCredenciais): iModelJS;
 begin
   Result := Self;
@@ -45,12 +36,10 @@ begin
   freeandnil(fpack);
   inherited;
 end;
-
 class function TTetherminJS.New: iModelJS;
 begin
   Result := Self.Create;
 end;
-
 procedure TTetherminJS.TetherminJS_1;
 begin
   FPack.Add('<script>'+#13);
@@ -344,11 +333,10 @@ begin
   FPack.Add('i=n.top,r=n.left;return e+=i,o+=r,{top:e,left:o}}}}),I});');
   FPack.Add('</script>'+#13);
 end;
-
 function TTetherminJS.PackJS : String;
 begin
   TetherminJS_1;
-  Result := FPack.Text;
-end;
 
+  Result := StringReplace(FPack.Text, sLinebreak, '', [rfReplaceAll]);
+end;
 end.

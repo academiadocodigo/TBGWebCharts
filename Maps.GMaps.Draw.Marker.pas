@@ -34,7 +34,11 @@ uses
 
 constructor TModelMapsGMapsDrawMarker.Create(Parent: iModelMapsDraw);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FDataSet := TModelMapsDataSet<iModelMapsDrawMarker>.new(Self);
 end;
 

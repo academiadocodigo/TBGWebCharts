@@ -112,7 +112,11 @@ end;
 
 constructor TModelLiquidFillGaugeConfig.Create(Parent : iModelLiquidFillGauge);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FParent := Parent;
 end;
 

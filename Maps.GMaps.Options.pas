@@ -59,7 +59,11 @@ end;
 
 constructor TModelMapsGMapsOptions.Create(Parent: iModelMapsGeneric);
 begin
-  TInjection.Weak(@FParent, Parent);
+  {$IF RTLVERSION > 27  }
+    TInjection.Weak(@FParent, Parent);
+  {$ELSE}
+    FParent := Parent;
+  {$IFEND}
   FCenter := TModelGenericCoordinates<iModelMapsOptions>.New(Self);
   FCenter
     .Latitude('-22.87545556')
@@ -145,6 +149,15 @@ begin
         FRotateControl +
         FTilt +
         FMapStyle +
+//        'styles: [' +
+//          '{' +
+//            '"featureType": "poi",' +
+//            '"elementType": "labels",' +
+//            '"stylers": [' +
+//              '{ "visibility": "off" }' +
+//            ']' +
+//          '}' +
+//        ']' +
       '}';
 end;
 

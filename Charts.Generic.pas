@@ -1,10 +1,7 @@
 ﻿unit Charts.Generic;
-
 interface
-
 uses
   Interfaces;
-
 type
   TModelChartsGeneric = class(TInterfacedObject, iModelHTMLChartsGeneric)
     private
@@ -23,20 +20,15 @@ type
       function UpdateChart : iModelHTMLChartsGeneric;
       function &End : iModelHTMLCharts;
   end;
-
 implementation
-
 uses
   Charts.Config, System.SysUtils, Charts.Callback, Injection, Charts.Types,
   JSCommand;
-
 { TModelChartsGeneric }
-
 function TModelChartsGeneric.Attributes: iModelHTMLChartsConfig;
 begin
   Result := FConfig;
 end;
-
 function TModelChartsGeneric.&End: iModelHTMLCharts;
 begin
   Result := FParent;
@@ -48,13 +40,11 @@ begin
     FParent.HTML('height="'+IntToStr(FConfig.Heigth)+'px" ');
   FParent.HTML('></canvas>  ');
   FParent.HTML('<script>  ');
-
   FParent.HTML('function updateRealTime' + FConfig.IDChart + '(data) {');
   FParent.HTML('RealTime' + FConfig.IDChart + ' = data;');
   Fparent.HTML('window.myChart_'+FConfig.IDChart+'.update();');
   FParent.HTML('}');
   FParent.HTML('var RealTime' + FConfig.IDChart + ' = [' + FConfig.ResultRealTimeInitialValue + '];');
-
   FParent.HTML('function updateChart' + FConfig.IDChart + '(data) {');
   FParent.HTML('myChart_' + FConfig.IDChart + '.data.labels = data.labels;');
   FParent.HTML('var x;');
@@ -66,7 +56,6 @@ begin
   FParent.HTML('}');
   FParent.HTML('window.myChart_'+FConfig.IDChart+'.update();');
   FParent.HTML('}');
-
   FParent.HTML('var myCallBack = document.getElementById('''+FConfig.Name+''');');
   FParent.HTML('var ctx = document.getElementById('''+FConfig.Name+''').getContext(''2d''); ');
   FParent.HTML('var myChart_'+FConfig.IDChart+' = new Chart(ctx, { ');
@@ -78,7 +67,11 @@ begin
   FParent.HTML(']  ');
   FParent.HTML('}, ');
   FParent.HTML(FConfig.Options.Result);
+  FParent.HTML(',plugins : [{');
+  FParent.HTML('beforeInit: beforeInitChart,');
+  FParent.HTML('beforeUpdate: beforeInitChart,');
   FParent.HTML(FConfig.Labelling.Result);
+  FParent.HTML('}]');
   FParent.HTML('}); ');
   if FConfig.CallBackLink <> '' then FParent.HTML(TChartsCallback.New.IDChart('_'+FConfig.IDChart).Result(FConfig.CallBackLink));
   FParent.HTML('</script>  ');
@@ -94,29 +87,23 @@ begin
   {$IFEND}
   FConfig := TModelHTMLChartsConfig.New(Self);
 end;
-
 destructor TModelChartsGeneric.Destroy;
 begin
-
   inherited;
 end;
-
 function TModelChartsGeneric.HTML(Value: String): iModelHTMLChartsGeneric;
 begin
   Result := Self;
   FHTML := Value;
 end;
-
 function TModelChartsGeneric.HTML: String;
 begin
   Result := FHTML;
 end;
-
 class function TModelChartsGeneric.New(Parent : iModelHTMLCharts): iModelHTMLChartsGeneric;
 begin
     Result := Self.Create(Parent);
 end;
-
 function TModelChartsGeneric.UpdateChart: iModelHTMLChartsGeneric;
 var
   CommandJS : iModelJSCommand;
