@@ -179,8 +179,13 @@ begin
 end;
 
 procedure TModelCardStyledIconLeft.GenerateHTML;
+var
+  CardCallback : string;
 begin
-  FHTML := Format('<div id="%s" class="%s %s">', [FName, FColMd, Fcolxl]) +
+  CardCallback := '';
+  if Assigned(FCallBack) then
+    CardCallback := FCallBack.ResultClass;
+  FHTML := Format('<div id="%s" class="%s %s"%s>', [FName, FColMd, Fcolxl, CardCallback]) +
     '<div class="card" style="background: ' + FBackgroundColor +'">' +
       '<div class="card-body">' +
         '<div class="row">' +
