@@ -1,0 +1,156 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{337C7DCB-56B9-40EC-BB33-1CA8C615338C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="VCL\Dashboard Black\BlackDashboard.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\DashBoardCards\DashBoardCards.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\DashBoardCards2\DashBoardCards2.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\Demo_Old\TBGWebCharts_VCL.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\Geracao de DataSet Dinamicos\GeracaoDataSetDinamico.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\RichTextEditor\Sample_RichTextEditor.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\TBGWebCharts_VLC_Demo\TBGWebCharts_VCL_Demo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VCL\Update_Charts\Update_Charts.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Utils\Callback Manual\CallbackManual.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Utils\Geracao Dinamica de Charts\GeracaoChartsDinamico.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="WebBroker\TBGWebCharts_WebBroker.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="BlackDashboard">
+        <MSBuild Projects="VCL\Dashboard Black\BlackDashboard.dproj"/>
+    </Target>
+    <Target Name="BlackDashboard:Clean">
+        <MSBuild Projects="VCL\Dashboard Black\BlackDashboard.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BlackDashboard:Make">
+        <MSBuild Projects="VCL\Dashboard Black\BlackDashboard.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DashBoardCards">
+        <MSBuild Projects="VCL\DashBoardCards\DashBoardCards.dproj"/>
+    </Target>
+    <Target Name="DashBoardCards:Clean">
+        <MSBuild Projects="VCL\DashBoardCards\DashBoardCards.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DashBoardCards:Make">
+        <MSBuild Projects="VCL\DashBoardCards\DashBoardCards.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DashBoardCards2">
+        <MSBuild Projects="VCL\DashBoardCards2\DashBoardCards2.dproj"/>
+    </Target>
+    <Target Name="DashBoardCards2:Clean">
+        <MSBuild Projects="VCL\DashBoardCards2\DashBoardCards2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DashBoardCards2:Make">
+        <MSBuild Projects="VCL\DashBoardCards2\DashBoardCards2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TBGWebCharts_VCL">
+        <MSBuild Projects="VCL\Demo_Old\TBGWebCharts_VCL.dproj"/>
+    </Target>
+    <Target Name="TBGWebCharts_VCL:Clean">
+        <MSBuild Projects="VCL\Demo_Old\TBGWebCharts_VCL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TBGWebCharts_VCL:Make">
+        <MSBuild Projects="VCL\Demo_Old\TBGWebCharts_VCL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GeracaoDataSetDinamico">
+        <MSBuild Projects="VCL\Geracao de DataSet Dinamicos\GeracaoDataSetDinamico.dproj"/>
+    </Target>
+    <Target Name="GeracaoDataSetDinamico:Clean">
+        <MSBuild Projects="VCL\Geracao de DataSet Dinamicos\GeracaoDataSetDinamico.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GeracaoDataSetDinamico:Make">
+        <MSBuild Projects="VCL\Geracao de DataSet Dinamicos\GeracaoDataSetDinamico.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Sample_RichTextEditor">
+        <MSBuild Projects="VCL\RichTextEditor\Sample_RichTextEditor.dproj"/>
+    </Target>
+    <Target Name="Sample_RichTextEditor:Clean">
+        <MSBuild Projects="VCL\RichTextEditor\Sample_RichTextEditor.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Sample_RichTextEditor:Make">
+        <MSBuild Projects="VCL\RichTextEditor\Sample_RichTextEditor.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TBGWebCharts_VCL_Demo">
+        <MSBuild Projects="VCL\TBGWebCharts_VLC_Demo\TBGWebCharts_VCL_Demo.dproj"/>
+    </Target>
+    <Target Name="TBGWebCharts_VCL_Demo:Clean">
+        <MSBuild Projects="VCL\TBGWebCharts_VLC_Demo\TBGWebCharts_VCL_Demo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TBGWebCharts_VCL_Demo:Make">
+        <MSBuild Projects="VCL\TBGWebCharts_VLC_Demo\TBGWebCharts_VCL_Demo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Update_Charts">
+        <MSBuild Projects="VCL\Update_Charts\Update_Charts.dproj"/>
+    </Target>
+    <Target Name="Update_Charts:Clean">
+        <MSBuild Projects="VCL\Update_Charts\Update_Charts.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Update_Charts:Make">
+        <MSBuild Projects="VCL\Update_Charts\Update_Charts.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CallbackManual">
+        <MSBuild Projects="Utils\Callback Manual\CallbackManual.dproj"/>
+    </Target>
+    <Target Name="CallbackManual:Clean">
+        <MSBuild Projects="Utils\Callback Manual\CallbackManual.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CallbackManual:Make">
+        <MSBuild Projects="Utils\Callback Manual\CallbackManual.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GeracaoChartsDinamico">
+        <MSBuild Projects="Utils\Geracao Dinamica de Charts\GeracaoChartsDinamico.dproj"/>
+    </Target>
+    <Target Name="GeracaoChartsDinamico:Clean">
+        <MSBuild Projects="Utils\Geracao Dinamica de Charts\GeracaoChartsDinamico.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GeracaoChartsDinamico:Make">
+        <MSBuild Projects="Utils\Geracao Dinamica de Charts\GeracaoChartsDinamico.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TBGWebCharts_WebBroker">
+        <MSBuild Projects="WebBroker\TBGWebCharts_WebBroker.dproj"/>
+    </Target>
+    <Target Name="TBGWebCharts_WebBroker:Clean">
+        <MSBuild Projects="WebBroker\TBGWebCharts_WebBroker.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TBGWebCharts_WebBroker:Make">
+        <MSBuild Projects="WebBroker\TBGWebCharts_WebBroker.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="BlackDashboard;DashBoardCards;DashBoardCards2;TBGWebCharts_VCL;GeracaoDataSetDinamico;Sample_RichTextEditor;TBGWebCharts_VCL_Demo;Update_Charts;CallbackManual;GeracaoChartsDinamico;TBGWebCharts_WebBroker"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="BlackDashboard:Clean;DashBoardCards:Clean;DashBoardCards2:Clean;TBGWebCharts_VCL:Clean;GeracaoDataSetDinamico:Clean;Sample_RichTextEditor:Clean;TBGWebCharts_VCL_Demo:Clean;Update_Charts:Clean;CallbackManual:Clean;GeracaoChartsDinamico:Clean;TBGWebCharts_WebBroker:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="BlackDashboard:Make;DashBoardCards:Make;DashBoardCards2:Make;TBGWebCharts_VCL:Make;GeracaoDataSetDinamico:Make;Sample_RichTextEditor:Make;TBGWebCharts_VCL_Demo:Make;Update_Charts:Make;CallbackManual:Make;GeracaoChartsDinamico:Make;TBGWebCharts_WebBroker:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
