@@ -3,35 +3,44 @@ unit frmMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.OleCtrls, SHDocVw,
-  View.WebCharts, Vcl.ExtCtrls;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.OleCtrls,
+  Vcl.ExtCtrls,
+  SHDocVw,
+  View.WebCharts;
 
 type
   TForm7 = class(TForm)
-    Panel1: TPanel;
-    Panel2: TPanel;
-    WebCharts1: TWebCharts;
-    WebBrowser1: TWebBrowser;
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    WebBrowser1: TWebBrowser;
+    WebCharts1: TWebCharts;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
-  private
-    { Private declarations }
+  strict private
     FContent : String;
   public
-    { Public declarations }
-    procedure SaveRichText(aValue : String);
     procedure SaveContent(aValue : String);
+    procedure SaveRichText(aValue : String);
   end;
 
 var
@@ -43,7 +52,7 @@ implementation
 
 procedure TForm7.Button1Click(Sender: TObject);
 var
-  imagem : TResourceStream;
+  imagem: TResourceStream;
 begin
   imagem := TResourceStream.Create(HInstance, 'ico_relatorio', RT_RCDATA);
   try
@@ -78,9 +87,9 @@ begin
               .&End
             .&End
           .&End
-          .PlaceHolder('Digite o seu texto aqui!!')
+          .PlaceHolder('Enter your text here')
 //        .ReadOnly(true)
-          .Content('Olá Mundo!\nOlá Mundo!')
+          .Content('Hello World!\nHello World!')
         .&End
       .&End
     .WebBrowser(WebBrowser1)
