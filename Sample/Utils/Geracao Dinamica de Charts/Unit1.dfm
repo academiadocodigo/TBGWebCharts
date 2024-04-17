@@ -10,8 +10,7 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
+  OnCreate = FormCreate
   TextHeight = 13
   object WebBrowser1: TWebBrowser
     Left = 0
@@ -20,9 +19,8 @@ object Form1: TForm1
     Height = 390
     Align = alClient
     TabOrder = 0
-    ExplicitTop = -5
     ControlData = {
-      4C000000BB4400004F2800000000000000000000000000000000000000000000
+      4C000000FC3600003F2000000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126208000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000
@@ -35,7 +33,8 @@ object Form1: TForm1
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitTop = 396
+    ExplicitTop = 381
+    ExplicitWidth = 659
     object Button1: TButton
       Left = 1
       Top = 1
