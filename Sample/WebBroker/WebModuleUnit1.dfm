@@ -1,5 +1,4 @@
 object WebModule1: TWebModule1
-  OldCreateOrder = False
   OnCreate = WebModuleCreate
   Actions = <
     item
@@ -18,11 +17,12 @@ object WebModule1: TWebModule1
       PathInfo = '/chartnocdn'
       OnAction = WebModule1chartsnocdnAction
     end>
-  Height = 230
-  Width = 415
+  Height = 288
+  Width = 519
+  PixelsPerInch = 120
   object WebCharts1: TWebCharts
-    Left = 200
-    Top = 48
+    Left = 250
+    Top = 60
   end
   object ClientDataSet1: TClientDataSet
     PersistDataPacket.Data = {
@@ -129,7 +129,7 @@ object WebModule1: TWebModule1
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 88
-    Top = 48
+    Left = 110
+    Top = 60
   end
 end
