@@ -3,35 +3,64 @@ unit frmMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, View.WebCharts, Vcl.OleCtrls, SHDocVw,
-  Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB, Datasnap.DBClient;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Data.DB,
+  Datasnap.DBClient,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.OleCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  View.WebCharts,
+  SHDocVw;
 
 type
   TForm6 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button4: TButton;
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet12: TClientDataSet;
+    ClientDataSet1Label: TStringField;
+    ClientDataSet1RGB: TStringField;
+    ClientDataSet1Value: TStringField;
+    ClientDataSet2: TClientDataSet;
     Panel1: TPanel;
     Panel2: TPanel;
-    Button1: TButton;
+    Panel3: TPanel;
     WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
-    Button2: TButton;
-    ClientDataSet1: TClientDataSet;
-    ClientDataSet1Label: TStringField;
-    ClientDataSet1Value: TStringField;
-    ClientDataSet1RGB: TStringField;
-    ClientDataSet2: TClientDataSet;
-    Panel3: TPanel;
-    ClientDataSet12: TClientDataSet;
-    Button4: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
-  private
-    { Private declarations }
-    function generateCard : string;
+    procedure FormCreate(Sender: TObject);
+  strict private
+  const
+    FAttributNameChartlLive = 'ChartlLive';
+    FAttributTextLabelAnalysingCalls = 'Analysing calls';
+    FAttributTextLabelAnalysingCustomerService = 'Analysing customer service';
+    FAttributTextLabelAnalysingNewUsers = 'Analysing new users';
+    FFooterText15Percent = '16%';
+    FFooterTextMoreThanLastMonth = ' more than last month';
+    FFooterTextPercentMoreThanLastMonth = '%f%% more than last month';
+    FMethodNameGenerateChart = 'GenerateChart';
+    FTitleText = 'Sales';
+    FTitleTextAttendances = 'Attendances';
+    FTitleTextNewUsers = 'New users';
+    FTitleTextPerformance = 'Performance';
+    FTitleTextSales = 'Sales';
+    FYear2022 = '2022';
+    FYear2023 = '2023';
+    FYear2024 = '2024';
+    function GenerateCard: string;
   public
-    { Public declarations }
-    procedure GerarGrafico(Value : string);
+    procedure GenerateChart(const Value: string);
   end;
 
 var
@@ -50,15 +79,13 @@ begin
   .CDN(true)
   .NewProject
     .Rows
-      .ID('teste')
-      .HTML(
-          generateCard
-      )
+      .ID('Test')
+      .HTML(GenerateCard)
     .&End
     .Jumpline
     .Rows
       .HTML(
-        '<div class="col-sm-6"><h3>Relatório de Vendas</h3></div>' +
+        '<div class="col-sm-6"><h3>Sales Report</h3></div>' +
         '<div class="col-sm-6" style="text-align: right">' +
             WebCharts1
             .ContinuosProject
@@ -67,24 +94,24 @@ begin
                   .outline
                   .info
                 .&End
-                .Title('2020')
-                .CallbackLink('2020', 'GerarGrafico')
+                .Title(FYear2022)
+                .CallbackLink(FYear2022, FMethodNameGenerateChart)
               .&End
               .Buttons
                 .ButtonClass
                   .outline
                   .info
                 .&End
-                .Title('2021')
-                .CallbackLink('2021', 'GerarGrafico')
+                .Title(FYear2023)
+                .CallbackLink(FYear2023, FMethodNameGenerateChart)
               .&End
               .Buttons
                 .ButtonClass
                   .outline
                   .info
                 .&End
-                .Title('2022')
-                .CallbackLink('2022', 'GerarGrafico')
+                .Title(FYear2024)
+                .CallbackLink(FYear2024, FMethodNameGenerateChart)
               .&End
             .HTML +
         '</div>'
@@ -99,12 +126,12 @@ begin
             .Charts
               ._ChartType(bar)
                 .Attributes
-                  .Name('GraficolLive')
+                  .Name(FAttributNameChartlLive)
                   .ColSpan(12)
                   .Heigth(80)
                   .DataSet
                     .DataSet(ClientDataSet1)
-                    .textLabel('Analise de Atendimentos')
+                    .TextLabel(FAttributTextLabelAnalysingCustomerService)
                     .BackgroundColor('4,218,89')
                     .BorderColor('4,218,89')
                     .BackgroundOpacity(4)
@@ -112,7 +139,7 @@ begin
                   .&End
                   .DataSet
                     .DataSet(ClientDataSet2)
-                    .textLabel('Analise de Novos Usuários')
+                    .TextLabel(FAttributTextLabelAnalysingNewUsers)
                     .BackgroundColor('17,120,239')
                     .BorderColor('17,120,239')
                     .BackgroundOpacity(4)
@@ -120,7 +147,7 @@ begin
                   .&End
                   .DataSet
                     .DataSet(ClientDataSet12)
-                    .textLabel('Analise de Novos Usuários')
+                    .TextLabel(FAttributTextLabelAnalysingNewUsers)
                     .BackgroundColor('248,151,20')
                     .BorderColor('248,151,20')
                     .BackgroundOpacity(4)
@@ -153,7 +180,7 @@ begin
               .Width('120')
               .Align('center')
               .Title
-                .Text('Vendas')
+                .Text(FTitleText)
                 .TextAlignment('center')
                 .FontSize(20)
                 .FontColor('102,102,102')
@@ -184,7 +211,7 @@ begin
               .Width('120')
               .Align('center')
               .Title
-                .Text('Atendimentos')
+                .Text(FTitleTextAttendances)
                 .TextAlignment('center')
                 .FontSize(20)
                 .FontColor('102,102,102')
@@ -214,7 +241,7 @@ begin
               .Width('120')
               .Align('center')
               .Title
-                .Text('Novos Usuários')
+                .Text(FTitleTextNewUsers)
                 .TextAlignment('center')
                 .FontSize(20)
                 .FontColor('102,102,102')
@@ -247,7 +274,7 @@ begin
               .Width('120')
               .Align('center')
               .Title
-                .Text('Performance')
+                .Text(FTitleTextPerformance)
                 .TextAlignment('center')
                 .FontSize(20)
                 .FontColor('102,102,102')
@@ -286,8 +313,8 @@ begin
     .ContinuosProject
     .WebBrowser(WebBrowser1)
     .DOMElement
-      .Id('teste')
-      .Html(generateCard)
+      .Id('Test')
+      .Html(GenerateCard)
       .Update;
 end;
 
@@ -298,11 +325,16 @@ begin
     .WebBrowser(WebBrowser1)
     .LiquiFillGauge
       .Name('fillgauge2')
-      .Value(IntToStr(Random(100)))
+      .Value(Random(100).ToString)
       .UpdateValue;
 end;
 
-function TForm6.GenerateCard: String;
+procedure TForm6.FormCreate(Sender: TObject);
+begin
+  Self.WindowState := TWindowState.wsMaximized;
+end;
+
+function TForm6.GenerateCard: string;
 begin
   Result := WebCharts1
         .ContinuosProject
@@ -312,19 +344,19 @@ begin
             .BackgroundColor('linear-gradient(87deg,#5e72e4,#825ee4)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Vendas')
+              .Text(FTitleTextSales)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Body
-              .Text(Format('%m', [Random(3500000)*0.1]))
+              .Text(Format('%m', [Random(3500000) * 0.1]))
               .Style
                 .FontSize(20)
               .&End
             .&End
             .Footer
-              .Text('10% a mais que o último mês')
+              .Text(Format(FFooterTextPercentMoreThanLastMonth, [10.0]))
               .Style
                 .FontSize(15)
               .&End
@@ -343,7 +375,7 @@ begin
             .BackgroundColor('linear-gradient(87deg,#11cdef,#1171ef)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Atendimentos')
+              .Text(FTitleTextAttendances)
               .Style
                 .FontSize(15)
               .&End
@@ -355,7 +387,7 @@ begin
               .&End
             .&End
             .Footer
-              .Text('3,48% a mais que o último mês')
+              .Text(Format(FFooterTextPercentMoreThanLastMonth, [3.48]))
               .Style
                 .FontSize(15)
               .&End
@@ -374,19 +406,19 @@ begin
             .BackgroundColor('linear-gradient(87deg,#f5365c,#f56036)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Novos Usuários')
+              .Text(FTitleTextNewUsers)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Body
-              .Text(format('%n', [Random(30000)*1.0]))
+              .Text(Format('%n', [Random(30000) * 1.0]))
               .Style
                 .FontSize(20)
               .&End
             .&End
             .Footer
-              .Text('7% a mais que o último mês')
+              .Text(Format(FFooterTextPercentMoreThanLastMonth, [7.0]))
               .Style
                 .FontSize(15)
               .&End
@@ -405,25 +437,25 @@ begin
             .BackgroundColor('linear-gradient(87deg,#07F0A2,#04D956)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Performance')
+              .Text(FTitleTextPerformance)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Body
-              .Text(format('%n%', [Random(1000)*0.1]))
+              .Text(Format('%n%', [Random(1000) * 0.1]))
               .Style
                 .FontSize(20)
               .&End
             .&End
             .Footer
-              .Text('15%')
+              .Text(FFooterText15Percent)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Footer
-              .Text(' a mais que o último mês')
+              .Text(FFooterTextMoreThanLastMonth)
               .Style
                 .FontSize(10)
               .&End
@@ -437,62 +469,61 @@ begin
           .&End
         .&End
         .HTML;
-
 end;
 
-procedure TForm6.GerarGrafico(Value: string);
+procedure TForm6.GenerateChart(const Value: string);
 var
-  dataset1 : TClientDataset;
-  dataset2 : TClientDataset;
-  dataset3 : TClientDataset;
+  Dataset1: TClientDataset;
+  Dataset2: TClientDataset;
+  Dataset3: TClientDataset;
 begin
-  case StrToInt(Value) of
-    2020 : 
-    begin  
-      dataset1 := ClientDataSet1;
-      dataset2 := ClientDataSet2;
-      dataset3 := ClientDataset12;
-    end;
-    2021 : 
-    begin  
-      dataset1 := ClientDataSet2;
-      dataset2 := ClientDataSet1;
-      dataset3 := ClientDataset12;
-    end;
-    else 
-    begin  
-      dataset1 := ClientDataSet1;
-      dataset2 := ClientDataSet12;
-      dataset3 := ClientDataset2;
+  case Value.ToInteger of
+    2022:
+      begin
+        Dataset1 := ClientDataSet1;
+        Dataset2 := ClientDataSet2;
+        Dataset3 := ClientDataSet12;
+      end;
+    2023:
+      begin
+        Dataset1 := ClientDataSet2;
+        Dataset2 := ClientDataSet1;
+        Dataset3 := ClientDataSet12;
+      end;
+  else
+    begin
+      Dataset1 := ClientDataSet1;
+      Dataset2 := ClientDataSet12;
+      Dataset3 := ClientDataSet2;
     end;
   end;
-  
+
   Webcharts1
     .ContinuosProject
     .WebBrowser(WebBrowser1)
       .Charts
         ._ChartType(bar)
           .Attributes
-            .Name('GraficolLive')
+            .Name(FAttributNameChartlLive)
             .DataSet
-              .DataSet(dataset1)
-              .textLabel('Analise de Atendimentos')
+              .DataSet(Dataset1)
+              .TextLabel(FAttributTextLabelAnalysingCalls)
               .BackgroundColor('4,218,89')
               .BorderColor('4,218,89')
               .BackgroundOpacity(4)
               .Fill(False)
             .&End
             .DataSet
-              .DataSet(dataset2)
-              .textLabel('Analise de Novos Usuários')
+              .DataSet(Dataset2)
+              .TextLabel(FAttributTextLabelAnalysingNewUsers)
               .BackgroundColor('17,120,239')
               .BorderColor('17,120,239')
               .BackgroundOpacity(4)
               .Fill(False)
             .&End
             .DataSet
-              .DataSet(dataset3)
-              .textLabel('Analise de Novos Usuários')
+              .DataSet(Dataset3)
+              .TextLabel(FAttributTextLabelAnalysingNewUsers)
               .BackgroundColor('248,151,20')
               .BorderColor('248,151,20')
               .BackgroundOpacity(4)

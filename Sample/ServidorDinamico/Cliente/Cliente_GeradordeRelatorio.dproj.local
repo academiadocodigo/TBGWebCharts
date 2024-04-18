@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2020/06/19 22:34:50.000.521,=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
-    <Transaction>2020/06/19 22:35:18.000.669,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit5.dfm=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Cliente\Editor.View.Principal.dfm</Transaction>
-    <Transaction>2020/06/19 22:35:18.000.669,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit5.pas=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Cliente\Editor.View.Principal.pas</Transaction>
-    <Transaction>2020/06/19 22:35:35.000.236,C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Projetos\Cursos\TBGWebCharts\Gerador Relatorio\Cliente\Cliente_GeradordeRelatorio.dproj</Transaction>
-  </Transactions>
-</BorlandProject>

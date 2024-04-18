@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2021/09/29 11:50:03.000.613,=C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit6.pas</Transaction>
-    <Transaction>2021/09/30 23:22:00.000.462,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit6.dfm=C:\Componentes\TBGWebCharts\trunk\Sample\VCL\DashBoardCards\frmMain.dfm</Transaction>
-    <Transaction>2021/09/30 23:22:00.000.462,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit6.pas=C:\Componentes\TBGWebCharts\trunk\Sample\VCL\DashBoardCards\frmMain.pas</Transaction>
-    <Transaction>2021/09/30 23:22:24.000.851,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Componentes\TBGWebCharts\trunk\Sample\VCL\DashBoardCards\DashBoardCards.dproj</Transaction>
-  </Transactions>
-</BorlandProject>

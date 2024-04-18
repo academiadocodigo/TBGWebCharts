@@ -11,11 +11,9 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poDefault
   WindowState = wsMaximized
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
@@ -27,10 +25,6 @@ object Form1: TForm1
     Color = 2040615
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 352
-    ExplicitTop = 248
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object Panel2: TPanel
       Left = 0
       Top = 0
@@ -50,10 +44,6 @@ object Form1: TForm1
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 232
-      ExplicitTop = 264
-      ExplicitWidth = 185
-      ExplicitHeight = 41
       object WebBrowser1: TWebBrowser
         Left = 0
         Top = 0
@@ -61,12 +51,8 @@ object Form1: TForm1
         Height = 665
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 288
-        ExplicitTop = 152
-        ExplicitWidth = 300
-        ExplicitHeight = 150
         ControlData = {
-          4C00000048680000BB4400000000000000000000000000000000000000000000
+          4C0000006D530000FC3600000000000000000000000000000000000000000000
           000000004C000000000000000000000001000000E0D057007335CF11AE690800
           2B2E126208000000000000004C0000000114020000000000C000000000000046
           8000000000000000000000000000000000000000000000000000000000000000

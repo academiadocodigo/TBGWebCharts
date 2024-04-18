@@ -10,22 +10,19 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   DesignSize = (
     954
     595)
-  PixelsPerInch = 96
   TextHeight = 13
   object WebBrowser1: TWebBrowser
     Left = 135
     Top = 8
-    Width = 811
-    Height = 579
+    Width = 1032
+    Height = 751
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
-    ExplicitWidth = 516
     ControlData = {
-      4C000000D2530000D73B00000000000000000000000000000000000000000000
+      4C00000054550000183E00000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126208000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000

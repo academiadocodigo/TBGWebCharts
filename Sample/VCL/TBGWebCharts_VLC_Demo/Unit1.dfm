@@ -11,10 +11,8 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   WindowState = wsMaximized
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object SplitMain: TSplitView
     Left = 0
@@ -142,7 +140,7 @@ object Form1: TForm1
         00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       ParentFont = False
       OnClick = SpeedButton1Click
-      ExplicitTop = 592
+      ExplicitWidth = 40
     end
     object CategoryMain: TCategoryButtons
       Left = 0
@@ -161,23 +159,23 @@ object Form1: TForm1
           Collapsed = False
           Items = <
             item
-              Action = btn_main_bootstrap
+              Action = actBtnMainBootstrap
               ImageIndex = 0
             end
             item
-              Action = btn_main_chartjs
+              Action = actBtnMainChartjs
               ImageIndex = 1
             end
             item
-              Action = btn_main_tables
+              Action = actBtnMainTables
               ImageIndex = 2
             end
             item
-              Action = btn_main_dashboards
+              Action = actBtnMainDashboards
               ImageIndex = 3
             end
             item
-              Action = btn_main_custom
+              Action = actBtnMainCustom
               Caption = ' Custom'
               ImageIndex = 5
             end>
@@ -205,7 +203,7 @@ object Form1: TForm1
       object btnMain: TSpeedButton
         Left = 0
         Top = 0
-        Width = 52
+        Width = 40
         Height = 57
         Align = alLeft
         Flat = True
@@ -341,10 +339,6 @@ object Form1: TForm1
           FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
           FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
         OnClick = btnMainClick
-        ExplicitLeft = 32
-        ExplicitTop = 24
-        ExplicitWidth = 23
-        ExplicitHeight = 22
       end
     end
   end
@@ -378,33 +372,33 @@ object Form1: TForm1
           Collapsed = False
           Items = <
             item
-              Action = btn_bootstrap_cards
+              Action = actBtnBootstrapCards
             end
             item
               Caption = ' Card Styled'
-              OnClick = btn_bootstrap_cards_styledExecute
+              OnClick = actBtnBootstrapCardsStyledExecute
             end
             item
-              Action = btn_bootstrap_images
+              Action = actBtnBootstrapImages
             end
             item
-              Action = btn_bootstrap_buttons
+              Action = actBtnBootstrapButtons
               Caption = ' Buttons'
             end
             item
-              Action = btn_bootstrap_alerts
+              Action = actBtnBootstrapAlerts
               Caption = ' Alerts'
             end
             item
-              Action = btn_bootstrap_jumbotron
+              Action = actBtnBootstrapJumbotron
               Caption = ' Jumbotron'
             end
             item
-              Action = btn_bootstrap_listgroup
+              Action = actBtnBootstrapListgroup
               Caption = ' List Group'
             end
             item
-              Action = btn_bootstrap_progress
+              Action = actBtnBootstrapProgress
               Caption = ' Progress'
             end>
           TextColor = clNone
@@ -464,9 +458,8 @@ object Form1: TForm1
       Height = 800
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 994
       ControlData = {
-        4C000000D6660000AF5200000000000000000000000000000000000000000000
+        4C00000045520000254200000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
         2B2E126208000000000000004C0000000114020000000000C000000000000046
         8000000000000000000000000000000000000000000000000000000000000000
@@ -503,57 +496,57 @@ object Form1: TForm1
           Collapsed = False
           Items = <
             item
-              Action = btn_chartjs_bars
+              Action = actBtnChartjsBars
               Caption = ' Bars'
             end
             item
-              Action = btn_chartjs_bars_lines
+              Action = actBtnChartjsBarsLines
               Caption = ' Bars/Line'
             end
             item
-              Action = btn_chartjs_bars_stacked
+              Action = actBtnChartjsBarsStacked
               Caption = ' Bars/Stacked'
             end
             item
-              Action = btn_chartjs_bars_callback
+              Action = actBtnChartjsBarsCallback
               Caption = ' Bars/CallBack'
             end
             item
-              Action = btn_chartjs_bars_label
+              Action = actBtnChartjsBarsLabel
               Caption = ' Bars/Label'
             end
             item
-              Action = btn_chartjs_bars_horizontal
+              Action = actBtnChartjsBarsHorizontal
               Caption = ' Bars/Horizontal'
             end
             item
-              Action = btn_chartjs_lines
+              Action = actBtnChartjsLines
               Caption = ' Lines'
             end
             item
-              Action = btn_chartjs_pie
+              Action = actBtnChartjsPie
               Caption = ' Pie'
             end
             item
-              Action = btn_chartjs_pie_easy
+              Action = actBtnChartjsPieEasy
               Caption = ' Easy Pie'
             end
             item
-              Action = btn_chartjs_doughnut
+              Action = actBtnChartjsDoughnut
               Caption = ' Doughnut'
             end
             item
-              Action = btn_chartjs_semi_circle
+              Action = actBtnChartjsSemiCircle
               Caption = ' Semi Circle'
             end
             item
-              Action = btn_chartjs_radar
+              Action = actBtnChartjsRadar
             end
             item
-              Action = btn_chartjs_polar_area
+              Action = actBtnChartjsolarArea
             end
             item
-              Action = btn_chartjs_real_time
+              Action = actBtnChartjsRealTime
             end>
           TextColor = clNone
         end>
@@ -627,16 +620,16 @@ object Form1: TForm1
           Collapsed = False
           Items = <
             item
-              Action = btn_tables_callback
+              Action = actTablesCallback
             end
             item
-              Action = btn_tables_rest
+              Action = actTablesRest
             end
             item
-              Action = btn_tables_callback_images
+              Action = actTablesCallbackImages
             end
             item
-              Action = btn_tables_pivot
+              Action = actTablesPivot
             end>
           TextColor = clNone
         end>
@@ -710,23 +703,23 @@ object Form1: TForm1
           Collapsed = False
           Items = <
             item
-              Action = btn_dashboards_1
+              Action = actBtnDashboards1
               Caption = ' Dashboard 1'
             end
             item
-              Action = btn_dashboards_2
+              Action = actBtnDashboards2
               Caption = ' Dashboard 2'
             end
             item
-              Action = btn_dashboards_3
+              Action = actBtnDashboards3
               Caption = ' Dashboard 3'
             end
             item
-              Action = btn_dashboards_4
+              Action = actBtnDashboards4
               Caption = ' Dashboard 4'
             end
             item
-              Action = btn_dashboards_5
+              Action = actBtnDashboards5
               Caption = ' Dashboard 5'
             end>
           TextColor = clNone
@@ -775,25 +768,25 @@ object Form1: TForm1
     Images = ImageList1
     Left = 264
     Top = 16
-    object btn_main_bootstrap: TAction
+    object actBtnMainBootstrap: TAction
       Caption = ' Bootstrap'
-      OnExecute = btn_main_bootstrapExecute
+      OnExecute = actBtnMainBootstrapExecute
     end
-    object btn_main_chartjs: TAction
+    object actBtnMainChartjs: TAction
       Caption = ' Charts'
-      OnExecute = btn_main_chartjsExecute
+      OnExecute = actBtnMainChartjsExecute
     end
-    object btn_main_tables: TAction
+    object actBtnMainTables: TAction
       Caption = ' Tables'
-      OnExecute = btn_main_tablesExecute
+      OnExecute = actBtnMainTablesExecute
     end
-    object btn_main_dashboards: TAction
+    object actBtnMainDashboards: TAction
       Caption = ' Dashboards'
-      OnExecute = btn_main_dashboardsExecute
+      OnExecute = actBtnMainDashboardsExecute
     end
-    object btn_main_custom: TAction
+    object actBtnMainCustom: TAction
       Caption = 'Custom'
-      OnExecute = btn_main_customExecute
+      OnExecute = actBtnMainCustomExecute
     end
   end
   object ImageList1: TImageList
@@ -1870,37 +1863,37 @@ object Form1: TForm1
   object ActionsBootstrap: TActionList
     Left = 264
     Top = 64
-    object btn_bootstrap_cards: TAction
+    object actBtnBootstrapCards: TAction
       Caption = ' Cards'
-      OnExecute = btn_bootstrap_cardsExecute
+      OnExecute = actBtnBootstrapCardsExecute
     end
-    object btn_bootstrap_images: TAction
+    object actBtnBootstrapImages: TAction
       Caption = ' Images'
-      OnExecute = btn_bootstrap_imagesExecute
+      OnExecute = actBtnBootstrapImagesExecute
     end
-    object btn_bootstrap_buttons: TAction
+    object actBtnBootstrapButtons: TAction
       Caption = 'Buttons'
-      OnExecute = btn_bootstrap_buttonsExecute
+      OnExecute = actBtnBootstrapButtonsExecute
     end
-    object btn_bootstrap_alerts: TAction
+    object actBtnBootstrapAlerts: TAction
       Caption = 'Alerts'
-      OnExecute = btn_bootstrap_alertsExecute
+      OnExecute = actBtnBootstrapAlertsExecute
     end
-    object btn_bootstrap_jumbotron: TAction
+    object actBtnBootstrapJumbotron: TAction
       Caption = 'btn_jumbotron'
-      OnExecute = btn_bootstrap_jumbotronExecute
+      OnExecute = actBtnBootstrapJumbotronExecute
     end
-    object btn_bootstrap_listgroup: TAction
+    object actBtnBootstrapListgroup: TAction
       Caption = 'btn_listgroup'
-      OnExecute = btn_bootstrap_listgroupExecute
+      OnExecute = actBtnBootstrapListgroupExecute
     end
-    object btn_bootstrap_cards_styled: TAction
-      Caption = 'btn_bootstrap_cards_styled'
-      OnExecute = btn_bootstrap_cards_styledExecute
+    object actBtnBootstrapCardsStyled: TAction
+      Caption = 'actBtnBootstrapCardsStyled'
+      OnExecute = actBtnBootstrapCardsStyledExecute
     end
-    object btn_bootstrap_progress: TAction
+    object actBtnBootstrapProgress: TAction
       Caption = 'btn_bootstrap_progress'
-      OnExecute = btn_bootstrap_progressExecute
+      OnExecute = actBtnBootstrapProgressExecute
     end
   end
   object ClientDataSet7: TClientDataSet
@@ -23271,105 +23264,105 @@ object Form1: TForm1
   object ActionCharts: TActionList
     Left = 264
     Top = 112
-    object btn_chartjs_bars: TAction
+    object actBtnChartjsBars: TAction
       Caption = 'Bars'
-      OnExecute = btn_chartjs_barsExecute
+      OnExecute = actBtnChartjsBarsExecute
     end
-    object btn_chartjs_bars_lines: TAction
+    object actBtnChartjsBarsLines: TAction
       Caption = 'Bars/Line'
-      OnExecute = btn_chartjs_bars_linesExecute
+      OnExecute = actBtnChartjsBarsLinesExecute
     end
-    object btn_chartjs_bars_stacked: TAction
+    object actBtnChartjsBarsStacked: TAction
       Caption = 'Bars/Stacked'
-      OnExecute = btn_chartjs_bars_stackedExecute
+      OnExecute = actBtnChartjsBarsStackedExecute
     end
-    object btn_chartjs_bars_callback: TAction
+    object actBtnChartjsBarsCallback: TAction
       Caption = 'Bars/CallBack'
-      OnExecute = btn_chartjs_bars_callbackExecute
+      OnExecute = actBtnChartjsBarsCallbackExecute
     end
-    object btn_chartjs_bars_label: TAction
+    object actBtnChartjsBarsLabel: TAction
       Caption = 'Bars/Label'
-      OnExecute = btn_chartjs_bars_labelExecute
+      OnExecute = actBtnChartjsBarsLabelExecute
     end
-    object btn_chartjs_bars_horizontal: TAction
+    object actBtnChartjsBarsHorizontal: TAction
       Caption = 'Bars/Horizontal'
-      OnExecute = btn_chartjs_bars_horizontalExecute
+      OnExecute = actBtnChartjsBarsHorizontalExecute
     end
-    object btn_chartjs_lines: TAction
+    object actBtnChartjsLines: TAction
       Caption = 'Lines'
-      OnExecute = btn_chartjs_linesExecute
+      OnExecute = actBtnChartjsLinesExecute
     end
-    object btn_chartjs_pie: TAction
+    object actBtnChartjsPie: TAction
       Caption = 'Pie'
-      OnExecute = btn_chartjs_pieExecute
+      OnExecute = actBtnChartjsPieExecute
     end
-    object btn_chartjs_pie_easy: TAction
+    object actBtnChartjsPieEasy: TAction
       Caption = 'Easy Pie'
-      OnExecute = btn_chartjs_pie_easyExecute
+      OnExecute = actBtnChartjsPieEasyExecute
     end
-    object btn_chartjs_doughnut: TAction
+    object actBtnChartjsDoughnut: TAction
       Caption = 'Doughnut'
-      OnExecute = btn_chartjs_doughnutExecute
+      OnExecute = actBtnChartjsDoughnutExecute
     end
-    object btn_chartjs_semi_circle: TAction
+    object actBtnChartjsSemiCircle: TAction
       Caption = 'Semi Circle'
-      OnExecute = btn_chartjs_semi_circleExecute
+      OnExecute = actBtnChartjsSemiCircleExecute
     end
-    object btn_chartjs_polar_area: TAction
+    object actBtnChartjsolarArea: TAction
       Caption = ' Polar Area'
-      OnExecute = btn_chartjs_polar_areaExecute
+      OnExecute = actBtnChartjsolarAreaExecute
     end
-    object btn_chartjs_radar: TAction
+    object actBtnChartjsRadar: TAction
       Caption = ' Radar'
-      OnExecute = btn_chartjs_radarExecute
+      OnExecute = actBtnChartjsRadarExecute
     end
-    object btn_chartjs_real_time: TAction
+    object actBtnChartjsRealTime: TAction
       Caption = ' Real Time'
-      OnExecute = btn_chartjs_real_timeExecute
+      OnExecute = actBtnChartjsRealTimeExecute
     end
   end
   object ActionTable: TActionList
     Left = 264
     Top = 160
-    object btn_tables_callback: TAction
+    object actTablesCallback: TAction
       Caption = 'Table/CallBack'
-      OnExecute = btn_tables_callbackExecute
+      OnExecute = actTablesCallbackExecute
     end
-    object btn_tables_rest: TAction
+    object actTablesRest: TAction
       Caption = 'Table/REST'
-      OnExecute = btn_tables_restExecute
+      OnExecute = actTablesRestExecute
     end
-    object btn_tables_callback_images: TAction
+    object actTablesCallbackImages: TAction
       Caption = 'Table/Callback/Images'
-      OnExecute = btn_tables_callback_imagesExecute
+      OnExecute = actTablesCallbackImagesExecute
     end
-    object btn_tables_pivot: TAction
+    object actTablesPivot: TAction
       Caption = 'Pivot'
-      OnExecute = btn_tables_pivotExecute
+      OnExecute = actTablesPivotExecute
     end
   end
   object ActionDashBoard: TActionList
     Left = 264
     Top = 208
-    object btn_dashboards_1: TAction
+    object actBtnDashboards1: TAction
       Caption = 'Dashboard 1'
-      OnExecute = btn_dashboards_1Execute
+      OnExecute = actBtnDashboards1Execute
     end
-    object btn_dashboards_2: TAction
+    object actBtnDashboards2: TAction
       Caption = 'Dashboard 2'
-      OnExecute = btn_dashboards_2Execute
+      OnExecute = actBtnDashboards2Execute
     end
-    object btn_dashboards_3: TAction
+    object actBtnDashboards3: TAction
       Caption = 'Dashboard 3'
-      OnExecute = btn_dashboards_3Execute
+      OnExecute = actBtnDashboards3Execute
     end
-    object btn_dashboards_4: TAction
+    object actBtnDashboards4: TAction
       Caption = 'Dashboard 4'
-      OnExecute = btn_dashboards_4Execute
+      OnExecute = actBtnDashboards4Execute
     end
-    object btn_dashboards_5: TAction
+    object actBtnDashboards5: TAction
       Caption = 'Dashboard 5'
-      OnExecute = btn_dashboards_5Execute
+      OnExecute = actBtnDashboards5Execute
     end
   end
   object ClientDataSet8: TClientDataSet

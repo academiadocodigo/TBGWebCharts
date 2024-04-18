@@ -10,6 +10,7 @@ uses
   Data.DB,
   Datasnap.DBClient,
   Charts.Types,
+  Interfaces,
   MidasLib;
 
 var
@@ -21,7 +22,7 @@ begin
   App.Get('/chart',
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
     var
-      WebCharts1: iWebCharts;
+      WebCharts1: IWebCharts;
       FDataSet1 : TClientDataSet;
       FDataSet2 : TClientDataSet;
       FDataSet3 : TClientDataSet;
@@ -35,11 +36,11 @@ begin
       FDataSet4 := TClientDataSet.Create(nil);
       FDataSet5 := TClientDataSet.Create(nil);
       try
-        FDataSet1.LoadFromFile('CDSChats.xml');
-        FDataSet2.LoadFromFile('CDSChats2.xml');
-        FDataSet3.LoadFromFile('CDSChats3.xml');
-        FDataSet4.LoadFromFile('CDSChats4.xml');
-        FDataSet5.LoadFromFile('customer.xml');
+        FDataSet1.LoadFromFile('..\..\Data\CDSChats.xml');
+        FDataSet2.LoadFromFile('..\..\Data\CDSChats2.xml');
+        FDataSet3.LoadFromFile('..\..\Data\CDSChats3.xml');
+        FDataSet4.LoadFromFile('..\..\Data\CDSChats4.xml');
+        FDataSet5.LoadFromFile('..\..\Data\customer.xml');
         Res.Send(
             WebCharts1
             .CDN(True)
@@ -51,10 +52,8 @@ begin
                   .&End
                 .&End
               .&End
-
               .Jumpline
               .Jumpline
-
               .Rows
                 .Title
                   .Configuracoes
@@ -62,9 +61,7 @@ begin
                   .&End
                 .&End
               .&End
-
               .Jumpline
-
               .Charts
                 ._ChartType(bar)
                   .Attributes
@@ -76,10 +73,7 @@ begin
                   .&End
                 .&End
               .&End
-
-
               .Jumpline
-
               .Rows
                 .Title
                   .Configuracoes
@@ -87,11 +81,7 @@ begin
                   .&End
                 .&End
               .&End
-
-
-
               .Rows
-
                 .Tag
                   .Add(
                     WebCharts1
@@ -103,7 +93,7 @@ begin
                             .Name('movimento1')
                             .ColSpan(4)
                             .DataSet
-                              .textLabel('Movimento 1')
+                              .TextLabel('Movimento 1')
                               .DataSet(FDataSet3)
                             .&End
                           .&End
@@ -112,7 +102,6 @@ begin
                       .HTML
                   )
                 .&End
-
                 .Tag
                   .Add(
                     WebCharts1
@@ -124,7 +113,7 @@ begin
                             .Name('movimento2')
                             .ColSpan(4)
                             .DataSet
-                              .textLabel('Movimento 2')
+                              .TextLabel('Movimento 2')
                               .DataSet(FDataSet4)
                             .&End
                           .&End
@@ -133,7 +122,6 @@ begin
                       .HTML
                   )
                 .&End
-
                 .Tag
                   .Add(
                     WebCharts1
@@ -145,7 +133,7 @@ begin
                             .Name('movimento3')
                             .ColSpan(4)
                             .DataSet
-                              .textLabel('Movimento 3')
+                              .TextLabel('Movimento 3')
                               .DataSet(FDataSet3)
                             .&End
                           .&End
@@ -169,14 +157,14 @@ begin
                               .Heigth(50)
                               .DataSet
                                 .DataSet(FDataSet2)
-                                .textLabel('Analise de Compras Mensal')
+                                .TextLabel('Analise de Compras Mensal')
                                 .BackgroundColor('227,233,235')
                                 .BorderColor('227,233,235')
                                 .Fill(False)
                               .&End
                               .DataSet
                                 .DataSet(FDataSet1)
-                                .textLabel('Analise de Compras Mensal')
+                                .TextLabel('Analise de Compras Mensal')
                                 .BackgroundColor('30,182,203')
                                 .BorderColor('30,182,203')
                                 .Fill(False)
@@ -200,8 +188,8 @@ begin
               .Jumpline
               .Table
               .TableClass
-                .tableSm
-                .tableHover
+                .TableSm
+                .TableHover
               .EndTableClass
               .TableOptions
                 .Responsive(true)
@@ -227,7 +215,7 @@ begin
     end);
 
 
-     App.Get('/chartcdnoff',
+    App.Get('/chartcdnoff',
     procedure(Req: THorseRequest; Res: THorseResponse; Next: TProc)
     var
       WebCharts1: iWebCharts;
@@ -244,11 +232,11 @@ begin
       FDataSet4 := TClientDataSet.Create(nil);
       FDataSet5 := TClientDataSet.Create(nil);
       try
-        FDataSet1.LoadFromFile('CDSChats.xml');
-        FDataSet2.LoadFromFile('CDSChats2.xml');
-        FDataSet3.LoadFromFile('CDSChats3.xml');
-        FDataSet4.LoadFromFile('CDSChats4.xml');
-        FDataSet5.LoadFromFile('customer.xml');
+        FDataSet1.LoadFromFile('..\..\Data\CDSChats.xml');
+        FDataSet2.LoadFromFile('..\..\Data\CDSChats2.xml');
+        FDataSet3.LoadFromFile('..\..\Data\CDSChats3.xml');
+        FDataSet4.LoadFromFile('..\..\Data\CDSChats4.xml');
+        FDataSet5.LoadFromFile('..\..\Data\customer.xml');
         Res.Send(
             WebCharts1
             .NewProject
@@ -259,10 +247,8 @@ begin
                   .&End
                 .&End
               .&End
-
               .Jumpline
               .Jumpline
-
               .Rows
                 .Title
                   .Configuracoes
@@ -270,9 +256,7 @@ begin
                   .&End
                 .&End
               .&End
-
               .Jumpline
-
               .Charts
                 ._ChartType(bar)
                   .Attributes
@@ -284,10 +268,7 @@ begin
                   .&End
                 .&End
               .&End
-
-
               .Jumpline
-
               .Rows
                 .Title
                   .Configuracoes
@@ -295,11 +276,7 @@ begin
                   .&End
                 .&End
               .&End
-
-
-
               .Rows
-
                 .Tag
                   .Add(
                     WebCharts1
@@ -311,7 +288,7 @@ begin
                             .Name('movimento1')
                             .ColSpan(4)
                             .DataSet
-                              .textLabel('Movimento 1')
+                              .TextLabel('Movimento 1')
                               .DataSet(FDataSet3)
                             .&End
                           .&End
@@ -320,7 +297,6 @@ begin
                       .HTML
                   )
                 .&End
-
                 .Tag
                   .Add(
                     WebCharts1
@@ -332,7 +308,7 @@ begin
                             .Name('movimento2')
                             .ColSpan(4)
                             .DataSet
-                              .textLabel('Movimento 2')
+                              .TextLabel('Movimento 2')
                               .DataSet(FDataSet4)
                             .&End
                           .&End
@@ -341,7 +317,6 @@ begin
                       .HTML
                   )
                 .&End
-
                 .Tag
                   .Add(
                     WebCharts1
@@ -353,7 +328,7 @@ begin
                             .Name('movimento3')
                             .ColSpan(4)
                             .DataSet
-                              .textLabel('Movimento 3')
+                              .TextLabel('Movimento 3')
                               .DataSet(FDataSet3)
                             .&End
                           .&End
@@ -377,14 +352,14 @@ begin
                               .Heigth(50)
                               .DataSet
                                 .DataSet(FDataSet2)
-                                .textLabel('Analise de Compras Mensal')
+                                .TextLabel('Analise de Compras Mensal')
                                 .BackgroundColor('227,233,235')
                                 .BorderColor('227,233,235')
                                 .Fill(False)
                               .&End
                               .DataSet
                                 .DataSet(FDataSet1)
-                                .textLabel('Analise de Compras Mensal')
+                                .TextLabel('Analise de Compras Mensal')
                                 .BackgroundColor('30,182,203')
                                 .BorderColor('30,182,203')
                                 .Fill(False)
@@ -408,8 +383,8 @@ begin
               .Jumpline
               .Table
               .TableClass
-                .tableSm
-                .tableHover
+                .TableSm
+                .TableHover
               .EndTableClass
               .TableOptions
                 .Responsive(true)

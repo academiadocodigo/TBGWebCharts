@@ -3,29 +3,35 @@ unit FormUnit1;
 interface
 
 uses
-  Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.AppEvnts, Vcl.StdCtrls, IdHTTPWebBrokerBridge, Web.HTTPApp;
+  Winapi.Messages,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.AppEvnts,
+  Vcl.StdCtrls,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Web.HTTPApp,
+  IdHTTPWebBrokerBridge;
 
 type
   TForm1 = class(TForm)
+    ApplicationEvents1: TApplicationEvents;
+    ButtonOpenBrowser: TButton;
     ButtonStart: TButton;
     ButtonStop: TButton;
     EditPort: TEdit;
     Label1: TLabel;
-    ApplicationEvents1: TApplicationEvents;
-    ButtonOpenBrowser: TButton;
-    procedure FormCreate(Sender: TObject);
     procedure ApplicationEvents1Idle(Sender: TObject; var Done: Boolean);
+    procedure ButtonOpenBrowserClick(Sender: TObject);
     procedure ButtonStartClick(Sender: TObject);
     procedure ButtonStopClick(Sender: TObject);
-    procedure ButtonOpenBrowserClick(Sender: TObject);
-  private
+    procedure FormCreate(Sender: TObject);
+  strict private
     FServer: TIdHTTPWebBrokerBridge;
     procedure StartServer;
-    { Private declarations }
-  public
-    { Public declarations }
   end;
 
 var
@@ -36,7 +42,8 @@ implementation
 {$R *.dfm}
 
 uses
-  WinApi.Windows, Winapi.ShellApi;
+  Winapi.Windows,
+  Winapi.ShellAPI;
 
 procedure TForm1.ApplicationEvents1Idle(Sender: TObject; var Done: Boolean);
 begin
@@ -51,9 +58,7 @@ var
 begin
   StartServer;
   LURL := Format('http://localhost:%s', [EditPort.Text]);
-  ShellExecute(0,
-        nil,
-        PChar(LURL), nil, nil, SW_SHOWNOACTIVATE);
+  ShellExecute(0, nil, PChar(LURL), nil, nil, SW_SHOWNOACTIVATE);
 end;
 
 procedure TForm1.ButtonStartClick(Sender: TObject);
@@ -79,7 +84,6 @@ begin
     FServer.Bindings.Clear;
     FServer.DefaultPort := StrToInt(EditPort.Text);
     FServer.Active := True;
-
   end;
 end;
 

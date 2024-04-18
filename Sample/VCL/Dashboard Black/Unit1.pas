@@ -3,26 +3,35 @@ unit Unit1;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, View.WebCharts, Vcl.OleCtrls, SHDocVw,
-  Vcl.ExtCtrls, Data.DB, Datasnap.DBClient;
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.ExtCtrls,
+  Vcl.OleCtrls,
+  System.SysUtils,
+  System.Classes,
+  Data.DB,
+  Datasnap.DBClient,
+  View.WebCharts,
+  SHDocVw;
 
 type
   TForm1 = class(TForm)
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet2: TClientDataSet;
+    ClientDataSet3: TClientDataSet;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
-    ClientDataSet1: TClientDataSet;
-    ClientDataSet2: TClientDataSet;
-    ClientDataSet3: TClientDataSet;
     procedure FormCreate(Sender: TObject);
-  private
-    { Private declarations }
+  strict private
+  const
+    FTitleCart: string = 'My dashboard';
+    FTitleTextInputXOutput: string = 'Input x Output';
+    FTitleTextSocialMedia: string = 'Social media';
+    FTitleTextTotalPoints: string = 'Total points';
     procedure DashboardPrincipal;
-  public
-    { Public declarations }
   end;
 
 var
@@ -47,11 +56,10 @@ begin
     .Rows
       ._Div
         .ColSpan(12)
-        .Add('<h2 style="color : #FFF";>My Dashboard </h2>')
+        .Add(Format('<h2 style="color : #FFF";>%s </h2>', [FTitleCart]))
       .&End
     .&End
     .Jumpline
-
     .Rows
       ._Div
         .ColSpan(12)
@@ -66,16 +74,16 @@ begin
                   .Heigth(60)
                   .Options
                     .Title
-                      .text('Total Points')
-                      .display(True)
-                      .position('top')
-                      .fontColorHEX('#a6a7aa')
-                      .fontSize(25)
-                      .padding(10)
+                      .Text(FTitleTextTotalPoints)
+                      .Display(True)
+                      .Position('top')
+                      .FontColorHEX('#a6a7aa')
+                      .FontSize(25)
+                      .Padding(10)
                     .&End
                   .&End
                   .DataSet
-                    .textLabel('Total Points')
+                    .TextLabel(FTitleTextTotalPoints)
                     .DataSet(ClientDataSet1)
                     .BackgroundColor('90,142,244')
                     .BorderColor('90,142,244')
@@ -88,7 +96,6 @@ begin
       .&End
     .&End
     .Jumpline
-
     .Rows
       ._Div
         .ColSpan(6)
@@ -103,21 +110,21 @@ begin
               .Add('<span style="font-size:32px; color:#50cc89">' +
                    '$1,002.24' +
                    '<span>' +
-                   '<p style="font-size:16px; color:#a6a7aa">Tax Deduction</p>')
+                   '<p style="font-size:16px; color:#a6a7aa">Tax deduction</p>')
             .&End
             ._Div
               .ColSpan(4)
               .Add('<span style="font-size:32px; color:#ff8801">' +
                    '$2,075' +
                    '<span>' +
-                   '<p style="font-size:16px; color:#a6a7aa">Miles Driven</p>')
+                   '<p style="font-size:16px; color:#a6a7aa">Miles driven</p>')
             .&End
             ._Div
               .ColSpan(4)
               .Add('<span style="font-size:32px; color:#29a0fe">' +
                    '$1,856' +
                    '<span>' +
-                   '<p style="font-size:16px; color:#a6a7aa">Business Miles</p>')
+                   '<p style="font-size:16px; color:#a6a7aa">Business miles</p>')
             .&End
           .&End
           .Jumpline
@@ -140,23 +147,22 @@ begin
                           .display(False)
                         .&End
                         .Title
-                          .text('Entrada x Saída')
-                          .display(True)
-                          .position('top')
-                          .fontColorHEX('#a6a7aa')
-                          .fontSize(16)
-                          .padding(10)
+                          .Text(FTitleTextInputXOutput)
+                          .Display(True)
+                          .Position('top')
+                          .FontColorHEX('#a6a7aa')
+                          .FontSize(16)
+                          .Padding(10)
                         .&End
                       .&End
                       .DataSet
-                        .textLabel('Entrada x Saída')
+                        .TextLabel(FTitleTextInputXOutput)
                         .DataSet(ClientDataSet3)
                       .&End
                     .&End
                   .&End
                 .&End
                 .HTML
-
               )
             .&End
             ._Div
@@ -172,19 +178,19 @@ begin
                         .Options
                           .SemiCircule(True)
                           .Legend
-                            .display(False)
+                            .Display(False)
                           .&End
                           .Title
-                            .text('Mídias Sociais')
-                            .display(True)
-                            .position('top')
-                            .fontColorHEX('#a6a7aa')
-                            .fontSize(16)
-                            .padding(10)
+                            .Text(FTitleTextSocialMedia)
+                            .Display(True)
+                            .Position('top')
+                            .FontColorHEX('#a6a7aa')
+                            .FontSize(16)
+                            .Padding(10)
                           .&End
                         .&End
                         .DataSet
-                          .textLabel('Midias Sociais')
+                          .TextLabel(FTitleTextSocialMedia)
                           .DataSet(ClientDataSet2)
                         .&End
                       .&End
@@ -197,7 +203,6 @@ begin
           .Jumpline
           .Jumpline
         .HTML +
-
         '</div>'
         )
       .&End
@@ -213,28 +218,25 @@ begin
                     .ColSpan(12)
                     .Options
                       .Title
-                        .text('Mídias Sociais')
-                        .display(True)
-                        .position('top')
-                        .fontColorHEX('#a6a7aa')
-                        .fontSize(16)
-                        .padding(10)
+                        .Text(FTitleTextSocialMedia)
+                        .Display(True)
+                        .Position('top')
+                        .FontColorHEX('#a6a7aa')
+                        .FontSize(16)
+                        .Padding(10)
                       .&End
                     .&End
                     .DataSet
-                      .textLabel('Midias Sociais')
+                      .TextLabel(FTitleTextSocialMedia)
                       .DataSet(ClientDataSet2)
                     .&End
                   .&End
                 .&End
               .&End
               .HTML +
-
             '</div>')
       .&End
     .&End
-
-
   .WebBrowser(WebBrowser1)
   .Generated;
 end;

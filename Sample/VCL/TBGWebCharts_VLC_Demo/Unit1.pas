@@ -3,219 +3,236 @@ unit Unit1;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.Actions, Vcl.ActnList,
-  System.ImageList, Vcl.ImgList, Vcl.CategoryButtons, Vcl.WinXCtrls,
-  Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.OleCtrls, SHDocVw,
-  View.WebCharts, Data.DB, Datasnap.DBClient, midaslib;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  System.Actions,
+  System.ImageList,
+  Data.DB,
+  Datasnap.DBClient,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ActnList,
+  Vcl.ImgList,
+  Vcl.CategoryButtons,
+  Vcl.WinXCtrls,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.OleCtrls,
+  SHDocVw,
+  View.WebCharts,
+  MidasLib;
 
 type
   TForm1 = class(TForm)
-    SplitMain: TSplitView;
-    CategoryMain: TCategoryButtons;
-    ActionMain: TActionList;
-    ImageList1: TImageList;
-    btn_main_bootstrap: TAction;
-    btn_main_chartjs: TAction;
-    btn_main_tables: TAction;
-    btn_main_dashboards: TAction;
-    Panel2: TPanel;
-    btnMain: TSpeedButton;
-    SplitBootStrap: TSplitView;
-    CategoryBootstrap: TCategoryButtons;
-    ActionsBootstrap: TActionList;
-    btn_bootstrap_cards: TAction;
-    btn_bootstrap_images: TAction;
-    btn_bootstrap_buttons: TAction;
-    Panel1: TPanel;
-    Label1: TLabel;
-    Panel3: TPanel;
-    ClientDataSet7: TClientDataSet;
-    ClientDataSet7LAST_NAME: TStringField;
-    ClientDataSet7FIRST_NAME: TStringField;
-    ClientDataSet7ACCT_NBR: TFloatField;
-    ClientDataSet7CITY: TStringField;
-    ClientDataSet7STATE: TStringField;
-    ClientDataSet7ZIP: TStringField;
-    ClientDataSet7TELEPHONE: TStringField;
-    ClientDataSet7DATE_OPEN: TDateField;
-    ClientDataSet7SS_NUMBER: TFloatField;
-    ClientDataSet7BIRTH_DATE: TDateField;
-    ClientDataSet7RISK_LEVEL: TStringField;
-    ClientDataSet7OCCUPATION: TStringField;
-    ClientDataSet7OBJECTIVES: TStringField;
-    ClientDataSet6: TClientDataSet;
-    ClientDataSet6LAST_NAME: TStringField;
-    ClientDataSet6FIRST_NAME: TStringField;
-    ClientDataSet6ACCT_NBR: TFloatField;
-    ClientDataSet6ADDRESS_1: TStringField;
-    ClientDataSet6CITY: TStringField;
-    ClientDataSet6STATE: TStringField;
-    ClientDataSet6ZIP: TStringField;
-    ClientDataSet6TELEPHONE: TStringField;
-    ClientDataSet6DATE_OPEN: TDateField;
-    ClientDataSet6SS_NUMBER: TFloatField;
-    ClientDataSet6PICTURE: TStringField;
-    ClientDataSet6BIRTH_DATE: TDateField;
-    ClientDataSet6RISK_LEVEL: TStringField;
-    ClientDataSet6OCCUPATION: TStringField;
-    ClientDataSet6OBJECTIVES: TStringField;
-    ClientDataSet6INTERESTS: TStringField;
-    ClientDataSet6IMAGE: TBlobField;
-    ClientDataSet5: TClientDataSet;
-    ClientDataSet5CustNo: TFloatField;
-    ClientDataSet5Company: TStringField;
-    ClientDataSet5City: TStringField;
-    ClientDataSet5State: TStringField;
-    ClientDataSet5Zip: TStringField;
-    ClientDataSet5Country: TStringField;
-    ClientDataSet5Phone: TStringField;
-    ClientDataSet5TaxRate: TFloatField;
-    ClientDataSet5Contact: TStringField;
-    ClientDataSet4: TClientDataSet;
-    ClientDataSet3: TClientDataSet;
-    ClientDataSet2: TClientDataSet;
-    DataSource1: TDataSource;
-    ClientDataSet1: TClientDataSet;
-    WebBrowser1: TWebBrowser;
-    btn_bootstrap_alerts: TAction;
-    btn_bootstrap_jumbotron: TAction;
-    btn_bootstrap_listgroup: TAction;
-    SplitCharts: TSplitView;
+    actBtnBootstrapAlerts: TAction;
+    actBtnBootstrapButtons: TAction;
+    actBtnBootstrapCards: TAction;
+    actBtnBootstrapCardsStyled: TAction;
+    actBtnBootstrapImages: TAction;
+    actBtnBootstrapJumbotron: TAction;
+    actBtnBootstrapListgroup: TAction;
+    actBtnBootstrapProgress: TAction;
+    actBtnChartjsBars: TAction;
+    actBtnChartjsBarsCallback: TAction;
+    actBtnChartjsBarsHorizontal: TAction;
+    actBtnChartjsBarsLabel: TAction;
+    actBtnChartjsBarsLines: TAction;
+    actBtnChartjsBarsStacked: TAction;
+    actBtnChartjsDoughnut: TAction;
+    actBtnChartjsLines: TAction;
+    actBtnChartjsolarArea: TAction;
+    actBtnChartjsPie: TAction;
+    actBtnChartjsPieEasy: TAction;
+    actBtnChartjsRadar: TAction;
+    actBtnChartjsRealTime: TAction;
+    actBtnChartjsSemiCircle: TAction;
+    actBtnDashboards1: TAction;
+    actBtnDashboards2: TAction;
+    actBtnDashboards3: TAction;
+    actBtnDashboards4: TAction;
+    actBtnDashboards5: TAction;
+    actBtnMainBootstrap: TAction;
+    actBtnMainChartjs: TAction;
+    actBtnMainCustom: TAction;
+    actBtnMainDashboards: TAction;
+    actBtnMainTables: TAction;
     ActionCharts: TActionList;
-    Panel5: TPanel;
-    Label2: TLabel;
-    btn_chartjs_bars: TAction;
-    CategoryCharts: TCategoryButtons;
-    btn_chartjs_bars_lines: TAction;
-    btn_chartjs_bars_stacked: TAction;
-    btn_chartjs_bars_callback: TAction;
-    btn_chartjs_bars_label: TAction;
-    btn_chartjs_bars_horizontal: TAction;
-    btn_chartjs_lines: TAction;
-    btn_chartjs_pie: TAction;
-    btn_chartjs_pie_easy: TAction;
-    btn_chartjs_doughnut: TAction;
-    btn_chartjs_semi_circle: TAction;
-    SplitTable: TSplitView;
-    CategoryTable: TCategoryButtons;
-    Panel4: TPanel;
-    Label3: TLabel;
-    SplitDashBoard: TSplitView;
-    CategoryDashBoard: TCategoryButtons;
-    Panel6: TPanel;
-    Label4: TLabel;
-    ActionTable: TActionList;
     ActionDashBoard: TActionList;
-    btn_tables_callback: TAction;
-    btn_tables_rest: TAction;
-    btn_tables_callback_images: TAction;
-    btn_dashboards_1: TAction;
-    btn_dashboards_2: TAction;
-    btn_tables_pivot: TAction;
-    ClientDataSet8: TClientDataSet;
-    SpeedButton1: TSpeedButton;
-    btn_dashboards_4: TAction;
-    btn_main_custom: TAction;
-    btn_dashboards_3: TAction;
-    ClientDataSet9: TClientDataSet;
+    ActionMain: TActionList;
+    ActionsBootstrap: TActionList;
+    ActionTable: TActionList;
+    actTablesCallback: TAction;
+    actTablesCallbackImages: TAction;
+    actTablesPivot: TAction;
+    actTablesRest: TAction;
+    btnMain: TSpeedButton;
+    CategoryBootstrap: TCategoryButtons;
+    CategoryCharts: TCategoryButtons;
+    CategoryDashBoard: TCategoryButtons;
+    CategoryMain: TCategoryButtons;
+    CategoryTable: TCategoryButtons;
+    ClientDataSet1: TClientDataSet;
     ClientDataSet10: TClientDataSet;
     ClientDataSet11: TClientDataSet;
-    btn_chartjs_polar_area: TAction;
-    btn_chartjs_radar: TAction;
     ClientDataSet12: TClientDataSet;
-    Timer1: TTimer;
-    ClientDataSetReal2: TClientDataSet;
-    ClientDataSetReal1: TClientDataSet;
-    btn_dashboards_5: TAction;
-    btn_chartjs_real_time: TAction;
-    ClientDataSet8OrderNo: TFloatField;
+    ClientDataSet2: TClientDataSet;
+    ClientDataSet3: TClientDataSet;
+    ClientDataSet4: TClientDataSet;
+    ClientDataSet4Label: TStringField;
+    ClientDataSet4RGB: TStringField;
+    ClientDataSet4Value: TStringField;
+    ClientDataSet5: TClientDataSet;
+    ClientDataSet5City: TStringField;
+    ClientDataSet5Company: TStringField;
+    ClientDataSet5Contact: TStringField;
+    ClientDataSet5Country: TStringField;
+    ClientDataSet5CustNo: TFloatField;
+    ClientDataSet5Phone: TStringField;
+    ClientDataSet5State: TStringField;
+    ClientDataSet5TaxRate: TFloatField;
+    ClientDataSet5Zip: TStringField;
+    ClientDataSet6: TClientDataSet;
+    ClientDataSet6ACCT_NBR: TFloatField;
+    ClientDataSet6ADDRESS_1: TStringField;
+    ClientDataSet6BIRTH_DATE: TDateField;
+    ClientDataSet6CITY: TStringField;
+    ClientDataSet6DATE_OPEN: TDateField;
+    ClientDataSet6FIRST_NAME: TStringField;
+    ClientDataSet6IMAGE: TBlobField;
+    ClientDataSet6INTERESTS: TStringField;
+    ClientDataSet6LAST_NAME: TStringField;
+    ClientDataSet6OBJECTIVES: TStringField;
+    ClientDataSet6OCCUPATION: TStringField;
+    ClientDataSet6PICTURE: TStringField;
+    ClientDataSet6RISK_LEVEL: TStringField;
+    ClientDataSet6SS_NUMBER: TFloatField;
+    ClientDataSet6STATE: TStringField;
+    ClientDataSet6TELEPHONE: TStringField;
+    ClientDataSet6ZIP: TStringField;
+    ClientDataSet7: TClientDataSet;
+    ClientDataSet7ACCT_NBR: TFloatField;
+    ClientDataSet7BIRTH_DATE: TDateField;
+    ClientDataSet7CITY: TStringField;
+    ClientDataSet7DATE_OPEN: TDateField;
+    ClientDataSet7FIRST_NAME: TStringField;
+    ClientDataSet7LAST_NAME: TStringField;
+    ClientDataSet7OBJECTIVES: TStringField;
+    ClientDataSet7OCCUPATION: TStringField;
+    ClientDataSet7RISK_LEVEL: TStringField;
+    ClientDataSet7SS_NUMBER: TFloatField;
+    ClientDataSet7STATE: TStringField;
+    ClientDataSet7TELEPHONE: TStringField;
+    ClientDataSet7ZIP: TStringField;
+    ClientDataSet8: TClientDataSet;
+    ClientDataSet8AmountPaid: TCurrencyField;
     ClientDataSet8CustNo: TFloatField;
+    ClientDataSet8EmpNo: TIntegerField;
+    ClientDataSet8Freight: TCurrencyField;
+    ClientDataSet8ItemsTotal: TCurrencyField;
+    ClientDataSet8OrderNo: TFloatField;
+    ClientDataSet8PaymentMethod: TStringField;
+    ClientDataSet8PO: TStringField;
     ClientDataSet8SaleDate: TDateTimeField;
     ClientDataSet8ShipDate: TDateTimeField;
-    ClientDataSet8EmpNo: TIntegerField;
-    ClientDataSet8ShipToContact: TStringField;
     ClientDataSet8ShipToAddr1: TStringField;
     ClientDataSet8ShipToAddr2: TStringField;
     ClientDataSet8ShipToCity: TStringField;
-    ClientDataSet8ShipToState: TStringField;
-    ClientDataSet8ShipToZip: TStringField;
+    ClientDataSet8ShipToContact: TStringField;
     ClientDataSet8ShipToCountry: TStringField;
     ClientDataSet8ShipToPhone: TStringField;
+    ClientDataSet8ShipToState: TStringField;
+    ClientDataSet8ShipToZip: TStringField;
     ClientDataSet8ShipVIA: TStringField;
-    ClientDataSet8PO: TStringField;
-    ClientDataSet8Terms: TStringField;
-    ClientDataSet8PaymentMethod: TStringField;
-    ClientDataSet8ItemsTotal: TCurrencyField;
     ClientDataSet8TaxRate: TFloatField;
-    ClientDataSet8Freight: TCurrencyField;
-    ClientDataSet8AmountPaid: TCurrencyField;
-    ClientDataSet4Label: TStringField;
-    ClientDataSet4Value: TStringField;
-    ClientDataSet4RGB: TStringField;
+    ClientDataSet8Terms: TStringField;
+    ClientDataSet9: TClientDataSet;
+    ClientDataSetReal1: TClientDataSet;
+    ClientDataSetReal2: TClientDataSet;
+    DataSource1: TDataSource;
+    ImageList1: TImageList;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    SpeedButton1: TSpeedButton;
+    SplitBootStrap: TSplitView;
+    SplitCharts: TSplitView;
+    SplitDashBoard: TSplitView;
+    SplitMain: TSplitView;
+    SplitTable: TSplitView;
+    Timer1: TTimer;
+    WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
     WebCharts2: TWebCharts;
-    btn_bootstrap_cards_styled: TAction;
-    btn_bootstrap_progress: TAction;
+    procedure actBtnBootstrapAlertsExecute(Sender: TObject);
+    procedure actBtnBootstrapButtonsExecute(Sender: TObject);
+    procedure actBtnBootstrapCardsExecute(Sender: TObject);
+    procedure actBtnBootstrapCardsStyledExecute(Sender: TObject);
+    procedure actBtnBootstrapImagesExecute(Sender: TObject);
+    procedure actBtnBootstrapJumbotronExecute(Sender: TObject);
+    procedure actBtnBootstrapListgroupExecute(Sender: TObject);
+    procedure actBtnBootstrapProgressExecute(Sender: TObject);
+    procedure actBtnChartjsBarsCallbackExecute(Sender: TObject);
+    procedure actBtnChartjsBarsExecute(Sender: TObject);
+    procedure actBtnChartjsBarsHorizontalExecute(Sender: TObject);
+    procedure actBtnChartjsBarsLabelExecute(Sender: TObject);
+    procedure actBtnChartjsBarsLinesExecute(Sender: TObject);
+    procedure actBtnChartjsBarsStackedExecute(Sender: TObject);
+    procedure actBtnChartjsDoughnutExecute(Sender: TObject);
+    procedure actBtnChartjsLinesExecute(Sender: TObject);
+    procedure actBtnChartjsolarAreaExecute(Sender: TObject);
+    procedure actBtnChartjsPieEasyExecute(Sender: TObject);
+    procedure actBtnChartjsPieExecute(Sender: TObject);
+    procedure actBtnChartjsRadarExecute(Sender: TObject);
+    procedure actBtnChartjsRealTimeExecute(Sender: TObject);
+    procedure actBtnChartjsSemiCircleExecute(Sender: TObject);
+    procedure actBtnDashboards1Execute(Sender: TObject);
+    procedure actBtnDashboards2Execute(Sender: TObject);
+    procedure actBtnDashboards3Execute(Sender: TObject);
+    procedure actBtnDashboards4Execute(Sender: TObject);
+    procedure actBtnDashboards5Execute(Sender: TObject);
+    procedure actBtnMainBootstrapExecute(Sender: TObject);
+    procedure actBtnMainChartjsExecute(Sender: TObject);
+    procedure actBtnMainCustomExecute(Sender: TObject);
+    procedure actBtnMainDashboardsExecute(Sender: TObject);
+    procedure actBtnMainTablesExecute(Sender: TObject);
+    procedure actTablesCallbackExecute(Sender: TObject);
+    procedure actTablesCallbackImagesExecute(Sender: TObject);
+    procedure actTablesPivotExecute(Sender: TObject);
+    procedure actTablesRestExecute(Sender: TObject);
     procedure btnMainClick(Sender: TObject);
-    procedure btn_main_bootstrapExecute(Sender: TObject);
-    procedure btn_bootstrap_cardsExecute(Sender: TObject);
-    procedure btn_bootstrap_imagesExecute(Sender: TObject);
-    procedure btn_bootstrap_buttonsExecute(Sender: TObject);
-    procedure btn_bootstrap_alertsExecute(Sender: TObject);
-    procedure btn_bootstrap_jumbotronExecute(Sender: TObject);
-    procedure btn_bootstrap_listgroupExecute(Sender: TObject);
-    procedure btn_main_chartjsExecute(Sender: TObject);
-    procedure btn_chartjs_barsExecute(Sender: TObject);
-    procedure btn_chartjs_bars_linesExecute(Sender: TObject);
-    procedure btn_chartjs_bars_stackedExecute(Sender: TObject);
-    procedure btn_chartjs_bars_callbackExecute(Sender: TObject);
-    procedure btn_chartjs_bars_labelExecute(Sender: TObject);
-    procedure btn_chartjs_linesExecute(Sender: TObject);
-    procedure btn_chartjs_pieExecute(Sender: TObject);
-    procedure btn_chartjs_pie_easyExecute(Sender: TObject);
-    procedure btn_chartjs_doughnutExecute(Sender: TObject);
-    procedure btn_chartjs_semi_circleExecute(Sender: TObject);
-    procedure btn_chartjs_bars_horizontalExecute(Sender: TObject);
-    procedure btn_main_tablesExecute(Sender: TObject);
-    procedure btn_main_dashboardsExecute(Sender: TObject);
-    procedure btn_tables_callbackExecute(Sender: TObject);
-    procedure btn_tables_restExecute(Sender: TObject);
-    procedure btn_tables_callback_imagesExecute(Sender: TObject);
-    procedure ViewSplit(Sender: TSplitView);
-    procedure SplitClosed(Sender: TObject);
-    procedure btn_dashboards_1Execute(Sender: TObject);
-    procedure btn_dashboards_2Execute(Sender: TObject);
-    procedure btn_tables_pivotExecute(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure btn_dashboards_4Execute(Sender: TObject);
-    procedure btn_main_customExecute(Sender: TObject);
-    procedure btn_dashboards_3Execute(Sender: TObject);
-    procedure btn_chartjs_radarExecute(Sender: TObject);
-    procedure btn_chartjs_real_timeExecute(Sender: TObject);
-    procedure btn_chartjs_polar_areaExecute(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SplitClosed(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure btn_dashboards_5Execute(Sender: TObject);
-    procedure btn_bootstrap_cards_styledExecute(Sender: TObject);
-    procedure btn_bootstrap_progressExecute(Sender: TObject);
-  private
-    { Private declarations }
-    FSplitExibir : TSplitView;
-    FSplitAtual : TSplitView;
+    procedure ViewSplit(Sender: TSplitView);
+  strict private
     FPivotConfig : string;
-    function CSSPersonalizado: String;
+    FSplitAtual : TSplitView;
+    FSplitExibir : TSplitView;
+    function CSSPersonalizado: string;
   public
-    { Public declarations }
-    procedure ShowButtons(Value : String);
     procedure CallBack(Value: string);
-    procedure RelAvatar(Value : Currency);
-    procedure RelCust(Value : Integer);
-    procedure RelContato(Value : String);
-    procedure PivotConfigSave;
     procedure PivotConfigLoad;
-    procedure PivotShowUI;
+    procedure PivotConfigSave;
     procedure PivotHideUI;
+    procedure PivotShowUI;
+    procedure RelAvatar(const Value: Currency);
+    procedure RelContato(const Value: string);
+    procedure RelCust(const Value: Integer);
+    procedure ShowButtons(const Value: string);
   end;
 
 var
@@ -224,11 +241,13 @@ var
 implementation
 
 uses
-  Charts.Types, Unit2, Colors.Bootstrap;
+  Charts.Types,
+  Unit2,
+  Colors.Bootstrap;
 
 {$R *.dfm}
 
-procedure TForm1.btn_bootstrap_alertsExecute(Sender: TObject);
+procedure TForm1.actBtnBootstrapAlertsExecute(Sender: TObject);
 begin
   WebCharts1
   .NewProject
@@ -244,61 +263,56 @@ begin
     .Alerts
       .Title('primary')
       .AlertsClass
-        .primary
+        .Primary
       .&End
     .&End
     .Alerts
       .Title('secondary')
       .AlertsClass
-        .secondary
+        .Secondary
       .&End
     .&End
     .Alerts
       .Title('succes')
       .AlertsClass
-        .success
+        .Success
       .&End
     .&End
     .Alerts
       .Title('danger')
       .AlertsClass
-        .danger
+        .Danger
       .&End
     .&End
     .Alerts
       .Title('warning')
       .AlertsClass
-        .warning
+        .Warning
       .&End
     .&End
     .Alerts
       .Title('info')
       .AlertsClass
-        .info
+        .Info
       .&End
     .&End
     .Alerts
       .Title('light')
       .AlertsClass
-        .light
+        .Light
       .&End
     .&End
     .Alerts
       .Title('dark')
       .AlertsClass
-        .dark
+        .Dark
       .&End
     .&End
   .WebBrowser(WebBrowser1)
   .Generated;
 end;
 
-procedure TForm1.btn_main_bootstrapExecute(Sender: TObject);
-begin
-  ViewSplit(SplitBootStrap);
-end;
-
-procedure TForm1.btn_bootstrap_buttonsExecute(Sender: TObject);
+procedure TForm1.actBtnBootstrapButtonsExecute(Sender: TObject);
 begin
   WebCharts1
     .NewProject
@@ -314,131 +328,113 @@ begin
     .Buttons
       .Title('Primary')
       .ButtonClass
-        .primary
+        .Primary
       .&End
       .CallbackLink('Primary', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('secondary')
       .ButtonClass
-        .secondary
+        .Secondary
       .&End
       .CallbackLink('secondary', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('success')
       .ButtonClass
-        .success
+        .Success
       .&End
       .CallbackLink('success', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('danger')
       .ButtonClass
-        .danger
+        .Danger
       .&End
       .CallbackLink('danger', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('warning')
       .ButtonClass
-        .warning
+        .Warning
       .&End
       .CallbackLink('warning', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('info')
       .ButtonClass
-        .info
+        .Info
       .&End
       .CallbackLink('info', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('light')
       .ButtonClass
-        .light
+        .Light
       .&End
       .CallbackLink('light', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('dark')
       .ButtonClass
-        .dark
+        .Dark
       .&End
       .CallbackLink('dark', 'ShowButtons')
     .&End
-
     .Jumpline
     .Jumpline
-
     .Buttons
       .Title('outline')
       .ButtonClass
-        .outline
-        .primary
+        .Outline
+        .Primary
       .&End
       .CallbackLink('outline', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('small')
       .ButtonClass
-        .secondary
-        .small
+        .Secondary
+        .Small
       .&End
       .CallbackLink('small', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('large')
       .ButtonClass
-        .success
-        .large
+        .Success
+        .Large
       .&End
       .CallbackLink('large', 'ShowButtons')
     .&End
-
     .Jumpline
     .Jumpline
-
     .Buttons
       .Title('block')
       .ButtonClass
-        .danger
-        .block
+        .Danger
+        .Block
       .&End
       .CallbackLink('block', 'ShowButtons')
     .&End
-
     .Jumpline
     .Jumpline
-
     .Buttons
       .Title('active')
       .ButtonClass
-        .warning
-        .active
+        .Warning
+        .Active
       .&End
       .CallbackLink('active', 'ShowButtons')
     .&End
-
     .Buttons
       .Title('disabled')
       .ButtonClass
-        .info
-        .disabled
+        .Info
+        .Disabled
       .&End
       .CallbackLink('disabled', 'ShowButtons')
     .&End
-
-
     .WebBrowser(WebBrowser1)
     .CallbackJS
       .ClassProvider(Self)
@@ -446,7 +442,7 @@ begin
     .Generated;
 end;
 
-procedure TForm1.btn_bootstrap_cardsExecute(Sender: TObject);
+procedure TForm1.actBtnBootstrapCardsExecute(Sender: TObject);
 begin
   WebCharts1
     .NewProject
@@ -475,7 +471,7 @@ begin
     .Generated;
 end;
 
-procedure TForm1.btn_bootstrap_cards_styledExecute(Sender: TObject);
+procedure TForm1.actBtnBootstrapCardsStyledExecute(Sender: TObject);
 begin
   WebCharts1
     .NewProject
@@ -788,15 +784,887 @@ begin
       .ClassProvider(Self)
     .&End
     .Generated;
-
 end;
 
-procedure TForm1.btn_main_chartjsExecute(Sender: TObject);
+procedure TForm1.actBtnBootstrapImagesExecute(Sender: TObject);
 begin
-  ViewSplit(SplitCharts);
+  WebCharts1
+    .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Images')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Image
+      .ImageClass
+        .Rounded
+        .ImgThumbnail
+      .&End
+      .DataSet
+        .Field('PICTURE')
+        .DataSet(ClientDataSet6)
+      .&End
+    .&End
+    .WebBrowser(WebBrowser1)
+    .Generated;
 end;
 
-procedure TForm1.btn_dashboards_1Execute(Sender: TObject);
+procedure TForm1.actBtnBootstrapJumbotronExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Jumbotron')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Jumbotron
+      .Title('Título')
+      .Description('Descrição')
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnBootstrapListgroupExecute(Sender: TObject);
+begin
+  WebCharts1//.CDN(True)
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('List Group')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Rows
+      .Title
+        .Config
+          .H4('Basic')
+        .&End
+      .&End
+    .&End
+    .ListGroup
+      .ListGroupType
+        .Basic
+      .&End
+      .DataSet
+        .DataSet(ClientDataSet7)
+        .LabelName('FIRST_NAME')
+      .&End
+    .&End
+    .Jumpline
+    .Rows
+      .Title
+        .Config
+          .H4('Action')
+        .&End
+      .&End
+    .&End
+    .ListGroup
+      .ListGroupType
+        .Action
+      .&End
+      .DataSet
+        .DataSet(ClientDataSet7)
+        .LabelName('FIRST_NAME')
+        .CallbackLink('FIRST_NAME', 'CallBack')
+      .&End
+    .&End
+    .Jumpline
+    .Rows
+      .Title
+        .Config
+          .H4('Flush com Badges')
+        .&End
+      .&End
+    .&End
+    .ListGroup
+      .ListGroupType
+        .Flush
+      .&End
+      .DataSet
+        .DataSet(ClientDataSet7)
+        .LabelName('FIRST_NAME')
+        .ValueName('RISK_LEVEL')
+        .CallbackLink('FIRST_NAME', 'CallBack')
+      .&End
+    .&End
+    .Jumpline
+    .Rows
+      .Title
+        .Config
+          .H4('Horizontal')
+        .&End
+      .&End
+    .&End
+    .ListGroup
+      .ListGroupType
+        .Horizontal
+      .&End
+      .DataSet
+        .DataSet(ClientDataSet7)
+        .LabelName('FIRST_NAME')
+      .&End
+    .&End
+    .Jumpline
+  .WebBrowser(WebBrowser1)
+  .CallbackJS
+      .ClassProvider(Self)
+    .&End
+  .Generated;
+end;
+
+procedure TForm1.actBtnBootstrapProgressExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Progress')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .Info
+        .Title
+          .Text('Recebimentos')
+        .&End
+        .Value
+          .Text('19% (R$ 4.703,00)')
+        .&End
+        .Icon
+          .Up(True)
+          .Positive(True)
+        .&End
+      .&End
+      .ProgressBar
+        .Value('19')
+        .Sytle(bg_success)
+      .&end
+    .&End
+    .Progress
+      .Info
+        .Title
+          .Text('Despesas Gerais')
+        .&End
+        .Value
+          .Text('85% (R$ 30.000,00)')
+        .&End
+        .Icon
+          .Up(True)
+          .Positive(False)
+        .&End
+      .&End
+      .ProgressBar
+        .Value('85')
+        .Sytle(bg_danger)
+      .&end
+    .&End
+    .Progress
+      .Info
+        .Title
+          .Text('Despesas Fixas')
+        .&End
+        .Value
+          .Text('60% (R$ 40.852,00)')
+        .&End
+        .Icon
+          .Up(False)
+          .Positive(False)
+        .&End
+      .&End
+      .ProgressBar
+        .Value('60')
+        .Sytle(bg_warning)
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .ProgressBar
+        .Value('50')
+        .DisplayLabel(True)
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .Height(1)
+      .ProgressBar
+        .Value('50')
+      .&end
+    .&End
+    .Progress
+      .Height(20)
+      .ProgressBar
+        .Value('50')
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .ProgressBar
+        .Sytle(bg_success)
+        .Value('25')
+      .&end
+    .&End
+    .Progress
+      .ProgressBar
+        .Sytle(bg_info)
+        .Value('50')
+      .&end
+    .&End
+    .Progress
+      .ProgressBar
+        .Sytle(bg_warning)
+        .Value('75')
+      .&end
+    .&End
+    .Progress
+      .ProgressBar
+        .Sytle(bg_danger)
+        .Value('100')
+      .&end
+    .&End
+    .Jumpline
+    .Jumpline
+    .Progress
+      .ProgressBar
+        .Value('15')
+      .&end
+      .ProgressBar
+        .Sytle(bg_success)
+        .Value('30')
+      .&end
+      .ProgressBar
+        .Sytle(bg_danger)
+        .Value('20')
+      .&end
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsBarsCallbackExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Bar Chart - CallBack')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(bar)
+        .Attributes
+          .CallBackLink('CallBack')
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          //.Title('Meu Gráfico de Barras')
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .CallbackJS
+      .ClassProvider(Self)
+    .&End
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsBarsExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Bar Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(bar)
+        .Attributes
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsBarsHorizontalExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Horizontal Bar Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(horizontalBar)
+        .Attributes
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .Options
+            .Scales
+              .Axes
+                .XAxe
+                  .ScaleLabel
+                    .Display(True)
+                    .LabelString('Faturamento por Mês')
+                  .&End
+                .&End
+                .YAxe
+                  .ScaleLabel
+                    .Display(True)
+                    .LabelString('Total de Vendas')
+                  .&End
+                .&End
+              .&End
+            .&End
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsBarsLabelExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Bar Chart - Label')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(bar)
+        .Attributes
+          .Labelling
+            .Format('$0,0.00') //Consultar em http://numeraljs.com/#format
+            .RGBColor('102,102,102') //Cor RGB separado por Virgula
+            .FontSize(10) //Tamanho da Fonte
+            .FontStyle('normal') //normal, bold, italic
+            .FontFamily('Open Sans') //Open Sans, Arial, Helvetica e etc..
+            .Padding(5) //Numeros negativos e positivos
+          .&End
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          //.Title('Meu Gráfico de Barras')
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsBarsLinesExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Bar/Line Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(bar)
+        .Attributes
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          //.Title('Meu Gráfico de Barras')
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+            .Types('line')
+            .Fill(False)
+            .BorderWidth(2)
+            .BorderColor('30,182,203')
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+            .Types('bar')
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet2)
+            .Types('bar')
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsBarsStackedExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Stacked Bar Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(bar)
+        .Attributes
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          .Options
+            .Scales
+              .Axes
+                .XAxe
+                  .Stacked(True)
+                .&End
+                .YAxe
+                  .Stacked(True)
+                .&End
+              .&End
+            .&End
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,203')
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+          .DataSet
+            .BackgroundColor('30,182,100')
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsDoughnutExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Doughnut Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(doughnut)
+        .Attributes
+          .Labelling
+            .Format('0%') //Consultar em http://numeraljs.com/#format
+            .RGBColor('255,255,255') //Cor RGB separado por Virgula
+            .FontSize(12)
+            .FontStyle('bold') //normal, bold, italic
+            .FontFamily('Arial') //Open Sans, Arial, Helvetica e etc..
+            .Padding(5) //Numeros negativos e positivos
+          .&End
+          .Name('Meu Grafico Doughnut')
+          .ColSpan(12)
+          .DataSet
+            .TextLabel('Meu DataSet 4')
+            .DataSet(ClientDataSet4)
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsLinesExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Lines Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(line)
+        .Attributes
+          //.Labelling(True)
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          //.Title('Meu Grafico de Barras')
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+            .BackgroundColor('227,233,235')
+            .BorderColor('227,233,235')
+            .Fill(False)
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+            .BackgroundColor('30,182,203')
+            .BorderColor('30,182,203')
+            .Fill(False)
+          .&End
+        .&End
+      .&End
+    .&End
+    .Charts
+      ._ChartType(line)
+        .Attributes
+          .Name('Meu Grafico de Barras')
+          .ColSpan(12)
+          //.Title('Meu Grafico de Barras')
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+            .BackgroundColor('227,233,235')
+            .BorderColor('227,233,235')
+            .Fill(False)
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+            .BackgroundColor('30,182,203')
+            .BorderColor('30,182,203')
+            .Fill(False)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsolarAreaExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Polar Area Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(polarArea)
+        .Attributes
+          .Options
+            .Legend
+              .position('bottom')
+            .&End
+          .&End
+          .Name('Meu Grafico Polar Area')
+          .ColSpan(12)
+          .DataSet
+//            .BackgroundColor('26,187,156')
+            .RGBName('RGB')
+//            .BorderColor('26,187,156')
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet12)
+            .Fill(False)
+          .&End
+//          .DataSet
+//            .BackgroundColor('30,182,203')
+////            .BorderColor('30,182,203')
+//            .textLabel('Meu DataSet 2')
+//            .DataSet(ClientDataSet2)
+////            .Fill(False)
+//          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsPieEasyExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Easy Pie Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .ChartEasyPie
+      .DataPercent('73')
+      .Animate('1000')
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsPieExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Pie Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(pie)
+        .Attributes
+          .Name('Meu Grafico Pie')
+          .ColSpan(12)
+          //.Title('Meu Grafico Pie')
+          .DataSet
+            .TextLabel('Meu DataSet 3')
+            .DataSet(ClientDataSet3)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsRadarExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Radar Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(radar)
+        .Attributes
+          .Options
+            .Legend
+              .position('bottom')
+            .&End
+          .&End
+          .Name('Meu Grafico Radar')
+          .ColSpan(12)
+          .DataSet
+            .BackgroundColor('26,187,156')
+            .BorderColor('26,187,156')
+            .TextLabel('Meu DataSet 1')
+            .DataSet(ClientDataSet1)
+          .&End
+          .DataSet
+            .BackgroundColor('242,112,91')
+            .BorderColor('242,112,91')
+            .TextLabel('Meu DataSet 2')
+            .DataSet(ClientDataSet2)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnChartjsRealTimeExecute(Sender: TObject);
+begin
+  WebCharts1
+  .Container(fluid)
+  .AddResource('<style> body { margin : 50px; } </style>')
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Real Time')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(line)
+        .Attributes
+          .Name('linestacked1')
+          .ColSpan(12)
+          .DataSet
+            .TextLabel('Meu DataSet 1')
+            .RealTimeDataSet(ClientDataSetReal1)
+            .BackgroundColor('242,112,91')
+            .BorderColor('242,112,91')
+            .Fill(False)
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 2')
+            .RealTimeDataSet(ClientDataSetReal2)
+            .BackgroundColor('26,187,156')
+            .Fill(False)
+            .BorderColor('26,187,156')
+            .LineTension(0)
+            .BorderDash(8, 4)
+          .&End
+          .Options
+            .Scales
+              .Axes
+                .XAxe
+                  .RealTime
+                  .&End
+                .&End
+              .&End
+            .&End
+            .Tooltip
+              .Intersect(False)
+            .&End
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+
+end;
+
+procedure TForm1.actBtnChartjsSemiCircleExecute(Sender: TObject);
+begin
+  WebCharts1
+  .NewProject
+    .Rows
+      .Title
+        .Config
+          .H1('Semi Circle Chart')
+        .&End
+      .&End
+    .&End
+    .Jumpline
+    .Jumpline
+    .Charts
+      ._ChartType(doughnut)
+        .Attributes
+          .Name('Meu Grafico Semicírculo')
+          .ColSpan(12)
+          .Options
+            .SemiCircule(True)
+          .&End
+          .DataSet
+            .TextLabel('Meu DataSet 4')
+            .DataSet(ClientDataSet4)
+          .&End
+        .&End
+      .&End
+    .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+procedure TForm1.actBtnDashboards1Execute(Sender: TObject);
 begin
   WebCharts1
     .NewProject
@@ -822,13 +1690,12 @@ begin
             .Name('analiseMensal')
             .Heigth(80)
             .DataSet
-              .textLabel('Saídas')
+              .TextLabel('Saídas')
               .DataSet(ClientDataSet1)
             .&End
           .&End
         .&End
       .&End
-
       .Jumpline
       .Rows
         .Title
@@ -845,11 +1712,11 @@ begin
               .Charts
                 ._ChartType(doughnut)
                   .Attributes
-                    //.Legend(false)
+                    //.Legend(False)
                     .Name('movimento1')
                     .ColSpan(4)
                     .DataSet
-                      .textLabel('Movimento 1')
+                      .TextLabel('Movimento 1')
                       .DataSet(ClientDataSet3)
                     .&End
                   .&End
@@ -865,11 +1732,11 @@ begin
               .Charts
                 ._ChartType(doughnut)
                   .Attributes
-                    //.Legend(false)
+                    //.Legend(False)
                     .Name('movimento2')
                     .ColSpan(4)
                     .DataSet
-                      .textLabel('Movimento 2')
+                      .TextLabel('Movimento 2')
                       .DataSet(ClientDataSet4)
                     .&End
                   .&End
@@ -885,11 +1752,11 @@ begin
               .Charts
                 ._ChartType(doughnut)
                   .Attributes
-                    //.Legend(false)
+                    //.Legend(False)
                     .Name('movimento3')
                     .ColSpan(4)
                     .DataSet
-                      .textLabel('Movimento 3')
+                      .TextLabel('Movimento 3')
                       .DataSet(ClientDataSet3)
                     .&End
                   .&End
@@ -913,14 +1780,14 @@ begin
                       .Heigth(50)
                       .DataSet
                         .DataSet(ClientDataSet2)
-                        .textLabel('Analise de Compras Mensal')
+                        .TextLabel('Analise de Compras Mensal')
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
                         .Fill(False)
                       .&End
                       .DataSet
                         .DataSet(ClientDataSet1)
-                        .textLabel('Analise de Compras Mensal')
+                        .TextLabel('Analise de Compras Mensal')
                         .BackgroundColor('30,182,203')
                         .BorderColor('30,182,203')
                         .Fill(False)
@@ -944,16 +1811,16 @@ begin
       .Jumpline
       .Table
       .TableClass
-        .tableSm
-        .tableHover
+        .TableSm
+        .TableHover
       .EndTableClass
       .TableOptions
-        .Responsive(true)
+        .Responsive(True)
       .&End
       .TableFeatures
-        .AutoWidth(false)
-        .LengthChange(false)
-        .Info(false)
+        .AutoWidth(False)
+        .LengthChange(False)
+        .Info(False)
       .&End
       .DataSet
         .CallbackLink('CustNo', 'RelCust')
@@ -968,7 +1835,7 @@ begin
     .Generated;
 end;
 
-procedure TForm1.btn_dashboards_2Execute(Sender: TObject);
+procedure TForm1.actBtnDashboards2Execute(Sender: TObject);
 begin
   WebCharts2
 //  .CDN(True)
@@ -1057,14 +1924,14 @@ begin
                       .ColSpan(8)
                       .Heigth(140)
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .TextLabel('Meu DataSet 1')
                         .RealTimeDataSet(ClientDataSetReal1)
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
                         .Fill(False)
                       .&End
                       .DataSet
-                        .textLabel('Meu DataSet 2')
+                        .TextLabel('Meu DataSet 2')
                         .RealTimeDataSet(ClientDataSetReal2)
                         .BackgroundColor('26,187,156')
                         .Fill(False)
@@ -1075,14 +1942,14 @@ begin
                       .Options
                         .Scales
                           .Axes
-                            .xAxe
+                            .XAxe
                               .RealTime
                               .&End
                             .&End
                           .&End
                         .&End
                         .Tooltip
-                          .Intersect(false)
+                          .Intersect(False)
 //                          .Format('$0,0.00')
                         .&End
                       .&End
@@ -1105,7 +1972,7 @@ begin
                       .Heigth(285)
                       //.Title('Top Campaign Performance')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .TextLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('26,187,156')
                         .BorderColor('26,187,156')
@@ -1130,7 +1997,7 @@ begin
                       //.Heigth(295)
                       //.Title('App Usage across versions')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .TextLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('26,187,156')
                         .BorderColor('26,187,156')
@@ -1153,7 +2020,7 @@ begin
                       //.Heigth(295)
                       //.Title('Device Usage')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .TextLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet4)
                         .BackgroundColor('26,187,156')
                         .BorderColor('227,233,235')
@@ -1176,7 +2043,7 @@ begin
                       //.Heigth(250)
                       //.Title('Device Usage')
                       .DataSet
-                        .textLabel('Meu DataSet 1')
+                        .TextLabel('Meu DataSet 1')
                         .DataSet(ClientDataSet3)
                         .BackgroundColor('227,233,235')
                         .BorderColor('26,187,156')
@@ -1193,7 +2060,7 @@ begin
     .Generated;
 end;
 
-procedure TForm1.btn_dashboards_3Execute(Sender: TObject);
+procedure TForm1.actBtnDashboards3Execute(Sender: TObject);
 begin
   WebCharts1
   .Container(fluid)
@@ -1222,16 +2089,16 @@ begin
                   .Heigth(60)
                   .Options
                     .Title
-                      .text('Total Points')
-                      .display(True)
-                      .position('top')
-                      .fontColorHEX('#a6a7aa')
-                      .fontSize(25)
-                      .padding(10)
+                      .Text('Total Points')
+                      .Display(True)
+                      .Position('top')
+                      .FontColorHEX('#a6a7aa')
+                      .FontSize(25)
+                      .Padding(10)
                     .&End
                   .&End
                   .DataSet
-                    .textLabel('Total Points')
+                    .TextLabel('Total Points')
                     .DataSet(ClientDataSet9)
                     .BackgroundColor('90,142,244')
                     .BorderColor('90,142,244')
@@ -1292,19 +2159,19 @@ begin
                       .Options
                         .SemiCircule(True)
                         .Legend
-                          .display(False)
+                          .Display(False)
                         .&End
                         .Title
-                          .text('Entrada x Saída')
-                          .display(True)
-                          .position('top')
-                          .fontColorHEX('#a6a7aa')
-                          .fontSize(16)
-                          .padding(10)
+                          .Text('Entrada x Saída')
+                          .Display(True)
+                          .Position('top')
+                          .FontColorHEX('#a6a7aa')
+                          .FontSize(16)
+                          .Padding(10)
                         .&End
                       .&End
                       .DataSet
-                        .textLabel('Entrada x Saída')
+                        .TextLabel('Entrada x Saída')
                         .DataSet(ClientDataSet10)
                       .&End
                     .&End
@@ -1326,19 +2193,19 @@ begin
                         .Options
                           .SemiCircule(True)
                           .Legend
-                            .display(False)
+                            .Display(False)
                           .&End
                           .Title
-                            .text('Mídias Sociais')
-                            .display(True)
-                            .position('top')
-                            .fontColorHEX('#a6a7aa')
-                            .fontSize(16)
-                            .padding(10)
+                            .Text('Mídias Sociais')
+                            .Display(True)
+                            .Position('top')
+                            .FontColorHEX('#a6a7aa')
+                            .FontSize(16)
+                            .Padding(10)
                           .&End
                         .&End
                         .DataSet
-                          .textLabel('Midias Sociais')
+                          .TextLabel('Midias Sociais')
                           .DataSet(ClientDataSet11)
                         .&End
                       .&End
@@ -1364,16 +2231,16 @@ begin
                     .ColSpan(12)
                     .Options
                       .Title
-                        .text('Mídias Sociais')
-                        .display(True)
-                        .position('top')
-                        .fontColorHEX('#a6a7aa')
-                        .fontSize(16)
-                        .padding(10)
+                        .Text('Mídias Sociais')
+                        .Display(True)
+                        .Position('top')
+                        .FontColorHEX('#a6a7aa')
+                        .FontSize(16)
+                        .Padding(10)
                       .&End
                     .&End
                     .DataSet
-                      .textLabel('Midias Sociais')
+                      .TextLabel('Midias Sociais')
                       .DataSet(ClientDataSet11)
                     .&End
                   .&End
@@ -1387,7 +2254,7 @@ begin
   .Generated;
 end;
 
-procedure TForm1.btn_dashboards_4Execute(Sender: TObject);
+procedure TForm1.actBtnDashboards4Execute(Sender: TObject);
 begin
   WebCharts1
     .Container(Fluid)
@@ -1414,14 +2281,14 @@ begin
                       .Heigth(100)
                       .DataSet
                         .DataSet(ClientDataSet2)
-                        .textLabel('Analise de Vendas Mensal')
+                        .TextLabel('Analise de Vendas Mensal')
                         .BackgroundColor('227,233,235')
                         .BorderColor('227,233,235')
                         .Fill(False)
                       .&End
                       .DataSet
                         .DataSet(ClientDataSet1)
-                        .textLabel('Analise de Compras Mensal')
+                        .TextLabel('Analise de Compras Mensal')
                         .BackgroundColor('30,182,203')
                         .BorderColor('30,182,203')
                         .Fill(False)
@@ -1441,7 +2308,7 @@ begin
                   .Attributes
                     .Options
                       .Legend
-                        .display(False)
+                        .Display(False)
                       .&End
                     .&End
                     .Heigth(200)
@@ -1450,13 +2317,13 @@ begin
                     .DataSet
                       .BackgroundColor('26,187,156')
                       .BorderColor('26,187,156')
-                      .textLabel('Meu DataSet 1')
+                      .TextLabel('Meu DataSet 1')
                       .DataSet(ClientDataSet1)
                     .&End
                     .DataSet
                       .BackgroundColor('242,112,91')
                       .BorderColor('242,112,91')
-                      .textLabel('Meu DataSet 2')
+                      .TextLabel('Meu DataSet 2')
                       .DataSet(ClientDataSet2)
                     .&End
                   .&End
@@ -1468,7 +2335,7 @@ begin
       .&End
       .Jumpline
       .Rows
-        ._div
+        ._Div
           .ColSpan(6)
           .Add(
             WebCharts1
@@ -1476,55 +2343,55 @@ begin
                 .Alerts
                   .Title('Vendas do Mês em Andamento')
                   .AlertsClass
-                    .primary
+                    .Primary
                   .&End
                 .&End
                 .Alerts
                   .Title('Verificar as Vendas de Junho')
                   .AlertsClass
-                    .secondary
+                    .Secondary
                   .&End
                 .&End
                 .Alerts
                   .Title('Volume de Vendas Acima da Média')
                   .AlertsClass
-                    .success
+                    .Success
                   .&End
                 .&End
                 .Alerts
                   .Title('Volume de Vendas Abaixo da Média')
                   .AlertsClass
-                    .danger
+                    .Danger
                   .&End
                 .&End
                 .Alerts
                   .Title('Volume de Vendas na Média')
                   .AlertsClass
-                    .warning
+                    .Warning
                   .&End
                 .&End
                 .Alerts
                   .Title('Existem Vendas a Processar')
                   .AlertsClass
-                    .info
+                    .Info
                   .&End
                 .&End
                 .Alerts
                   .Title('Existem Compras a Processar')
                   .AlertsClass
-                    .light
+                    .Light
                   .&End
                 .&End
                 .Alerts
                   .Title('Existem Vendas não Transmitidas')
                   .AlertsClass
-                    .dark
+                    .Dark
                   .&End
                 .&End
               .HTML
           )
         .&End
-        ._div
+        ._Div
           .ColSpan(6)
           .Add(
             WebCharts1
@@ -1547,50 +2414,7 @@ begin
   .Generated;
 end;
 
-function TForm1.CSSPersonalizado: String;
-begin
-  Result := Result + '<style>';
-  Result := Result + '.box {';
-  Result := Result + 'background-color: #FFFFFF;';
-  Result := Result + 'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.1);';
-  Result := Result + 'border-radius: 2px;';
-  Result := Result + 'width: 100%;';
-  Result := Result + 'margin: auto;';
-  Result := Result + 'padding: 0.75rem;';
-  Result := Result + 'text-align: center;';
-  Result := Result + '}';
-  Result := Result + '.primary {';
-  Result := Result + 'background-color: #5273E9;';
-  Result := Result + 'color: #FFFFFF;';
-  Result := Result + '}';
-  Result := Result + '.secundary {';
-  Result := Result + 'background-color: #36C2CF;';
-  Result := Result + 'color: #FFFFFF;';
-  Result := Result + '}';
-  Result := Result + '.count {';
-  Result := Result + 'font-size: 20px;';
-  Result := Result + '}';
-  Result := Result + '.boxoffpadding {';
-  Result := Result + 'padding: 0rem;';
-  Result := Result + 'height: 100%;';
-  Result := Result + '}';
-  Result := Result + '.list-group {';
-  Result := Result + 'background-color: #FFFFFF;';
-  Result := Result + 'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.1);';
-  Result := Result + 'border-radius: 2px;';
-  Result := Result + 'width: 100%;';
-  Result := Result + 'margin: auto;';
-  Result := Result + 'padding: 0.75rem;';
-  Result := Result + 'text-align: center;';
-  Result := Result + 'height: 100%;';
-  Result := Result + '}';
-  Result := Result + '.list-group-item {';
-  Result := Result + 'padding: 5%;';
-  Result := Result + '}';
-  Result := Result + '</style>';
-end;
-
-procedure TForm1.btn_dashboards_5Execute(Sender: TObject);
+procedure TForm1.actBtnDashboards5Execute(Sender: TObject);
 begin
    WebCharts1
     .BackgroundColor('#F8F8FA')
@@ -1704,13 +2528,13 @@ begin
                   .Name('linestacked1')
                   .Heigth(120)
                   .DataSet
-                    .textLabel('OS - 2020')
+                    .TextLabel('OS - 2020')
                     .DataSet(ClientDataSet1)
                     .BackgroundColor('82,115,233')
                     .BorderColor('82,115,233')
                   .&End
                   .DataSet
-                    .textLabel('OS - 2019')
+                    .TextLabel('OS - 2019')
                     .DataSet(ClientDataSet2)
                     .BackgroundColor('54,194,207')
                     .BorderColor('54,194,207')
@@ -1737,7 +2561,7 @@ begin
                   .Name('valorvendido')
                     .BackgroundColor('#111111')
                   .DataSet
-                    .textLabel('OS - 2020')
+                    .TextLabel('OS - 2020')
                     .DataSet(ClientDataSet4)
                     .BackgroundColor('82,115,233')
                     .BorderColor('255,255,255')
@@ -1761,7 +2585,7 @@ begin
                   .Name('porseguradora')
                     .BackgroundColor('#111111')
                   .DataSet
-                    .textLabel('OS - 2020')
+                    .TextLabel('OS - 2020')
                     .DataSet(ClientDataSet2)
                     .BackgroundColor('82,115,233')
                     .BorderColor('255,255,255')
@@ -1785,7 +2609,7 @@ begin
                   .BackgroundColor('#111111')
                   .Name('qtdeprodutivo')
                   .DataSet
-                    .textLabel('OS - 2020')
+                    .TextLabel('OS - 2020')
                     .DataSet(ClientDataSet4)
                     .BackgroundColor('82,115,233')
                     .BorderColor('255,255,255')
@@ -1802,585 +2626,118 @@ begin
     .Generated;
 end;
 
-procedure TForm1.btn_main_dashboardsExecute(Sender: TObject);
+procedure TForm1.actBtnMainBootstrapExecute(Sender: TObject);
+begin
+  ViewSplit(SplitBootStrap);
+end;
+
+procedure TForm1.actBtnMainChartjsExecute(Sender: TObject);
+begin
+  ViewSplit(SplitCharts);
+end;
+
+procedure TForm1.actBtnMainCustomExecute(Sender: TObject);
+begin
+  Form2.ShowModal
+end;
+
+procedure TForm1.actBtnMainDashboardsExecute(Sender: TObject);
 begin
   ViewSplit(SplitDashBoard);
 end;
 
-procedure TForm1.btn_chartjs_doughnutExecute(Sender: TObject);
+procedure TForm1.actBtnMainTablesExecute(Sender: TObject);
 begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Doughnut Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(doughnut)
-        .Attributes
-          .Labelling
-            .Format('0%') //Consultar em http://numeraljs.com/#format
-            .RGBColor('255,255,255') //Cor RGB separado por Virgula
-            .FontSize(12)
-            .FontStyle('bold') //normal, bold, italic
-            .FontFamily('Arial') //Open Sans, Arial, Helvetica e etc..
-            .Padding(5) //Numeros negativos e positivos
-          .&End
-          .Name('Meu Grafico Doughnut')
-          .ColSpan(12)
-          .DataSet
-            .textLabel('Meu DataSet 4')
-            .DataSet(ClientDataSet4)
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet3)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
+  ViewSplit(SplitTable);
 end;
 
-procedure TForm1.btn_bootstrap_imagesExecute(Sender: TObject);
+procedure TForm1.actTablesCallbackExecute(Sender: TObject);
+var
+  Imagem: TResourceStream;
+begin
+  Imagem := nil;
+  try
+    Imagem := TResourceStream.Create(HInstance, 'PngFilter', RT_RCDATA);
+    WebCharts1
+      .Container(Fluid)
+      .AddResource('<style> body { margin : 50px; } </style>')
+      .NewProject
+      .Rows
+        .Title
+          .Config
+            .H1('Table - CallBack')
+          .&End
+        .&End
+      .&End
+      .Jumpline
+      .Jumpline
+      .Table
+        .TableClass
+          .TableSm
+          .TableHover
+          .TableResponsive
+        .EndTableClass
+        .DataSet
+          .CallbackLink('CustNo', 'RelCust')
+          .CallbackLink('Contact', 'RelContato')
+          .DataSet(ClientDataSet5)
+          .ActionEdit
+            .CallbackLink('CustNo', 'RelCust')
+          .&End
+          .ActionDelete
+            .CallbackLink('CustNo', 'RelCust')
+          .&End
+          .Action
+            .ActionHeader('Filtrar')
+            .Image
+              .Image(Imagem)
+              .Tooltip('Filtrar')
+            .&End
+            .CallbackLink('CustNo', 'RelCust')
+          .&End
+        .&End
+      .&End
+      .WebBrowser(WebBrowser1)
+      .CallbackJS
+        .ClassProvider(Self)
+      .&End
+      .Generated;
+  finally
+    Imagem.free;
+  end;
+end;
+
+procedure TForm1.actTablesCallbackImagesExecute(Sender: TObject);
 begin
   WebCharts1
     .NewProject
     .Rows
       .Title
         .Config
-          .H1('Images')
+          .H1('Table - CallBack - Images')
         .&End
       .&End
     .&End
     .Jumpline
     .Jumpline
-    .Image
-      .ImageClass
-        .rounded
-        .imgThumbnail
-      .&End
+    .Table
+      .TableClass
+        .TableSm
+        .TableHover
+      .EndTableClass
       .DataSet
-        .Field('PICTURE')
-        .DataSet(ClientDataSet6)
+        .CallbackLink('ACCT_NBR', 'RelAvatar')
+        .DataSet(ClientDataSet7)
       .&End
     .&End
     .WebBrowser(WebBrowser1)
+    .CallbackJS
+      .ClassProvider(Self)
+    .&End
     .Generated;
 end;
 
-procedure TForm1.btn_bootstrap_jumbotronExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Jumbotron')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Jumbotron
-      .Title('Título')
-      .Description('Descrição')
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_linesExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Lines Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(line)
-        .Attributes
-          //.Labelling(True)
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          //.Title('Meu Grafico de Barras')
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-            .BackgroundColor('227,233,235')
-            .BorderColor('227,233,235')
-            .Fill(False)
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-            .BackgroundColor('30,182,203')
-            .BorderColor('30,182,203')
-            .Fill(False)
-          .&End
-        .&End
-      .&End
-    .&End
-    .Charts
-      ._ChartType(line)
-        .Attributes
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          //.Title('Meu Grafico de Barras')
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-            .BackgroundColor('227,233,235')
-            .BorderColor('227,233,235')
-            .Fill(False)
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-            .BackgroundColor('30,182,203')
-            .BorderColor('30,182,203')
-            .Fill(False)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_bootstrap_listgroupExecute(Sender: TObject);
-begin
-  WebCharts1//.CDN(true)
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('List Group')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Rows
-      .Title
-        .Config
-          .H4('Basic')
-        .&End
-      .&End
-    .&End
-    .ListGroup
-      .ListGroupType
-        .Basic
-      .&End
-      .DataSet
-        .DataSet(ClientDataSet7)
-        .LabelName('FIRST_NAME')
-      .&End
-    .&End
-    .Jumpline
-    .Rows
-      .Title
-        .Config
-          .H4('Action')
-        .&End
-      .&End
-    .&End
-    .ListGroup
-      .ListGroupType
-        .Action
-      .&End
-      .DataSet
-        .DataSet(ClientDataSet7)
-        .LabelName('FIRST_NAME')
-        .CallbackLink('FIRST_NAME', 'CallBack')
-      .&End
-    .&End
-    .Jumpline
-    .Rows
-      .Title
-        .Config
-          .H4('Flush com Badges')
-        .&End
-      .&End
-    .&End
-    .ListGroup
-      .ListGroupType
-        .Flush
-      .&End
-      .DataSet
-        .DataSet(ClientDataSet7)
-        .LabelName('FIRST_NAME')
-        .ValueName('RISK_LEVEL')
-        .CallbackLink('FIRST_NAME', 'CallBack')
-      .&End
-    .&End
-    .Jumpline
-    .Rows
-      .Title
-        .Config
-          .H4('Horizontal')
-        .&End
-      .&End
-    .&End
-    .ListGroup
-      .ListGroupType
-        .Horizontal
-      .&End
-      .DataSet
-        .DataSet(ClientDataSet7)
-        .LabelName('FIRST_NAME')
-      .&End
-    .&End
-    .Jumpline
-  .WebBrowser(WebBrowser1)
-  .CallbackJS
-      .ClassProvider(Self)
-    .&End
-  .Generated;
-end;
-
-procedure TForm1.btn_bootstrap_progressExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Progress')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Progress
-      .Info
-        .Title
-          .Text('Recebimentos')
-        .&End
-        .Value
-          .Text('19% (R$ 4.703,00)')
-        .&End
-        .Icon
-          .Up(true)
-          .Positive(true)
-        .&End
-      .&End
-      .ProgressBar
-        .Value('19')
-        .Sytle(bg_success)
-      .&end
-    .&End
-    .Progress
-      .Info
-        .Title
-          .Text('Despesas Gerais')
-        .&End
-        .Value
-          .Text('85% (R$ 30.000,00)')
-        .&End
-        .Icon
-          .Up(true)
-          .Positive(false)
-        .&End
-      .&End
-      .ProgressBar
-        .Value('85')
-        .Sytle(bg_danger)
-      .&end
-    .&End
-    .Progress
-      .Info
-        .Title
-          .Text('Despesas Fixas')
-        .&End
-        .Value
-          .Text('60% (R$ 40.852,00)')
-        .&End
-        .Icon
-          .Up(False)
-          .Positive(false)
-        .&End
-      .&End
-      .ProgressBar
-        .Value('60')
-        .Sytle(bg_warning)
-      .&end
-    .&End
-    .Jumpline
-    .Jumpline
-    .Progress
-      .ProgressBar
-        .Value('50')
-        .DisplayLabel(true)
-      .&end
-    .&End
-    .Jumpline
-    .Jumpline
-    .Progress
-      .Height(1)
-      .ProgressBar
-        .Value('50')
-      .&end
-    .&End
-    .Progress
-      .Height(20)
-      .ProgressBar
-        .Value('50')
-      .&end
-    .&End
-    .Jumpline
-    .Jumpline
-    .Progress
-      .ProgressBar
-        .Sytle(bg_success)
-        .Value('25')
-      .&end
-    .&End
-    .Progress
-      .ProgressBar
-        .Sytle(bg_info)
-        .Value('50')
-      .&end
-    .&End
-    .Progress
-      .ProgressBar
-        .Sytle(bg_warning)
-        .Value('75')
-      .&end
-    .&End
-    .Progress
-      .ProgressBar
-        .Sytle(bg_danger)
-        .Value('100')
-      .&end
-    .&End
-    .Jumpline
-    .Jumpline
-    .Progress
-      .ProgressBar
-        .Value('15')
-      .&end
-      .ProgressBar
-        .Sytle(bg_success)
-        .Value('30')
-      .&end
-      .ProgressBar
-        .Sytle(bg_danger)
-        .Value('20')
-      .&end
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_pieExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Pie Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(pie)
-        .Attributes
-          .Name('Meu Grafico Pie')
-          .ColSpan(12)
-          //.Title('Meu Grafico Pie')
-          .DataSet
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet3)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_pie_easyExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Easy Pie Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .ChartEasyPie
-      .DataPercent('73')
-      .Animate('1000')
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_polar_areaExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Polar Area Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(polarArea)
-        .Attributes
-          .Options
-            .Legend
-              .position('bottom')
-            .&End
-          .&End
-          .Name('Meu Grafico Polar Area')
-          .ColSpan(12)
-          .DataSet
-//            .BackgroundColor('26,187,156')
-            .RGBName('RGB')
-//            .BorderColor('26,187,156')
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet12)
-            .Fill(False)
-          .&End
-//          .DataSet
-//            .BackgroundColor('30,182,203')
-////            .BorderColor('30,182,203')
-//            .textLabel('Meu DataSet 2')
-//            .DataSet(ClientDataSet2)
-////            .Fill(False)
-//          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_radarExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Radar Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(radar)
-        .Attributes
-          .Options
-            .Legend
-              .position('bottom')
-            .&End
-          .&End
-          .Name('Meu Grafico Radar')
-          .ColSpan(12)
-          .DataSet
-            .BackgroundColor('26,187,156')
-            .BorderColor('26,187,156')
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('242,112,91')
-            .BorderColor('242,112,91')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_real_timeExecute(Sender: TObject);
-begin
-  WebCharts1
-  .Container(fluid)
-  .AddResource('<style> body { margin : 50px; } </style>')
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Real Time')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(line)
-        .Attributes
-          .Name('linestacked1')
-          .ColSpan(12)
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .RealTimeDataSet(ClientDataSetReal1)
-            .BackgroundColor('242,112,91')
-            .BorderColor('242,112,91')
-            .Fill(False)
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 2')
-            .RealTimeDataSet(ClientDataSetReal2)
-            .BackgroundColor('26,187,156')
-            .Fill(False)
-            .BorderColor('26,187,156')
-            .LineTension(0)
-            .BorderDash(8, 4)
-          .&End
-          .Options
-            .Scales
-              .Axes
-                .xAxe
-                  .RealTime
-                  .&End
-                .&End
-              .&End
-            .&End
-            .Tooltip
-              .Intersect(false)
-            .&End
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-
-end;
-
-procedure TForm1.btn_tables_pivotExecute(Sender: TObject);
+procedure TForm1.actTablesPivotExecute(Sender: TObject);
 begin
   WebCharts1
   .Container(fluid)
@@ -2400,8 +2757,8 @@ begin
                 .Title('Save Config')
                 .CallbackLink('','PivotConfigSave')
                 .ButtonClass
-                  .success
-                  .small
+                  .Success
+                  .Small
                 .&End
               .&End
             .HTML +
@@ -2412,8 +2769,8 @@ begin
                 .Title('Load Config')
                 .CallbackLink('','PivotConfigLoad')
                 .ButtonClass
-                  .primary
-                  .small
+                  .Primary
+                  .Small
                 .&End
               .&End
             .HTML +
@@ -2424,8 +2781,8 @@ begin
                 .Title('Show UI')
                 .CallbackLink('','PivotShowUI')
                 .ButtonClass
-                  .secondary
-                  .small
+                  .Secondary
+                  .Small
                 .&End
               .&End
             .HTML +
@@ -2436,8 +2793,8 @@ begin
                 .Title('Hide UI')
                 .CallbackLink('','PivotHideUI')
                 .ButtonClass
-                  .info
-                  .small
+                  .Info
+                  .Small
                 .&End
               .&End
             .HTML
@@ -2481,135 +2838,7 @@ begin
   .Generated;
 end;
 
-procedure TForm1.btn_chartjs_semi_circleExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Semi Circle Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(doughnut)
-        .Attributes
-          .Name('Meu Grafico Semicírculo')
-          .ColSpan(12)
-          .Options
-            .SemiCircule(True)
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 4')
-            .DataSet(ClientDataSet4)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_main_customExecute(Sender: TObject);
-begin
-  Form2.ShowModal
-end;
-
-procedure TForm1.btn_main_tablesExecute(Sender: TObject);
-begin
-  ViewSplit(SplitTable);
-end;
-
-procedure TForm1.btn_tables_callbackExecute(Sender: TObject);
-var
-  imagem : TResourceStream;
-begin
-  imagem := nil;
-  try
-    imagem := TResourceStream.Create(HInstance, 'PngFilter', RT_RCDATA);
-    WebCharts1
-      .Container(Fluid)
-      .AddResource('<style> body { margin : 50px; } </style>')
-      .NewProject
-      .Rows
-        .Title
-          .Config
-            .H1('Table - CallBack')
-          .&End
-        .&End
-      .&End
-      .Jumpline
-      .Jumpline
-      .Table
-        .TableClass
-          .tableSm
-          .tableHover
-          .tableResponsive
-        .EndTableClass
-        .DataSet
-          .CallbackLink('CustNo', 'RelCust')
-          .CallbackLink('Contact', 'RelContato')
-          .DataSet(ClientDataSet5)
-          .ActionEdit
-            .CallbackLink('CustNo', 'RelCust')
-          .&End
-          .ActionDelete
-            .CallbackLink('CustNo', 'RelCust')
-          .&End
-          .Action
-            .ActionHeader('Filtrar')
-            .Image
-              .Image(imagem)
-              .Tooltip('Filtrar')
-            .&End
-            .CallbackLink('CustNo', 'RelCust')
-          .&End
-        .&End
-      .&End
-      .WebBrowser(WebBrowser1)
-      .CallbackJS
-        .ClassProvider(Self)
-      .&End
-      .Generated;
-  finally
-    imagem.free;
-  end;
-end;
-
-procedure TForm1.btn_tables_callback_imagesExecute(Sender: TObject);
-begin
-  WebCharts1
-    .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Table - CallBack - Images')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Table
-      .TableClass
-        .tableSm
-        .tableHover
-      .EndTableClass
-      .DataSet
-        .CallbackLink('ACCT_NBR', 'RelAvatar')
-        .DataSet(ClientDataSet7)
-      .&End
-    .&End
-    .WebBrowser(WebBrowser1)
-    .CallbackJS
-      .ClassProvider(Self)
-    .&End
-    .Generated;
-end;
-
-procedure TForm1.btn_tables_restExecute(Sender: TObject);
+procedure TForm1.actTablesRestExecute(Sender: TObject);
 begin
   WebCharts1
     .Container(Fluid)
@@ -2626,12 +2855,12 @@ begin
     .Jumpline
     .Table
       .TableClass
-        .tableSm
-        .tableHover
+        .TableSm
+        .TableHover
       .EndTableClass
-      .Datatable(true)
+      .Datatable(True)
       .TableOptions
-        .Responsive(true)
+        .Responsive(True)
       .&End
       .TableData
         .Server('http://viacep.com.br/ws/RS/Porto Alegre/Domingos/json/')
@@ -2642,16 +2871,70 @@ begin
     .Generated;
 end;
 
+procedure TForm1.btnMainClick(Sender: TObject);
+begin
+  if SplitMain.Opened then
+    SplitMain.Close
+  else
+    SplitMain.Open;
+end;
+
 procedure TForm1.CallBack(Value: string);
 begin
   ShowMessage(value);
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+function TForm1.CSSPersonalizado: string;
 begin
-  btn_Dashboards_2Execute(self);
+  Result := Result + '<style>';
+  Result := Result + '.box {';
+  Result := Result + 'background-color: #FFFFFF;';
+  Result := Result + 'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.1);';
+  Result := Result + 'border-radius: 2px;';
+  Result := Result + 'width: 100%;';
+  Result := Result + 'margin: auto;';
+  Result := Result + 'padding: 0.75rem;';
+  Result := Result + 'text-align: center;';
+  Result := Result + '}';
+  Result := Result + '.primary {';
+  Result := Result + 'background-color: #5273E9;';
+  Result := Result + 'color: #FFFFFF;';
+  Result := Result + '}';
+  Result := Result + '.secundary {';
+  Result := Result + 'background-color: #36C2CF;';
+  Result := Result + 'color: #FFFFFF;';
+  Result := Result + '}';
+  Result := Result + '.count {';
+  Result := Result + 'font-size: 20px;';
+  Result := Result + '}';
+  Result := Result + '.boxoffpadding {';
+  Result := Result + 'padding: 0rem;';
+  Result := Result + 'height: 100%;';
+  Result := Result + '}';
+  Result := Result + '.list-group {';
+  Result := Result + 'background-color: #FFFFFF;';
+  Result := Result + 'box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.1);';
+  Result := Result + 'border-radius: 2px;';
+  Result := Result + 'width: 100%;';
+  Result := Result + 'margin: auto;';
+  Result := Result + 'padding: 0.75rem;';
+  Result := Result + 'text-align: center;';
+  Result := Result + 'height: 100%;';
+  Result := Result + '}';
+  Result := Result + '.list-group-item {';
+  Result := Result + 'padding: 5%;';
+  Result := Result + '}';
+  Result := Result + '</style>';
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+const
+  SSplitMainLength: UInt8 = 50;
+begin
+  actbtnDashboards2Execute(self);
   FSplitAtual := SplitBootStrap;
-  ReportMemoryLeaksOnShutdown := true;
+  ReportMemoryLeaksOnShutdown := True;
+  SplitMain.CompactWidth := SSplitMainLength;
 end;
 
 procedure TForm1.PivotConfigLoad;
@@ -2684,11 +2967,11 @@ begin
     .PivotTable.ShowUI;
 end;
 
-procedure TForm1.RelAvatar(Value: Currency);
+procedure TForm1.RelAvatar(const Value: Currency);
 begin
-  ClientDataSet6.Filtered := false;
+  ClientDataSet6.Filtered := False;
   ClientDataSet6.Filter := 'ACCT_NBR = ' + CurrToStr(Value);
-  ClientDataSet6.Filtered := true;
+  ClientDataSet6.Filtered := True;
   WebCharts1
   .NewProject
     .Rows
@@ -2699,8 +2982,8 @@ begin
           .ContinuosProject
           .Image
             .ImageClass
-              .rounded
-              .imgThumbnail
+              .Rounded
+              .ImgThumbnail
             .&End
             .DataSet
               .Field('PICTURE')
@@ -2825,7 +3108,7 @@ begin
                 .Heigth(100)
                 //.Legend(False)
                 .DataSet
-                  .textLabel('l1')
+                  .TextLabel('l1')
                   .DataSet(ClientDataSet3)
                   .Fill(False)
                 .&End
@@ -2848,7 +3131,7 @@ begin
                 .Name('d1')
                 //.Legend(True)
                 .DataSet
-                  .textLabel('d1')
+                  .TextLabel('d1')
                   .DataSet(ClientDataSet4)
                   .Fill(False)
                 .&End
@@ -2868,7 +3151,7 @@ begin
                 .Name('d2')
                 //.Legend(True)
                 .DataSet
-                  .textLabel('d2')
+                  .TextLabel('d2')
                   .DataSet(ClientDataSet4)
                   .Fill(False)
                 .&End
@@ -2888,7 +3171,7 @@ begin
                 .Name('d3')
                 //.Legend(True)
                 .DataSet
-                  .textLabel('d3')
+                  .TextLabel('d3')
                   .DataSet(ClientDataSet4)
                   .Fill(False)
                 .&End
@@ -2902,7 +3185,7 @@ begin
   .Generated;
 end;
 
-procedure TForm1.RelContato(Value: String);
+procedure TForm1.RelContato(const Value: string);
 begin
   WebCharts1
     .NewProject
@@ -2920,7 +3203,7 @@ begin
             .ColSpan(12)
             .DataSet
               .DataSet(ClientDataSet1)
-              .textLabel('Vendas do Mes')
+              .TextLabel('Vendas do Mes')
             .&End
           .&End
         .&End
@@ -2929,12 +3212,12 @@ begin
   .Generated;
 end;
 
-procedure TForm1.RelCust(Value: Integer);
+procedure TForm1.RelCust(const Value: Integer);
 begin
   ShowMessage(IntToStr(Value));
 end;
 
-procedure TForm1.ShowButtons(Value: String);
+procedure TForm1.ShowButtons(const Value: string);
 begin
   ShowMessage(Value);
 end;
@@ -2952,8 +3235,8 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  ClientDataSetReal1.AppendRecord(['', IntToStr(Random(200)), '']);
-  ClientDataSetReal2.AppendRecord(['', IntToStr(Random(200)), '']);
+  ClientDataSetReal1.AppendRecord([EmptyStr, IntToStr(Random(200)), EmptyStr]);
+  ClientDataSetReal2.AppendRecord([EmptyStr, IntToStr(Random(200)), EmptyStr]);
 
   WebCharts1
     .ContinuosProject
@@ -2963,11 +3246,11 @@ begin
         .Attributes
           .Name('linestacked1')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .TextLabel('Meu DataSet 1')
             .RealTimeDataSet(ClientDataSetReal1)
           .&End
           .DataSet
-            .textLabel('Meu DataSet 2')
+            .TextLabel('Meu DataSet 2')
             .RealTimeDataSet(ClientDataSetReal2)
           .&End
         .&End
@@ -2991,287 +3274,6 @@ begin
     else
       Sender.Open;
   end;
-end;
-
-procedure TForm1.btn_chartjs_barsExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Bar Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(bar)
-        .Attributes
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet3)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_bars_callbackExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Bar Chart - CallBack')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(bar)
-        .Attributes
-          .CallBackLink('CallBack')
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          //.Title('Meu Gráfico de Barras')
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet3)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .CallbackJS
-      .ClassProvider(Self)
-    .&End
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_bars_horizontalExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Horizontal Bar Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(horizontalBar)
-        .Attributes
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-          .&End
-          .Options
-            .Scales
-              .Axes
-                .xAxe
-                  .ScaleLabel
-                    .display(True)
-                    .labelString('Faturamento por Mês')
-                  .&End
-                .&End
-                .yAxe
-                  .ScaleLabel
-                    .display(True)
-                    .labelString('Total de Vendas')
-                  .&End
-                .&End
-              .&End
-            .&End
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_bars_labelExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Bar Chart - Label')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(bar)
-        .Attributes
-          .Labelling
-            .Format('$0,0.00') //Consultar em http://numeraljs.com/#format
-            .RGBColor('102,102,102') //Cor RGB separado por Virgula
-            .FontSize(10) //Tamanho da Fonte
-            .FontStyle('normal') //normal, bold, italic
-            .FontFamily('Open Sans') //Open Sans, Arial, Helvetica e etc..
-            .Padding(5) //Numeros negativos e positivos
-          .&End
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          //.Title('Meu Gráfico de Barras')
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet3)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_bars_linesExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Bar/Line Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(bar)
-        .Attributes
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          //.Title('Meu Gráfico de Barras')
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-            .Types('line')
-            .Fill(false)
-            .BorderWidth(2)
-            .BorderColor('30,182,203')
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-            .Types('bar')
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet2)
-            .Types('bar')
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btn_chartjs_bars_stackedExecute(Sender: TObject);
-begin
-  WebCharts1
-  .NewProject
-    .Rows
-      .Title
-        .Config
-          .H1('Stacked Bar Chart')
-        .&End
-      .&End
-    .&End
-    .Jumpline
-    .Jumpline
-    .Charts
-      ._ChartType(bar)
-        .Attributes
-          .Name('Meu Grafico de Barras')
-          .ColSpan(12)
-          .Options
-            .Scales
-              .Axes
-                .xAxe
-                  .Stacked(True)
-                .&End
-                .yAxe
-                  .Stacked(True)
-                .&End
-              .&End
-            .&End
-          .&End
-          .DataSet
-            .textLabel('Meu DataSet 1')
-            .DataSet(ClientDataSet1)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
-            .DataSet(ClientDataSet2)
-          .&End
-          .DataSet
-            .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
-            .DataSet(ClientDataSet3)
-          .&End
-        .&End
-      .&End
-    .&End
-  .WebBrowser(WebBrowser1)
-  .Generated;
-end;
-
-procedure TForm1.btnMainClick(Sender: TObject);
-begin
- if SplitMain.Opened then
-      SplitMain.Close
-  else
-      SplitMain.Open;
 end;
 
 end.
