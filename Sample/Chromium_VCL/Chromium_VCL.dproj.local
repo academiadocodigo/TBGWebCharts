@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2021/01/14 14:48:59.000.779,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Unit5.dfm=C:\Componentes\TBGWebCharts\trunk\Sample\Chromium_VCL\Unit1.dfm</Transaction>
-    <Transaction>2021/01/14 14:49:11.000.202,C:\Users\equip\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Componentes\TBGWebCharts\trunk\Sample\Chromium_VCL\Chromium_VCL.dproj</Transaction>
-  </Transactions>
-</BorlandProject>

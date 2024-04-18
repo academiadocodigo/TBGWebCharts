@@ -36,6 +36,9 @@
         <Projects Include="WebBroker\TBGWebCharts_WebBroker.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Horse\TBGWebCharts_Horse.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -143,14 +146,23 @@
     <Target Name="TBGWebCharts_WebBroker:Make">
         <MSBuild Projects="WebBroker\TBGWebCharts_WebBroker.dproj" Targets="Make"/>
     </Target>
+    <Target Name="TBGWebCharts_Horse">
+        <MSBuild Projects="Horse\TBGWebCharts_Horse.dproj"/>
+    </Target>
+    <Target Name="TBGWebCharts_Horse:Clean">
+        <MSBuild Projects="Horse\TBGWebCharts_Horse.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TBGWebCharts_Horse:Make">
+        <MSBuild Projects="Horse\TBGWebCharts_Horse.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="BlackDashboard;DashBoardCards;DashBoardCards2;TBGWebCharts_VCL;GeracaoDataSetDinamico;Sample_RichTextEditor;TBGWebCharts_VCL_Demo;Update_Charts;CallbackManual;GeracaoChartsDinamico;TBGWebCharts_WebBroker"/>
+        <CallTarget Targets="BlackDashboard;DashBoardCards;DashBoardCards2;TBGWebCharts_VCL;GeracaoDataSetDinamico;Sample_RichTextEditor;TBGWebCharts_VCL_Demo;Update_Charts;CallbackManual;GeracaoChartsDinamico;TBGWebCharts_WebBroker;TBGWebCharts_Horse"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="BlackDashboard:Clean;DashBoardCards:Clean;DashBoardCards2:Clean;TBGWebCharts_VCL:Clean;GeracaoDataSetDinamico:Clean;Sample_RichTextEditor:Clean;TBGWebCharts_VCL_Demo:Clean;Update_Charts:Clean;CallbackManual:Clean;GeracaoChartsDinamico:Clean;TBGWebCharts_WebBroker:Clean"/>
+        <CallTarget Targets="BlackDashboard:Clean;DashBoardCards:Clean;DashBoardCards2:Clean;TBGWebCharts_VCL:Clean;GeracaoDataSetDinamico:Clean;Sample_RichTextEditor:Clean;TBGWebCharts_VCL_Demo:Clean;Update_Charts:Clean;CallbackManual:Clean;GeracaoChartsDinamico:Clean;TBGWebCharts_WebBroker:Clean;TBGWebCharts_Horse:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="BlackDashboard:Make;DashBoardCards:Make;DashBoardCards2:Make;TBGWebCharts_VCL:Make;GeracaoDataSetDinamico:Make;Sample_RichTextEditor:Make;TBGWebCharts_VCL_Demo:Make;Update_Charts:Make;CallbackManual:Make;GeracaoChartsDinamico:Make;TBGWebCharts_WebBroker:Make"/>
+        <CallTarget Targets="BlackDashboard:Make;DashBoardCards:Make;DashBoardCards2:Make;TBGWebCharts_VCL:Make;GeracaoDataSetDinamico:Make;Sample_RichTextEditor:Make;TBGWebCharts_VCL_Demo:Make;Update_Charts:Make;CallbackManual:Make;GeracaoChartsDinamico:Make;TBGWebCharts_WebBroker:Make;TBGWebCharts_Horse:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
