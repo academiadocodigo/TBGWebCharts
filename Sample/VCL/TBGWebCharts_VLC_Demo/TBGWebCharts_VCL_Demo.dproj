@@ -58,7 +58,7 @@
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
         <SanitizedProjectName>TBGWebCharts_VCL_Demo</SanitizedProjectName>
-        <DCC_UnitSearchPath>..\..\..\..\TBGWebCharts;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\..\..\TBGWebCharts\Source;..\..\..\..\TBGWebCharts\Source\Include;..\..\..\..\TBGWebCharts\Source\Browser;..\..\..\..\TBGWebCharts\Source\CardStyled;..\..\..\..\TBGWebCharts\Source\Charts;..\..\..\..\TBGWebCharts\Source\Generic;..\..\..\..\TBGWebCharts\Source\Maps;..\..\..\..\TBGWebCharts\Source\PivotTable;..\..\..\..\TBGWebCharts\Source\RichTextEditor;..\..\..\..\TBGWebCharts\Source\Rows;..\..\..\..\TBGWebCharts\Source\Table;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1040</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
@@ -88,8 +88,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>TBGWebCharts_VCL_Demo_Icon.ico</Icon_MainIcon>
-        <UWP_DelphiLogo44>D:\Projetos\Componentes\TBGWebCharts\img\TWebCharts.fw.png</UWP_DelphiLogo44>
-        <UWP_DelphiLogo150>D:\Projetos\Componentes\TBGWebCharts\img\TWebCharts.fw.png</UWP_DelphiLogo150>
+        <UWP_DelphiLogo44>..\..\..\img\TWebCharts.fw.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>..\..\..\img\TWebCharts.fw.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -113,9 +113,9 @@
             <Form>Form2</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <RcItem Include="filter.png">
+        <RcItem Include="Images\filter.png">
             <ResourceType>RCDATA</ResourceType>
-            <ResourceId>PngFilter</ResourceId>
+            <ResourceId>PngImage</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -147,8 +147,27 @@
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <Deployment Version="4">
+                <DeployFile LocalName="..\..\..\img\TWebCharts.fw.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="D:\Projetos\Componentes\TBGWebCharts\img\TWebCharts.fw.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
+                <DeployFile LocalName="Images\filter.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="Win32\Debug\TBGWebCharts_VCL_Demo.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Win32\Debug\TBGWebCharts_VCL_Demo.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>TBGWebCharts_VCL_Demo.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="filter.png" Configuration="Debug" Class="ProjectFile"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">

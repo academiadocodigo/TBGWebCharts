@@ -56,7 +56,7 @@
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1046</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=;CFBundleName=</VerInfo_Keys>
-        <DCC_UnitSearchPath>..\..\..\..\TBGWebCharts;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>..\..\..\..\TBGWebCharts\Source;..\..\..\..\TBGWebCharts\Source\Include;..\..\..\..\TBGWebCharts\Source\Browser;..\..\..\..\TBGWebCharts\Source\CardStyled;..\..\..\..\TBGWebCharts\Source\Charts;..\..\..\..\TBGWebCharts\Source\Generic;..\..\..\..\TBGWebCharts\Source\Maps;..\..\..\..\TBGWebCharts\Source\PivotTable;..\..\..\..\TBGWebCharts\Source\RichTextEditor;..\..\..\..\TBGWebCharts\Source\Rows;..\..\..\..\TBGWebCharts\Source\Table;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
     </PropertyGroup>

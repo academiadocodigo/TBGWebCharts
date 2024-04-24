@@ -1,5 +1,7 @@
 program TBGWebCharts_VCL_Demo;
 
+
+
 {$R *.dres}
 
 uses

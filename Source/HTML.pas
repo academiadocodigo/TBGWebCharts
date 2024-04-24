@@ -93,11 +93,11 @@ Type
     destructor Destroy; override;
     class function New: iModelHTML;
     function GenerateHead: iModelHTML; overload;
-    function GenerateHead(Value : TList<String>) : iModelHTML; overload;
+    function GenerateHead(const Value: TList<string>): iModelHTML; overload;
     function GenerateFooter: iModelHTML;
     function Jumpline: iModelHTML;
     function HTML: String; overload;
-    function HTML(Value: String): iModelHTML; overload;
+    function HTML(const Value: string): iModelHTML; overload;
     function Charts: iModelHTMLCharts;
     function Rows: IModelHTMLRows;
     function ClearHTML : iModelHTML;
@@ -343,7 +343,7 @@ begin
   FHTML := FHTML + '</html>';
 end;
 
-function TModelHTML.GenerateHead(Value: TList<String>): iModelHTML;
+function TModelHTML.GenerateHead(const Value: TList<string>): iModelHTML;
 var
   I: Integer;
 begin
@@ -402,7 +402,7 @@ begin
   FHTML := FHTML + '<body> ';
 end;
 
-function TModelHTML.HTML(Value: String): iModelHTML;
+function TModelHTML.HTML(const Value: string): iModelHTML;
 begin
   Result := Self;
   FHTML := FHTML + Value;
