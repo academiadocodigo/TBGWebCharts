@@ -49,13 +49,15 @@ uses
 function TModelTable.&End: iModelHTML;
 var
   I: Integer;
+  LNomeRand: string;
 begin
+  LNomeRand:= Random(1000).ToString;
   Result := FParent;
   if FDatatable then
   begin
     FParent.HTML('<script>');
     FParent.HTML('$(document).ready(function() {');
-    FParent.HTML('	$('+QuotedStr('#' + FTableOptions.Name)+').DataTable({');
+    FParent.HTML('	$('+QuotedStr('#' + FTableOptions.Name+LNomeRand)+').DataTable({');
     FParent.HTML(FTableOptions.Result);
     FParent.HTML(FFeatures.Result);
     FParent.HTML('language : {');
@@ -93,7 +95,7 @@ begin
     FParent.HTML('} );');
     FParent.HTML('</script>');
     FParent.HTML(GenerateDataSetStyle);
-    FParent.HTML('<table id="' + FTableOptions.Name + '" class="' + FClass + '" style="width:100%">');
+    FParent.HTML('<table id="' + FTableOptions.Name+LNomeRand + '" class="' + FClass + '" style="width:100%">');
     FParent.HTML(FTableData.ResultTable);
   end
   else
