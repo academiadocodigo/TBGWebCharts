@@ -10,8 +10,7 @@ object Form13: TForm13
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
+  OnCreate = FormCreate
   TextHeight = 13
   object WebBrowser1: TWebBrowser
     Left = 0
@@ -20,10 +19,8 @@ object Form13: TForm13
     Height = 340
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 548
-    ExplicitHeight = 342
     ControlData = {
-      4C00000002410000242300000000000000000000000000000000000000000000
+      4C000000023400001D1C00000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126208000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000
@@ -36,6 +33,8 @@ object Form13: TForm13
     Height = 41
     Align = alBottom
     TabOrder = 1
+    ExplicitTop = 331
+    ExplicitWidth = 623
     object Button1: TButton
       Left = 1
       Top = 1
@@ -219,8 +218,8 @@ object Form13: TForm13
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 497
-    Top = 18
+    Left = 417
+    Top = 74
   end
   object ClientDataSet3: TClientDataSet
     PersistDataPacket.Data = {
@@ -281,6 +280,6 @@ object Form13: TForm13
     Aggregates = <>
     Params = <>
     Left = 416
-    Top = 66
+    Top = 130
   end
 end

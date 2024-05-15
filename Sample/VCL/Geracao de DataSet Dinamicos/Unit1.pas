@@ -3,24 +3,41 @@ unit Unit1;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  View.WebCharts, Vcl.StdCtrls, Vcl.OleCtrls, SHDocVw, Vcl.Grids, Vcl.DBGrids;
+  Winapi.Windows,
+  Winapi.Messages,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.OleCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Data.DB,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error,
+  FireDAC.DatS,
+  FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+  View.WebCharts,
+  SHDocVw;
 
 type
   TForm1 = class(TForm)
-    WebBrowser1: TWebBrowser;
     Button1: TButton;
-    WebCharts1: TWebCharts;
     Edit1: TEdit;
+    WebBrowser1: TWebBrowser;
+    WebCharts1: TWebCharts;
     procedure Button1Click(Sender: TObject);
-  private
-    { Private declarations }
-    procedure PreencherDataSet(FDMemTable : TFDMemTable);
-  public
-    { Public declarations }
+  strict private
+    procedure PreencherDataSet(const MemTable: TFDMemTable);
   end;
 
 var
@@ -29,62 +46,61 @@ var
 implementation
 
 uses
-  Interfaces, Charts.Types;
+  System.Generics.Collections,
+  Interfaces,
+  Charts.Types;
 
 {$R *.dfm}
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
-  viModelHTML : iModelHTML;
-  vChartsConfig : iModelHTMLChartsConfig;
-  vFDMemTable : array of TFDMemTable;
-  I: Integer;
+  ChartsConfig: IModelHTMLChartsConfig;
+  LengthList: UInt8;
+  ListMemTable: TObjectList<TFDMemTable>;
+  ModelHTML: IModelHTML;
 begin
+  ListMemTable := TObjectList<TFDMemTable>.Create;
+  try
+    for var I: UInt8 := 1 to StrToInt(Edit1.Text) do
+    begin
+      ListMemTable.Add(TFDMemTable.Create(nil));
+      PreencherDataSet(ListMemTable.Last);
+    end;
 
-  SetLength(vFDMemTable, StrToInt(Edit1.Text));
+    ModelHTML := WebCharts1.NewProject;
 
-  for I := 0 to Pred(Length(vFDMemTable)) do
-  begin
-    vFDMemTable[I] := TFDMemTable.Create(nil);
-    PreencherDataSet(vFDMemTable[I]);
+    ChartsConfig :=
+    ModelHTML.Charts
+             ._ChartType(bar)
+             .Attributes;
+
+    for var MemTable: TFDMemTable in ListMemTable do
+      ChartsConfig.DataSet.DataSet(MemTable).&End;
+
+    ChartsConfig.Name('G1').&End.&End;
+    ModelHTML
+      .WebBrowser(WebBrowser1)
+      .Generated;
+  finally
+    ListMemTable.Free;
   end;
-
-
-
-  viModelHTML := WebCharts1.New.NewProject;
-
-  vChartsConfig :=
-  viModelHTML.Charts
-      ._ChartType(bar)
-        .Attributes;
-
-
-  for I := 0 to Pred(Length(vFDMemTable)) do
-    vChartsConfig.DataSet.DataSet(vFDMemTable[I]).&End;
-
-
-  vChartsConfig.Name('G1').&End.&End;
-
-  viModelHTML
-    .WebBrowser(WebBrowser1)
-    .Generated;
 end;
 
-procedure TForm1.PreencherDataSet(FDMemTable : TFDMemTable);
+procedure TForm1.PreencherDataSet(const MemTable: TFDMemTable);
 var
-  Color : String;
+  Color: string;
 begin
-  Color := IntToStr(Random(255)) + ',' + IntToStr(Random(255)) + ',' + IntToStr(Random(255));
+  Color := Random(255).ToString + ',' + Random(255).ToString + ',' + Random(255).ToString;
 
-  FDMemTable.FieldDefs.Add('Label', ftString, 60, false);
-  FDMemTable.FieldDefs.Add('Value', ftString, 60, false);
-  FDMemTable.FieldDefs.Add('RGB', ftString, 60, false);
-  FDMemTable.CreateDataSet;
+  MemTable.FieldDefs.Add('Label', TFieldType.ftString, 60, False);
+  MemTable.FieldDefs.Add('Value', TFieldType.ftString, 60, False);
+  MemTable.FieldDefs.Add('RGB', TFieldType.ftString, 60, False);
+  MemTable.CreateDataSet;
 
-  FDMemTable.Open;
-  FDMemTable.AppendRecord(['Teste1', IntToStr(Random(100)), Color]);
-  FDMemTable.AppendRecord(['Teste2', IntToStr(Random(100)), Color]);
-  FDMemTable.AppendRecord(['Teste3', IntToStr(Random(100)), Color]);
+  MemTable.Open;
+  MemTable.AppendRecord(['Teste1', Random(100).ToString, Color]);
+  MemTable.AppendRecord(['Teste2', Random(100).ToString, Color]);
+  MemTable.AppendRecord(['Teste3', Random(100).ToString, Color]);
 end;
 
 end.

@@ -3,19 +3,26 @@ unit Unit1;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, View.WebCharts, Vcl.OleCtrls, SHDocVw;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.OleCtrls,
+  View.WebCharts,
+  SHDocVw;
 
 type
   TForm1 = class(TForm)
     WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
     procedure FormCreate(Sender: TObject);
-  private
-    { Private declarations }
   public
-    { Public declarations }
-    procedure CallBackFuntion( aValue : String );
+    procedure CallBackFuntion(const Value: string);
   end;
 
 var
@@ -28,9 +35,9 @@ uses
 
 {$R *.dfm}
 
-procedure TForm1.CallBackFuntion(aValue: String);
+procedure TForm1.CallBackFuntion(const Value: string);
 begin
-  ShowMessage( aValue );
+  ShowMessage( Value );
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -39,7 +46,7 @@ begin
   .NewProject
   .Rows
     ._Div
-      .Add('<a href="ActionCallBackJS:CallBackFuntion('+TIdEncoderMIME.EncodeString('1024034')+')">1024034</a>')
+      .Add('<a href="ActionCallBackJS:CallBackFuntion(' + TIdEncoderMIME.EncodeString('1024034') + ')">1024034</a>')
     .&End
   .&End
   .WebBrowser(WebBrowser1)

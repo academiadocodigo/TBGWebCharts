@@ -106,10 +106,6 @@
             <Form>Form7</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="frmMain2.pas">
-            <Form>Form8</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <RcItem Include="assets\TWebCharts.fw.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ico_relatorio</ResourceId>
@@ -141,7 +137,19 @@
             </Delphi.Personality>
             <Deployment Version="4">
                 <DeployFile LocalName="Win32\Debug\Sample_RichTextEditor.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Win32\Debug\Sample_RichTextEditor.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>Sample_RichTextEditor.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="assets\TWebCharts.fw.png" Configuration="Debug" Class="ProjectFile"/>
+                <DeployFile LocalName="assets\TWebCharts.fw.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>

@@ -3,30 +3,60 @@ unit frmMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, View.WebCharts,
-  Vcl.OleCtrls, SHDocVw, Vcl.ExtCtrls, Data.DB, Datasnap.DBClient  ;
+  Winapi.Windows,
+  Winapi.Messages,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.OleCtrls,
+  Vcl.ExtCtrls,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Data.DB,
+  Datasnap.DBClient,
+  View.WebCharts,
+  SHDocVw;
 
 type
   TForm11 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet11: TClientDataSet;
+    ClientDataSet1Label: TStringField;
+    ClientDataSet1RGB: TStringField;
+    ClientDataSet1Value: TStringField;
+    ClientDataSet2: TClientDataSet;
     Panel1: TPanel;
     Panel2: TPanel;
     WebBrowser1: TWebBrowser;
     WebCharts1: TWebCharts;
-    Button1: TButton;
-    ClientDataSet1: TClientDataSet;
-    ClientDataSet1Label: TStringField;
-    ClientDataSet1Value: TStringField;
-    ClientDataSet1RGB: TStringField;
-    ClientDataSet2: TClientDataSet;
-    ClientDataSet11: TClientDataSet;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-  private
-    { Private declarations }
-    function GenerateCard : String;
-  public
-    { Public declarations }
+    procedure FormCreate(Sender: TObject);
+  strict private
+  const
+    FAttributeNameChartLive: string = 'ChartLive';
+    FAttributeNameChartLive2: string = 'ChartlLive2';
+    FAttributeNameChartLive3: string = 'ChartLive3';
+    FDatadbXml: string = 'datadb.xml';
+    FDisplayTextAverageNnumberOfAttendancesUsers: string = 'Average number of attendances/users';
+    FFooterText15Percent: string = '15%';
+    FFooterTextMoreThanLastMonth: string = ' more than last month';
+    FFooterTextPercentMoreThanLastMonth: string = '%f%% more than last month';
+    FTextLabelAnalysisOfAttendances: string = 'Analysis of attendances';
+    FTextLabelAnalysisOfNewUsers: string = 'Analysis of new users';
+    FTextLabelUsersOnSocialNetworks: string = 'Users on social networks';
+    FTitleTextAttendances: string = 'Attendances';
+    FTitleTextNewUsers: string = 'New users';
+    FTitleTextPerformance: string = 'Performance';
+    FTitleTextSales: string = 'Sales';
+    FTitleTextSalesInPeriod: string = 'Sales in the period';
+    FTitleTextUsersOnSocialMedia: string = 'Users on social media';
+    function GenerateCard: string;
   end;
 
 var
@@ -44,9 +74,7 @@ begin
   WebCharts1
   .NewProject
     .Rows
-    .HTML(
-        generateCard
-    )
+    .HTML(GenerateCard)
     .&End
     .Jumpline
     .Rows
@@ -58,19 +86,19 @@ begin
             .Charts
               ._ChartType(bar)
                 .Attributes
-                  .Name('GraficolLive')
+                  .Name(FAttributeNameChartLive)
                   .ColSpan(12)
                   .Heigth(170)
                   .Options
                     .Title
-                      .display(true)
-                      .text('Média de Atendimentos/Usuários')
-                      .fontSize(20)
+                      .Display(True)
+                      .Text(FDisplayTextAverageNnumberOfAttendancesUsers)
+                      .FontSize(20)
                     .&End
                   .&End
                   .DataSet
                     .DataSet(ClientDataSet1)
-                    .textLabel('Analise de Atendimentos')
+                    .TextLabel(FTextLabelAnalysisOfAttendances)
                     .BackgroundColor('245,54,92')
                     .BorderColor('245,54,92')
                     .BackgroundOpacity(4)
@@ -78,14 +106,14 @@ begin
                   .&End
                   .DataSet
                     .DataSet(ClientDataSet2)
-                    .textLabel('Analise de Novos Usuários')
+                    .TextLabel(FTextLabelAnalysisOfNewUsers)
                     .BackgroundColor('17,120,239')
                     .BorderColor('17,120,239')
                     .BackgroundOpacity(4)
                     .Fill(False)
                   .&End
                   .Options
-                    .Tooltip.DisplayTitle(true)
+                    .Tooltip.DisplayTitle(True)
                       .InteractionModeIndex
                     .&End
                   .&End
@@ -104,26 +132,25 @@ begin
               ._ChartType(Pie)
                 .Attributes
                   .Heigth(230)
-
-                  .Name('GraficolLive2')
+                  .Name(FAttributeNameChartLive2)
                   .ColSpan(12)
                   .Options
                     .Title
-                      .display(true)
-                      .text('Usuários nas Mídias Sociais')
-                      .fontSize(20)
+                      .Display(True)
+                      .Text(FTitleTextUsersOnSocialMedia)
+                      .FontSize(20)
                     .&End
                     .Legend
-                      .display(true)
+                      .Display(True)
                       .position('right')
                     .&End
                     .Tooltip
-                      .DisplayTitle(true)
+                      .DisplayTitle(True)
                     .&End
                   .&End
                   .DataSet
                     .DataSet(ClientDataSet11)
-                    .textLabel('Usuários nas Redes Sociais')
+                    .TextLabel(FTextLabelUsersOnSocialNetworks)
                     .BackgroundOpacity(4)
                   .&End
                 .&End
@@ -142,7 +169,7 @@ begin
             .Charts
               ._ChartType(line)
                 .Attributes
-                  .Name('GraficolLive3')
+                  .Name(FAttributeNameChartLive3)
                   .ColSpan(12)
                   .Heigth(80)
                   .Labelling
@@ -151,24 +178,24 @@ begin
                   .&End
                   .Options
                     .Legend
-                      .display(false)
+                      .Display(false)
                     .&End
                     .Title
-                      .display(true)
-                      .text('Vendas no Período')
-                      .fontSize(20)
+                      .Display(True)
+                      .Text(FTitleTextSalesInPeriod)
+                      .FontSize(20)
                     .&End
                   .&End
                   .DataSet
                     .DataSet(ClientDataSet2)
-                    .textLabel('Vendas no Período')
+                    .TextLabel(FTitleTextSalesInPeriod)
                     .BackgroundColor('121,54,245')
                     .BorderColor('121,54,245')
                     .BackgroundOpacity(4)
                     .Fill(True)
                   .&End
                   .Options
-                    .Tooltip.DisplayTitle(true)
+                    .Tooltip.DisplayTitle(True)
                       .InteractionModeIndex
                     .&End
                   .&End
@@ -185,10 +212,15 @@ end;
 
 procedure TForm11.Button2Click(Sender: TObject);
 begin
-  clientdataset11.SaveToFile('datadb.xml');
+  clientdataset11.SaveToFile(FDatadbXml);
 end;
 
-function TForm11.GenerateCard: String;
+procedure TForm11.FormCreate(Sender: TObject);
+begin
+  Self.WindowState := TWindowState.wsMaximized;
+end;
+
+function TForm11.GenerateCard: string;
 begin
   Result := WebCharts1
         .ContinuosProject
@@ -198,19 +230,19 @@ begin
             .BackgroundColor('linear-gradient(87deg,#5e72e4,#825ee4)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Vendas')
+              .Text(FTitleTextSales)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Body
-              .Text(Format('%m', [Random(3500000)*0.1]))
+              .Text(Format('%m', [Random(3500000) * 0.1]))
               .Style
                 .FontSize(20)
               .&End
             .&End
             .Footer
-              .Text('10% a mais que o último mês')
+              .Text(Format(FFooterTextPercentMoreThanLastMonth, [10.]))
               .Style
                 .FontSize(15)
               .&End
@@ -229,7 +261,7 @@ begin
             .BackgroundColor('linear-gradient(87deg,#11cdef,#1171ef)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Atendimentos')
+              .Text(FTitleTextAttendances)
               .Style
                 .FontSize(15)
               .&End
@@ -241,7 +273,7 @@ begin
               .&End
             .&End
             .Footer
-              .Text('3,48% a mais que o último mês')
+              .Text(Format(FFooterTextPercentMoreThanLastMonth, [3.48]))
               .Style
                 .FontSize(15)
               .&End
@@ -260,19 +292,19 @@ begin
             .BackgroundColor('linear-gradient(87deg,#f5365c,#f56036)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Novos Usuários')
+              .Text(FTitleTextNewUsers)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Body
-              .Text(format('%n', [Random(30000)*1.0]))
+              .Text(Format('%n', [Random(30000) * 1.0]))
               .Style
                 .FontSize(20)
               .&End
             .&End
             .Footer
-              .Text('7% a mais que o último mês')
+              .Text(Format(FFooterTextPercentMoreThanLastMonth, [7.]))
               .Style
                 .FontSize(15)
               .&End
@@ -291,25 +323,25 @@ begin
             .BackgroundColor('linear-gradient(87deg,#07F0A2,#04D956)')
             .DefaultFontColor('255,255,255')
             .Title
-              .Text('Performance')
+              .Text(FTitleTextPerformance)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Body
-              .Text(format('%n%', [Random(1000)*0.1]))
+              .Text(Format('%n%', [Random(1000) * 0.1]))
               .Style
                 .FontSize(20)
               .&End
             .&End
             .Footer
-              .Text('15%')
+              .Text(FFooterText15Percent)
               .Style
                 .FontSize(15)
               .&End
             .&End
             .Footer
-              .Text(' a mais que o último mês')
+              .Text(FFooterTextMoreThanLastMonth)
               .Style
                 .FontSize(10)
               .&End

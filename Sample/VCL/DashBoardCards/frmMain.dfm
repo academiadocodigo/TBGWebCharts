@@ -10,8 +10,7 @@ object Form6: TForm6
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
+  OnCreate = FormCreate
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
@@ -20,6 +19,8 @@ object Form6: TForm6
     Height = 287
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 488
+    ExplicitHeight = 278
     object WebBrowser1: TWebBrowser
       Left = 1
       Top = 1
@@ -27,12 +28,10 @@ object Form6: TForm6
       Height = 285
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 352
-      ExplicitTop = 72
-      ExplicitWidth = 300
-      ExplicitHeight = 150
+      ExplicitWidth = 486
+      ExplicitHeight = 276
       ControlData = {
-        4C000000DA320000751D00000000000000000000000000000000000000000000
+        4C000000AE280000911700000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
         2B2E126208000000000000004C0000000114020000000000C000000000000046
         8000000000000000000000000000000000000000000000000000000000000000
@@ -46,20 +45,22 @@ object Form6: TForm6
     Height = 41
     Align = alBottom
     TabOrder = 1
+    ExplicitTop = 278
+    ExplicitWidth = 488
     object Button1: TButton
       Left = 1
       Top = 1
-      Width = 104
+      Width = 152
       Height = 39
       Align = alLeft
-      Caption = 'Gerar Dashboard'
+      Caption = 'Generate Dashboard'
       TabOrder = 0
       OnClick = Button1Click
     end
     object Button2: TButton
-      Left = 105
+      Left = 153
       Top = 1
-      Width = 104
+      Width = 152
       Height = 39
       Align = alLeft
       Caption = 'Update Cards'
@@ -67,34 +68,29 @@ object Form6: TForm6
       OnClick = Button2Click
     end
     object Panel3: TPanel
-      Left = 209
+      Left = 305
       Top = 1
-      Width = 284
+      Width = 188
       Height = 39
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitLeft = 50
-      ExplicitTop = 0
-      ExplicitWidth = 995
-      ExplicitHeight = 800
+      ExplicitWidth = 182
       object Button4: TButton
         Left = 0
         Top = 0
-        Width = 105
+        Width = 152
         Height = 39
         Align = alLeft
         Caption = 'Update LiquidFill'
         TabOrder = 0
         OnClick = Button4Click
-        ExplicitLeft = 160
-        ExplicitTop = 4
       end
     end
   end
   object WebCharts1: TWebCharts
-    Left = 448
-    Top = 232
+    Left = 304
+    Top = 152
   end
   object ClientDataSet1: TClientDataSet
     PersistDataPacket.Data = {
@@ -201,8 +197,8 @@ object Form6: TForm6
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 384
-    Top = 17
+    Left = 136
+    Top = 33
     object ClientDataSet1Label: TStringField
       FieldName = 'Label'
       Size = 60
@@ -254,8 +250,8 @@ object Form6: TForm6
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 434
-    Top = 18
+    Left = 138
+    Top = 90
   end
   object ClientDataSet12: TClientDataSet
     PersistDataPacket.Data = {
@@ -362,7 +358,7 @@ object Form6: TForm6
     Active = True
     Aggregates = <>
     Params = <>
-    Left = 434
-    Top = 64
+    Left = 138
+    Top = 152
   end
 end

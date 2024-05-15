@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-  <Transactions>
-    <Transaction>2020/06/25 11:15:19.057,=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2020/06/25 11:25:10.961,D:\Projetos\Componentes\TBGWebCharts\trunk\Sample\Utils\Callback Manual\Unit1.pas=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2020/06/25 11:25:10.961,D:\Projetos\Componentes\TBGWebCharts\trunk\Sample\Utils\Callback Manual\Unit1.dfm=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2020/06/25 11:25:15.164,D:\Projetos\Componentes\TBGWebCharts\trunk\Sample\Utils\Callback Manual\CallbackManual.dproj=C:\Users\thuli\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-  </Transactions>
-</BorlandProject>

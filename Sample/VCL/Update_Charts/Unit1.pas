@@ -3,29 +3,37 @@ unit Unit1;
 interface
 
 uses
-  System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Datasnap.DBClient,
-  View.WebCharts, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.OleCtrls, SHDocVw;
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Data.DB,
+  Datasnap.DBClient,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.OleCtrls,
+  View.WebCharts,
+  SHDocVw;
 
 type
   TForm13 = class(TForm)
-    WebBrowser1: TWebBrowser;
-    Panel1: TPanel;
     Button1: TButton;
-    WebCharts1: TWebCharts;
+    Button2: TButton;
     ClientDataSet1: TClientDataSet;
+    ClientDataSet1Label: TStringField;
+    ClientDataSet1RGB: TStringField;
+    ClientDataSet1Value: TStringField;
     ClientDataSet2: TClientDataSet;
     ClientDataSet3: TClientDataSet;
-    ClientDataSet1Label: TStringField;
-    ClientDataSet1Value: TStringField;
-    ClientDataSet1RGB: TStringField;
-    Button2: TButton;
+    Panel1: TPanel;
+    WebBrowser1: TWebBrowser;
+    WebCharts1: TWebCharts;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
+    procedure FormCreate(Sender: TObject);
   end;
 
 var
@@ -41,7 +49,7 @@ uses
 procedure TForm13.Button1Click(Sender: TObject);
 begin
   WebCharts1
-  .CDN(true)
+  .CDN(True)
   .NewProject
     .Rows
       .Title
@@ -58,19 +66,19 @@ begin
           .Name('Meu Grafico de Barras')
           .ColSpan(12)
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .TextLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('215,0,181')
             .BackgroundOpacity(4)
-            .textLabel('Meu DataSet 2')
+            .TextLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
             .BackgroundOpacity(5)
-            .textLabel('Meu DataSet 3')
+            .TextLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -81,18 +89,18 @@ begin
 end;
 
 procedure TForm13.Button2Click(Sender: TObject);
-var
-  I : Integer;
 begin
   ClientDataset1.First;
-  for I := 0 to Pred(ClientDataSet1.RecordCount) do
+
+  for var I: Int32 := 0 to Pred(ClientDataSet1.RecordCount) do
   begin
     ClientDataset1.Edit;
-    ClientDataset1.FieldByName('VALUE').AsString := IntToStr(Random(200));
+    ClientDataset1.FieldByName('VALUE').AsString := Random(200).ToString;
     ClientDataSet1.Post;
     ClientDataSet1.Next;
   end;
-  ClientDataSet1.AppendRecord(['Teste1', IntToStr(Random(100)), format('%d, %d, %d',[Random(255),Random(255),Random(255)])]);
+
+  ClientDataSet1.AppendRecord(['Teste1', Random(100).ToString, Format('%d, %d, %d', [Random(255), Random(255), Random(255)])]);
 
   WebCharts1
   .ContinuosProject
@@ -102,17 +110,17 @@ begin
         .Attributes
           .Name('Meu Grafico de Barras')
           .DataSet
-            .textLabel('Meu DataSet 1')
+            .TextLabel('Meu DataSet 1')
             .DataSet(ClientDataSet1)
           .&End
           .DataSet
             .BackgroundColor('30,182,203')
-            .textLabel('Meu DataSet 2')
+            .TextLabel('Meu DataSet 2')
             .DataSet(ClientDataSet2)
           .&End
           .DataSet
             .BackgroundColor('30,182,100')
-            .textLabel('Meu DataSet 3')
+            .TextLabel('Meu DataSet 3')
             .DataSet(ClientDataSet3)
           .&End
         .&End
@@ -120,6 +128,11 @@ begin
       .&End
     .&End
 
+end;
+
+procedure TForm13.FormCreate(Sender: TObject);
+begin
+  Self.WindowState := TWindowState.wsMaximized;
 end;
 
 end.

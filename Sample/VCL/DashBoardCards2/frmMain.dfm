@@ -10,8 +10,7 @@ object Form11: TForm11
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
+  OnCreate = FormCreate
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
@@ -21,9 +20,8 @@ object Form11: TForm11
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 256
-    ExplicitTop = 248
-    ExplicitWidth = 185
+    ExplicitTop = 371
+    ExplicitWidth = 757
     object Button1: TButton
       Left = 0
       Top = 0
@@ -34,6 +32,16 @@ object Form11: TForm11
       TabOrder = 0
       OnClick = Button1Click
     end
+    object Button2: TButton
+      Left = 105
+      Top = 0
+      Width = 75
+      Height = 41
+      Align = alLeft
+      Caption = 'Button2'
+      TabOrder = 1
+      OnClick = Button2Click
+    end
   end
   object Panel2: TPanel
     Left = 0
@@ -43,10 +51,8 @@ object Form11: TForm11
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 344
-    ExplicitTop = 104
-    ExplicitWidth = 185
-    ExplicitHeight = 41
+    ExplicitWidth = 757
+    ExplicitHeight = 371
     object WebBrowser1: TWebBrowser
       Left = 0
       Top = 0
@@ -54,12 +60,10 @@ object Form11: TForm11
       Height = 380
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 352
-      ExplicitTop = 200
-      ExplicitWidth = 300
-      ExplicitHeight = 150
+      ExplicitWidth = 757
+      ExplicitHeight = 371
       ControlData = {
-        4C000000DC4E0000462700000000000000000000000000000000000000000000
+        4C000000163F00006B1F00000000000000000000000000000000000000000000
         000000004C000000000000000000000001000000E0D057007335CF11AE690800
         2B2E126208000000000000004C0000000114020000000000C000000000000046
         8000000000000000000000000000000000000000000000000000000000000000
