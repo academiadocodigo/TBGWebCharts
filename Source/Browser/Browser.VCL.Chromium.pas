@@ -59,7 +59,7 @@ end;
 
 procedure TModelBrowserVCLChromium.ExecuteScript(Value: iModelJSCommand);
 begin
-  FChromium.ExecuteJavaScript(value.ResultCommand , 'about:blank', 0);
+  FChromium.ExecuteJavaScript(value.ResultCommand , 'about:blank', '');
 end;
 
 procedure TModelBrowserVCLChromium.ExecuteScriptCallback(
@@ -73,7 +73,7 @@ begin
   FChromium.ExecuteJavaScript(
    Value.ResultCommand + ';' +
   'console.log(''' + CONSOLE_MSG_PREAMBLE + Key + '|'' + document.getElementById(''' + Value.TagID + ''').' + Value.TagAttribute + ');'
-  ,'about:blank', 0);
+  ,'about:blank', '');
 end;
 
 function TModelBrowserVCLChromium.ExecuteScriptResult(
