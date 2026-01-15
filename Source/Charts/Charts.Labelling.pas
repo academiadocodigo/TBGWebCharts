@@ -19,6 +19,8 @@ Type
       FHideZeroValues : Boolean;
       FPadding : Integer;
       FPaddingX : Integer;
+      FUseNegativeColor: Boolean;
+      FNegativeRGBColor: String;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
@@ -39,6 +41,8 @@ Type
       function Padding : Integer; overload;
       function PaddingX (Value : Integer) : iModelLabellingConfig<T>; overload;
       function PaddingX : Integer; overload;
+      function NegativeRGBColor(Value: String): iModelLabellingConfig<T>; overload;
+      function UseNegativeColor(Value: Boolean): iModelLabellingConfig<T>; overload;
       function &End : T;
 
   end;
@@ -159,53 +163,85 @@ begin
   FPaddingX := Value;
 end;
 
+function TChartsLabelling<T>.UseNegativeColor(Value: Boolean): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FUseNegativeColor := Value;
+end;
+
+function TChartsLabelling<T>.NegativeRGBColor(Value: String): iModelLabellingConfig<T>;
+begin
+  Result := Self;
+  FNegativeRGBColor := Value;
+end;
+
 function TChartsLabelling<T>.Result: String;
 begin
   FResult := '';
+
   if FFormat <> '' then
   begin
     FResult := FResult + 'afterDatasetsDraw: function(chart) { ';
-    FResult := FResult + 'var ctx = chart.ctx;';
-    FResult := FResult + '';
-    FResult := FResult + 'chart.data.datasets.forEach(function(dataset, i) { ';
-    FResult := FResult + 'var meta = chart.getDatasetMeta(i); ';
-    FResult := FResult + 'if (dataset.hidden) {';
-    FResult := FResult + 'dataset.hidden = false;';
-    FResult := FResult + 'meta.hidden = true;';
-    FResult := FResult + '}';
-    FResult := FResult + 'if (!meta.hidden) { ';
-    FResult := FResult + 'meta.data.forEach(function(element, index) { ';
-    FResult := FResult + 'if (!element.hidden) {';
+    FResult := FResult + '  var ctx = chart.ctx;';
+    FResult := FResult + '  chart.data.datasets.forEach(function(dataset, i) { ';
+    FResult := FResult + '    var meta = chart.getDatasetMeta(i); ';
+    FResult := FResult + '    if (dataset.hidden) {';
+    FResult := FResult + '      dataset.hidden = false;';
+    FResult := FResult + '      meta.hidden = true;';
+    FResult := FResult + '    }';
+    FResult := FResult + '    if (!meta.hidden) { ';
+    FResult := FResult + '      meta.data.forEach(function(element, index) { ';
+    FResult := FResult + '        if (!element.hidden) {';
 
-    FResult := FResult + 'ctx.fillStyle = ''rgb('+FRGBColor+')''; ';
-    FResult := FResult + '';
-    FResult := FResult + 'var fontSize = '+IntToStr(FFontSize)+'; ';
-    FResult := FResult + 'var fontStyle = '''+FFontStyle+'''; ';
-    FResult := FResult + 'var fontFamily = '''+FFontFamily+'''; ';
-    FResult := FResult + 'ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily); ';
-    FResult := FResult + '';
-    FResult := FResult + 'numeral.locale(''pt-br'');';
-    FResult := FResult + 'let dataNumber = numeral(dataset.data[index]);';
-    if FFormat<>'' then
-      FResult := FResult + 'let dataString = dataNumber.format('+QuotedStr(FFormat)+');'
-    else
-      FResult := FResult + 'let dataString = dataset.data[index].toString();';
+    // Font
+    FResult := FResult + '          var fontSize = ' + IntToStr(FFontSize) + '; ';
+    FResult := FResult + '          var fontStyle = ''' + FFontStyle + '''; ';
+    FResult := FResult + '          var fontFamily = ''' + FFontFamily + '''; ';
+    FResult := FResult + '          ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily); ';
+
+    // Formatted number
+    FResult := FResult + '          numeral.locale(''pt-br'');';
+    FResult := FResult + '          var dataValue = Number(dataset.data[index]);';
+    FResult := FResult + '          let dataNumber = numeral(dataValue);';
+    FResult := FResult + '          let dataString = dataNumber.format(' + QuotedStr(FFormat) + ');';
+
     if FHideZeroValues then
-      FResult := FResult + 'if (dataNumber.value() == 0 && dataset.hideZeroValues) {dataString = "";}';
+      FResult := FResult + '          if (dataNumber.value() == 0 && dataset.hideZeroValues) { dataString = ""; }';
 
-    FResult := FResult + '';
-    FResult := FResult + 'ctx.textAlign = ''center''; ';
-    FResult := FResult + 'ctx.textBaseline = ''middle''; ';
-    FResult := FResult + '';
-    FResult := FResult + 'var padding = '+IntToStr(FPadding)+'; ';
-    FResult := FResult + 'var paddingX = '+IntToStr(FPaddingX)+'; ';
-    FResult := FResult + 'var position = element.tooltipPosition(); ';
-    FResult := FResult + 'ctx.fillText(dataString, position.x + paddingX, position.y - (fontSize / 2) - padding); ';
-    FResult := FResult + '}';
-    FResult := FResult + '});';
-    FResult := FResult + '}';
-    FResult := FResult + '});';
+    // Color (optional negative color)
+    FResult := FResult + '          var isNeg = (dataValue < 0);';
+
+    if FUseNegativeColor then
+      FResult := FResult + '          ctx.fillStyle = isNeg ? ''rgb(' + FNegativeRGBColor + ')'' : ''rgb(' + FRGBColor + ')''; '
+    else
+      FResult := FResult + '          ctx.fillStyle = ''rgb(' + FRGBColor + ')''; ';
+
+    // Position
+    FResult := FResult + '          ctx.textAlign = ''center''; ';
+    FResult := FResult + '          ctx.textBaseline = ''middle''; ';
+    FResult := FResult + '          var padding = ' + IntToStr(FPadding) + '; ';
+    FResult := FResult + '          var paddingX = ' + IntToStr(FPaddingX) + '; ';
+
+    // Bar model position (Chart.js 2.8)
+    FResult := FResult + '          var model = element._model || {}; ';
+    FResult := FResult + '          var posX = (model.x !== undefined) ? model.x : element.tooltipPosition().x; ';
+    FResult := FResult + '          var posY = (model.y !== undefined) ? model.y : element.tooltipPosition().y; ';
+
+    // Detect bar chart (avoid changing line/point behavior)
+    FResult := FResult + '          var isBar = (meta.type === ''bar'') || (chart.config && chart.config.type === ''bar'');';
+
+    // Offset: positive goes up, negative goes down (prevents label inside negative bars)
+    FResult := FResult + '          var offsetY = -(fontSize / 2) - padding;';
+    FResult := FResult + '          if (isBar && isNeg) { offsetY = (fontSize / 2) + padding; }';
+
+    FResult := FResult + '          ctx.fillText(dataString, posX + paddingX, posY + offsetY); ';
+
+    FResult := FResult + '        }';
+    FResult := FResult + '      });';
+    FResult := FResult + '    }';
+    FResult := FResult + '  });';
     FResult := FResult + '},';
+
     Result := FResult;
   end;
 

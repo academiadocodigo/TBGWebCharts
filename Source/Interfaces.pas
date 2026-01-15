@@ -906,6 +906,8 @@ type
     function Result: string;
     function RGBColor: string; overload;
     function RGBColor(Value: string ): IModelLabellingConfig<T>; overload;
+    function UseNegativeColor(Value: Boolean): iModelLabellingConfig<T>; overload;
+    function NegativeRGBColor(Value: string): iModelLabellingConfig<T>; overload;
   end;
 
   IModelHTMLChartsAxes = interface(IInterface)
