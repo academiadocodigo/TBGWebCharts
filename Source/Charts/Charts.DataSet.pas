@@ -278,7 +278,7 @@ var
 begin
   caracter := '';
   cont := 0;
-   {$IF Defined(ANDROID) or Defined(IOS)}
+  {$IF Defined(ANSI)}
   for I := Length(Value) downto 0 do
   {$ELSE}
   for I := Length(Value) downto 1 do

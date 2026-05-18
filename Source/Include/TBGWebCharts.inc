@@ -6,6 +6,12 @@
   {$IFEND}
 {$ENDIF}
 
+{$IF Defined(VER200) or (CompilerVersion >= 20)}
+  {$DEFINE UNICODE}
+{$ELSE}
+  {$DEFINE ANSI}
+{$IFEND}
+
 (* IF CEF is installed, uncomment below*)
 
-  {$DEFINE HAS_CHROMIUM}
+  { $DEFINE HAS_CHROMIUM}

@@ -41,8 +41,8 @@ begin
   key := GetContador;
   try
     try
-      TempStream := TStringStream.Create(HTML, TEncoding.UTF8, false);
-      FPages.Add(IntToStr(key), TCustomResourceHandler.Create(nil, nil, '', nil, TStream(TempStream), CefGetMimeType('html')));
+      TempStream := TStringStream.Create(HTML, TEncoding.UTF8);
+      FPages.Add(IntToStr(key), TCustomResourceHandler.Create(nil, nil, '', nil, TStream(TempStream), 'text/html'));
     except
       raise Exception.Create('Erro ao gerar Handle HTML');
     end;
