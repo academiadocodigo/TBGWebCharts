@@ -56,7 +56,7 @@ end;
 
 destructor TStyleCSS.Destroy;
 begin
-  FStyle.DisposeOf;
+  FStyle.Free;
   inherited;
 end;
 

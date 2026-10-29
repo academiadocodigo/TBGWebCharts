@@ -1,0 +1,216 @@
+unit Dashboard.Compras.Exemplo.v3;
+
+interface
+
+// Delphi 10.2 Tokyo + FireDAC + TBGWebCharts Dashboard v3
+// Exemplo baseado nas views vw_cpr_dashboard_* do PostgreSQL.
+// O objetivo e mostrar o binding direto de TDataSet, evitando loops manuais.
+
+implementation
+
+uses
+  System.SysUtils,
+  Data.DB,
+  FireDAC.Comp.Client,
+  Interfaces,
+  Charts.Types;
+
+procedure TFrmComprasDashboard.PrepararQuery(AQuery: TFDQuery);
+begin
+  AQuery.Close;
+  AQuery.ParamByName('empresa').AsInteger := FEmpresa;
+  AQuery.ParamByName('filial').AsInteger := FFilial;
+  AQuery.ParamByName('dataini').AsDate := FDataInicial;
+  AQuery.ParamByName('datafim').AsDate := FDataFinal;
+  AQuery.Open;
+end;
+
+procedure TFrmComprasDashboard.AbrirDados;
+begin
+  PrepararQuery(qryKPI);
+  PrepararQuery(qryEvolucao);
+  PrepararQuery(qrySaving);
+  PrepararQuery(qryFunil);
+  PrepararQuery(qryAprovacoes);
+  PrepararQuery(qryFornecedores);
+  PrepararQuery(qryEntregas);
+end;
+
+procedure TFrmComprasDashboard.GerarDashboard;
+var
+  H: iModelHTML;
+  D: iModelDashboard;
+begin
+  AbrirDados;
+
+  H := WebCharts1.NewProject;
+  D := H.Dashboard;
+
+  D
+    .BeginDashboard
+
+      { KPIs }
+      .RowBegin
+        .ColBegin(3)
+          .KPI('Valor comprado',
+            FormatFloat('R$ #,##0.00', qryKPI.FieldByName('valor_comprado').AsFloat),
+            'Periodo selecionado', 'fas fa-shopping-cart', 'primary')
+        .ColEnd
+        .ColBegin(3)
+          .KPI('Valor comprometido',
+            FormatFloat('R$ #,##0.00', qryKPI.FieldByName('valor_comprometido').AsFloat),
+            'OCs em aberto', 'fas fa-wallet', 'info')
+        .ColEnd
+        .ColBegin(3)
+          .KPI('Aprovacoes pendentes',
+            qryKPI.FieldByName('qtd_aprovacao_pendente').AsString,
+            qryKPI.FieldByName('qtd_aprovacao_vencida').AsString + ' vencidas',
+            'fas fa-clock', 'warning', 0, 'AbrirAprovacoes', 'PENDENTE')
+        .ColEnd
+        .ColBegin(3)
+          .KPI('Entregas atrasadas',
+            qryKPI.FieldByName('qtd_entrega_atrasada').AsString,
+            'Requer atencao', 'fas fa-truck', 'danger', 0,
+            'AbrirEntregas', 'ATRASADA')
+        .ColEnd
+      .RowEnd
+
+      { Chart.js continua sendo injetado pelo ContinuosProject. }
+      .RowBegin
+        .ColBegin(8)
+          .PanelBegin('Evolucao das compras')
+            .Add(
+              WebCharts1
+                .ContinuosProject
+                .Charts
+                  ._ChartType(bar)
+                    .Attributes
+                      .Name('chtEvolucaoCompras')
+                      .ColSpan(12)
+                      .Heigth(260)
+                      .Options
+                        .Title.Display(False).&End
+                        .Legend.Display(True).&End
+                        .Tooltip.DisplayTitle(True).InteractionModeIndex.&End
+                      .&End
+                      .DataSet
+                        .DataSet(qryEvolucao)
+                        .TextLabel('Valor comprado')
+                        .BackgroundColor('17,120,239')
+                        .BorderColor('17,120,239')
+                        .BackgroundOpacity(4)
+                        .Fill(False)
+                      .&End
+                    .&End
+                  .&End
+                .&End
+                .HTML
+            )
+          .PanelEnd
+        .ColEnd
+
+        .ColBegin(4)
+          .PanelBegin('Saving mensal')
+            .Add(
+              WebCharts1
+                .ContinuosProject
+                .Charts
+                  ._ChartType(line)
+                    .Attributes
+                      .Name('chtSavingMensal')
+                      .ColSpan(12)
+                      .Heigth(260)
+                      .Options
+                        .Title.Display(False).&End
+                        .Legend.Display(False).&End
+                        .Tooltip.DisplayTitle(True).InteractionModeIndex.&End
+                      .&End
+                      .DataSet
+                        .DataSet(qrySaving)
+                        .TextLabel('Saving')
+                        .BackgroundColor('40,167,69')
+                        .BorderColor('40,167,69')
+                        .BackgroundOpacity(3)
+                        .Fill(True)
+                      .&End
+                    .&End
+                  .&End
+                .&End
+                .HTML
+            )
+          .PanelEnd
+        .ColEnd
+      .RowEnd
+
+      { Binding direto: a query possui uma unica linha com cinco campos. }
+      .RowBegin
+        .ColBegin(6)
+          .PanelBegin('Funil de compras')
+            .FunnelFields(
+              qryFunil,
+              'solicitacoes,cotacoes,ordens,compradas,encerradas',
+              'Solicitacoes,Cotacoes,Ordens de compra,Compradas,Encerradas'
+            )
+          .PanelEnd
+        .ColEnd
+
+        { Binding direto: percentual e calculado pelo proprio componente. }
+        .ColBegin(6)
+          .PanelBegin('Aging das aprovacoes')
+            .AgingDataSet(
+              qryAprovacoes,
+              'descricao_aging', // label
+              'quantidade',      // count
+              '',                // sem PercentField: calcula sobre o total
+              'status_cor',      // primary/info/warning/danger/success
+              'AbrirAprovacoes', // callback
+              'faixa_aging'      // parametro do callback
+            )
+          .PanelEnd
+        .ColEnd
+      .RowEnd
+
+      { Binding direto: barra relativa ao maior fornecedor se PercentField vazio. }
+      .RowBegin
+        .ColBegin(5)
+          .PanelBegin('Top fornecedores')
+            .RankingDataSet(
+              qryFornecedores,
+              'fornecedor',
+              'valor_comprado',
+              '',                // calcula percentual relativo ao maior valor
+              '',                // status fixo primary
+              'AbrirFornecedor',
+              'ncodigfocot',
+              '',
+              'R$ #,##0.00'      // formatacao do valor
+            )
+          .PanelEnd
+        .ColEnd
+
+        { Tabela operacional: badge + progresso + callback em todas as celulas. }
+        .ColBegin(7)
+          .PanelBegin('Entregas em acompanhamento')
+            .TableDataSet(
+              qryEntregas,
+              'ncodigorcpr,fornecedor,data_prevista_fmt,status_entrega,percentual_entregue,valor_pendente_fmt',
+              'OC,Fornecedor,Prevista,Status,Entregue,Valor pendente',
+              '',                  // titulo ja esta no Panel
+              'status_entrega',    // campo renderizado como Badge
+              '',                  // status inferido pelo texto ATRASADA/PENDENTE/ENTREGUE...
+              'percentual_entregue',
+              'percentual_entregue_fmt',
+              'AbrirOrdemCompra',
+              'ncodigorcpr'
+            )
+          .PanelEnd
+        .ColEnd
+      .RowEnd
+
+    .EndDashboard
+  .&End
+  .WebBrowser(WebBrowser1)
+  .Generated;
+end;
+
+end.

@@ -194,7 +194,10 @@ begin
       FResult := FResult + 'if (dataNumber.value() == 0 && dataset.hideZeroValues) {dataString = "";}';
 
     FResult := FResult + '';
-    FResult := FResult + 'ctx.textAlign = ''center''; ';
+    if FPaddingX <> 0 then
+      FResult := FResult + 'ctx.textAlign = ''left''; '
+    else
+      FResult := FResult + 'ctx.textAlign = ''center''; ';
     FResult := FResult + 'ctx.textBaseline = ''middle''; ';
     FResult := FResult + '';
     FResult := FResult + 'var padding = '+IntToStr(FPadding)+'; ';

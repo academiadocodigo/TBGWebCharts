@@ -88,8 +88,10 @@ begin
     Result := Result + TPivotTablePlotlyJS.New.CDN(FCDN).PackJS;
     Result := Result + TPivotTablePlotlyRendersJS.New.CDN(FCDN).PackJS;
     Result := Result + TGMapsJS.New.Credenciais(FCredenciais).CDN(FCDN).PackJS;
-    Result := Result + TD3JS.New.CDN(FCDN).PackJS;
-    Result := Result + TLiquidFillGaugeJS.New.CDN(FCDN).PackJS;
+    { v4.8: D3/LiquidFillGauge usam sempre o pacote interno.
+      O CDN historico do LiquidFillGauge pode estar indisponivel e deixar o gauge vazio. }
+    Result := Result + TD3JS.New.CDN(False).PackJS;
+    Result := Result + TLiquidFillGaugeJS.New.CDN(False).PackJS;
     Result := Result + TQuillEditorJS.New.CDN(FCDN).PackJS;
     Result := Result + TQuillDeltaConverter.New.CDN(FCDN).PackJS;
     Result := Result + TChartJSScript.New.CDN(FCDN).PackJS;

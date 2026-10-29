@@ -139,6 +139,8 @@ type
     IModelChartEasyPie = interface;
     IModelButtonClass = interface;
     IModelButton = interface;
+    IModelDashboard = interface;
+    IModelDashboardInteraction = interface;
     {$IFDEF HAS_CALLBACK}
       ICallbackJS = interface;
     {$ENDIF}
@@ -207,6 +209,7 @@ type
     {$IFDEF FULL}
       function Cards: IModelCards;
       function CardStyled: IModelCardStyled;
+      function Dashboard: IModelDashboard;
       function ChartEasyPie: IModelChartEasyPie;
       function Table: IModelTable;
       {$IFDEF HAS_CALLBACK}
@@ -657,7 +660,7 @@ type
 //  end;
 //
 //  iNumeral = interface
-//    function Result(Value: string): string;
+//    function Result(Value: string; const Keys: string = ''): string;
 //  end;
   IModelHTMLRows = interface(IInterface)
     ['{684C6EA3-4C2D-4AA9-9A94-BF0A07B14A8B}']
@@ -786,6 +789,7 @@ type
     function Options: IModelHTMLOptions;
     function ResultDataSet: string;
     function ResultLabels: string;
+    function ResultKeys: string;
     function ResultRealTimeInitialValue: string;
     function Stacked: Boolean; overload;
     function Stacked(Value: Boolean): IModelHTMLChartsConfig; overload;
@@ -796,6 +800,11 @@ type
   IModelHTMLOptions = interface(IInterface)
     ['{8984AFE4-EBFC-4C97-B7BC-D3DA8FFFB42B}']
     function &End: IModelHTMLChartsConfig;
+    function DoughnutCenter(const Value: string; const Subtitle: string = ''): IModelHTMLOptions;
+    { Texto fixo no centro da rosca (ex.: '84,83%' / 'Atingido'), no lugar do total calculado. }
+    function DoughnutCenterText(const Text: string; const Subtitle: string = ''): IModelHTMLOptions;
+    { Meia rosca: rotulos nas pontas do arco (ex.: '0%' e '100%'). }
+    function SemiCircleLabels(const MinLabel, MaxLabel: string): IModelHTMLOptions;
     function HideLabelEmptyData(Value: Boolean): IModelHTMLOptions;
     function Legend: IModelHTMLLegend;
     function Plugins: IModelHTMLPlugins;
@@ -874,6 +883,8 @@ type
   end;
   IModelHTMLLegendLabels<T> = interface
     ['{796188B6-4031-43E8-ABF1-43D6C8E1B18D}']
+    function BoxWidth(Value: Integer): IModelHTMLLegendLabels<T>; overload;
+    function BoxWidth: Integer; overload;
     function FontSize(Value: Integer): IModelHTMLLegendLabels<T>; overload;
     function FontSize: Integer; overload;
     function FontStyle(Value: string ): IModelHTMLLegendLabels<T>; overload;
@@ -884,6 +895,7 @@ type
     function FontFamily: string; overload;
     function Padding(Value: Integer ): IModelHTMLLegendLabels<T>; overload;
     function Padding: Integer; overload;
+    function ShowPercentage(Value: Boolean): IModelHTMLLegendLabels<T>;
     function Result: string;
     function &End: T;
   end;
@@ -1038,10 +1050,12 @@ type
     function Hidden(Value: Boolean): IModelHTMLDataSet;
     function HideZeroValuesControl(Value: Boolean): IModelHTMLDataSet;
     function LabelName(Value: string): IModelHTMLDataSet;
+    function KeyField(Value: string): IModelHTMLDataSet;
     function LineTension(Value: Integer): IModelHTMLDataSet;
     function RealTimeDataSet(Value: TDataSet): IModelHTMLDataSet;
     function RealTimeInitialValue: string;
     function ResultLabels: string;
+    function ResultKeys: string;
     function ResultScript: string;
     function RGBName(Value: string): IModelHTMLDataSet;
     function TextLabel(Value: string): IModelHTMLDataSet;
@@ -1358,38 +1372,38 @@ type
   IModelTableOption = interface(IInterface)
     ['{2DFF85D5-1116-4160-AAE4-8A5172B8EFD8}']
     function &End: IModelTable;
-    //1 Atraso no carregamento dos dados do servidor até o segundo sorteio
+    //1 Atraso no carregamento dos dados do servidor atï¿½ o segundo sorteio
     function DeferLoading(Value: Integer): IModelTableOption;
-    //1 Ponto inicial de paginação inicial
+    //1 Ponto inicial de paginaï¿½ï¿½o inicial
     function DisplayStart(Value: Integer): IModelTableOption;
-    //1 Altere as opções na selectlista de comprimento da página .
+    //1 Altere as opï¿½ï¿½es na selectlista de comprimento da pï¿½gina .
     function LengthMenu(Value: string): IModelTableOption;
     //1 DOM Id
     function Name: string; overload;
     //1 DOM Id
     function Name(Value: string): IModelTableOption; overload;
-    //1 Destrua qualquer tabela existente que corresponda ao seletor e substitua pelas novas opções.
+    //1 Destrua qualquer tabela existente que corresponda ao seletor e substitua pelas novas opï¿½ï¿½es.
     function OpDestroy(Value: Boolean): IModelTableOption;
-    //1 Ordem inicial(classificação)a ser aplicada à tabela
+    //1 Ordem inicial(classificaï¿½ï¿½o)a ser aplicada ï¿½ tabela
     function Order(Value: string): IModelTableOption;
-    //1 Controlar em qual célula o manipulador de eventos do pedido será aplicado em uma coluna
+    //1 Controlar em qual cï¿½lula o manipulador de eventos do pedido serï¿½ aplicado em uma coluna
     function OrderCellsTop(Value: Boolean): IModelTableOption;
-    //1 Destaque as colunas que estão sendo ordenadas no corpo da tabela
+    //1 Destaque as colunas que estï¿½o sendo ordenadas no corpo da tabela
     function OrderClasses(Value: Boolean): IModelTableOption;
-    //1 Ordenação para sempre ser aplicada à tabela
+    //1 Ordenaï¿½ï¿½o para sempre ser aplicada ï¿½ tabela
     function OrderFixed(Value: string): IModelTableOption;
-    //1 Controle de capacidade de ordenação de várias colunas.
+    //1 Controle de capacidade de ordenaï¿½ï¿½o de vï¿½rias colunas.
     function OrderMulti(Value: Boolean): IModelTableOption;
-    //1 Alterar o comprimento da página inicial(número de linhas por página)
+    //1 Alterar o comprimento da pï¿½gina inicial(nï¿½mero de linhas por pï¿½gina)
     function PageLength(Value: Integer): IModelTableOption;
-    //1 Opções de exibição do botão de paginação
+    //1 Opï¿½ï¿½es de exibiï¿½ï¿½o do botï¿½o de paginaï¿½ï¿½o
     function PagingType(Value: string): IModelTableOption;
-    //1 Habilitar e configurar a extensão responsiva para DataTables
+    //1 Habilitar e configurar a extensï¿½o responsiva para DataTables
     function Responsive(Value: Boolean): IModelTableOption;
     function Result: string;
-    //1 Recuperar uma instância existente do DataTables
+    //1 Recuperar uma instï¿½ncia existente do DataTables
     function Retrieve(Value: Boolean): IModelTableOption;
-    //1 Permita que a tabela reduza em altura quando um número limitado de linhas for mostrado.
+    //1 Permita que a tabela reduza em altura quando um nï¿½mero limitado de linhas for mostrado.
     function ScrollCollapse(Value: Boolean): IModelTableOption;
   end;
 
@@ -1398,15 +1412,15 @@ type
     function &End: IModelTable;
     //1 Controle de recursos Tratamento de largura de colunas inteligentes do DataTables
     function AutoWidth(Value: Boolean): IModelTableFeatures;
-    //1 Controle diferenciado renderização adiada para velocidade adicional de inicialização.
+    //1 Controle diferenciado renderizaï¿½ï¿½o adiada para velocidade adicional de inicializaï¿½ï¿½o.
     function DeferRender(Value: Boolean): IModelTableFeatures;
-    //1 Campo de exibição de informações da tabela de controle de recursos
+    //1 Campo de exibiï¿½ï¿½o de informaï¿½ï¿½es da tabela de controle de recursos
     function Info(Value: Boolean): IModelTableFeatures;
-    //1 O recurso controla a capacidade do usuário final de alterar o comprimento da exibição de paginação da tabela.
+    //1 O recurso controla a capacidade do usuï¿½rio final de alterar o comprimento da exibiï¿½ï¿½o de paginaï¿½ï¿½o da tabela.
     function LengthChange(Value: Boolean): IModelTableFeatures;
-    //1 Recursos de ordenação de controle de recursos(classificação)no DataTables.
+    //1 Recursos de ordenaï¿½ï¿½o de controle de recursos(classificaï¿½ï¿½o)no DataTables.
     function Ordering(Value: Boolean): IModelTableFeatures;
-    //1 Ativar ou desativar a paginação da tabela
+    //1 Ativar ou desativar a paginaï¿½ï¿½o da tabela
     function Paging(Value: Boolean): IModelTableFeatures;
     //1 O recurso controla o indicador de processamento
     function Processing(Value: Boolean): IModelTableFeatures;
@@ -1419,7 +1433,7 @@ type
     function Searching(Value: Boolean): IModelTableFeatures;
     //1 Controle de recurso Modo de processamento no lado do servidor do DataTables
     function ServerSide(Value: Boolean): IModelTableFeatures;
-    //1 Economia de estado - restaura o estado da tabela no recarregamento da página.
+    //1 Economia de estado - restaura o estado da tabela no recarregamento da pï¿½gina.
     function StateSave(Value: Boolean): IModelTableFeatures;
   end;
 
@@ -1439,6 +1453,217 @@ type
     function &End: IModelTable;
     function FormatNumber(aCampo, aFormat: string): IModelTableCallback;
     function Result: string;
+  end;
+
+  IModelDashboardInteraction = interface(IInterface)
+    ['{A4F4E96A-1AC2-4D78-A7D2-5E7B54E9D441}']
+    function OnClick(const MethodName: string; const Param: string = ''): IModelDashboardInteraction;
+    function OnDoubleClick(const MethodName: string; const Param: string = ''): IModelDashboardInteraction;
+    function Tooltip(const Text: string): IModelDashboardInteraction;
+    function CursorPointer(Value: Boolean = True): IModelDashboardInteraction;
+    function Confirm(const MessageText: string): IModelDashboardInteraction;
+    function &End: iModelDashboard;
+  end;
+
+  iModelDashboard = interface
+    ['{73C1882E-12A5-4B44-9EB4-95FEFD61D6CB}']
+    function BeginDashboard : iModelDashboard;
+    function DashboardWidth(const Value : string) : iModelDashboard;
+    function BackgroundImage(const Source : string;
+      const Position : string = 'center'; const Size : string = 'cover';
+      const RepeatMode : string = 'no-repeat'; Opacity : Double = 0.12) : iModelDashboard;
+    function EndDashboard : iModelDashboard;
+    function RowBegin : iModelDashboard;
+    function RowEnd : iModelDashboard;
+    function ColBegin(Span : Integer) : iModelDashboard;
+    function ColEnd : iModelDashboard;
+    function PanelBegin(const Title : string; const ActionCaption : string = '';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+    function PanelEnd : iModelDashboard;
+    function Add(const Value : string) : iModelDashboard;
+    function Inject(const Value : string) : iModelDashboard;
+    function CustomHTML(const Value : string) : iModelDashboard;
+    function Theme(const PrimaryColor : string = '#337ab7';
+      const SuccessColor : string = '#28a745'; const WarningColor : string = '#f0ad4e';
+      const DangerColor : string = '#dc3545'; const InfoColor : string = '#17a2b8') : iModelDashboard;
+    function Interaction: IModelDashboardInteraction;
+
+    function KPI(const Title, Value : string; const Subtitle : string = '';
+      const Icon : string = ''; const Status : string = 'primary';
+      Variation : Double = 0; const ActionMethod : string = '';
+      const ActionParam : string = ''; const PointsCSV : string = '') : iModelDashboard;
+    function Badge(const Text : string; const Status : string = 'primary';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+    function Progress(const Title : string; Percent : Double; const Text : string = '';
+      const Status : string = 'primary'; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function ProgressListItem(const LabelText : string; Value, Percent : Double;
+      const Color : string = ''; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function ProgressListDataSet(ADataSet : TDataSet;
+      const LabelField, ValueField, ColorField : string;
+      const Title : string = ''; const ActionMethod : string = '';
+      const ActionParamField : string = '') : iModelDashboard;
+    function Alert(const Title, Text : string; const Status : string = 'info';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+
+    { Dashboard v4.2 - imagens interativas }
+    function ImageCard(const Source, Title : string; const Subtitle : string = '';
+      const BadgeText : string = ''; const BadgeStatus : string = 'primary';
+      const ActionMethod : string = ''; const ActionParam : string = '';
+      const AltText : string = ''; const Tooltip : string = '') : iModelDashboard;
+    function ImageCardDataSet(ADataSet : TDataSet; const SourceField, TitleField : string;
+      const SubtitleField : string = ''; const BadgeField : string = '';
+      const BadgeStatusField : string = ''; const ActionMethod : string = '';
+      const ActionParamField : string = ''; Columns : Integer = 4;
+      const EmptyText : string = 'Nenhuma imagem encontrada') : iModelDashboard;
+
+    { Dashboard v4.1 - UX, estados e comparacao }
+    function SectionHeader(const Title : string; const Subtitle : string = '';
+      const ActionCaption : string = ''; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function ComparisonKPI(const Title, CurrentValue, PreviousValue : string;
+      Variation : Double; const ComparisonLabel : string = 'vs. periodo anterior';
+      const Icon : string = ''; const Status : string = 'primary';
+      const ActionMethod : string = ''; const ActionParam : string = '';
+      const PointsCSV : string = '') : iModelDashboard;
+    function EmptyState(const Title : string; const Text : string = '';
+      const Icon : string = 'fas fa-inbox'; const ActionCaption : string = '';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+    function Skeleton(Lines : Integer = 3) : iModelDashboard;
+    function Divider(const Caption : string = '') : iModelDashboard;
+    function FilterNumber(const Name, LabelText : string; Value : Double = 0;
+      const Placeholder : string = '') : iModelDashboard;
+    function FilterCheck(const Name, LabelText : string; Checked : Boolean = False;
+      const CheckedValue : string = '1'; const UncheckedValue : string = '0') : iModelDashboard;
+
+    { Dashboard v4 }
+    function FilterBarBegin(const Title : string = ''; const ID : string = ''; FieldWidth : Integer = 180; FieldGap : Integer = 10) : iModelDashboard;
+    function FilterText(const Name, LabelText : string; const Value : string = '';
+      const Placeholder : string = '') : iModelDashboard;
+    function FilterDate(const Name, LabelText : string; const Value : string = '') : iModelDashboard;
+    function FilterSelect(const Name, LabelText, ItemsCSV : string;
+      const ValuesCSV : string = ''; const SelectedValue : string = '') : iModelDashboard;
+    function FilterSelectChange(const Name, LabelText, ItemsCSV : string;
+      const ValuesCSV : string = ''; const SelectedValue : string = '';
+      const ActionMethod : string = '') : iModelDashboard;
+    function FilterSelectDataSet(const Name, LabelText : string; ADataSet : TDataSet;
+      const ValueField, TextField : string; const SelectedValue : string = '';
+      const ActionMethod : string = ''; IncludeAll : Boolean = False;
+      const AllText : string = 'Todos'; const AllValue : string = '') : iModelDashboard;
+    function FilterSelectDataSetMulti(const Name, LabelText : string; ADataSet : TDataSet;
+      const ValueField, TextField : string; const SelectedValuesCSV : string = '';
+      const ActionMethod : string = ''; IncludeAll : Boolean = False;
+      const AllText : string = 'Todos'; const AllValue : string = '') : iModelDashboard;
+    function FilterApplyButton(const Caption, ActionMethod : string;
+      const Status : string = 'primary'; const Icon : string = '') : iModelDashboard;
+    function FilterBarEnd : iModelDashboard;
+    function TabsBegin(const ID : string = '') : iModelDashboard;
+    function Tab(const ID, Caption : string; Active : Boolean = False;
+      const BadgeText : string = ''; const Icon : string = '') : iModelDashboard;
+    function TabsEnd : iModelDashboard;
+    function TabPaneBegin(const ID : string; Active : Boolean = False) : iModelDashboard;
+    function TabPaneEnd : iModelDashboard;
+    function ModalOpenButton(const Caption, ModalID : string;
+      const Status : string = 'primary'; const Icon : string = '') : iModelDashboard;
+    function ModalBegin(const ID, Title : string; const Size : string = 'md') : iModelDashboard;
+    function ModalFooterButton(const Caption : string; const ActionMethod : string = '';
+      const ActionParam : string = ''; const Status : string = 'primary';
+      CloseAfter : Boolean = True) : iModelDashboard;
+    function ModalEnd : iModelDashboard;
+    function StepperBegin(const Title : string = '') : iModelDashboard;
+    function StepperItem(const Title : string; const Text : string = '';
+      const Status : string = 'pending'; const DateText : string = '';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+    function StepperEnd : iModelDashboard;
+    function StepperDataSet(ADataSet : TDataSet; const TitleField : string;
+      const TextField : string = ''; const StatusField : string = '';
+      const DateField : string = ''; const ActionMethod : string = '';
+      const ActionParamField : string = ''; const Title : string = '') : iModelDashboard;
+
+    function FunnelBegin(const Title : string = '') : iModelDashboard;
+    function FunnelStep(const LabelText : string; Value : Double;
+      WidthPercent : Double = 100; const ExtraText : string = '';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+    function FunnelEnd : iModelDashboard;
+    function FunnelDataSet(ADataSet : TDataSet; const LabelField, ValueField : string;
+      const ExtraField : string = ''; const Title : string = '';
+      const ActionMethod : string = ''; const ActionParamField : string = '';
+      const ValueTextField : string = '') : iModelDashboard;
+    function FunnelFields(ADataSet : TDataSet; const FieldsCSV, LabelsCSV : string;
+      const Title : string = '') : iModelDashboard;
+
+    function RankingBegin(const Title : string = '') : iModelDashboard;
+    function RankingItem(const LabelText, ValueText : string; Percent : Double;
+      const Status : string = 'primary'; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function RankingEnd : iModelDashboard;
+    function RankingDataSet(ADataSet : TDataSet; const LabelField, ValueField : string;
+      const PercentField : string = ''; const StatusField : string = '';
+      const ActionMethod : string = ''; const ActionParamField : string = '';
+      const Title : string = ''; const ValueFormat : string = '') : iModelDashboard;
+    function AgingItem(const LabelText : string; Count : Integer; Percent : Double;
+      const Status : string = 'warning'; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function AgingDataSet(ADataSet : TDataSet; const LabelField, CountField : string;
+      const PercentField : string = ''; const StatusField : string = '';
+      const ActionMethod : string = ''; const ActionParamField : string = '';
+      const Title : string = '') : iModelDashboard;
+
+    function TableDataSet(ADataSet : TDataSet; const FieldsCSV, HeadersCSV : string;
+      const Title : string = ''; const BadgeField : string = '';
+      const BadgeStatusField : string = ''; const ProgressField : string = '';
+      const ProgressTextField : string = ''; const ActionMethod : string = '';
+      const ActionParamField : string = '') : iModelDashboard;
+
+    function TimelineBegin(const Title : string = '') : iModelDashboard;
+    function TimelineItem(const DateText, Title, Text : string;
+      const Status : string = 'primary'; const ActionMethod : string = '';
+      const ActionParam : string = ''; const IconName : string = '') : iModelDashboard;
+    function TimelineEnd : iModelDashboard;
+    function TimelineDataSet(ADataSet : TDataSet; const DateField, TitleField : string;
+      const TextField : string = ''; const StatusField : string = '';
+      const ActionMethod : string = ''; const ActionParamField : string = '';
+      const Title : string = '') : iModelDashboard;
+
+    function Gauge(const Title : string; Percent : Double; const ValueText : string = '';
+      const Status : string = 'primary'; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function GaugeDataSet(ADataSet : TDataSet; const Title : string;
+      const PercentField : string; const ValueTextField : string = '';
+      const StatusField : string = ''; const ActionMethod : string = '';
+      const ActionParamField : string = '') : iModelDashboard;
+    { Dashboard v4.5 - blocos executivos }
+    function StatusItem(const Title : string; Percent : Double; const ValueText : string = '';
+      const Status : string = 'primary'; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function QuickAction(const Caption, ActionMethod : string;
+      const ActionParam : string = ''; const Status : string = 'primary';
+      const Icon : string = ''; const HintText : string = '') : iModelDashboard;
+    function Sparkline(const Title, PointsCSV : string; const ValueText : string = '';
+      const Status : string = 'primary'; const ActionMethod : string = '';
+      const ActionParam : string = '') : iModelDashboard;
+    function SparklineDataSet(ADataSet : TDataSet; const Title, ValueField : string;
+      const ValueText : string = ''; const Status : string = 'primary';
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+
+    function HeatMapBegin(const Title : string = '') : iModelDashboard;
+    function HeatMapHeader(const CSVLabels : string) : iModelDashboard;
+    function HeatMapRowBegin(const RowLabel : string) : iModelDashboard;
+    function HeatMapCell(const Text : string; Level : Integer;
+      const ActionMethod : string = ''; const ActionParam : string = '') : iModelDashboard;
+    function HeatMapRowEnd : iModelDashboard;
+    function HeatMapEnd : iModelDashboard;
+    function HeatMapDataSet(ADataSet : TDataSet; const RowField, ColumnField, ValueField : string;
+      const Title : string = ''; const ValueFormat : string = ''; const TextField : string = '';
+      const ActionMethod : string = ''; const ActionParamField : string = '') : iModelDashboard;
+    { Dashboard v4.3 - navegacao e filtros interativos }
+    function DrillDownButton(const Caption, ActionMethod : string;
+      const ActionParam : string = ''; const Status : string = 'primary';
+      const Icon : string = '') : iModelDashboard;
+    function CrossFilterButton(const Caption, ActionMethod, FilterName, FilterValue : string;
+      const Status : string = 'primary'; const Icon : string = '') : iModelDashboard;
+    function &End : iModelHTML;
   end;
 
   IModelHTMLRowsDiv = interface(IInterface)
@@ -1480,7 +1705,7 @@ type
   IChartsCallback = interface(IInterface)
   ['{4040F646-6D4F-477A-B5CE-98FDD025DAEB}']
     function IDChart(Value: string): IChartsCallback;
-    function Result(Value: string): string;
+    function Result(Value: string; const Keys: string = ''): string;
   end;
 
   IModelImage = interface(IInterface)
@@ -1488,6 +1713,15 @@ type
     function &End: IModelHTML;
     function DataSet: IModelImageDataSet;
     function ImageClass: IModelImageClass;
+    function Source(Value: string): IModelImage; overload;
+    function Source(Value: TCustomMemoryStream): IModelImage; overload;
+    function Width(Value: Integer): IModelImage;
+    function Height(Value: Integer): IModelImage;
+    function Alt(const Value: string): IModelImage;
+    function Tooltip(const Value: string): IModelImage;
+    function ObjectFitCover: IModelImage;
+    function ObjectFitContain: IModelImage;
+    function CallbackLink(const Param, MethodName: string): IModelImage;
   end;
 
   IModelImageDataSet = interface(IInterface)
@@ -1495,6 +1729,15 @@ type
     function &End: IModelImage;
     function DataSet(Value: TDataSet): IModelImageDataSet;
     function Field(Value: string): IModelImageDataSet;
+    function CallbackLink(const Field, MethodName: string): IModelImageDataSet;
+    function Alt(const Value: string): IModelImageDataSet;
+    function AltField(const FieldName: string): IModelImageDataSet;
+    function Tooltip(const Value: string): IModelImageDataSet;
+    function TooltipField(const FieldName: string): IModelImageDataSet;
+    function Width(Value: Integer): IModelImageDataSet;
+    function Height(Value: Integer): IModelImageDataSet;
+    function ObjectFitCover: IModelImageDataSet;
+    function ObjectFitContain: IModelImageDataSet;
     function ResultScript: string;
   end;
 

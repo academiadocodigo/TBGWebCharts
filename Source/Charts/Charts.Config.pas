@@ -44,6 +44,7 @@ Type
       function ResultDataSet : String;
       function ResultRealTimeInitialValue : String;
       function ResultLabels : String;
+      function ResultKeys : String;
       function Stacked(Value : Boolean) : iModelHTMLChartsConfig; overload;
       function Stacked : Boolean; overload;
       function CallBackLink(Value : String) : iModelHTMLChartsConfig; overload;
@@ -85,6 +86,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
+  FColSpan := 12; // v4.7: chart ocupa toda a coluna pai por padrao
   FDataSet := TList<iModelHTMLDataSet>.Create;
   FLabelling := TChartsLabelling<iModelHTMLChartsConfig>.New(Self);
   FOptions := TModelHTMLChartsOptions.New(Self);
@@ -203,6 +205,13 @@ begin
     Result := Result + FDataSet[I].ResultScript + aux;
   end;
 end;
+function TModelHTMLChartsConfig.ResultKeys: String;
+begin
+  Result := '';
+  if FDataSet.Count > 0 then
+    Result := FDataSet[0].ResultKeys;
+end;
+
 function TModelHTMLChartsConfig.ResultLabels: String;
 begin
   if FDataSet.Count > 0 then

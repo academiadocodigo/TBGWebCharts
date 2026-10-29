@@ -1,0 +1,11 @@
+unit Dashboard.Example;
+
+// Arquivo de referencia. Renomeie para .pas apenas se desejar inclui-lo em um projeto demo.
+
+interface
+
+implementation
+
+// Consulte README_DASHBOARD.md para um exemplo completo de montagem.
+
+end.

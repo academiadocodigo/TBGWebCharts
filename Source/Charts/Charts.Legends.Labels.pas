@@ -14,10 +14,14 @@ type
       FfontColorHEX : String;
       FfontFamily : String;
       Fpadding : Integer;
+      FBoxWidth : Integer;
+      FShowPercentage : Boolean;
     public
       constructor Create(Parent : T);
       destructor Destroy; override;
       class function New(Parent : T) : iModelHTMLLegendLabels<T>;
+      function BoxWidth (Value : Integer) : iModelHTMLLegendLabels<T>; overload;
+      function BoxWidth : Integer; overload;
       function fontSize (Value : Integer) : iModelHTMLLegendLabels<T>; overload;
       function fontSize : Integer; overload;
       function fontStyle ( Value : String ) : iModelHTMLLegendLabels<T>; overload;
@@ -28,6 +32,7 @@ type
       function fontFamily : String; overload;
       function padding ( Value : Integer ) : iModelHTMLLegendLabels<T>; overload;
       function padding : Integer; overload;
+      function ShowPercentage(Value : Boolean) : iModelHTMLLegendLabels<T>;
       function Result : String;
       function &End : T;
   end;
@@ -38,6 +43,19 @@ uses
   System.SysUtils, Injection;
 
 { TModelHTMLLegendsLabels }
+function TModelHTMLLegendsLabels<T>.BoxWidth: Integer;
+begin
+  Result := FBoxWidth;
+end;
+
+function TModelHTMLLegendsLabels<T>.BoxWidth(
+  Value: Integer): iModelHTMLLegendLabels<T>;
+begin
+  Result := Self;
+  if Value < 1 then
+    Value := 1;
+  FBoxWidth := Value;
+end;
 
 function TModelHTMLLegendsLabels<T>.&End: T;
 begin
@@ -104,6 +122,8 @@ begin
   FfontColorHEX := '#666';
   FfontFamily := 'Arial';
   Fpadding := 10;
+  FBoxWidth := 40;
+  FShowPercentage := False;
 end;
 
 destructor TModelHTMLLegendsLabels<T>.Destroy;
@@ -129,6 +149,13 @@ begin
   Fpadding := Value;
 end;
 
+function TModelHTMLLegendsLabels<T>.ShowPercentage(
+  Value: Boolean): iModelHTMLLegendLabels<T>;
+begin
+  Result := Self;
+  FShowPercentage := Value;
+end;
+
 function TModelHTMLLegendsLabels<T>.Result: String;
 begin
   Result := '';
@@ -136,8 +163,22 @@ begin
   Result := Result + 'fontSize : ' + IntToStr(FfontSize) + ', ';
   Result := Result + 'fontColor : "'+FfontColorHEX+'",';
   Result := Result + 'fontFamily : "'+FfontFamily+'",';
+  Result := Result + 'boxWidth : ' + IntToStr(FBoxWidth) + ', ';
   Result := Result + 'padding : ' + IntToStr(Fpadding) + ', ';
   Result := Result + 'fontStyle : "'+FfontStyle+'"';
+  if FShowPercentage then
+  begin
+    Result := Result + ', generateLabels : function(chart) {';
+    Result := Result + 'var labels = Chart.defaults.doughnut.legend.labels.generateLabels(chart);';
+    Result := Result + 'var dataset = chart.data.datasets && chart.data.datasets[0];';
+    Result := Result + 'var total = 0, i, index, value;';
+    Result := Result + 'if (dataset && dataset.data) { for (i = 0; i < dataset.data.length; i++) {';
+    Result := Result + 'value = Number(dataset.data[i]); if (!isNaN(value) && (!labels[i] || !labels[i].hidden)) total += Math.abs(value); } }';
+    Result := Result + 'for (i = 0; i < labels.length; i++) {';
+    Result := Result + 'index = labels[i].index; value = Number(dataset && dataset.data ? dataset.data[index] : 0);';
+    Result := Result + 'labels[i].text = labels[i].text + '' '' + (total > 0 ? Math.round(Math.abs(value) * 100 / total) : 0) + ''%''; }';
+    Result := Result + 'return labels; }';
+  end;
   Result := Result + '},';
 end;
 

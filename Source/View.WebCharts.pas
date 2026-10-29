@@ -8,7 +8,7 @@ uses
   Credenciais;
 Type
   {$IF (RTLVERSION > 27) AND (RTLVERSION < 32) }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid)]{$IFEND}
-  {$IF RTLVERSION > 32 }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroid32Arm)]{$IFEND}
+  {$IF RTLVERSION > 32 }[ComponentPlatformsAttribute(pidWin32 or pidWin64 or pidAndroidArm32)]{$IFEND}
   TWebCharts = class(TComponent, iWebCharts)
     private
 //      FModelHTML : iModelHTML;
