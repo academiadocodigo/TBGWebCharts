@@ -9,6 +9,7 @@ type
   TModelHTMLAxesParams = class(TInterfacedObject, iModelHTMLChartsAxesParam)
     private
       FParent : iModelHTMLChartsAxes;
+      FDisplay : Boolean;
       FPosition : String;
       FOffSet : Boolean;
       FType : String;
@@ -22,6 +23,8 @@ type
       constructor Create(Parent : iModelHTMLChartsAxes);
       destructor Destroy; override;
       class function New(Parent : iModelHTMLChartsAxes) : iModelHTMLChartsAxesParam;
+      function Display: Boolean; overload;
+      function Display(Value: Boolean): iModelHTMLChartsAxesParam; overload;
       function Ticks : iModelHTMLChartsAxesTicks<iModelHTMLChartsAxesParam>;
       function GridLines : iModelHTMLChartsAxesGridLines<iModelHTMLChartsAxesParam>;
       function ScaleLabel : iModelHTMLChatsAxesScaleLabel<iModelHTMLChartsAxesParam>;
@@ -46,6 +49,18 @@ uses
 
 { TModelHTMLAxesParams<T> }
 
+function TModelHTMLAxesParams.Display: Boolean;
+begin
+  Result := FDisplay;
+end;
+
+function TModelHTMLAxesParams.Display(
+  Value: Boolean): iModelHTMLChartsAxesParam;
+begin
+  Result := Self;
+  FDisplay := Value;
+end;
+
 function TModelHTMLAxesParams.&End: iModelHTMLChartsAxes;
 begin
   Result := FParent;
@@ -63,6 +78,7 @@ begin
   {$ELSE}
     FParent := Parent;
   {$IFEND}
+  FDisplay := True;
   FOffSet := True;
   FType := '';
   FStacked := False;
@@ -115,6 +131,8 @@ end;
 function TModelHTMLAxesParams.Result: String;
 begin
   FResult := '';
+  if not FDisplay then
+    FResult := FResult + 'display: false,';
   if Assigned(FRealTime) then
   begin
     FResult := FResult + 'type: ''realtime'',';

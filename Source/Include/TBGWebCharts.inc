@@ -8,4 +8,4 @@
 
 (* IF CEF is installed, uncomment below*)
 
-  {$DEFINE HAS_CHROMIUM}
+  //{$DEFINE HAS_CHROMIUM}

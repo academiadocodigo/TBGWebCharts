@@ -1,0 +1,193 @@
+unit Dashboard.Exemplo.v4;
+
+interface
+
+uses
+  System.SysUtils, System.JSON,
+  Vcl.Forms, Vcl.OleCtrls, SHDocVw,
+  FireDAC.Comp.Client,
+  View.WebCharts;
+
+type
+  TFrmDashboardCompras = class(TForm)
+    WebCharts1: TWebCharts;
+    WebBrowser1: TWebBrowser;
+    qryEvolucao: TFDQuery;
+    qryFunil: TFDQuery;
+    qryFluxo: TFDQuery;
+    qryEventos: TFDQuery;
+    qryGauge: TFDQuery;
+    qrySpark: TFDQuery;
+  public
+    procedure GerarDashboard;
+    procedure AplicarFiltros(const AJson: string);
+    procedure AbrirOrdemCompra(const ACodigo: string);
+  end;
+
+implementation
+
+procedure TFrmDashboardCompras.GerarDashboard;
+begin
+  WebCharts1
+    .NewProject
+      .CallbackJS
+        .ClassProvider(Self)
+      .&End
+
+      .Dashboard
+        .BeginDashboard
+
+          { FilterBar envia todos os controles em um JSON no parametro do callback. }
+          .FilterBarBegin('Filtros', 'fltCompras')
+            .FilterSelect('empresa', 'Empresa', 'Empresa 1,Empresa 2', '1,2', '1')
+            .FilterSelect('filial', 'Filial', 'Todas,Filial 1,Filial 2', '0,1,2', '0')
+            .FilterDate('dataini', 'Data inicial', '2026-09-01')
+            .FilterDate('datafim', 'Data final', '2026-09-30')
+            .FilterSelect('status', 'Status', 'Todos,Pendente,Aprovada,Encerrada', ',P,A,E', '')
+            .FilterApplyButton('Aplicar', 'AplicarFiltros', 'primary', 'fas fa-filter')
+          .FilterBarEnd
+
+          { Navegacao por abas sem depender do Bootstrap JS. }
+          .TabsBegin('tabsCompras')
+            .Tab('tabGeral', 'Visao geral', True)
+            .Tab('tabOperacional', 'Operacional', False, '8')
+            .Tab('tabFluxo', 'Fluxo')
+          .TabsEnd
+
+          .TabPaneBegin('tabGeral', True)
+            .RowBegin
+              .ColBegin(8)
+                .PanelBegin('Evolucao das compras')
+                  .Add(
+                    WebCharts1
+                      .ContinuosProject
+                      .Charts
+                        ._ChartType(bar)
+                          .Attributes
+                            .Name('chtEvolucaoCompras')
+                            .Heigth(250)
+                            .DataSet
+                              .DataSet(qryEvolucao)
+                              .TextLabel('Valor comprado')
+                              .BackgroundColor('17,120,239')
+                              .BorderColor('17,120,239')
+                              .BackgroundOpacity(4)
+                              .Fill(False)
+                            .&End
+                          .&End
+                        .&End
+                      .&End
+                      .HTML
+                  )
+                .PanelEnd
+              .ColEnd
+
+              .ColBegin(4)
+                .FunnelFields(
+                  qryFunil,
+                  'solicitacoes,cotacoes,ordens,compradas,encerradas',
+                  'Solicitacoes,Cotacoes,Ordens,Compradas,Encerradas',
+                  'Funil de compras'
+                )
+              .ColEnd
+            .RowEnd
+          .TabPaneEnd
+
+          .TabPaneBegin('tabOperacional')
+            .RowBegin
+              .ColBegin(6)
+                .PanelBegin('Eventos recentes')
+                  .TimelineDataSet(
+                    qryEventos,
+                    'data_evento',
+                    'titulo',
+                    'descricao',
+                    'status',
+                    'AbrirOrdemCompra',
+                    'ncodigorcpr'
+                  )
+                .PanelEnd
+              .ColEnd
+
+              .ColBegin(3)
+                .PanelBegin('Atendimento do prazo')
+                  .GaugeDataSet(
+                    qryGauge,
+                    'Entregas no prazo',
+                    'percentual',
+                    'valor_formatado',
+                    'status'
+                  )
+                .PanelEnd
+              .ColEnd
+
+              .ColBegin(3)
+                .PanelBegin('Saving - 7 periodos')
+                  .SparklineDataSet(
+                    qrySpark,
+                    'Saving',
+                    'valor',
+                    'Ultimos periodos',
+                    'success'
+                  )
+                .PanelEnd
+              .ColEnd
+            .RowEnd
+          .TabPaneEnd
+
+          .TabPaneBegin('tabFluxo')
+            .PanelBegin('Fluxo da compra')
+              .StepperDataSet(
+                qryFluxo,
+                'etapa',
+                'descricao',
+                'status',
+                'data_evento',
+                'AbrirOrdemCompra',
+                'ncodigorcpr'
+              )
+            .PanelEnd
+          .TabPaneEnd
+
+          { Modal: o corpo aceita qualquer HTML/ContinuosProject. }
+          .ModalOpenButton('Detalhes', 'mdlDetalhe', 'info', 'fas fa-search')
+          .ModalBegin('mdlDetalhe', 'Detalhes da compra', 'lg')
+            .Add('<p>O corpo pode receber tabelas, cards, charts ou HTML livre.</p>')
+            .ModalFooterButton('Fechar', '', '', 'dark', True)
+          .ModalEnd
+
+        .EndDashboard
+      .&End
+
+    .WebBrowser(WebBrowser1)
+    .Generated;
+end;
+
+procedure TFrmDashboardCompras.AplicarFiltros(const AJson: string);
+var
+  J: TJSONObject;
+  Empresa, Filial, DataIni, DataFim, Status: string;
+begin
+  J := TJSONObject.ParseJSONValue(AJson) as TJSONObject;
+  try
+    if not Assigned(J) then Exit;
+
+    Empresa := J.GetValue<string>('empresa', '');
+    Filial  := J.GetValue<string>('filial', '0');
+    DataIni := J.GetValue<string>('dataini', '');
+    DataFim := J.GetValue<string>('datafim', '');
+    Status  := J.GetValue<string>('status', '');
+
+    { Reaplique os parametros nos TFDQuery e gere novamente o dashboard. }
+    GerarDashboard;
+  finally
+    J.Free;
+  end;
+end;
+
+procedure TFrmDashboardCompras.AbrirOrdemCompra(const ACodigo: string);
+begin
+  { Abrir a tela da OC recebida pelo callback. }
+end;
+
+end.

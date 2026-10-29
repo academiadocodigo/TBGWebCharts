@@ -8,6 +8,8 @@ Type
       FParent : iModelHTMLChartsConfig;
       FDataSet : TDataSet;
       FLabelName : String;
+      FKeyField : String;
+      FKeys : String;
       FValueName : String;
       FRGBName : String;
       FtextLabel : String;
@@ -27,6 +29,7 @@ Type
       FTypes : String;
       FRealTime : Boolean;
       procedure generatedLabel;
+      procedure generatedKeys;
       procedure generatedBackgroundColor;
       procedure generatedBorderColor;
       procedure generatedBorderWidth;
@@ -42,6 +45,7 @@ Type
       function DataSet (Value : TDataSet) : iModelHTMLDataSet;
       function RealTimeDataSet (Value : TDataSet) : iModelHTMLDataSet;
       function LabelName(Value : String) : iModelHTMLDataSet;
+      function KeyField(Value : String) : iModelHTMLDataSet;
       function ValueName(Value : String) : iModelHTMLDataSet;
       function RGBName(Value : String)  : iModelHTMLDataSet;
       function textLabel(Value : String) : iModelHTMLDataSet;
@@ -58,6 +62,7 @@ Type
       function LineTension (Value : Integer) : iModelHTMLDataSet;
       function ResultScript : String;
       function ResultLabels : String;
+      function ResultKeys : String;
       function RealTimeInitialValue : String;
       function Types (Value : String) : iModelHTMLDataSet;
       function &End : iModelHTMLChartsConfig;
@@ -125,6 +130,7 @@ begin
     FParent := Parent;
   {$IFEND}
   FLabelName := 'Label';
+  FKeyField := '';
   FValueName := 'Value';
   FRGBName := 'RGB';
   FBorderWidth := 1;
@@ -171,7 +177,23 @@ begin
       if HasRGBField then
         FBackgroundColor := FBackgroundColor + 'rgba(' + FDataSet.FieldByName(FRGBName).AsString + Aux
       else
-        FBackgroundColor := FBackgroundColor + 'rgba(' + RandomColor + Aux;
+      begin
+        // v4.7: paleta deterministica e apropriada para dashboards.
+        // Evita cores aleatorias muito claras/escuras ou sem contraste.
+        case (Local_I mod 10) of
+          0: FBackgroundColor := FBackgroundColor + 'rgba(45,140,255' + Aux;
+          1: FBackgroundColor := FBackgroundColor + 'rgba(46,184,166' + Aux;
+          2: FBackgroundColor := FBackgroundColor + 'rgba(124,92,219' + Aux;
+          3: FBackgroundColor := FBackgroundColor + 'rgba(245,166,35' + Aux;
+          4: FBackgroundColor := FBackgroundColor + 'rgba(239,83,80' + Aux;
+          5: FBackgroundColor := FBackgroundColor + 'rgba(66,165,245' + Aux;
+          6: FBackgroundColor := FBackgroundColor + 'rgba(38,166,154' + Aux;
+          7: FBackgroundColor := FBackgroundColor + 'rgba(126,87,194' + Aux;
+          8: FBackgroundColor := FBackgroundColor + 'rgba(255,193,7' + Aux;
+        else
+          FBackgroundColor := FBackgroundColor + 'rgba(96,125,139' + Aux;
+        end;
+      end;
       FDataSet.Next;
     end;
     FBackgroundColor := FBackgroundColor + '"]';
@@ -208,6 +230,28 @@ end;
 procedure TModelHTMLChartsDataSet.generatedFill;
 begin
 end;
+procedure TModelHTMLChartsDataSet.generatedKeys;
+var
+  Aux, V: String;
+begin
+  FKeys := '';
+  if (not Assigned(FDataSet)) or (Trim(FKeyField) = '') or
+     (FDataSet.Fields.FindField(FKeyField) = nil) then Exit;
+  FKeys := '[';
+  Aux := '';
+  FDataSet.First;
+  while not FDataSet.Eof do
+  begin
+    V := StringReplace(FDataSet.FieldByName(FKeyField).AsString, '\', '\\', [rfReplaceAll]);
+    V := StringReplace(V, '"', '\"', [rfReplaceAll]);
+    if Aux <> '' then FKeys := FKeys + ',';
+    FKeys := FKeys + '"' + V + '"';
+    Aux := '1';
+    FDataSet.Next;
+  end;
+  FKeys := FKeys + ']';
+end;
+
 procedure TModelHTMLChartsDataSet.generatedLabel;
 begin
 end;
@@ -229,6 +273,12 @@ begin
   Result := Self;
   FLabelName := Value;
 end;
+function TModelHTMLChartsDataSet.KeyField(Value: String): iModelHTMLDataSet;
+begin
+  Result := Self;
+  FKeyField := Value;
+end;
+
 function TModelHTMLChartsDataSet.LineTension(Value: Integer): iModelHTMLDataSet;
 begin
   Result := Self;
@@ -300,7 +350,16 @@ begin
       end;
   end;
   result:=caracter;
+  { valor vazio (campo nulo): null no JavaScript (ponto sem valor; antes gerava JS invalido) }
+  if (result = '') or (result = '-') or (result = '.') then
+    result := 'null';
 end;
+function TModelHTMLChartsDataSet.ResultKeys: String;
+begin
+  generatedKeys;
+  Result := FKeys;
+end;
+
 function TModelHTMLChartsDataSet.ResultLabels: String;
 var
   Local_I: Integer;
